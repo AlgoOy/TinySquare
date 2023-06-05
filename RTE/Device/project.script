@@ -1,0 +1,6 @@
+load STM32L496VETx 
+project name STCubeGenerated 
+project toolchain "MDK-ARM V5" 
+project path "D:\SourceCode\embedded\Arm-2D\newTest\RTE\Device\STM32L496VETx\" 
+set tpl_path "C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.1\MDK\CubeMX" 
+set dest_path "STM32L496VETx" 
