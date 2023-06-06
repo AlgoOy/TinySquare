@@ -429,6 +429,11 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Src\spi.c</FilePath>
             </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Src\key.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

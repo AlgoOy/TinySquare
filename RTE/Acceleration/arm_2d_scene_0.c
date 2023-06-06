@@ -137,9 +137,14 @@ static void __on_scene0_frame_start(arm_2d_scene_t *ptScene)
 
 static void __on_scene0_frame_complete(arm_2d_scene_t *ptScene)
 {
-    user_scene_0_t *ptThis = (user_scene_0_t *)ptScene;
-    ARM_2D_UNUSED(ptThis);
-    
+	user_scene_0_t *ptThis = (user_scene_0_t *)ptScene;
+	ARM_2D_UNUSED(ptThis);
+	
+	extern bool check_key_press(void);
+	if (check_key_press()) {
+		arm_2d_scene_player_switch_to_next_scene(ptScene->ptPlayer);
+	}
+	
     /* switch to next scene after 3s */
 //    if (arm_2d_helper_is_time_out(3000, &this.lTimestamp[0])) {
 //        arm_2d_scene_player_switch_to_next_scene(ptScene->ptPlayer);
@@ -195,10 +200,21 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene0_handler)
 			);
 		}
 
-		arm_lcd_text_set_target_framebuffer((arm_2d_tile_t *)ptTile);
-    arm_lcd_text_set_colour(GLCD_COLOR_DARK_GREEN, GLCD_COLOR_WHITE);
-    arm_lcd_text_location(0,0);
-    arm_lcd_puts("Press Any Key To Start Game");
+		const char* pchString = "Press Any Key To Start Game";
+		
+		arm_2d_size_t tTextSize = ARM_2D_FONT_A4_DIGITS_ONLY
+																.use_as__arm_2d_user_font_t
+																	.use_as__arm_2d_font_t
+																		.tCharSize;
+    tTextSize.iWidth *= strlen(pchString);
+		
+		arm_2d_align_bottom_centre(ptTile->tRegion, tTextSize) {
+			arm_lcd_text_set_target_framebuffer((arm_2d_tile_t *)ptTile);
+			arm_lcd_text_set_font((arm_2d_font_t *)&ARM_2D_FONT_A4_DIGITS_ONLY);
+			arm_lcd_text_set_colour(GLCD_COLOR_DARK_GREEN, GLCD_COLOR_WHITE);
+			arm_lcd_text_set_opacity(255);
+			arm_lcd_puts(pchString);
+		}
 			
 			#if 0
         
