@@ -12,8 +12,8 @@
 
 /* ARM::Acceleration:Arm-2D:Core:1.1.3 */
 #define ___ARM_2D_CFG_HEADER___
-/* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Library:1.9.9a */
-#define __PERF_COUNTER_CFG_USE_SYSTICK_WRAPPER__
+/* GorgonMeducer::Utilities:perf_counter:Core:Library:2.2.2-dev */
+#define __PERF_COUNTER_CFG_USE_SYSTICK_WRAPPER__ 1
 /* Keil::Device:STM32Cube HAL:Common:1.13.0 */
 #define USE_HAL_DRIVER
 

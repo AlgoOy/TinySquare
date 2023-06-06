@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "../Bsp/Inc/lcd.h"
+#include "../User/Inc/snake.h"
 #include "perf_counter.h"
 #include "arm_2d.h"
 #include "arm_2d_disp_adapters.h"
@@ -104,7 +105,7 @@ int main(void)
 	LCD_Init();
   /* USER CODE BEGIN 2 */
 	arm_irq_safe {
-			arm_2d_init(); // ≥ı ºªØ arm-2d
+			arm_2d_init();
 	}
   /* USER CODE END 2 */
 
@@ -112,9 +113,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	disp_adapter0_init();
 	arm_2d_scene0_init(&DISP0_ADAPTER);
-	arm_2d_scene_player_set_switching_mode(&DISP0_ADAPTER, ARM_2D_SCENE_SWITCH_MODE_FADE_WHITE);
-	arm_2d_scene_player_set_switching_period(&DISP0_ADAPTER, 3000);
-	arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
+//	arm_2d_scene_player_set_switching_mode(&DISP0_ADAPTER, ARM_2D_SCENE_SWITCH_MODE_NONE);
+//	arm_2d_scene_player_set_switching_period(&DISP0_ADAPTER, 3000);
+//	arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
 	
   while (1)
   {

@@ -2,6 +2,7 @@
 ".\objects\main.o"
 ".\objects\stm32l4xx_it.o"
 ".\objects\snake.o"
+".\objects\logo.o"
 ".\objects\lcd.o"
 ".\objects\spi.o"
 ".\objects\arm_2d_helper.o"
@@ -98,7 +99,7 @@
 ".\objects\stm32l4xx_hal_msp.o"
 ".\objects\startup_stm32l496xx.o"
 ".\objects\system_stm32l4xx.o"
-"C:\Users\24073\AppData\Local\Arm\Packs\GorgonMeducer\perf_counter\1.9.10\lib\perf_counter.lib"
+"C:\Users\24073\AppData\Local\Arm\Packs\GorgonMeducer\perf_counter\2.2.2-dev\lib\perf_counter.lib"
 --strict --scatter ".\Objects\snake.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

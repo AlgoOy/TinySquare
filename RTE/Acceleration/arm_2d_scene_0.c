@@ -141,9 +141,9 @@ static void __on_scene0_frame_complete(arm_2d_scene_t *ptScene)
     ARM_2D_UNUSED(ptThis);
     
     /* switch to next scene after 3s */
-    if (arm_2d_helper_is_time_out(3000, &this.lTimestamp[0])) {
-        arm_2d_scene_player_switch_to_next_scene(ptScene->ptPlayer);
-    }
+//    if (arm_2d_helper_is_time_out(3000, &this.lTimestamp[0])) {
+//        arm_2d_scene_player_switch_to_next_scene(ptScene->ptPlayer);
+//    }
 }
 
 static void __before_scene0_switching_out(arm_2d_scene_t *ptScene)
@@ -153,6 +153,8 @@ static void __before_scene0_switching_out(arm_2d_scene_t *ptScene)
 
 }
 
+
+
 static
 IMPL_PFB_ON_DRAW(__pfb_draw_scene0_background_handler)
 {
@@ -160,8 +162,8 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene0_background_handler)
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
     /*-----------------------draw back ground begin-----------------------*/
-
-
+		
+		arm_2d_fill_colour(ptTile, NULL, GLCD_COLOR_WHITE);
 
     /*-----------------------draw back ground end  -----------------------*/
     arm_2d_op_wait_async(NULL);
@@ -178,6 +180,27 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene0_handler)
     
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
+			
+			
+		extern const arm_2d_tile_t c_tileSnakeLogoRGB565;
+		extern const arm_2d_tile_t c_tileSnakeLogoMask;
+	
+		arm_2d_align_centre(ptTile->tRegion, c_tileSnakeLogoRGB565.tRegion.tSize) {
+			arm_2d_rgb565_tile_copy_with_src_mask(
+				&c_tileSnakeLogoRGB565,
+				&c_tileSnakeLogoMask,
+				ptTile,
+				&__centre_region,
+				ARM_2D_CP_MODE_COPY
+			);
+		}
+
+		arm_lcd_text_set_target_framebuffer((arm_2d_tile_t *)ptTile);
+    arm_lcd_text_set_colour(GLCD_COLOR_DARK_GREEN, GLCD_COLOR_WHITE);
+    arm_lcd_text_location(0,0);
+    arm_lcd_puts("Press Any Key To Start Game");
+			
+			#if 0
         
         /* following code is just a demo, you can remove them */
         
@@ -232,7 +255,9 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene0_handler)
         arm_lcd_text_set_colour(GLCD_COLOR_RED, GLCD_COLOR_WHITE);
         arm_lcd_text_location(0,0);
         arm_lcd_puts("Scene 0");
-
+			
+			#endif
+			
     /*-----------------------draw the foreground end  -----------------------*/
     }
     arm_2d_op_wait_async(NULL);
@@ -299,9 +324,9 @@ user_scene_0_t *__arm_2d_scene0_init(   arm_2d_scene_player_t *ptDispAdapter,
         .use_as__arm_2d_scene_t = {
             /* Please uncommon the callbacks if you need them
              */
-            //.fnBackground   = &__pfb_draw_scene0_background_handler,
+            .fnBackground   = &__pfb_draw_scene0_background_handler,
             .fnScene        = &__pfb_draw_scene0_handler,
-            .ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
+            //.ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
             
 
             //.fnOnBGStart    = &__on_scene0_background_start,

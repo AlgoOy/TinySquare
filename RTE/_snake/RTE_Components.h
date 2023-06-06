@@ -37,8 +37,8 @@
 #define __RTE_ACCELERATION_ARM_2D__     /* this macro is deprecated, please use the macro above in your code */
 /* ARM::Acceleration:Arm-2D:Transform:1.1.3 */
 #define RTE_Acceleration_Arm_2D_Transform
-/* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Library:1.9.9a */
-#define __PERF_COUNTER__
+/* GorgonMeducer::Utilities:perf_counter:Core:Library:2.2.2-dev */
+#define __PERF_COUNTER__ 1
 /* Keil::Device:STM32Cube Framework:STM32CubeMX:1.1.0 */
 #define RTE_DEVICE_FRAMEWORK_CUBE_MX
 /* Keil::Device:STM32Cube HAL:Common:1.13.0 */
