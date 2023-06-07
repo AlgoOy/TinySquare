@@ -44,25 +44,23 @@ void Key_Init(void) {
 }
 
 void KEY0_IRQHandler (void) {
+	any_key_press = true;
 	if (__HAL_GPIO_EXTI_GET_IT(KEY0_GPIO_PIN) != RESET) {
-		any_key_press = true;
     __HAL_GPIO_EXTI_CLEAR_IT(KEY0_GPIO_PIN);
   }
 	
 	if (__HAL_GPIO_EXTI_GET_IT(KEY3_GPIO_PIN) != RESET) {
-		any_key_press = true;
     __HAL_GPIO_EXTI_CLEAR_IT(KEY3_GPIO_PIN);
   }
 }
 
 void KEY1_IRQHandler (void) {
+	any_key_press = true;
 	if (__HAL_GPIO_EXTI_GET_IT(KEY1_GPIO_PIN) != RESET) {
-		any_key_press = true;
     __HAL_GPIO_EXTI_CLEAR_IT(KEY1_GPIO_PIN);
   }
 	
 	if (__HAL_GPIO_EXTI_GET_IT(KEY2_GPIO_PIN) != RESET) {
-		any_key_press = true;
     __HAL_GPIO_EXTI_CLEAR_IT(KEY2_GPIO_PIN);
   }
 }

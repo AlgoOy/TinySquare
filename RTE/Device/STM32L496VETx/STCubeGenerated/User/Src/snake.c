@@ -2,6 +2,12 @@
 #include "arm_2d.h"
 #include "arm_2d_helper.h"
 
+static Game_State_Info gameState= {0};
+
+Game_State_Info getGameState(void) {
+	return gameState;
+}
+
 void DrawStartGamePanel(void) {
 
 }

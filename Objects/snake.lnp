@@ -58,6 +58,8 @@
 ".\objects\arm_2d.o"
 ".\objects\arm_2d_disp_adapter_0.o"
 ".\objects\arm_2d_scene_0.o"
+".\objects\arm_2d_scene_1.o"
+".\objects\arm_2d_scene_2.o"
 ".\objects\basicmathfunctions.o"
 ".\objects\basicmathfunctionsf16.o"
 ".\objects\bayesfunctions.o"
