@@ -353,6 +353,17 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
 //        ADD_REGION_TO_LIST(s_tDirtyRegions,
 //            0  /* initialize at runtime later */
 //        ),
+		
+				ADD_REGION_TO_LIST(s_tDirtyRegions,
+	            .tLocation = {
+                .iX = 0,
+                .iY = 0,
+            },
+            .tSize = {
+                .iWidth = WIDTH_PIXELS_USED_BY_GAME,
+                .iHeight = HEIGHT_PIXELS_USED_BY_GAME,
+            },
+	        ),
         
         /* add the last region:
          * it is the top left corner for text display 
