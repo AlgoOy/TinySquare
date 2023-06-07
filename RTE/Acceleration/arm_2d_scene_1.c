@@ -215,7 +215,8 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene1_handler)
 //												},
                     }, 
                     (__arm_2d_color_t){__RGB(64, 64, 64)},
-                    255 - 128);
+                    255 - 128
+									);
 			arm_2d_op_wait_async(NULL);
 			arm_lcd_text_set_colour(GLCD_COLOR_GREEN, GLCD_COLOR_WHITE);
 			arm_lcd_text_location(0, 2);
@@ -354,16 +355,16 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
 //            0  /* initialize at runtime later */
 //        ),
 		
-				ADD_REGION_TO_LIST(s_tDirtyRegions,
-	            .tLocation = {
-                .iX = 0,
-                .iY = 0,
-            },
-            .tSize = {
-                .iWidth = WIDTH_PIXELS_USED_BY_GAME,
-                .iHeight = HEIGHT_PIXELS_USED_BY_GAME,
-            },
-	        ),
+//				ADD_REGION_TO_LIST(s_tDirtyRegions,
+//	          .tLocation = {
+//                .iX = 0,
+//                .iY = 0,
+//            },
+//            .tSize = {
+//                .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+//                .iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
+//            },
+//	        ),
         
         /* add the last region:
          * it is the top left corner for text display 
@@ -374,8 +375,9 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
                 .iY = 0,
             },
             .tSize = {
-                .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
-                .iHeight = 16,
+							.iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+                //.iHeight = 16,
+							.iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
             },
         ),
 
