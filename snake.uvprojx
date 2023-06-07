@@ -16,8 +16,8 @@
         <TargetCommonOption>
           <Device>STM32L496VETx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32L4xx_DFP.2.6.2</PackID>
-          <PackURL>https://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32L4xx_DFP.2.6.1</PackID>
+          <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00040000) IRAM2(0x10000000,0x00010000) IROM(0x08000000,0x00080000) CPUTYPE("Cortex-M4") FPU2 DSP CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -536,49 +536,49 @@
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Common" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL Common">
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Cortex" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL">
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="DMA" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL">
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="GPIO" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL">
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="PWR" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL">
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="RCC" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL GPIO">
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="SPI" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL DMA">
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.3.1" condition="STM32L4 CMSIS">
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>
@@ -652,7 +652,7 @@
       <file attr="config" category="source" condition="STM32L496 ARMCC" name="Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm\startup_stm32l496xx.s" version="1.3.1">
         <instance index="0">RTE\Device\STM32L496VETx\startup_stm32l496xx.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.3.1" condition="STM32L4 CMSIS"/>
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>
@@ -660,7 +660,7 @@
       <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c" version="1.3.1">
         <instance index="0">RTE\Device\STM32L496VETx\system_stm32l4xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.3.1" condition="STM32L4 CMSIS"/>
-        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.6.1"/>
         <targetInfos>
           <targetInfo name="snake"/>
         </targetInfos>

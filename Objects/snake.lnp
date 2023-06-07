@@ -5,6 +5,7 @@
 ".\objects\logo.o"
 ".\objects\lcd.o"
 ".\objects\spi.o"
+".\objects\key.o"
 ".\objects\arm_2d_helper.o"
 ".\objects\arm_2d_helper_list.o"
 ".\objects\arm_2d_helper_pfb.o"
