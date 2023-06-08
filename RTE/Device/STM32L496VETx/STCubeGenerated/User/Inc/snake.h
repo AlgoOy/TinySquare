@@ -29,8 +29,9 @@ typedef enum {
 } DrawSenceSelection;
 
 typedef enum {
-	Snake_Game_NO_ERR = 0x00,
+	Snake_Game_No_Error = 0x00,
 	Snake_Game_Error = 0x01,
+	Snake_Game_No_Memory = 0x02,
 }SnakeGameStatus;
 
 // 脏矩阵要求常量作为size的参数，此处用字体的高度计算会报编译错
@@ -54,10 +55,11 @@ typedef enum {
 SnakeGameStatus DrawStartGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground);
 SnakeGameStatus DrawEndGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground);
 SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground);
+SnakeGameStatus DrawSnakeBody(const arm_2d_tile_t *ptTile);
 
 //void CreateBoard(void);
 SnakeGameStatus InitGame(const arm_2d_tile_t *ptTile);
-SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile, Snake *body);
+SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile);
 SnakeGameStatus CreateFruit(const arm_2d_tile_t *ptTile);
 
 #endif

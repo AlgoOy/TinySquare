@@ -3,6 +3,7 @@
 #include "../Inc/snake.h"
 
 static Game_State_Info gameState= {0};
+static Snake *snake_head = NULL;
 
 extern const arm_2d_tile_t c_tileSnakeLogoRGB565;
 extern const arm_2d_tile_t c_tileSnakeLogoMask;
@@ -172,17 +173,28 @@ SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelec
 }
 
 SnakeGameStatus DrawEndGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground) {
-	return Snake_Game_NO_ERR;
+	return Snake_Game_No_Error;
+}
+SnakeGameStatus DrawSnakeBody(const arm_2d_tile_t *ptTile) {
+	Snake *draw_snake = snake_head;
+	
+	while(draw_snake != NULL) {
+		
+	}
+	return Snake_Game_No_Error;
 }
 
 SnakeGameStatus InitGame(const arm_2d_tile_t *ptTile) {
 	
-	return Snake_Game_NO_ERR;
+	return Snake_Game_No_Error;
 }
 
-SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile, Snake *body) {
-	
-	return Snake_Game_NO_ERR;
+SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile) {
+	Snake *body = (Snake *)malloc(sizeof(Snake));
+	if (body == NULL) {
+		return Snake_Game_No_Memory;
+	}
+	return Snake_Game_No_Error;
 }
 
 SnakeGameStatus CreateFruit(const arm_2d_tile_t *ptTile) {
@@ -190,5 +202,5 @@ SnakeGameStatus CreateFruit(const arm_2d_tile_t *ptTile) {
 	uint8_t snake_x = (uint8_t)rand() % HORIZONTAL_NUM_MAX, snake_y = (uint8_t)rand() % VERTICAL_NUM_MAX;
 	
 	
-	return Snake_Game_NO_ERR;
+	return Snake_Game_No_Error;
 }
