@@ -414,6 +414,16 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\logo.c</FilePath>
             </File>
+            <File>
+              <FileName>fruit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\fruit.c</FilePath>
+            </File>
+            <File>
+              <FileName>body.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\body.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

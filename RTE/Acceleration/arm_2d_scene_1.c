@@ -185,6 +185,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene1_handler)
     ARM_2D_UNUSED(bIsNewFrame);
   
 		DrawRunningGamePanel(ptTile, foreground);
+		DrawSnakeBody(ptTile);
 	
 	#if 0
     arm_2d_canvas(ptTile, __top_canvas) {

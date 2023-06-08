@@ -8,6 +8,12 @@ static Snake *snake_head = NULL;
 extern const arm_2d_tile_t c_tileSnakeLogoRGB565;
 extern const arm_2d_tile_t c_tileSnakeLogoMask;
 
+extern const arm_2d_tile_t c_tileFruitRGB565;
+extern const arm_2d_tile_t c_tileFruitMask;
+
+extern const arm_2d_tile_t c_tileSnakeBodyRGB565;
+extern const arm_2d_tile_t c_tileSnakeBodyMask;
+
 static Game_State_Info getGameState(void) {
 	return gameState;
 }
@@ -64,14 +70,14 @@ SnakeGameStatus DrawStartGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelecti
     }
 		/* foreground */
 	}
-	return Snake_Game_NO_ERR;
+	return Snake_Game_No_Error;
 }
 
 SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground) {
 	if (ground == background) {
 		/* background */
 		arm_2d_canvas(ptTile, __top_canvas) {
-										
+			/* bottom */
 			arm_2dp_fill_colour_with_opacity(
 										NULL, 
 										ptTile, 
@@ -79,7 +85,7 @@ SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelec
 											{
 												.tLocation = {
 													.iX = 0,
-													.iY = STATE_VIEW_HEIGHT + WIDTH_PIXELS_USED_BY_GAME,
+													.iY = STATE_VIEW_HEIGHT + HEIGHT_PIXELS_USED_BY_GAME,
 												},
 												.tSize = {
 													.iWidth = __GLCD_CFG_SCEEN_WIDTH__,
@@ -90,7 +96,7 @@ SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelec
 										(__arm_2d_color_t){__RGB(64, 64, 64)},
 										255 - 128
 									);
-			
+			/* left */
 			arm_2dp_fill_colour_with_opacity(
 										NULL, 
 										ptTile, 
@@ -109,7 +115,7 @@ SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelec
 										(__arm_2d_color_t){__RGB(64, 64, 64)},
 										255 - 128
 									);
-			
+			/* right */
 			arm_2dp_fill_colour_with_opacity(
 										NULL, 
 										ptTile, 
@@ -169,7 +175,7 @@ SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelec
     }
 		/* foreground */
 	}
-	return Snake_Game_NO_ERR;
+	return Snake_Game_No_Error;
 }
 
 SnakeGameStatus DrawEndGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground) {
@@ -178,9 +184,22 @@ SnakeGameStatus DrawEndGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection
 SnakeGameStatus DrawSnakeBody(const arm_2d_tile_t *ptTile) {
 	Snake *draw_snake = snake_head;
 	
-	while(draw_snake != NULL) {
-		
-	}
+	arm_2d_canvas(ptTile, __top_canvas) {
+			
+			arm_2d_align_centre(__top_canvas, c_tileSnakeLogoRGB565.tRegion.tSize) {
+				arm_2d_rgb565_tile_copy_with_src_mask(
+					&c_tileSnakeBodyRGB565,
+					&c_tileSnakeBodyMask,
+					ptTile,
+					&__centre_region,
+					ARM_2D_CP_MODE_COPY
+				);
+			}
+		}
+	
+//	while(draw_snake != NULL) {
+//		
+//	}
 	return Snake_Game_No_Error;
 }
 

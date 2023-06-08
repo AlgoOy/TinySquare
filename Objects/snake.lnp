@@ -3,6 +3,8 @@
 ".\objects\stm32l4xx_it.o"
 ".\objects\snake.o"
 ".\objects\logo.o"
+".\objects\fruit.o"
+".\objects\body.o"
 ".\objects\lcd.o"
 ".\objects\spi.o"
 ".\objects\key.o"
