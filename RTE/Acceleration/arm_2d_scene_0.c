@@ -31,6 +31,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "snake.h"
+
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
@@ -172,7 +174,10 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene0_background_handler)
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
     /*-----------------------draw back ground begin-----------------------*/
+	
+		DrawStartGamePanel(ptTile, background);
 
+	#if 0
 		arm_2d_canvas(ptTile, __top_canvas) {
 			arm_2d_fill_colour(ptTile, NULL, GLCD_COLOR_WHITE);
 			
@@ -186,6 +191,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene0_background_handler)
 				);
 			}
 		}
+		#endif
 
     /*-----------------------draw back ground end  -----------------------*/
     arm_2d_op_wait_async(NULL);
@@ -202,6 +208,9 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene0_handler)
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
     
+		DrawStartGamePanel(ptTile, foreground);
+	
+	#if 0
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
 			
@@ -314,6 +323,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene0_handler)
 			
     /*-----------------------draw the foreground end  -----------------------*/
     }
+		#endif
     arm_2d_op_wait_async(NULL);
 
     return arm_fsm_rt_cpl;

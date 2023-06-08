@@ -162,10 +162,14 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene1_background_handler)
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
     /*-----------------------draw back ground begin-----------------------*/
+	
+		DrawRunningGamePanel(ptTile, background);
 
+	#if 0
 		arm_2d_canvas(ptTile, __top_canvas) {
 			arm_2d_fill_colour(ptTile, NULL, GLCD_COLOR_WHITE);
 		}
+	#endif
 
     /*-----------------------draw back ground end  -----------------------*/
     arm_2d_op_wait_async(NULL);
@@ -179,7 +183,10 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene1_handler)
     user_scene_1_t *ptThis = (user_scene_1_t *)pTarget;
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
-    
+  
+		DrawRunningGamePanel(ptTile, foreground);
+	
+	#if 0
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
 			
@@ -335,6 +342,8 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene1_handler)
 		
     /*-----------------------draw the foreground end  -----------------------*/
     }
+		#endif
+		
     arm_2d_op_wait_async(NULL);
 
     return arm_fsm_rt_cpl;
@@ -355,16 +364,16 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
 //            0  /* initialize at runtime later */
 //        ),
 		
-//				ADD_REGION_TO_LIST(s_tDirtyRegions,
-//	          .tLocation = {
-//                .iX = 0,
-//                .iY = 0,
-//            },
-//            .tSize = {
-//                .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
-//                .iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
-//            },
-//	        ),
+				ADD_REGION_TO_LIST(s_tDirtyRegions,
+	          .tLocation = {
+							.iX = (__GLCD_CFG_SCEEN_WIDTH__ - WIDTH_PIXELS_USED_BY_GAME) / 2,
+                .iY = STATE_VIEW_HEIGHT,
+            },
+            .tSize = {
+                .iWidth = WIDTH_PIXELS_USED_BY_GAME,
+                .iHeight = HEIGHT_PIXELS_USED_BY_GAME,
+            },
+	        ),
         
         /* add the last region:
          * it is the top left corner for text display 
@@ -376,8 +385,9 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
             },
             .tSize = {
 							.iWidth = __GLCD_CFG_SCEEN_WIDTH__,
-                //.iHeight = 16,
-							.iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
+              .iHeight = 16,
+//							.iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+//							.iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
             },
         ),
 
@@ -413,7 +423,7 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
              */
             .fnBackground   = &__pfb_draw_scene1_background_handler,
             .fnScene        = &__pfb_draw_scene1_handler,
-            //.ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
+            .ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
             
 
             //.fnOnBGStart    = &__on_scene1_background_start,

@@ -69,4 +69,5 @@
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\arm_extra_lcd_printf.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\progress_wheel.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\list_view.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\battery_gasgauge.h
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\battery_gasgauge.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\User\Inc\snake.h
