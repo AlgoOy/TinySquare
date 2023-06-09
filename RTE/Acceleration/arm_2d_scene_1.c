@@ -126,7 +126,7 @@ static void __on_scene1_background_complete(arm_2d_scene_t *ptScene)
 {
     user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
-
+		InitGame();
 }
 
 
@@ -134,14 +134,19 @@ static void __on_scene1_frame_start(arm_2d_scene_t *ptScene)
 {
     user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
-
 }
 
 static void __on_scene1_frame_complete(arm_2d_scene_t *ptScene)
 {
     user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
-    
+	
+	Game_State_Info state = getGameState();
+	if (arm_2d_helper_is_time_out(state.speed, &this.lTimestamp[0])) {
+		GameLogic();
+		this.lTimestamp[0] = 0;
+	}
+	
     /* switch to next scene after 3s */
 //    if (arm_2d_helper_is_time_out(3000, &this.lTimestamp[0])) {
 //        arm_2d_scene_player_switch_to_next_scene(ptScene->ptPlayer);
@@ -185,7 +190,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene1_handler)
     ARM_2D_UNUSED(bIsNewFrame);
   
 		DrawRunningGamePanel(ptTile, foreground);
-		DrawSnakeBody(ptTile);
+		DrawGameElements(ptTile);
 	
 	#if 0
     arm_2d_canvas(ptTile, __top_canvas) {
@@ -428,8 +433,8 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
             
 
             //.fnOnBGStart    = &__on_scene1_background_start,
-            //.fnOnBGComplete = &__on_scene1_background_complete,
-            .fnOnFrameStart = &__on_scene1_frame_start,
+            .fnOnBGComplete = &__on_scene1_background_complete,
+            //.fnOnFrameStart = &__on_scene1_frame_start,
             //.fnBeforeSwitchOut = &__before_scene1_switching_out,
             .fnOnFrameCPL   = &__on_scene1_frame_complete,
             .fnDepose       = &__on_scene1_depose,

@@ -2,13 +2,25 @@
 #include "stdbool.h"
 
 static bool any_key_press = false;
+static Key_State get_key_press = no_key_press;
 
 extern bool check_key_press(void) {
 	if (any_key_press) {
 		any_key_press = false;
+		get_key_press = no_key_press;
 		return true;
 	}
 	return false;
+}
+
+extern Key_State check_key(void) {
+	if(get_key_press != no_key_press) {
+		// 此处需要关中断保证原子性吗？
+		Key_State temp = get_key_press;
+		get_key_press = no_key_press;
+		return temp;
+	}
+	return no_key_press;
 }
 
 void Key_Init(void) {
@@ -47,10 +59,12 @@ void KEY0_IRQHandler (void) {
 	any_key_press = true;
 	if (__HAL_GPIO_EXTI_GET_IT(KEY0_GPIO_PIN) != RESET) {
     __HAL_GPIO_EXTI_CLEAR_IT(KEY0_GPIO_PIN);
+		get_key_press = key_0;
   }
 	
 	if (__HAL_GPIO_EXTI_GET_IT(KEY3_GPIO_PIN) != RESET) {
     __HAL_GPIO_EXTI_CLEAR_IT(KEY3_GPIO_PIN);
+		get_key_press = key_3;
   }
 }
 
@@ -58,9 +72,11 @@ void KEY1_IRQHandler (void) {
 	any_key_press = true;
 	if (__HAL_GPIO_EXTI_GET_IT(KEY1_GPIO_PIN) != RESET) {
     __HAL_GPIO_EXTI_CLEAR_IT(KEY1_GPIO_PIN);
+		get_key_press = key_1;
   }
 	
 	if (__HAL_GPIO_EXTI_GET_IT(KEY2_GPIO_PIN) != RESET) {
     __HAL_GPIO_EXTI_CLEAR_IT(KEY2_GPIO_PIN);
+		get_key_press = key_2;
   }
 }

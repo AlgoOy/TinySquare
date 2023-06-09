@@ -27,6 +27,14 @@
 #define KEY3_EXIT_IRQ           EXTI15_10_IRQn
 #define KEY3_IRQHandler         EXTI15_10_IRQHandler
 
+typedef enum {
+	no_key_press = 0x00,
+	key_0 = 0x01,
+	key_1 = 0x02,
+	key_2 = 0x03,
+	key_3 = 0x04,
+}Key_State;
+
 void Key_Init(void);
 
 #endif

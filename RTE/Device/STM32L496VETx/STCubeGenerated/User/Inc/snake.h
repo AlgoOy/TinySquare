@@ -6,6 +6,35 @@
 #include "arm_2d_helper.h"
 #include "arm_extra_controls.h"
 
+typedef enum {
+	foreground = 0x00,
+	background = 0x01,
+} DrawSenceSelection;
+
+typedef enum {
+	Snake_Game_No_Error = 0x00,
+	Snake_Game_Error = 0x01,
+	Snake_Game_No_Memory = 0x02,
+}SnakeGameStatus;
+
+typedef enum {
+	Up = 0x00,
+	Down = 0x01,
+	Left = 0x02,
+	Right = 0x03,
+} Direction;
+
+typedef enum {
+	game_begin = 0x00,
+	game_over = 0x01,
+} Game_State;
+
+typedef enum {
+	low_speed = 300,
+	middle_speed = 200,
+	high_speed = 100,
+}	Game_Speed;
+
 struct Point
 {
 	 uint8_t x;
@@ -20,19 +49,9 @@ typedef struct Snake {
 typedef struct Game_State_Info {
 	uint16_t score;
 	uint16_t length;
-	//uint16_t speed;
+	Game_State state;
+	Game_Speed speed;
 }Game_State_Info;
-
-typedef enum {
-	foreground = 0x00,
-	background = 0x01,
-} DrawSenceSelection;
-
-typedef enum {
-	Snake_Game_No_Error = 0x00,
-	Snake_Game_Error = 0x01,
-	Snake_Game_No_Memory = 0x02,
-}SnakeGameStatus;
 
 // 脏矩阵要求常量作为size的参数，此处用字体的高度计算会报编译错
 // #define STATE_VIEW_HEIGHT ARM_2D_FONT_6x8.use_as__arm_2d_font_t.tCharSize.iHeight*2
@@ -50,16 +69,21 @@ typedef enum {
 #define WIDTH_PIXELS_USED_BY_GAME		(HORIZONTAL_NUM_MAX * SNAKE_WIDTH_PIXELS)
 #define HEIGHT_PIXELS_USED_BY_GAME	(VERTICAL_NUM_MAX * SNAKE_HEIGHT_PIXELS)
 
-// Game_State_Info getGameState(void);
+#define Cal_Loc_X(x)		(x * SNAKE_WIDTH_PIXELS + (__GLCD_CFG_SCEEN_WIDTH__ - WIDTH_PIXELS_USED_BY_GAME) / 2)
+#define Cal_Loc_Y(y)		(y * SNAKE_HEIGHT_PIXELS + STATE_VIEW_HEIGHT)
+
+Game_State_Info getGameState(void);
 
 SnakeGameStatus DrawStartGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground);
 SnakeGameStatus DrawEndGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground);
 SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground);
-SnakeGameStatus DrawSnakeBody(const arm_2d_tile_t *ptTile);
+SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile);
 
 //void CreateBoard(void);
-SnakeGameStatus InitGame(const arm_2d_tile_t *ptTile);
+SnakeGameStatus InitGame(void);
 SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile);
 SnakeGameStatus CreateFruit(const arm_2d_tile_t *ptTile);
+
+SnakeGameStatus GameLogic(void);
 
 #endif

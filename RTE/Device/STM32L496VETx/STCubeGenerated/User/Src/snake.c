@@ -1,9 +1,14 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../Inc/snake.h"
+#include "key.h"
 
-static Game_State_Info gameState= {0};
+static Game_State_Info gameState = {0};
 static Snake *snake_head = NULL;
+static Direction snake_direction = Right;
+
+static uint16_t map_width = HORIZONTAL_NUM_MAX;
+static uint16_t map_height = VERTICAL_NUM_MAX;
 
 extern const arm_2d_tile_t c_tileSnakeLogoRGB565;
 extern const arm_2d_tile_t c_tileSnakeLogoMask;
@@ -14,7 +19,7 @@ extern const arm_2d_tile_t c_tileFruitMask;
 extern const arm_2d_tile_t c_tileSnakeBodyRGB565;
 extern const arm_2d_tile_t c_tileSnakeBodyMask;
 
-static Game_State_Info getGameState(void) {
+Game_State_Info getGameState(void) {
 	return gameState;
 }
 
@@ -181,29 +186,50 @@ SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelec
 SnakeGameStatus DrawEndGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground) {
 	return Snake_Game_No_Error;
 }
-SnakeGameStatus DrawSnakeBody(const arm_2d_tile_t *ptTile) {
+SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile) {
 	Snake *draw_snake = snake_head;
 	
-	arm_2d_canvas(ptTile, __top_canvas) {
-			
-			arm_2d_align_centre(__top_canvas, c_tileSnakeBodyRGB565.tRegion.tSize) {
-				arm_2d_rgb565_tile_copy_with_src_mask(
-					&c_tileSnakeBodyRGB565,
-					&c_tileSnakeBodyMask,
-					ptTile,
-					&__centre_region,
-					ARM_2D_CP_MODE_COPY
-				);
-			}
-		}
-	
-//	while(draw_snake != NULL) {
-//		
-//	}
+	while(draw_snake != NULL) {
+		const arm_2d_region_t body_loc = {
+			.tLocation = {
+				.iX = Cal_Loc_X(draw_snake->loc.x),
+				.iY = Cal_Loc_Y(draw_snake->loc.y),
+			},
+			.tSize = {
+				.iWidth = SNAKE_WIDTH_PIXELS,
+				.iHeight = SNAKE_HEIGHT_PIXELS,
+			},
+		};
+		arm_2d_rgb565_tile_copy_with_src_mask(
+			&c_tileSnakeBodyRGB565,
+			&c_tileSnakeBodyMask,
+			ptTile,
+			&body_loc,
+			ARM_2D_CP_MODE_COPY
+		);
+		draw_snake = draw_snake->next;
+	}
 	return Snake_Game_No_Error;
 }
 
-SnakeGameStatus InitGame(const arm_2d_tile_t *ptTile) {
+SnakeGameStatus InitGame(void) {
+	snake_head = (Snake *)malloc(sizeof(Snake));
+	if (snake_head == NULL) {
+		return Snake_Game_No_Memory;
+	}
+	
+	do {
+		snake_head->loc.x = 1;
+		snake_head->loc.y = 1;
+		snake_head->next = NULL;
+	} while(0);
+	
+	snake_direction = Right;
+	
+	gameState.score = 0;
+	gameState.length = 1;
+	gameState.state = game_begin;
+	gameState.speed = middle_speed;
 	
 	return Snake_Game_No_Error;
 }
@@ -221,5 +247,97 @@ SnakeGameStatus CreateFruit(const arm_2d_tile_t *ptTile) {
 	uint8_t snake_x = (uint8_t)rand() % HORIZONTAL_NUM_MAX, snake_y = (uint8_t)rand() % VERTICAL_NUM_MAX;
 	
 	
+//	arm_2d_canvas(ptTile, __top_canvas) {
+//			
+//			arm_2d_align_centre(__top_canvas, c_tileFruitRGB565.tRegion.tSize) {
+//				arm_2d_rgb565_tile_copy_with_src_mask(
+//					&c_tileFruitRGB565,
+//					&c_tileFruitMask,
+//					ptTile,
+//					&__centre_region,
+//					ARM_2D_CP_MODE_COPY
+//				);
+//			}
+//		}
+	
 	return Snake_Game_No_Error;
 }
+
+extern Key_State check_key(void);
+
+static void set_move_direction(void){
+	switch(check_key()) {
+		case key_0:
+			if (snake_direction != Left) {
+				snake_direction = Right;
+			}
+			break;
+		case key_1:
+			if (snake_direction != Up) {
+				snake_direction = Down;
+			}
+			break;
+		case key_2:
+			if (snake_direction != Right) {
+				snake_direction = Left;
+			}
+			break;
+		case key_3:
+			if (snake_direction != Down) {
+				snake_direction = Up;
+			}
+			break;
+		case no_key_press:
+		default:
+			break;
+	}
+}
+
+SnakeGameStatus GameLogic(void){
+	Snake *move_snake = snake_head;
+	
+	Snake *snake_body = (Snake *)malloc(sizeof(Snake));
+	if (snake_body == NULL) {
+		return Snake_Game_No_Memory;
+	}
+	memcpy(snake_body, snake_head, sizeof(Snake));
+	
+	set_move_direction();
+	switch(snake_direction) {
+		case Up:
+			snake_body->loc.y--;
+			break;
+		case Down:
+			snake_body->loc.y++;
+			break;
+		case Left:
+			snake_body->loc.x--;
+			break;
+		case Right:
+			snake_body->loc.x++;
+			break;
+		default:
+			break;
+	}
+	
+	do {
+		Snake *snake_tmp = NULL;
+		while(move_snake->next != NULL) {
+			snake_tmp = move_snake;
+			move_snake->loc = move_snake->next->loc;
+			move_snake = move_snake->next;
+		}
+		if(move_snake == snake_head) {
+			free(move_snake);
+			snake_head = NULL;
+		} else {
+			snake_tmp->next = NULL;
+			free(move_snake);
+		}
+		snake_body->next = snake_head;
+		snake_head = snake_body;
+	}while(0);
+	
+	return Snake_Game_No_Error;
+}
+
