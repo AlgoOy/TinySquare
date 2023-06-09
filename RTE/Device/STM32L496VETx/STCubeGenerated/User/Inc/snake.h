@@ -83,7 +83,6 @@ SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile);
 //void CreateBoard(void);
 SnakeGameStatus InitGame(void);
 SnakeGameStatus QuitGame(bool *state);
-SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile);
 SnakeGameStatus GameLogic(void);
 
 #endif

@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <time.h>
 #include "../Inc/snake.h"
 #include "key.h"
 
@@ -269,35 +268,41 @@ SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile) {
 		draw_snake = draw_snake->next;
 	}
 	
-//	if(fruit.state != exist) {
-//		const arm_2d_region_t body_loc = {
-//			.tLocation = {
-//				.iX = Cal_Loc_X(fruit.loc.x),
-//				.iY = Cal_Loc_Y(fruit.loc.y),
-//			},
-//			.tSize = {
-//				.iWidth = SNAKE_WIDTH_PIXELS,
-//				.iHeight = SNAKE_HEIGHT_PIXELS,
-//			},
-//		};
-//		arm_2d_rgb565_tile_copy_with_src_mask(
-//			&c_tileFruitRGB565,
-//			&c_tileFruitMask,
-//			ptTile,
-//			&body_loc,
-//			ARM_2D_CP_MODE_COPY
-//		);
-//	}	
+	if(fruit.state == exist) {
+		const arm_2d_region_t fruit_loc = {
+			.tLocation = {
+				.iX = Cal_Loc_X(fruit.loc.x),
+				.iY = Cal_Loc_Y(fruit.loc.y),
+			},
+			.tSize = {
+				.iWidth = SNAKE_WIDTH_PIXELS,
+				.iHeight = SNAKE_HEIGHT_PIXELS,
+			},
+		};
+		arm_2d_rgb565_tile_copy_with_src_mask(
+			&c_tileFruitRGB565,
+			&c_tileFruitMask,
+			ptTile,
+			&fruit_loc,
+			ARM_2D_CP_MODE_COPY
+		);
+	}	
 	
 	return Snake_Game_No_Error;
 }
 
 
 static SnakeGameStatus CreateFruit(void) {
-	if (fruit.state != exist) {
-		//srand(time(NULL));
+	Snake *body = snake_head;
+	while (fruit.state != exist) {
+		srand(arm_2d_helper_get_system_timestamp());
 		fruit.loc.x = (uint8_t)rand() % map_width;
 		fruit.loc.y = (uint8_t)rand() % map_height;
+		while(body != NULL) {
+			if(fruit.loc.x == body->loc.x && fruit.loc.y == body->loc.y) {
+				continue;
+			}
+		}
 		fruit.state = exist;
 	}
 	
@@ -328,11 +333,13 @@ SnakeGameStatus InitGame(void) {
 	return Snake_Game_No_Error;
 }
 
-SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile) {
-	Snake *body = (Snake *)malloc(sizeof(Snake));
-	if (body == NULL) {
-		return Snake_Game_No_Memory;
-	}
+static SnakeGameStatus eat_fruit(void) {	
+	gameState.score += 10;
+	gameState.length ++;
+
+	fruit.state = notExist;
+	CreateFruit();
+	
 	return Snake_Game_No_Error;
 }
 
@@ -368,14 +375,13 @@ static void set_move_direction(void){
 
 SnakeGameStatus GameLogic(void){
 	Snake *move_snake = snake_head;
-	// chidao 
-	// meichidao
 	
 	Snake *snake_body = (Snake *)malloc(sizeof(Snake));
 	if (snake_body == NULL) {
 		return Snake_Game_No_Memory;
 	}
 	memcpy(snake_body, snake_head, sizeof(Snake));
+	snake_body->next = NULL;
 	
 	set_move_direction();
 	switch(snake_direction) {
@@ -394,15 +400,25 @@ SnakeGameStatus GameLogic(void){
 		default:
 			break;
 	}
-	if(snake_body->loc.x >= map_width || snake_body->loc.x < 0 || snake_body->loc.y >= map_height || snake_body->loc.y < 0) {
+	
+	// eat fruit
+	if (snake_body->loc.x == fruit.loc.x && snake_body->loc.y == fruit.loc.y) {
+		eat_fruit();
+		snake_body->next = snake_head;
+		snake_head = snake_body;
+		return Snake_Game_No_Error;
+	} else if(snake_body->loc.x >= map_width || snake_body->loc.x < 0 || snake_body->loc.y >= map_height || snake_body->loc.y < 0) {
 		gameState.state = end_wall;
 		return Snake_Game_No_Error;
-	}
-	// 最后一个不用检查
-	while(move_snake->next != NULL){
-		if (snake_body->loc.x == move_snake->loc.x && snake_body->loc.y == move_snake->loc.y) {
-			gameState.state = end_self;
-			return Snake_Game_No_Error;
+	} else {
+		// 最后一个不用检查
+		move_snake = snake_head;
+		while(move_snake->next != NULL){
+			if (snake_body->loc.x == move_snake->loc.x && snake_body->loc.y == move_snake->loc.y) {
+				gameState.state = end_self;
+				return Snake_Game_No_Error;
+			}
+			move_snake = move_snake->next;
 		}
 	}
 	
@@ -411,10 +427,9 @@ SnakeGameStatus GameLogic(void){
 		Snake *snake_tmp = NULL;
 		while(move_snake->next != NULL) {
 			snake_tmp = move_snake;
-			move_snake->loc = move_snake->next->loc;
 			move_snake = move_snake->next;
 		}
-		if(move_snake == snake_head) {
+		if(move_snake == snake_head){
 			free(move_snake);
 			snake_head = NULL;
 		} else {
@@ -423,7 +438,7 @@ SnakeGameStatus GameLogic(void){
 		}
 		snake_body->next = snake_head;
 		snake_head = snake_body;
-	}while(0);
+	} while(0);
 	
 	return Snake_Game_No_Error;
 }

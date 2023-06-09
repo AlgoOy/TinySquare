@@ -3,7 +3,6 @@
   RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
   RTE\_snake\Pre_Include_Global.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\time.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\..\Inc\snake.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d.h \
