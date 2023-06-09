@@ -134,6 +134,11 @@ static void __on_scene1_frame_start(arm_2d_scene_t *ptScene)
 {
     user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
+	
+	QuitGame(&this.game_end);
+	if(this.game_end) {
+		arm_2d_scene_player_switch_to_next_scene(ptScene->ptPlayer);
+	}
 }
 
 static void __on_scene1_frame_complete(arm_2d_scene_t *ptScene)
@@ -434,7 +439,7 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
 
             //.fnOnBGStart    = &__on_scene1_background_start,
             .fnOnBGComplete = &__on_scene1_background_complete,
-            //.fnOnFrameStart = &__on_scene1_frame_start,
+            .fnOnFrameStart = &__on_scene1_frame_start,
             //.fnBeforeSwitchOut = &__before_scene1_switching_out,
             .fnOnFrameCPL   = &__on_scene1_frame_complete,
             .fnDepose       = &__on_scene1_depose,

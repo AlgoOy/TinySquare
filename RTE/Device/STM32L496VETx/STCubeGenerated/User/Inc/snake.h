@@ -50,7 +50,7 @@ typedef struct Fruit {
 typedef struct Game_State_Info {
 	uint16_t score;
 	uint16_t length;
-	enum GameState {begin, end} state;
+	enum GameState {begin, end_wall, end_self} state;
 	Game_Speed speed;
 }Game_State_Info;
 
@@ -82,6 +82,7 @@ SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile);
 
 //void CreateBoard(void);
 SnakeGameStatus InitGame(void);
+SnakeGameStatus QuitGame(bool *state);
 SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile);
 SnakeGameStatus GameLogic(void);
 

@@ -144,8 +144,7 @@ SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelec
 		/* background */
 	}	else {
 		/* foreground */
-		arm_2d_canvas(ptTile, __top_canvas) {			
-			Game_State_Info gameState = getGameState();
+		arm_2d_canvas(ptTile, __top_canvas) {
 			
 			arm_2d_fill_colour(ptTile, NULL, GLCD_COLOR_WHITE);
 			
@@ -185,8 +184,67 @@ SnakeGameStatus DrawRunningGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelec
 }
 
 SnakeGameStatus DrawEndGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelection ground) {
+	if(ground == background) {
+		/* background */
+		arm_2d_canvas(ptTile, __top_canvas) {
+			arm_2d_fill_colour(ptTile, NULL, GLCD_COLOR_WHITE);
+			
+			arm_2d_align_top_centre(__top_canvas, c_tileSnakeLogoRGB565.tRegion.tSize) {
+				arm_2d_rgb565_tile_copy_with_src_mask(
+					&c_tileSnakeLogoRGB565,
+					&c_tileSnakeLogoMask,
+					ptTile,
+					&__top_centre_region,
+					ARM_2D_CP_MODE_COPY
+				);
+			}
+		}
+		/* background */
+	} else {
+		/* foreground */
+		arm_2d_canvas(ptTile, __top_canvas) {
+			char *str = NULL;
+			if (gameState.state == end_wall) {
+				str = "You hit the wall, game over!";
+			} else if(gameState.state == end_self) {
+				str = "You hit yourself, game over!";
+			}
+			
+			const char *pchString = str;
+			
+			int16_t textWidth = strlen(pchString) * ARM_2D_FONT_6x8.use_as__arm_2d_font_t.tCharSize.iWidth;
+			
+			arm_lcd_text_set_target_framebuffer((arm_2d_tile_t *)ptTile);
+			arm_lcd_text_set_font(&ARM_2D_FONT_6x8.use_as__arm_2d_font_t);
+			arm_lcd_text_set_draw_region(NULL);
+			
+			arm_2dp_fill_colour_with_opacity(
+                    NULL, 
+                    ptTile, 
+                    (arm_2d_region_t []){
+                        {
+                            .tLocation = {
+                                .iX = 2,
+                                .iY = __GLCD_CFG_SCEEN_HEIGHT__ - 17},
+                            .tSize = {
+                                .iWidth = __GLCD_CFG_SCEEN_WIDTH__ - 4,
+                                .iHeight = 9,
+                            },
+                        },
+                    }, 
+                    (__arm_2d_color_t){__RGB(64, 64, 64)},
+                    255 - 128);
+			arm_2d_op_wait_async(NULL);
+			arm_lcd_text_set_colour(GLCD_COLOR_GREEN, GLCD_COLOR_WHITE);
+			arm_lcd_text_location((__GLCD_CFG_SCEEN_HEIGHT__ + 7) / 8 - 2,
+										((__GLCD_CFG_SCEEN_WIDTH__ / ARM_2D_FONT_6x8.use_as__arm_2d_font_t.tCharSize.iWidth) - strlen(pchString)) / 2);
+			arm_lcd_printf("%s", pchString);
+    }
+		/* foreground */
+	}
 	return Snake_Game_No_Error;
 }
+
 SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile) {
 	Snake *draw_snake = snake_head;
 	
@@ -237,7 +295,7 @@ SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile) {
 
 static SnakeGameStatus CreateFruit(void) {
 	if (fruit.state != exist) {
-		srand(time(NULL));
+		//srand(time(NULL));
 		fruit.loc.x = (uint8_t)rand() % map_width;
 		fruit.loc.y = (uint8_t)rand() % map_height;
 		fruit.state = exist;
@@ -310,6 +368,8 @@ static void set_move_direction(void){
 
 SnakeGameStatus GameLogic(void){
 	Snake *move_snake = snake_head;
+	// chidao 
+	// meichidao
 	
 	Snake *snake_body = (Snake *)malloc(sizeof(Snake));
 	if (snake_body == NULL) {
@@ -334,8 +394,20 @@ SnakeGameStatus GameLogic(void){
 		default:
 			break;
 	}
+	if(snake_body->loc.x >= map_width || snake_body->loc.x < 0 || snake_body->loc.y >= map_height || snake_body->loc.y < 0) {
+		gameState.state = end_wall;
+		return Snake_Game_No_Error;
+	}
+	// 最后一个不用检查
+	while(move_snake->next != NULL){
+		if (snake_body->loc.x == move_snake->loc.x && snake_body->loc.y == move_snake->loc.y) {
+			gameState.state = end_self;
+			return Snake_Game_No_Error;
+		}
+	}
 	
 	do {
+		move_snake = snake_head;
 		Snake *snake_tmp = NULL;
 		while(move_snake->next != NULL) {
 			snake_tmp = move_snake;
@@ -356,3 +428,17 @@ SnakeGameStatus GameLogic(void){
 	return Snake_Game_No_Error;
 }
 
+SnakeGameStatus QuitGame(bool *game_end) {
+	*game_end = false;
+	if (gameState.state != begin) {
+		Snake *free_body = snake_head, *tmp_body = NULL;
+		while(free_body != NULL) {
+			tmp_body = free_body->next;
+			free(free_body);
+			free_body = tmp_body;
+		}
+		snake_head = NULL;
+		*game_end = true;
+	}
+	return Snake_Game_No_Error;
+}

@@ -31,6 +31,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "snake.h"
+
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
@@ -161,7 +163,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene2_background_handler)
     ARM_2D_UNUSED(bIsNewFrame);
     /*-----------------------draw back ground begin-----------------------*/
 
-
+		DrawEndGamePanel(ptTile, background);
 
     /*-----------------------draw back ground end  -----------------------*/
     arm_2d_op_wait_async(NULL);
@@ -175,7 +177,10 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene2_handler)
     user_scene_2_t *ptThis = (user_scene_2_t *)pTarget;
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
+	
+	DrawEndGamePanel(ptTile, foreground);
     
+	#if 0
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
         
@@ -235,6 +240,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene2_handler)
 
     /*-----------------------draw the foreground end  -----------------------*/
     }
+		#endif
     arm_2d_op_wait_async(NULL);
 
     return arm_fsm_rt_cpl;
@@ -251,38 +257,38 @@ user_scene_2_t *__arm_2d_scene2_init(   arm_2d_scene_player_t *ptDispAdapter,
     IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, static)
 
         /* a dirty region to be specified at runtime*/
-        ADD_REGION_TO_LIST(s_tDirtyRegions,
-            0  /* initialize at runtime later */
-        ),
+//        ADD_REGION_TO_LIST(s_tDirtyRegions,
+//            0  /* initialize at runtime later */
+//        ),
         
         /* add the last region:
          * it is the top left corner for text display 
          */
         ADD_LAST_REGION_TO_LIST(s_tDirtyRegions,
             .tLocation = {
-                .iX = 0,
-                .iY = 0,
+							.iX = 0,
+							.iY = __GLCD_CFG_SCEEN_HEIGHT__ - 17,
             },
             .tSize = {
                 .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
-                .iHeight = 8,
+                .iHeight = 9,
             },
         ),
 
     END_IMPL_ARM_2D_REGION_LIST()
     
     /* get the screen region */
-    arm_2d_region_t tScreen
-        = arm_2d_helper_pfb_get_display_area(
-            &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
+//    arm_2d_region_t tScreen
+//        = arm_2d_helper_pfb_get_display_area(
+//            &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
     
     /* initialise dirty region 0 at runtime
      * this demo shows that we create a region in the centre of a screen(320*240)
      * for a image stored in the tile c_tileCMSISLogoMask
      */
-    arm_2d_align_centre(tScreen, c_tileCMSISLogoMask.tRegion.tSize) {
-        s_tDirtyRegions[0].tRegion = __centre_region;
-    }
+//    arm_2d_align_centre(tScreen, c_tileCMSISLogoMask.tRegion.tSize) {
+//        s_tDirtyRegions[0].tRegion = __centre_region;
+//    }
     
     if (NULL == ptThis) {
         ptThis = (user_scene_2_t *)malloc(sizeof(user_scene_2_t));
@@ -299,16 +305,16 @@ user_scene_2_t *__arm_2d_scene2_init(   arm_2d_scene_player_t *ptDispAdapter,
         .use_as__arm_2d_scene_t = {
             /* Please uncommon the callbacks if you need them
              */
-            //.fnBackground   = &__pfb_draw_scene2_background_handler,
+            .fnBackground   = &__pfb_draw_scene2_background_handler,
             .fnScene        = &__pfb_draw_scene2_handler,
             .ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
             
 
             //.fnOnBGStart    = &__on_scene2_background_start,
             //.fnOnBGComplete = &__on_scene2_background_complete,
-            .fnOnFrameStart = &__on_scene2_frame_start,
+            //.fnOnFrameStart = &__on_scene2_frame_start,
             //.fnBeforeSwitchOut = &__before_scene2_switching_out,
-            .fnOnFrameCPL   = &__on_scene2_frame_complete,
+            //.fnOnFrameCPL   = &__on_scene2_frame_complete,
             .fnDepose       = &__on_scene2_depose,
         },
         .bUserAllocated = bUserAllocated,
