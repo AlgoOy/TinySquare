@@ -293,19 +293,20 @@ SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile) {
 
 
 static SnakeGameStatus CreateFruit(void) {
-	Snake *body = snake_head;
-	while (fruit.state != exist) {
+	if (fruit.state != exist) {
+	cf_lab:
 		srand(arm_2d_helper_get_system_timestamp());
 		fruit.loc.x = (uint8_t)rand() % map_width;
 		fruit.loc.y = (uint8_t)rand() % map_height;
+		Snake *body = snake_head;
 		while(body != NULL) {
 			if(fruit.loc.x == body->loc.x && fruit.loc.y == body->loc.y) {
-				continue;
+				goto cf_lab;
 			}
+			body = body->next;
 		}
 		fruit.state = exist;
 	}
-	
 	return Snake_Game_No_Error;
 }
 
@@ -344,7 +345,6 @@ static SnakeGameStatus eat_fruit(void) {
 }
 
 extern Key_State check_key(void);
-
 static void set_move_direction(void){
 	switch(check_key()) {
 		case key_0:
