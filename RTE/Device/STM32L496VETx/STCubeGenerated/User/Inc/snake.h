@@ -25,14 +25,10 @@ typedef enum {
 } Direction;
 
 typedef enum {
-	game_begin = 0x00,
-	game_over = 0x01,
-} Game_State;
-
-typedef enum {
-	low_speed = 300,
-	middle_speed = 200,
 	high_speed = 100,
+	middle_speed = 200,
+	// 枚举类型为什么最大值是255（2字节），超过255就会出错，怎么设置成4字节
+	low_speed = 255,
 }	Game_Speed;
 
 struct Point
@@ -41,15 +37,20 @@ struct Point
 	 uint8_t y;
 };
 
-typedef struct Snake {
+typedef struct Snake{
 	 struct Point loc;
 	 struct Snake *next;
 }Snake;
 
+typedef struct Fruit {
+	struct Point loc;
+	enum FruitState{Not_Exist, Exist} state;
+}Fruit;
+
 typedef struct Game_State_Info {
 	uint16_t score;
 	uint16_t length;
-	Game_State state;
+	enum GameState {begin, end} state;
 	Game_Speed speed;
 }Game_State_Info;
 

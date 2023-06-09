@@ -228,7 +228,7 @@ SnakeGameStatus InitGame(void) {
 	
 	gameState.score = 0;
 	gameState.length = 1;
-	gameState.state = game_begin;
+	gameState.state = begin;
 	gameState.speed = middle_speed;
 	
 	return Snake_Game_No_Error;
