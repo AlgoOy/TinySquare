@@ -5,6 +5,7 @@
 
 static Game_State_Info gameState = {0};
 static Snake *snake_head = NULL;
+static Fruit fruit = {0};
 static Direction snake_direction = Right;
 
 static uint16_t map_width = HORIZONTAL_NUM_MAX;
@@ -209,6 +210,39 @@ SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile) {
 		);
 		draw_snake = draw_snake->next;
 	}
+	
+//	if(fruit.state != exist) {
+//		const arm_2d_region_t body_loc = {
+//			.tLocation = {
+//				.iX = Cal_Loc_X(fruit.loc.x),
+//				.iY = Cal_Loc_Y(fruit.loc.y),
+//			},
+//			.tSize = {
+//				.iWidth = SNAKE_WIDTH_PIXELS,
+//				.iHeight = SNAKE_HEIGHT_PIXELS,
+//			},
+//		};
+//		arm_2d_rgb565_tile_copy_with_src_mask(
+//			&c_tileFruitRGB565,
+//			&c_tileFruitMask,
+//			ptTile,
+//			&body_loc,
+//			ARM_2D_CP_MODE_COPY
+//		);
+//	}	
+	
+	return Snake_Game_No_Error;
+}
+
+
+static SnakeGameStatus CreateFruit(void) {
+	if (fruit.state != exist) {
+		srand(time(NULL));
+		fruit.loc.x = (uint8_t)rand() % map_width;
+		fruit.loc.y = (uint8_t)rand() % map_height;
+		fruit.state = exist;
+	}
+	
 	return Snake_Game_No_Error;
 }
 
@@ -226,6 +260,8 @@ SnakeGameStatus InitGame(void) {
 	
 	snake_direction = Right;
 	
+	CreateFruit();
+	
 	gameState.score = 0;
 	gameState.length = 1;
 	gameState.state = begin;
@@ -239,27 +275,6 @@ SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile) {
 	if (body == NULL) {
 		return Snake_Game_No_Memory;
 	}
-	return Snake_Game_No_Error;
-}
-
-SnakeGameStatus CreateFruit(const arm_2d_tile_t *ptTile) {
-	srand(time(NULL));
-	uint8_t snake_x = (uint8_t)rand() % HORIZONTAL_NUM_MAX, snake_y = (uint8_t)rand() % VERTICAL_NUM_MAX;
-	
-	
-//	arm_2d_canvas(ptTile, __top_canvas) {
-//			
-//			arm_2d_align_centre(__top_canvas, c_tileFruitRGB565.tRegion.tSize) {
-//				arm_2d_rgb565_tile_copy_with_src_mask(
-//					&c_tileFruitRGB565,
-//					&c_tileFruitMask,
-//					ptTile,
-//					&__centre_region,
-//					ARM_2D_CP_MODE_COPY
-//				);
-//			}
-//		}
-	
 	return Snake_Game_No_Error;
 }
 

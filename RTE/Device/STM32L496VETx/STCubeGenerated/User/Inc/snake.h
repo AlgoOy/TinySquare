@@ -44,7 +44,7 @@ typedef struct Snake{
 
 typedef struct Fruit {
 	struct Point loc;
-	enum FruitState{Not_Exist, Exist} state;
+	enum FruitState{notExist, exist} state;
 }Fruit;
 
 typedef struct Game_State_Info {
@@ -83,8 +83,6 @@ SnakeGameStatus DrawGameElements(const arm_2d_tile_t *ptTile);
 //void CreateBoard(void);
 SnakeGameStatus InitGame(void);
 SnakeGameStatus CreateSnake(const arm_2d_tile_t *ptTile);
-SnakeGameStatus CreateFruit(const arm_2d_tile_t *ptTile);
-
 SnakeGameStatus GameLogic(void);
 
 #endif
