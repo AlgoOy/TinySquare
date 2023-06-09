@@ -186,7 +186,7 @@ SnakeGameStatus DrawSnakeBody(const arm_2d_tile_t *ptTile) {
 	
 	arm_2d_canvas(ptTile, __top_canvas) {
 			
-			arm_2d_align_centre(__top_canvas, c_tileSnakeLogoRGB565.tRegion.tSize) {
+			arm_2d_align_centre(__top_canvas, c_tileSnakeBodyRGB565.tRegion.tSize) {
 				arm_2d_rgb565_tile_copy_with_src_mask(
 					&c_tileSnakeBodyRGB565,
 					&c_tileSnakeBodyMask,
