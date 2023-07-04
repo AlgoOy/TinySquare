@@ -113,21 +113,20 @@ int main(void)
 	
 	rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL, gameTid = RT_NULL;
 	
-	engineTid = rt_thread_create("engine", GameEngineEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
-	if (engineTid != RT_NULL) {
-		rt_thread_startup(engineTid);
-	}
+//	engineTid = rt_thread_create("engine", GameEngineEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
+//	if (engineTid != RT_NULL) {
+//		rt_thread_startup(engineTid);
+//	}
+//	
+//	eventTid = rt_thread_create("event", EventProcessEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-1, THREAD_TIMESLICE);
+//	if (eventTid != RT_NULL) {
+//		rt_thread_startup(eventTid);
+//	}
 	
-	gameTid = rt_thread_create("game", SnakeGameEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-1, THREAD_TIMESLICE);
+	gameTid = rt_thread_create("game", SnakeGameEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-2, THREAD_TIMESLICE);
 	if (gameTid != RT_NULL) {
 		rt_thread_startup(gameTid);
 	}
-	
-	eventTid = rt_thread_create("event", EventProcessEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-2, THREAD_TIMESLICE);
-	if (eventTid != RT_NULL) {
-		rt_thread_startup(eventTid);
-	}
-	
 	
 #if 0
   /* Infinite loop */

@@ -5,6 +5,7 @@
 ".\objects\logo.o"
 ".\objects\fruit.o"
 ".\objects\body.o"
+".\objects\snake_v2.o"
 ".\objects\lcd.o"
 ".\objects\spi.o"
 ".\objects\key.o"
