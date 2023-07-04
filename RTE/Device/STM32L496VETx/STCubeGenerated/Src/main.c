@@ -29,19 +29,17 @@
 #include "arm_2d.h"
 #include "arm_2d_disp_adapters.h"
 #include "arm_2d_scenes.h"
-/* USER CODE END Includes */
 
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
+#include "rtthread.h"
 
-/* USER CODE END PTD */
+#include "layer_management.h"
+#include "event_management.h"
+#include "snake_v2.h"
 
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-/* USER CODE END PD */
+#define THREAD_PRIORITY         25
+#define THREAD_STACK_SIZE       512
+#define THREAD_TIMESLICE        5
 
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
 static volatile int64_t s_lTimeStamp;
 
 __OVERRIDE_WEAK
@@ -98,7 +96,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-	SystemCoreClock = 80000000ul;
+	//SystemCoreClock = 80000000ul;
 	init_cycle_counter(true);
   /* USER CODE END SysInit */
 
@@ -111,7 +109,27 @@ int main(void)
 			arm_2d_init();
 	}
   /* USER CODE END 2 */
-
+	
+	
+	rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL, gameTid = RT_NULL;
+	
+	engineTid = rt_thread_create("engine", GameEngineEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
+	if (engineTid != RT_NULL) {
+		rt_thread_startup(engineTid);
+	}
+	
+	gameTid = rt_thread_create("game", SnakeGameEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-1, THREAD_TIMESLICE);
+	if (gameTid != RT_NULL) {
+		rt_thread_startup(gameTid);
+	}
+	
+	eventTid = rt_thread_create("event", EventProcessEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-2, THREAD_TIMESLICE);
+	if (eventTid != RT_NULL) {
+		rt_thread_startup(eventTid);
+	}
+	
+	
+#if 0
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	disp_adapter0_init();
@@ -121,6 +139,8 @@ int main(void)
 //	arm_2d_scene_player_set_switching_mode(&DISP0_ADAPTER, ARM_2D_SCENE_SWITCH_MODE_NONE);
 //	arm_2d_scene_player_set_switching_period(&DISP0_ADAPTER, 3000);
 //	arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
+	
+	
 	
   while (1)
   {
@@ -134,6 +154,8 @@ int main(void)
 //		HAL_Delay(1000);
   }
   /* USER CODE END 3 */
+  
+#endif
 }
 
 /**

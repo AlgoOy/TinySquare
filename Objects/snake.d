@@ -1,7 +1,7 @@
 ./objects/snake.o: \
   RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\snake.c \
-  RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
-  RTE\_snake\Pre_Include_Global.h \
+  RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
+  RTE\_snake_v2\Pre_Include_Global.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\..\Inc\snake.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \

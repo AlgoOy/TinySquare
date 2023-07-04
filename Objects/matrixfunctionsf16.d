@@ -1,7 +1,7 @@
 ./objects/matrixfunctionsf16.o: \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Source\MatrixFunctions\MatrixFunctionsF16.c \
-  RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
-  RTE\_snake\Pre_Include_Global.h \
+  RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
+  RTE\_snake_v2\Pre_Include_Global.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Source\MatrixFunctions\arm_mat_add_f16.c \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\dsp\matrix_functions_f16.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\arm_math_types_f16.h \

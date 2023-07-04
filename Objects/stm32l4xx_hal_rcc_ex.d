@@ -1,7 +1,7 @@
 ./objects/stm32l4xx_hal_rcc_ex.o: \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_rcc_ex.c \
-  RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
-  RTE\_snake\Pre_Include_Global.h \
+  RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
+  RTE\_snake_v2\Pre_Include_Global.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\Inc\stm32l4xx_hal_conf.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_rcc.h \

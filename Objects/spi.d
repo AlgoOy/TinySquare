@@ -1,6 +1,6 @@
 ./objects/spi.o: RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Src\spi.c \
-  RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
-  RTE\_snake\Pre_Include_Global.h \
+  RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
+  RTE\_snake_v2\Pre_Include_Global.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Src\..\Inc\spi.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h \

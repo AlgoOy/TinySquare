@@ -1,7 +1,7 @@
 ./objects/arm_2d_helper_list.o: \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Source\arm_2d_helper_list.c \
-  RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
-  RTE\_snake\Pre_Include_Global.h \
+  RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
+  RTE\_snake_v2\Pre_Include_Global.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \

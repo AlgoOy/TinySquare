@@ -1,7 +1,7 @@
 ./objects/transformfunctions.o: \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Source\TransformFunctions\TransformFunctions.c \
-  RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
-  RTE\_snake\Pre_Include_Global.h \
+  RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
+  RTE\_snake_v2\Pre_Include_Global.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Source\TransformFunctions\arm_bitreversal.c \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\dsp\transform_functions.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\arm_math_types.h \

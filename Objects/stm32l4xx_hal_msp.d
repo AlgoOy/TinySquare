@@ -1,7 +1,7 @@
 ./objects/stm32l4xx_hal_msp.o: \
-  D:\SourceCode\embedded\Arm-2D\Snake\RTE\Device\STM32L496VETx\STCubeGenerated\Src\stm32l4xx_hal_msp.c \
-  RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
-  RTE\_snake\Pre_Include_Global.h \
+  D:\SourceCode\Arm-2D-Snake\RTE\Device\STM32L496VETx\STCubeGenerated\Src\stm32l4xx_hal_msp.c \
+  RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
+  RTE\_snake_v2\Pre_Include_Global.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\Inc\main.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\Inc\stm32l4xx_hal_conf.h \

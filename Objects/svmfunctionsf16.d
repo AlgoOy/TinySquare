@@ -1,7 +1,7 @@
 ./objects/svmfunctionsf16.o: \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Source\SVMFunctions\SVMFunctionsF16.c \
-  RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
-  RTE\_snake\Pre_Include_Global.h \
+  RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
+  RTE\_snake_v2\Pre_Include_Global.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Source\SVMFunctions\arm_svm_linear_init_f16.c \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\dsp\svm_functions_f16.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\CMSIS-DSP\1.14.4\Include\arm_math_types_f16.h \

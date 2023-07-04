@@ -1,6 +1,6 @@
 ./objects/main.o: RTE\Device\STM32L496VETx\STCubeGenerated\Src\main.c \
-  RTE\Acceleration\arm_2d_cfg.h RTE\_snake\RTE_Components.h \
-  RTE\_snake\Pre_Include_Global.h \
+  RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
+  RTE\_snake_v2\Pre_Include_Global.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\Inc\main.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\Inc\stm32l4xx_hal_conf.h \
@@ -100,7 +100,7 @@
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\progress_wheel.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\list_view.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\battery_gasgauge.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\GorgonMeducer\perf_counter\2.2.2-dev\lib\perf_counter.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\GorgonMeducer\perf_counter\2.2.2\lib\perf_counter.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_disp_adapters.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_scenes.h \
   RTE\Acceleration\arm_2d_scene_0.h RTE\Acceleration\arm_2d_scene_1.h \
