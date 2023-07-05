@@ -5,6 +5,9 @@
 extern "C" {
 #endif
 
+#define CellsXCount 10
+#define CellsYCount 10
+
 void SnakeGameEntry(void *param);
 
 #ifdef __cplusplus

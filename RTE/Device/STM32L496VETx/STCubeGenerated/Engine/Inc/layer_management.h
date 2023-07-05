@@ -5,18 +5,21 @@
 extern "C" {
 #endif
 
-#include "stdint.h"
+#include "rtthread.h"
 #include "arm_2d_helper.h"
+
+#define Screen_Width 240
+#define Screen_Height 240
 
 typedef struct cell_t {
 	__arm_2d_color_t tColor;
-	uint8_t chOpacity;
-	uint8_t blsDirty;
+	rt_uint8_t chOpacity;
+	rt_uint8_t blsDirty;
 } cell_t;
 
 typedef struct layer_t {
-	uint16_t hwXCount;
-	uint16_t hwYCount;
+	rt_uint16_t hwXCount;
+	rt_uint16_t hwYCount;
 	cell_t *ptCells;
 } layer_t;
 

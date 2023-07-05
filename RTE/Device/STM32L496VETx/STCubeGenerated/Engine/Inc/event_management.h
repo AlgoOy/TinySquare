@@ -7,6 +7,13 @@ extern "C" {
 
 #include "rtdef.h"
 
+typedef enum {
+	Event_Queue_EOK = 0x00,
+	Event_Queue_Err = 0x01,
+	Event_Queue_Full = 0x02,
+	Event_Queue_Empty = 0x03,
+} EventQueueStatus;
+
 typedef struct key_t {
 	rt_uint8_t chValue;
 	enum {
@@ -19,6 +26,9 @@ typedef struct key_t {
 } key_t;
 
 void EventProcessEntry(void *param);
+
+EventQueueStatus push_key_event_to_queue(const key_t key);
+EventQueueStatus pop_key_event_from_queue(key_t *key);
 
 #ifdef __cplusplus
 }
