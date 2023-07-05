@@ -1,5 +1,5 @@
 ./objects/stm32l4xx_hal_msp.o: \
-  D:\SourceCode\Arm-2D-Snake\RTE\Device\STM32L496VETx\STCubeGenerated\Src\stm32l4xx_hal_msp.c \
+  G:\code\EmbeddedSystem\Arm-2D-Snake\RTE\Device\STM32L496VETx\STCubeGenerated\Src\stm32l4xx_hal_msp.c \
   RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
   RTE\_snake_v2\Pre_Include_Global.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\Inc\main.h \

@@ -71,6 +71,13 @@ static void MX_GPIO_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+extern 
+int32_t Disp0_DrawBitmap(int16_t x, 
+                        int16_t y, 
+                        int16_t width, 
+                        int16_t height, 
+                        const uint8_t *bitmap);
+
 /* USER CODE END 0 */
 
 /**
@@ -109,6 +116,31 @@ int main(void)
 			arm_2d_init();
 	}
   /* USER CODE END 2 */
+	
+	arm_2d_tile_t* draw_cell_handler = (arm_2d_tile_t *)malloc(sizeof(arm_2d_tile_t));
+	uint8_t* cell_handler_buffer = (uint8_t *)malloc(20 * 20 * 2 * sizeof(uint8_t));
+	
+	draw_cell_handler->tRegion.tLocation.iX = 0;
+	draw_cell_handler->tRegion.tLocation.iY = 0;
+	draw_cell_handler->tRegion.tSize.iWidth = 20;
+	draw_cell_handler->tRegion.tSize.iHeight = 20;
+	draw_cell_handler->pchBuffer = cell_handler_buffer;
+	
+	arm_2dp_fill_colour_with_opacity(
+			NULL, 
+			draw_cell_handler, 
+			&draw_cell_handler->tRegion,
+			//ecb.ptLayer->ptCells[i].tColor,
+			//ecb.ptLayer->ptCells[i].chOpacity
+			(__arm_2d_color_t){GLCD_COLOR_BLUE},
+			255-128
+		);	
+	Disp0_DrawBitmap(draw_cell_handler->tRegion.tLocation.iX,
+                    draw_cell_handler->tRegion.tLocation.iY,
+                    draw_cell_handler->tRegion.tSize.iWidth,
+                    draw_cell_handler->tRegion.tSize.iHeight,
+                    (const uint8_t *)draw_cell_handler->pchBuffer);
+	while(1);
 	
 	
 	rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL, gameTid = RT_NULL;
