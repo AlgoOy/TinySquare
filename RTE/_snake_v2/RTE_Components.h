@@ -26,6 +26,8 @@
 
 /* ARM::Acceleration:Arm-2D Helper:PFB:1.6.7 */
 #define RTE_Acceleration_Arm_2D_Helper_PFB
+/* ARM::Acceleration:Arm-2D Helper:RTOS Helper:RT-Thread:1.0.0 */
+#define RTE_Acceleration_Arm_2D_Helper_RTOS_RT_Thread
 /* ARM::Acceleration:Arm-2D Helper:Scene:1.1.8 */
 #define RTE_Acceleration_Arm_2D_Scene0
     #define __RTE_ACCELERATION_ARM_2D_SCENE0__    /* this macro is deprecated, please use the macro above in your code */

@@ -8,9 +8,6 @@ extern "C" {
 #include "rtthread.h"
 #include "arm_2d_helper.h"
 
-#define Screen_Width 240
-#define Screen_Height 240
-
 typedef struct cell_t {
 	__arm_2d_color_t tColor;
 	rt_uint8_t chOpacity;

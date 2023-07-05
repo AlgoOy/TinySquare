@@ -44,15 +44,15 @@ static void draw_cell(rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tC
 }
 
 static void clear_cell(rt_uint16_t pos) {
-	draw_cell(pos, 0, (__arm_2d_color_t){GLCD_COLOR_WHITE});
+	draw_cell(pos, 255, (__arm_2d_color_t){GLCD_COLOR_WHITE});
 }
 
 static void draw_snake_body (rt_uint16_t pos) {
-	draw_cell(pos, 0, (__arm_2d_color_t){GLCD_COLOR_BLACK});
+	draw_cell(pos, 255, (__arm_2d_color_t){GLCD_COLOR_BLACK});
 }
 
 static void draw_fruit (rt_uint16_t pos) {
-	draw_cell(pos, 0, (__arm_2d_color_t){GLCD_COLOR_RED});
+	draw_cell(pos, 255, (__arm_2d_color_t){GLCD_COLOR_RED});
 }
 
 static void create_fruit(void) {

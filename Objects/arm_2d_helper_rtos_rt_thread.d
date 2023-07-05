@@ -1,14 +1,7 @@
-./objects/layer_management.o: \
-  RTE\Device\STM32L496VETx\STCubeGenerated\Engine\Src\layer_management.c \
+./objects/arm_2d_helper_rtos_rt_thread.o: \
+  RTE\Acceleration\arm_2d_helper_rtos_rt_thread.c \
   RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
   RTE\_snake_v2\Pre_Include_Global.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\Engine\Inc\layer_management.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtthread.h \
-  RTE\RTOS\rtconfig.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdebug.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdef.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtservice.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_types.h \
@@ -63,7 +56,10 @@
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\__common.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_list.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\__arm_2d_helper_common.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\Engine\Inc\__layer_management.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_scenes.h \
-  RTE\Acceleration\arm_2d_scene_0.h RTE\Acceleration\arm_2d_scene_1.h \
-  RTE\Acceleration\arm_2d_scene_2.h
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_disp_adapters.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtthread.h \
+  RTE\RTOS\rtconfig.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdebug.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtservice.h
