@@ -136,8 +136,28 @@ GameEngineStatus refresh_stage(const arm_2d_tile_t *ptTile){
 				},
 			}, 
 			ecb.stage->ptLayer->ptCells->tColor,
-			ecb.stage->ptLayer->ptCells->chOpacity);
+			ecb.stage->ptLayer->ptCells->chOpacity
+		);
+		arm_2d_op_wait_async(NULL);
 	}
+	
+//	arm_2dp_fill_colour_with_opacity(
+//			NULL, 
+//			ptTile, 
+//			(arm_2d_region_t []){
+//				{
+//					.tLocation = {
+//						.iX = 0,
+//						.iY = 0,
+//					},
+//					.tSize = {
+//						.iWidth = __GLCD_CFG_SCEEN_WIDTH__ / 10,
+//						.iHeight = __GLCD_CFG_SCEEN_HEIGHT__ / 10,
+//					},
+//				},
+//			},
+//			(__arm_2d_color_t){GLCD_COLOR_RED},
+//			255-128);
 	
 	return Game_Engine_EOK;
 }
@@ -151,7 +171,8 @@ void GameEngineEntry(void *param) {
 	while(1) {
 		while(rt_sem_take(ecb.refresh.sem_req, RT_WAITING_FOREVER) != RT_EOK);
 		
-		refresh_stage();
+		disp_adapter0_task();
+		rt_thread_mdelay(50);
 		
 		while(rt_sem_release(ecb.refresh.sem_rsp) != RT_EOK);
 	}

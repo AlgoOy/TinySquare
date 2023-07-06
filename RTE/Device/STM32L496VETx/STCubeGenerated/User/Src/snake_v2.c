@@ -125,8 +125,8 @@ static void set_snake_direction(void) {
 }
 
 static void game_logic(void){
-	point_t newHead = {0};
-	memcpy(&newHead, &snake.bodyloc[snake.length-1], sizeof(point_t));
+	point_t newHead = {snake.bodyloc[snake.length-1].x, snake.bodyloc[snake.length-1].y};
+	//memcpy(&newHead, &snake.bodyloc[snake.length-1], sizeof(point_t));
 	
 	set_snake_direction();
 	switch(snake.direction) {
@@ -175,7 +175,7 @@ void SnakeGameEntry(void *param) {
 	game_init();
 	apply_for_refresh();
 	while(1) {
-		game_logic();
 		rt_thread_mdelay(200);
+		game_logic();
 	}
 }

@@ -62,10 +62,10 @@
 ".\objects\spinning_wheel.o"
 ".\objects\arm_2d.o"
 ".\objects\arm_2d_disp_adapter_0.o"
+".\objects\arm_2d_helper_rtos_rt_thread.o"
 ".\objects\arm_2d_scene_0.o"
 ".\objects\arm_2d_scene_1.o"
 ".\objects\arm_2d_scene_2.o"
-".\objects\arm_2d_helper_rtos_rt_thread.o"
 ".\objects\basicmathfunctions.o"
 ".\objects\basicmathfunctionsf16.o"
 ".\objects\bayesfunctions.o"
@@ -124,7 +124,7 @@
 ".\objects\timer.o"
 ".\objects\board.o"
 "C:\Users\24073\AppData\Local\Arm\Packs\GorgonMeducer\perf_counter\2.2.2\lib\perf_counter.lib"
---library_type=microlib --strict --scatter ".\Objects\snake.sct"
+--strict --scatter ".\Objects\snake.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\snake.map" -o .\Objects\snake.axf
