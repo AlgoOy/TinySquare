@@ -791,7 +791,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>6</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -814,7 +814,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Omin</MiscControls>
+              <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
               <IncludePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User;.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\Engine\Inc</IncludePath>

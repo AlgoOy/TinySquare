@@ -10,6 +10,11 @@ extern "C" {
 #include "arm_2d.h"
 
 typedef enum {
+	Obj_Not_Initial = 0x00,
+	Obj_Initial = 0x01,
+} Obj_State;
+
+typedef enum {
 	Game_Engine_EOK = 0x00,
 	Game_Engine_Err = 0x01,
 } GameEngineStatus;
@@ -20,11 +25,12 @@ typedef struct stage_t {
 } stage_t;
 
 typedef struct engine_control_block {
-	stage_t	*stage;
-	arm_2d_scene_player_t *player;
+	Obj_State chState;
 	struct {
 		rt_sem_t sem_req, sem_rsp;
 	} refresh;
+	arm_2d_scene_player_t *player;
+	stage_t	*stage;
 } ecb_t;
 
 GameEngineStatus engine_init(void);

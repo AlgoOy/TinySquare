@@ -10,13 +10,13 @@ extern "C" {
 
 typedef struct cell_t {
 	__arm_2d_color_t tColor;
-	rt_uint8_t chOpacity;
-	rt_uint8_t blsDirty;
+	uint8_t chOpacity;
+	uint8_t blsDirty;
 } cell_t;
 
 typedef struct layer_t {
-	rt_uint16_t hwXCount;
-	rt_uint16_t hwYCount;
+	uint16_t hwXCount;
+	uint16_t hwYCount;
 	cell_t *ptCells;
 } layer_t;
 

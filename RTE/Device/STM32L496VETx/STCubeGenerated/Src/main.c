@@ -38,7 +38,7 @@
 
 #define THREAD_PRIORITY         25
 #define THREAD_STACK_SIZE       512
-#define THREAD_TIMESLICE        5
+#define THREAD_TIMESLICE        100
 
 static volatile int64_t s_lTimeStamp;
 

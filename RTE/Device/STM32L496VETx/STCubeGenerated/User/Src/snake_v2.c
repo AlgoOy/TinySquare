@@ -4,7 +4,7 @@
 #include "layer_management.h"
 
 static cell_t cells[CellsXCount * CellsYCount] = {0};
-static layer_t layer = {CellsXCount, CellsYCount, cells};
+static layer_t layer = {0};
 static rt_uint8_t bls_map[CellsXCount * CellsYCount] = {0};
 
 typedef struct {
@@ -34,8 +34,6 @@ struct {
 static rt_uint16_t pos_cal(point_t loc) {
 	return (loc.x-1) * CellsYCount + (loc.y-1);
 }
-
-
 
 static void draw_cell(rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor) {
 	layer.ptCells[pos].blsDirty = 1;
@@ -83,6 +81,10 @@ static void snake_init(void) {
 }
 
 static void game_init(void) {
+	layer.hwXCount = CellsXCount;
+	layer.hwYCount = CellsXCount;
+	layer.ptCells = cells;
+	
 	register_layer(&layer);
 	
 	for(int i = 0;i < CellsXCount * CellsYCount; i++) {
@@ -173,9 +175,9 @@ static void game_logic(void){
 
 void SnakeGameEntry(void *param) {
 	game_init();
-	apply_for_refresh();
 	while(1) {
-		rt_thread_mdelay(200);
+		apply_for_refresh();
 		game_logic();
+		rt_thread_mdelay(200);
 	}
 }
