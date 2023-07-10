@@ -15,6 +15,8 @@
 extern "C" {
 #endif
 
+#include "rtdef.h"
+
 #include "arm_2d_helper_scene.h"
 
 #include "ge_layer.h"
@@ -41,13 +43,20 @@ extern "C" {
 
 struct ge_stage_t
 {
-    ARM_PRIVATE(
+    ARM_PRIVATE
+	(
         implement(arm_2d_scene_t);
         rt_bool_t blsUserAllocated;
     )
     ge_layer_t *ptLayer;
 };
 typedef struct ge_stage_t ge_stage_t;
+
+#define ge_layer_register(__GE_STAGE_PTR, ...) __ge_layer_register((__GE_STAGE_PTR), (NULL, ##__VA_ARGS__))
+#define ge_stage_init(...) __ge_stage_init((NULL, ##__VA_ARGS__))
+
+ARM_NONNULL(1) ge_layer_t *__ge_layer_register(ge_stage_t *ptStage, ge_layer_t *ptLayer);
+ge_stage_t *__ge_stage_init(ge_stage_t *ptStage);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

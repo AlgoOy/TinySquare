@@ -11,6 +11,8 @@
 #ifndef ____GE_COMMON_H__
 #define ____GE_COMMON_H__
 
+#include "rtthread.h"
+
 #include "arm_2d.h"
 
 #include "arm_2d_helper_scene.h"
@@ -35,27 +37,33 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-/* OOC header, please DO NOT modify */
-#ifdef __GE_STAGE_IMPLEMENT__
-#   undef __GE_SCENE_IMPLEMENT__
+#ifdef __GE_COMMON_IMPLEMENT__
+#   undef __GE_COMMON_IMPLEMENT__
 #   define __ARM_2D_IMPL__
 #endif
 #include "arm_2d_utils.h"
 
-//struct ge_stage_t
-//{
-//    ARM_PRIVATE(
-//        implement(arm_2d_scene_t);
-//        rt_bool_t blsUserAllocated;
-//    )
-//    ge_layer_t *ptLayer;
-//};
-//typedef struct ge_stage_t ge_stage_t;
+struct ge_surface_t
+{
+    struct ge_surface_t *ptNext;
+    arm_2d_scene_player_t *ptPlayer;
+    ge_stage_t *ptStage;
+};
 
-#define ge_stage_init(...)  __ge_stage_init((NULL, ##__VA_ARGS__))
-
-ge_stage_t *__ge_stage_init(ge_stage_t *ptStage);
-
+struct ge_gfx_ctrl_t
+{
+    ARM_PRIVATE
+    (
+        rt_bool_t blsInitialized;
+        struct
+        {
+            rt_sem_t ptSemWaitReq;
+            rt_sem_t ptSemGiveRsp;
+        } tRefresh;
+        struct ge_surface_t tSurface;
+    )
+};
+typedef struct ge_gfx_ctrl_t ge_gfx_ctrl_t;
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

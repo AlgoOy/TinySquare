@@ -13,9 +13,6 @@
 #define __GE_LAYER_IMPLEMENT__
 #include "__ge_common.h"
 
-#include "arm_2d_helper.h"
-#include "arm_extra_controls.h"
-
 #include <stdlib.h>
 #include <string.h>
 
@@ -50,94 +47,12 @@
 #undef this
 #define this (*ptThis)
 
-static void _on_ge_stage_depose(arm_2d_scene_t *ptScene)
-{
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
-    ARM_2D_UNUSED(ptThis);
-    
-    this.use_as__arm_2d_scene_t.ptPlayer = NULL;
-
-    if (this.blsUserAllocated == RT_FALSE) {
-        // todo:judge layer free
-        free(ptThis);
-    }
-}
-
-static void _on_ge_stage_background_start(arm_2d_scene_t *ptScene)
-{
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
-    ARM_2D_UNUSED(ptThis);
-}
-
-static void _on_ge_stage_background_complete(arm_2d_scene_t *ptScene)
-{
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
-    ARM_2D_UNUSED(ptThis);
-}
-
-
-static void _on_ge_stage_frame_start(arm_2d_scene_t *ptScene)
-{
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
-    ARM_2D_UNUSED(ptThis);
-}
-
-static void _on_ge_stage_frame_complete(arm_2d_scene_t *ptScene)
-{
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
-    ARM_2D_UNUSED(ptThis);
-}
-
-static void _before_ge_stage_switching_out(arm_2d_scene_t *ptScene)
-{
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
-    ARM_2D_UNUSED(ptThis);
-}
-
-static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_background_handler)
-{
-    ge_stage_t *ptThis = (ge_stage_t *)pTarget;
-    ARM_2D_UNUSED(ptTile);
-    ARM_2D_UNUSED(bIsNewFrame);
-    /*-----------------------draw back ground begin-----------------------*/
-
-
-
-    /*-----------------------draw back ground end  -----------------------*/
-    arm_2d_op_wait_async(NULL);
-
-    return arm_fsm_rt_cpl;
-}
-
-static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_handler)
-{
-    ge_stage_t *ptThis = (ge_stage_t *)pTarget;
-    ARM_2D_UNUSED(ptTile);
-    ARM_2D_UNUSED(bIsNewFrame);
-    
-    arm_2d_canvas(ptTile, __top_canvas) {
-    /*-----------------------draw the foreground begin-----------------------*/
-
-
-
-    /*-----------------------draw the foreground end  -----------------------*/
-    }
-    arm_2d_op_wait_async(NULL);
-
-    return arm_fsm_rt_cpl;
-}
-
-static void _register_stage_to_player(arm_2d_scene_player_t *ptDispAdapter, ge_stage_t *ptThis)
-{
-    arm_2d_scene_player_append_scenes(ptDispAdapter, &this.use_as__arm_2d_scene_t, 1);
-}
-
-ge_stage_t *_ge_stage_init(ge_stage_t *ptThis)
+ARM_NONNULL(1) ge_layer_t *__ge_layer_register(ge_stage_t *ptStage, ge_layer_t *ptThis)
 {
     rt_bool_t blsUserAllocated = RT_FALSE;
     if (ptThis == NULL)
     {
-        ptThis = (ge_stage_t *)malloc(sizeof(ge_stage_t));
+        ptThis = (ge_layer_t *)malloc(sizeof(ge_layer_t));
         if (ptThis == NULL)
         {
             return NULL;
@@ -148,26 +63,12 @@ ge_stage_t *_ge_stage_init(ge_stage_t *ptThis)
         blsUserAllocated = RT_TRUE;
     }
 
-    memset(ptThis, 0, sizeof(ge_stage_t));
+    memset(ptThis, 0, sizeof(ge_layer_t));
 
-    *ptThis = (ge_stage_t){
-        .use_as__arm_2d_scene_t = {
-            .fnBackground   = &_pfb_draw_ge_stage_background_handler,
-            .fnScene        = &_pfb_draw_ge_stage_handler,
-            //.ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
-
-            .fnOnBGStart    = &_on_ge_stage_background_start,
-            .fnOnBGComplete = &_on_ge_stage_background_complete,
-            .fnOnFrameStart = &_on_ge_stage_frame_start,
-            .fnBeforeSwitchOut = &_before_ge_stage_switching_out,
-            .fnOnFrameCPL   = &_on_ge_stage_frame_complete,
-            .fnDepose       = &_on_ge_stage_depose,
-        },
+    *ptThis = (ge_layer_t){
         .blsUserAllocated = blsUserAllocated,
     };
 
-    _register_stage_to_player(&DISP0_ADAPTER, ptThis);
-    
     return ptThis;
 }
 

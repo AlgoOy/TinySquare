@@ -455,14 +455,24 @@
           <GroupName>Engine</GroupName>
           <Files>
             <File>
-              <FileName>event_management.c</FileName>
+              <FileName>ge_graphics_controller.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Engine\Src\event_management.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_graphics_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>ge_layer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_layer.c</FilePath>
+            </File>
+            <File>
+              <FileName>ge_stage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_stage.c</FilePath>
             </File>
             <File>
               <FileName>layer_management.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Engine\Src\layer_management.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\layer_management.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -817,7 +827,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User;.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\Engine\Inc</IncludePath>
+              <IncludePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User;.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -932,14 +942,24 @@
           <GroupName>Engine</GroupName>
           <Files>
             <File>
-              <FileName>event_management.c</FileName>
+              <FileName>ge_graphics_controller.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Engine\Src\event_management.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_graphics_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>ge_layer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_layer.c</FilePath>
+            </File>
+            <File>
+              <FileName>ge_stage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_stage.c</FilePath>
             </File>
             <File>
               <FileName>layer_management.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Engine\Src\layer_management.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\layer_management.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -132,7 +132,7 @@ static void _register_stage_to_player(arm_2d_scene_player_t *ptDispAdapter, ge_s
     arm_2d_scene_player_append_scenes(ptDispAdapter, &this.use_as__arm_2d_scene_t, 1);
 }
 
-ge_stage_t *_ge_stage_init(ge_stage_t *ptThis)
+ge_stage_t *__ge_stage_init(ge_stage_t *ptThis)
 {
     rt_bool_t blsUserAllocated = RT_FALSE;
     if (ptThis == NULL)

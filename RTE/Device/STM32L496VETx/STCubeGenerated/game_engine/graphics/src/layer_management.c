@@ -8,8 +8,6 @@
  * 2023-07-08     AlgoOy     the first version
  */
 
-#include "layer_management.h"
-#include "__layer_management.h"
 #include "ge_graphics.h"
 #include "arm_2d.h"
 #include "arm_2d_helper.h"

@@ -31,6 +31,8 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
+void ge_graphics_controller_entry(void *ptParam);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__
@@ -42,3 +44,4 @@ extern "C" {
 #endif
  
  #endif
+ 

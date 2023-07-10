@@ -49,7 +49,8 @@ typedef struct ge_cell_t ge_cell_t;
  
 struct ge_layer_t
 {
-    ARM_PRIVATE(
+    ARM_PRIVATE
+    (
         rt_bool_t blsUserAllocated;
     )
     rt_uint16_t hwXCount;
