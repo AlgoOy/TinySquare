@@ -1,5 +1,5 @@
 ./objects/logo.o: \
-  RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\logo.c \
+  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\logo.c \
   RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
   RTE\_snake_v2\Pre_Include_Global.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d.h \

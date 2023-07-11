@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../Inc/snake.h"
+#include "snake.h"
 #include "key.h"
 
 static Game_State_Info gameState = {0};

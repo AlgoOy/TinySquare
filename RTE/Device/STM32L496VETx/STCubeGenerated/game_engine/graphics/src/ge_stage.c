@@ -167,7 +167,7 @@ ARM_NONNULL(1) ge_stage_t *__ge_stage_init(ge_display_adapter_t *ptDispAdapter, 
         .blsUserAllocated = blsUserAllocated,
     };
     
-    _register_player_to_gfx_ctrl(ptDispAdapter->ptPlayer);
+    //_register_player_to_gfx_ctrl(ptDispAdapter->ptPlayer);
 
     _register_stage_to_player(ptDispAdapter->ptPlayer, ptThis);
     

@@ -20,7 +20,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32l4xx_it.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -187,7 +186,7 @@ void SysTick_Handler(void)
 	extern void rt_os_tick_callback(void);
 	rt_os_tick_callback();
   /* USER CODE END SysTick_IRQn 0 */
-  // HAL_IncTick();
+    HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
   /* USER CODE END SysTick_IRQn 1 */

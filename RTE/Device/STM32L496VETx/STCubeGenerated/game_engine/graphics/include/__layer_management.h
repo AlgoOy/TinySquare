@@ -19,16 +19,6 @@ extern "C" {
 #include "rtthread.h"
 #include "arm_2d.h"
 
-typedef enum {
-	Obj_Not_Initial = 0x00,
-	Obj_Initial = 0x01,
-} Obj_State;
-
-typedef enum {
-	Game_Engine_EOK = 0x00,
-	Game_Engine_Err = 0x01,
-} GameEngineStatus;
-
 typedef struct stage_t {
 	arm_2d_scene_t scene;
 	layer_t *ptLayer;

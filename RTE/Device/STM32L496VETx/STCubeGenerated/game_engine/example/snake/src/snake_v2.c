@@ -2,6 +2,7 @@
 #include "snake_v2.h"
 #include "rtthread.h"
 #include "layer_management.h"
+#include "perf_counter.h"
 
 static cell_t cells[CellsXCount * CellsYCount] = {0};
 static layer_t layer = {0};
@@ -26,8 +27,8 @@ struct {
 struct {
 	point_t loc;
 	enum {
-		Exist = 0x00,
-		notExist = 0x01,
+		notExist = 0x00,
+		Exist = 0x01,
 	} state;
 } fruit = {0};
 
@@ -56,7 +57,7 @@ static void draw_fruit (rt_uint16_t pos) {
 static void create_fruit(void) {
 	if (fruit.state != Exist) {
 		do {
-			srand(arm_2d_helper_get_system_timestamp());
+			srand((unsigned) get_system_ticks());
 			fruit.loc.x = (uint8_t)rand() % CellsXCount;
 			fruit.loc.y = (uint8_t)rand() % CellsYCount;
 		} while(bls_map[pos_cal(fruit.loc)] == 1);
@@ -82,7 +83,7 @@ static void snake_init(void) {
 
 static void game_init(void) {
 	layer.hwXCount = CellsXCount;
-	layer.hwYCount = CellsXCount;
+	layer.hwYCount = CellsYCount;
 	layer.ptCells = cells;
 	
 	register_layer(&layer);
@@ -127,22 +128,25 @@ static void set_snake_direction(void) {
 }
 
 static void game_logic(void){
-	point_t newHead = {snake.bodyloc[snake.length-1].x, snake.bodyloc[snake.length-1].y};
+	point_t newHead = (point_t){
+                .x = snake.bodyloc[snake.length-1].x,
+                .y = snake.bodyloc[snake.length-1].y,
+    };
 	//memcpy(&newHead, &snake.bodyloc[snake.length-1], sizeof(point_t));
 	
 	set_snake_direction();
 	switch(snake.direction) {
 		case Up:
-			newHead.y--;
-			break;
-		case Down:
-			newHead.y++;
-			break;
-		case Left:
 			newHead.x--;
 			break;
-		case Right:
+		case Down:
 			newHead.x++;
+			break;
+		case Left:
+			newHead.y--;
+			break;
+		case Right:
+			newHead.y++;
 			break;
 		default:
 			break;
@@ -170,6 +174,8 @@ static void game_logic(void){
 			memcpy(&snake.bodyloc[i-1], &snake.bodyloc[i],sizeof(point_t));
 		}
 		memcpy(&snake.bodyloc[snake.length-1], &newHead, sizeof(point_t));
+        bls_map[pos_cal(snake.bodyloc[snake.length-1])] = 1;
+        draw_snake_body(pos_cal(snake.bodyloc[snake.length-1]));
 	}
 }
 

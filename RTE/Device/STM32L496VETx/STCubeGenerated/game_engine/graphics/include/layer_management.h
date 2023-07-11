@@ -18,6 +18,16 @@ extern "C" {
 #include "rtthread.h"
 #include "arm_2d_helper.h"
 
+typedef enum {
+	Obj_Not_Initial = 0x00,
+	Obj_Initial = 0x01,
+} Obj_State;
+
+typedef enum {
+	Game_Engine_EOK = 0x00,
+	Game_Engine_Err = 0x01,
+} GameEngineStatus;
+
 typedef struct cell_t {
 	__arm_2d_color_t tColor;
 	uint8_t chOpacity;
@@ -33,6 +43,7 @@ typedef struct layer_t {
 void GameEngineEntry(void *param);
 void register_layer(layer_t *layer);
 void apply_for_refresh (void);
+GameEngineStatus engine_init(void);
 
 #ifdef __cplusplus
 }

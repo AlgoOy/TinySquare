@@ -21,6 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdio.h"
 #include "lcd.h"
 #include "key.h"
 #include "snake.h"
@@ -41,7 +42,10 @@
 #define THREAD_TIMESLICE        100
 
 static volatile int64_t s_lTimeStamp;
+/* USER CODE END Includes */
 
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
 __OVERRIDE_WEAK
 void arm_2d_helper_perf_counter_start(void)
 {
@@ -53,6 +57,20 @@ int32_t arm_2d_helper_perf_counter_stop(void)
 {
     return (int32_t)(get_system_ticks() - s_lTimeStamp);
 }
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+extern 
+int32_t Disp0_DrawBitmap(int16_t x, 
+                        int16_t y, 
+                        int16_t width, 
+                        int16_t height, 
+                        const uint8_t *bitmap);
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -93,36 +111,42 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+    HAL_Init();
 
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
-  SystemClock_Config();
+    SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
 	//SystemCoreClock = 80000000ul;
+    SystemCoreClockUpdate();
 	init_cycle_counter(true);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-	LCD_Init();
-	Key_Init();
+    MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  	LCD_Init();
+	Key_Init();
 	arm_irq_safe {
 			arm_2d_init();
 	}
-  /* USER CODE END 2 */	
-	
-	rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL, gameTid = RT_NULL;
+    
+    if(engine_init() != Game_Engine_EOK) {
+        while(1);
+    }
+    
+    rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL, gameTid = RT_NULL;
 	
 	engineTid = rt_thread_create("engine", GameEngineEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
 	if (engineTid != RT_NULL) {
 		rt_thread_startup(engineTid);
-	}
+	} else {
+        while(1);
+    }
 	
 //	eventTid = rt_thread_create("event", EventProcessEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-1, THREAD_TIMESLICE);
 //	if (eventTid != RT_NULL) {
@@ -132,35 +156,10 @@ int main(void)
 	gameTid = rt_thread_create("game", SnakeGameEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-2, THREAD_TIMESLICE);
 	if (gameTid != RT_NULL) {
 		rt_thread_startup(gameTid);
-	}
-	
-#if 0
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-	disp_adapter0_init();
-	arm_2d_scene0_init(&DISP0_ADAPTER);
-	arm_2d_scene1_init(&DISP0_ADAPTER);
-	arm_2d_scene2_init(&DISP0_ADAPTER);
-//	arm_2d_scene_player_set_switching_mode(&DISP0_ADAPTER, ARM_2D_SCENE_SWITCH_MODE_NONE);
-//	arm_2d_scene_player_set_switching_period(&DISP0_ADAPTER, 3000);
-//	arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
-	
-	
-	
-  while (1)
-  {
-		disp_adapter0_task();
-    /* USER CODE END WHILE */
-		
-    /* USER CODE BEGIN 3 */
-//		LCD_Clear(WHITE);
-//		HAL_Delay(1000);
-//		LCD_Clear(BLACK);
-//		HAL_Delay(1000);
-  }
-  /* USER CODE END 3 */
-  
-#endif
+	}else {
+        while(1);
+    }
+    
 }
 
 /**
@@ -221,6 +220,8 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
 }
 

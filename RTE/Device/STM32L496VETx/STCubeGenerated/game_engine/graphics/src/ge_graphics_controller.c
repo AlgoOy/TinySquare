@@ -72,7 +72,7 @@ static rt_err_t _gfx_init(ge_gfx_ctrl_t *ptThis)
         return RT_ERROR;
     }
     
-    this.blsInitialized = RT_TRUE;
+    this.chInitialState = RT_TRUE;
     return RT_EOK;
 }
     
@@ -82,7 +82,7 @@ void ge_graphics_controller_entry(void *ptParam)
     ge_gfx_ctrl_t sGfxController = {0};
     ge_gfx_ctrl_t *ptThis = &sGfxController;
     
-    this.blsInitialized = RT_FALSE;
+    this.chInitialState = RT_FALSE;
     
     while (_gfx_init(ptThis) != RT_EOK)
     {

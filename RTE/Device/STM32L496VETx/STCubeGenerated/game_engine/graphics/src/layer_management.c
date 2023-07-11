@@ -12,9 +12,10 @@
 #include "arm_2d.h"
 #include "arm_2d_helper.h"
 #include "arm_2d_scenes.h"
+#include "layer_management.h"
+#include "__layer_management.h"
 
 static ecb_t ecb = {0};
-Obj_State engine_state = Obj_Not_Initial;
 
 // TODO: DISP0_ADAPTER
 GameEngineStatus player_init(void) {
@@ -69,9 +70,6 @@ GameEngineStatus scene_init (void) {
 }
 
 GameEngineStatus stage_init(void) {
-	if(ecb.stage != NULL) {
-		return Game_Engine_EOK;
-	}
 	ecb.stage = (stage_t *)malloc(sizeof(stage_t));
 	if (ecb.stage == NULL) {
 		return Game_Engine_Err;
@@ -86,17 +84,15 @@ GameEngineStatus stage_init(void) {
 }
 
 GameEngineStatus refresh_init(void) {
-	if(ecb.refresh.sem_req == RT_NULL) {
-		ecb.refresh.sem_req = rt_sem_create("engineReq", 0, RT_IPC_FLAG_FIFO);
-	}
+    ecb.refresh.sem_req = rt_sem_create("engineReq", 0, RT_IPC_FLAG_FIFO);
+    if(ecb.refresh.sem_req == RT_NULL) {
+        return Game_Engine_Err;
+    }
 	
+    ecb.refresh.sem_rsp = rt_sem_create("engineRsp", 0, RT_IPC_FLAG_FIFO);
 	if(ecb.refresh.sem_rsp == RT_NULL) {
-		ecb.refresh.sem_rsp = rt_sem_create("engineRsp", 0, RT_IPC_FLAG_FIFO);
-	}
-	
-	if (ecb.refresh.sem_req == RT_NULL || ecb.refresh.sem_rsp == RT_NULL) {
-		return Game_Engine_Err;
-	}
+        return Game_Engine_Err;
+    }
 	
 	return Game_Engine_EOK;
 }
@@ -114,24 +110,14 @@ GameEngineStatus engine_init(void) {
 		return Game_Engine_Err;
 	}
 	
-	ecb.chState = Obj_Initial;
-	engine_state = Obj_Initial;
-	
 	return Game_Engine_EOK;
 }
 
 void register_layer(layer_t *layer) {
-	if(engine_state == Obj_Not_Initial) {
-		engine_init();
-	}
 	ecb.stage->ptLayer = layer;
 }
 
-void apply_for_refresh(void) {
-	if(engine_state == Obj_Not_Initial) {
-		engine_init();
-	}
-	
+void apply_for_refresh(void) {	
 	while(rt_sem_release(ecb.refresh.sem_req) != RT_EOK);
 	while(rt_sem_take(ecb.refresh.sem_rsp, RT_WAITING_FOREVER) != RT_EOK);
 }
@@ -153,8 +139,8 @@ GameEngineStatus refresh_stage(const arm_2d_tile_t *ptTile){
 					},
 				},
 			}, 
-			ecb.stage->ptLayer->ptCells->tColor,
-			ecb.stage->ptLayer->ptCells->chOpacity
+			ecb.stage->ptLayer->ptCells[i].tColor,
+			ecb.stage->ptLayer->ptCells[i].chOpacity
 		);
 		arm_2d_op_wait_async(NULL);
 	}
@@ -181,14 +167,7 @@ GameEngineStatus refresh_stage(const arm_2d_tile_t *ptTile){
 }
 
 void GameEngineEntry(void *param) {
-	if(engine_state == Obj_Not_Initial) {
-		if(engine_init() != Game_Engine_EOK) {
-			// error handle
-			while(1);
-		}
-	}
-	
-	while(1) {
+    while(1) {
 		while(rt_sem_take(ecb.refresh.sem_req, RT_WAITING_FOREVER) != RT_EOK);
 		
 		while(disp_adapter0_task() != arm_fsm_rt_cpl);

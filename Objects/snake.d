@@ -1,9 +1,9 @@
 ./objects/snake.o: \
-  RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\snake.c \
+  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake.c \
   RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
   RTE\_snake_v2\Pre_Include_Global.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\..\Inc\snake.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\include\snake.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_types.h \

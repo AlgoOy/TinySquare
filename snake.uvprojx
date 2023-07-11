@@ -475,11 +475,6 @@
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\layer_management.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_scene_template.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\arm_2d_scene_template.c</FilePath>
-            </File>
-            <File>
               <FileName>ge_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_common.c</FilePath>
@@ -491,6 +486,9 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -972,11 +970,6 @@
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\layer_management.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_scene_template.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\arm_2d_scene_template.c</FilePath>
-            </File>
-            <File>
               <FileName>ge_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_common.c</FilePath>
@@ -988,6 +981,9 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -1098,8 +1094,29 @@
           <targetInfo name="snake_v2"/>
         </targetInfos>
       </component>
-      <component Cclass="Utilities" Cgroup="perf_counter" Csub="Core" Cvariant="Library" Cvendor="GorgonMeducer" Cversion="2.2.2" condition="CMSIS-CORE">
+      <component Cclass="Utilities" Cgroup="perf_counter" Csub="Core" Cvariant="Source" Cvendor="GorgonMeducer" Cversion="2.2.2" condition="CMSIS-CORE">
         <package name="perf_counter" schemaVersion="1.7.7" url="https://raw.githubusercontent.com/GorgonMeducer/perf_counter/CMSIS-Pack/cmsis-pack/" vendor="GorgonMeducer" version="2.2.2"/>
+        <targetInfos>
+          <targetInfo name="snake"/>
+          <targetInfo name="snake_v2"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
+        <targetInfos>
+          <targetInfo name="snake"/>
+          <targetInfo name="snake_v2"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
+        <targetInfos>
+          <targetInfo name="snake"/>
+          <targetInfo name="snake_v2"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
         <targetInfos>
           <targetInfo name="snake"/>
           <targetInfo name="snake_v2"/>

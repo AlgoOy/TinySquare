@@ -429,7 +429,7 @@ DMA2D_IRQHandler
 
                  ELSE
 
-                 IMPORT  __use_two_region_memory
+                 ;IMPORT  __use_two_region_memory
                  EXPORT  __user_initial_stackheap
 
 __user_initial_stackheap
