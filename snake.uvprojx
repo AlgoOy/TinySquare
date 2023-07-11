@@ -405,29 +405,29 @@
           <GroupName>User</GroupName>
           <Files>
             <File>
-              <FileName>snake.c</FileName>
+              <FileName>body.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\snake.c</FilePath>
-            </File>
-            <File>
-              <FileName>logo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\logo.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\body.c</FilePath>
             </File>
             <File>
               <FileName>fruit.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\fruit.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\fruit.c</FilePath>
             </File>
             <File>
-              <FileName>body.c</FileName>
+              <FileName>logo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\body.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\logo.c</FilePath>
+            </File>
+            <File>
+              <FileName>snake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake.c</FilePath>
             </File>
             <File>
               <FileName>snake_v2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\snake_v2.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake_v2.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -473,6 +473,11 @@
               <FileName>layer_management.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\layer_management.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_scene_template.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\arm_2d_scene_template.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -827,7 +832,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User;.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\include</IncludePath>
+              <IncludePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User;.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\include;.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\event\include;.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -892,29 +897,29 @@
           <GroupName>User</GroupName>
           <Files>
             <File>
-              <FileName>snake.c</FileName>
+              <FileName>body.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\snake.c</FilePath>
-            </File>
-            <File>
-              <FileName>logo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\logo.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\body.c</FilePath>
             </File>
             <File>
               <FileName>fruit.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\fruit.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\fruit.c</FilePath>
             </File>
             <File>
-              <FileName>body.c</FileName>
+              <FileName>logo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\body.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\logo.c</FilePath>
+            </File>
+            <File>
+              <FileName>snake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake.c</FilePath>
             </File>
             <File>
               <FileName>snake_v2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Src\snake_v2.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake_v2.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -960,6 +965,11 @@
               <FileName>layer_management.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\layer_management.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_scene_template.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\arm_2d_scene_template.c</FilePath>
             </File>
           </Files>
         </Group>
