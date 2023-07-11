@@ -127,12 +127,13 @@ static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_handler)
     return arm_fsm_rt_cpl;
 }
 
-static void _register_stage_to_player(arm_2d_scene_player_t *ptDispAdapter, ge_stage_t *ptThis)
+static void _register_stage_to_player(arm_2d_scene_player_t *ptPlayer, ge_stage_t *ptThis)
 {
-    arm_2d_scene_player_append_scenes(ptDispAdapter, &this.use_as__arm_2d_scene_t, 1);
+    arm_2d_scene_player_append_scenes(ptPlayer, &this.use_as__arm_2d_scene_t, 1);
 }
 
-ge_stage_t *__ge_stage_init(ge_stage_t *ptThis)
+
+ARM_NONNULL(1) ge_stage_t *__ge_stage_init(ge_display_adapter_t *ptDispAdapter, ge_stage_t *ptThis)
 {
     rt_bool_t blsUserAllocated = RT_FALSE;
     if (ptThis == NULL)
@@ -165,8 +166,10 @@ ge_stage_t *__ge_stage_init(ge_stage_t *ptThis)
         },
         .blsUserAllocated = blsUserAllocated,
     };
+    
+    _register_player_to_gfx_ctrl(ptDispAdapter->ptPlayer);
 
-    _register_stage_to_player(&DISP0_ADAPTER, ptThis);
+    _register_stage_to_player(ptDispAdapter->ptPlayer, ptThis);
     
     return ptThis;
 }

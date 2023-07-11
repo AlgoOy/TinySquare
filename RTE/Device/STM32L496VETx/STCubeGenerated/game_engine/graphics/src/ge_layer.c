@@ -68,6 +68,8 @@ ARM_NONNULL(1) ge_layer_t *__ge_layer_register(ge_stage_t *ptStage, ge_layer_t *
     *ptThis = (ge_layer_t){
         .blsUserAllocated = blsUserAllocated,
     };
+    
+    ptStage->ptLayer = ptThis;
 
     return ptThis;
 }

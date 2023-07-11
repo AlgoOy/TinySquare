@@ -7,7 +7,7 @@
  * Date           Author     Notes
  * 2023-07-08     AlgoOy     the first version
  */
-
+ 
 #define __GE_COMMON_IMPLEMENT__
 #include "__ge_common.h"
  
@@ -42,56 +42,18 @@
 #undef this
 #define this (*ptThis)
     
-static rt_err_t _gfx_refresh_sem_init(ge_gfx_ctrl_t *ptThis)
+ge_fsm_rt_t get_ge_initial_state()
 {
-    if (this.tRefresh.ptSemWaitReq != RT_NULL)
+    static ge_fsm_rt_t sGeInitialState = ge_fsm_rt_on_start;
+    
+    switch (sGeInitialState)
     {
-        this.tRefresh.ptSemWaitReq = rt_sem_create("geWaitReq", 0, RT_IPC_FLAG_FIFO);
-        if (this.tRefresh.ptSemWaitReq == RT_NULL)
-        {
-            return RT_ERROR;
-        }
-    }
-    
-    if (this.tRefresh.ptSemGiveRsp != RT_NULL)
-    {
-        this.tRefresh.ptSemGiveRsp = rt_sem_create("geGiveRsp", 0, RT_IPC_FLAG_FIFO);
-        if (this.tRefresh.ptSemGiveRsp == RT_NULL)
-        {
-            return RT_ERROR;
-        }
-    }
-    
-    return RT_EOK;
-}
-
-static rt_err_t _gfx_init(ge_gfx_ctrl_t *ptThis)
-{
-    if (_gfx_refresh_sem_init(ptThis) != RT_EOK)
-    {
-        return RT_ERROR;
-    }
-    
-    this.blsInitialized = RT_TRUE;
-    return RT_EOK;
-}
-    
-void ge_graphics_controller_entry(void *ptParam)
-{
-    ARM_2D_UNUSED(ptParam);
-    ge_gfx_ctrl_t sGfxController = {0};
-    ge_gfx_ctrl_t *ptThis = &sGfxController;
-    
-    this.blsInitialized = RT_FALSE;
-    
-    while (_gfx_init(ptThis) != RT_EOK)
-    {
-        // todo:err handle
-    }
-    
-    while(1)
-    {
-        
+    case ge_fsm_rt_on_start:
+        return ge_fsm_rt_on_start;
+    case ge_fsm_rt_on_going:
+        return ge_fsm_rt_on_going;
+    case ge_fsm_rt_on_cpl:
+        return ge_fsm_rt_on_cpl;
     }
 }
     

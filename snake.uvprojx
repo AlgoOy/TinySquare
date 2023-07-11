@@ -479,6 +479,11 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\arm_2d_scene_template.c</FilePath>
             </File>
+            <File>
+              <FileName>ge_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_common.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -970,6 +975,11 @@
               <FileName>arm_2d_scene_template.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\arm_2d_scene_template.c</FilePath>
+            </File>
+            <File>
+              <FileName>ge_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_common.c</FilePath>
             </File>
           </Files>
         </Group>

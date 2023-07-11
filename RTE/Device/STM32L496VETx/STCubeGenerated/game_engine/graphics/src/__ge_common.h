@@ -43,24 +43,31 @@ extern "C" {
 #endif
 #include "arm_2d_utils.h"
 
-struct ge_surface_t
+enum ge_fsm_rt_t
 {
-    struct ge_surface_t *ptNext;
-    arm_2d_scene_player_t *ptPlayer;
-    ge_stage_t *ptStage;
+    ge_fsm_rt_on_start = 0x00,
+    ge_fsm_rt_on_going = 0x01,
+    ge_fsm_rt_on_cpl = 0x02,
+};
+typedef enum ge_fsm_rt_t ge_fsm_rt_t;
+
+struct _ge_player_t
+{
+    struct _ge_player_t *ptNext;
+    ge_display_adapter_t *ptDispAdapter;
 };
 
 struct ge_gfx_ctrl_t
 {
     ARM_PRIVATE
     (
-        rt_bool_t blsInitialized;
+        rt_uint8_t chInitialState;
         struct
         {
             rt_sem_t ptSemWaitReq;
             rt_sem_t ptSemGiveRsp;
         } tRefresh;
-        struct ge_surface_t tSurface;
+        struct _ge_player_t ptDispList;
     )
 };
 typedef struct ge_gfx_ctrl_t ge_gfx_ctrl_t;

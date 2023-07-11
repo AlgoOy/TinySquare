@@ -53,10 +53,8 @@ struct ge_stage_t
 typedef struct ge_stage_t ge_stage_t;
 
 #define ge_layer_register(__GE_STAGE_PTR, ...) __ge_layer_register((__GE_STAGE_PTR), (NULL, ##__VA_ARGS__))
-#define ge_stage_init(...) __ge_stage_init((NULL, ##__VA_ARGS__))
 
 ARM_NONNULL(1) ge_layer_t *__ge_layer_register(ge_stage_t *ptStage, ge_layer_t *ptLayer);
-ge_stage_t *__ge_stage_init(ge_stage_t *ptStage);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
