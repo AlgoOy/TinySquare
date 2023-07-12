@@ -10,8 +10,8 @@
 
 #include "arm_2d.h"
 
-#define __GE_LAYER_IMPLEMENT__
-#include "__ge_common.h"
+#define __TNSQ_LAYER_IMPLEMENT__
+#include "__tnsq_common.h"
 
 #include <stdlib.h>
 #include <string.h>

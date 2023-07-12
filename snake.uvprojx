@@ -407,27 +407,27 @@
             <File>
               <FileName>body.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\body.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\body.c</FilePath>
             </File>
             <File>
               <FileName>fruit.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\fruit.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\fruit.c</FilePath>
             </File>
             <File>
               <FileName>logo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\logo.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\logo.c</FilePath>
             </File>
             <File>
               <FileName>snake.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
             </File>
             <File>
               <FileName>snake_v2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake_v2.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake_v2.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -452,32 +452,52 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Engine</GroupName>
+          <GroupName>gfx</GroupName>
           <Files>
-            <File>
-              <FileName>ge_graphics_controller.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_graphics_controller.c</FilePath>
-            </File>
-            <File>
-              <FileName>ge_layer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_layer.c</FilePath>
-            </File>
-            <File>
-              <FileName>ge_stage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_stage.c</FilePath>
-            </File>
             <File>
               <FileName>layer_management.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\layer_management.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\layer_management.c</FilePath>
             </File>
             <File>
-              <FileName>ge_common.c</FileName>
+              <FileName>tnsq_graphics_controller.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_common.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_graphics_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_layer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_layer.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_stage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_stage.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_disp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_disp.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>event</GroupName>
+          <Files>
+            <File>
+              <FileName>event_management.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\event_management.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_event_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_event_controller.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -835,7 +855,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User;.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\include;.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\event\include;.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\include</IncludePath>
+              <IncludePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\User;.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\User\Inc;.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square;.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics;.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event;.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -902,27 +922,27 @@
             <File>
               <FileName>body.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\body.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\body.c</FilePath>
             </File>
             <File>
               <FileName>fruit.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\fruit.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\fruit.c</FilePath>
             </File>
             <File>
               <FileName>logo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\logo.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\logo.c</FilePath>
             </File>
             <File>
               <FileName>snake.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
             </File>
             <File>
               <FileName>snake_v2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake_v2.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake_v2.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -947,32 +967,52 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Engine</GroupName>
+          <GroupName>gfx</GroupName>
           <Files>
-            <File>
-              <FileName>ge_graphics_controller.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_graphics_controller.c</FilePath>
-            </File>
-            <File>
-              <FileName>ge_layer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_layer.c</FilePath>
-            </File>
-            <File>
-              <FileName>ge_stage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_stage.c</FilePath>
-            </File>
             <File>
               <FileName>layer_management.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\layer_management.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\layer_management.c</FilePath>
             </File>
             <File>
-              <FileName>ge_common.c</FileName>
+              <FileName>tnsq_graphics_controller.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_common.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_graphics_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_layer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_layer.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_stage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_stage.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_disp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_disp.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>event</GroupName>
+          <Files>
+            <File>
+              <FileName>event_management.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\event_management.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_event_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_event_controller.c</FilePath>
             </File>
           </Files>
         </Group>

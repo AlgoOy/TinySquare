@@ -476,7 +476,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\body.c</PathWithFileName>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\body.c</PathWithFileName>
       <FilenameWithoutPath>body.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -488,7 +488,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\fruit.c</PathWithFileName>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\fruit.c</PathWithFileName>
       <FilenameWithoutPath>fruit.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -500,7 +500,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\logo.c</PathWithFileName>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\logo.c</PathWithFileName>
       <FilenameWithoutPath>logo.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -512,7 +512,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake.c</PathWithFileName>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</PathWithFileName>
       <FilenameWithoutPath>snake.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -524,7 +524,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake_v2.c</PathWithFileName>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake_v2.c</PathWithFileName>
       <FilenameWithoutPath>snake_v2.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -576,7 +576,7 @@
   </Group>
 
   <Group>
-    <GroupName>Engine</GroupName>
+    <GroupName>gfx</GroupName>
     <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -588,8 +588,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_graphics_controller.c</PathWithFileName>
-      <FilenameWithoutPath>ge_graphics_controller.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\layer_management.c</PathWithFileName>
+      <FilenameWithoutPath>layer_management.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -600,8 +600,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_layer.c</PathWithFileName>
-      <FilenameWithoutPath>ge_layer.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_graphics_controller.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_graphics_controller.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -612,8 +612,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_stage.c</PathWithFileName>
-      <FilenameWithoutPath>ge_stage.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_layer.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_layer.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -624,8 +624,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\layer_management.c</PathWithFileName>
-      <FilenameWithoutPath>layer_management.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_stage.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_stage.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -636,8 +636,52 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\src\ge_common.c</PathWithFileName>
-      <FilenameWithoutPath>ge_common.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_init.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_init.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>4</GroupNumber>
+      <FileNumber>17</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_disp.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_disp.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>event</GroupName>
+    <tvExp>1</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>18</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\event_management.c</PathWithFileName>
+      <FilenameWithoutPath>event_management.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>19</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_event_controller.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_event_controller.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

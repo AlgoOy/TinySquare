@@ -10,8 +10,8 @@
 
 #include "arm_2d.h"
 
-#define __GE_STAGE_IMPLEMENT__
-#include "__ge_common.h"
+#define __TNSQ_STAGE_IMPLEMENT__
+#include "__tnsq_common.h"
 
 #include "arm_2d_helper.h"
 #include "arm_extra_controls.h"
@@ -127,18 +127,21 @@ static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_handler)
     return arm_fsm_rt_cpl;
 }
 
-static void _register_stage_to_player(arm_2d_scene_player_t *ptPlayer, ge_stage_t *ptThis)
+static void _register_stage_to_player(arm_2d_scene_player_t *ptPlayer, tnsq_stage_t *ptThis)
 {
     arm_2d_scene_player_append_scenes(ptPlayer, &this.use_as__arm_2d_scene_t, 1);
 }
 
 
-ARM_NONNULL(1) ge_stage_t *__ge_stage_init(ge_display_adapter_t *ptDispAdapter, ge_stage_t *ptThis)
+ARM_NONNULL(1) tnsq_stage_t *__ge_stage_init(tnsq_stage_cfg_t *ptCFG, tnsq_stage_t *ptThis)
 {
+    assert(ptCFG != NULL);
+    
     rt_bool_t blsUserAllocated = RT_FALSE;
+    
     if (ptThis == NULL)
     {
-        ptThis = (ge_stage_t *)malloc(sizeof(ge_stage_t));
+        ptThis = (tnsq_stage_t *)malloc(sizeof(tnsq_stage_t));
         if (ptThis == NULL)
         {
             return NULL;
@@ -149,9 +152,9 @@ ARM_NONNULL(1) ge_stage_t *__ge_stage_init(ge_display_adapter_t *ptDispAdapter, 
         blsUserAllocated = RT_TRUE;
     }
 
-    memset(ptThis, 0, sizeof(ge_stage_t));
+    memset(ptThis, 0, sizeof(tnsq_stage_t));
 
-    *ptThis = (ge_stage_t){
+    *ptThis = (tnsq_stage_t){
         .use_as__arm_2d_scene_t = {
             .fnBackground   = &_pfb_draw_ge_stage_background_handler,
             .fnScene        = &_pfb_draw_ge_stage_handler,
@@ -164,12 +167,13 @@ ARM_NONNULL(1) ge_stage_t *__ge_stage_init(ge_display_adapter_t *ptDispAdapter, 
             .fnOnFrameCPL   = &_on_ge_stage_frame_complete,
             .fnDepose       = &_on_ge_stage_depose,
         },
+        .tStageCFG = *ptCFG,
         .blsUserAllocated = blsUserAllocated,
     };
     
     //_register_player_to_gfx_ctrl(ptDispAdapter->ptPlayer);
 
-    _register_stage_to_player(ptDispAdapter->ptPlayer, ptThis);
+    _register_stage_to_player(this.tStageCFG.ptDispAdapter.ptPlayer , ptThis);
     
     return ptThis;
 }

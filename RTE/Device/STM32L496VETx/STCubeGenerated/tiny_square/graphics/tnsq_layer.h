@@ -8,8 +8,8 @@
  * 2023-07-08     AlgoOy     the first version
  */
  
-#ifndef __GE_LAYER_H__
-#define __GE_LAYER_H__
+#ifndef __TNSQ_LAYER_H__
+#define __TNSQ_LAYER_H__
  
 #ifdef   __cplusplus
 extern "C" {
@@ -17,7 +17,7 @@ extern "C" {
 
 #include "rtdef.h"
 
-#include "ge_color.h"
+#include "tnsq_color.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -33,21 +33,21 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#ifdef __GE_LAYER_IMPLEMENT__
-#   undef __GE_LAYER_IMPLEMENT__
+#ifdef __TNSQ_LAYER_IMPLEMENT__
+#   undef __TNSQ_LAYER_IMPLEMENT__
 #   define __ARM_2D_IMPL__
 #endif
 #include "arm_2d_utils.h"
 
-struct ge_cell_t
+struct tnsq_cell_t
 {
-    ge_color_t tColor;
+    tnsq_color_t tColor;
     rt_uint8_t chOpacity;
     rt_bool_t blsDirty;
 };
-typedef struct ge_cell_t ge_cell_t;
+typedef struct tnsq_cell_t tnsq_cell_t;
  
-struct ge_layer_t
+struct tnsq_layer_t
 {
     ARM_PRIVATE
     (
@@ -55,9 +55,9 @@ struct ge_layer_t
     )
     rt_uint16_t hwXCount;
     rt_uint16_t hwYCount;
-    ge_cell_t *ptCells;
+    tnsq_cell_t *ptCells;
 };
-typedef struct ge_layer_t ge_layer_t;
+typedef struct tnsq_layer_t tnsq_layer_t;
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

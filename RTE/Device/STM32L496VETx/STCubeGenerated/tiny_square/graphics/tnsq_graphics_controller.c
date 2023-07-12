@@ -7,9 +7,9 @@
  * Date           Author     Notes
  * 2023-07-08     AlgoOy     the first version
  */
- 
-#define __GE_COMMON_IMPLEMENT__
-#include "__ge_common.h"
+
+#define __TNSQ_COMMON_IMPLEMENT__
+#include "__tnsq_common.h"
  
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -42,18 +42,33 @@
 #undef this
 #define this (*ptThis)
     
-ge_fsm_rt_t get_ge_initial_state()
+static rt_err_t _gfx_init(ge_gfx_ctrl_t *ptThis)
 {
-    static ge_fsm_rt_t sGeInitialState = ge_fsm_rt_on_start;
-    
-    switch (sGeInitialState)
+    if (_gfx_refresh_sem_init(ptThis) != RT_EOK)
     {
-    case ge_fsm_rt_on_start:
-        return ge_fsm_rt_on_start;
-    case ge_fsm_rt_on_going:
-        return ge_fsm_rt_on_going;
-    case ge_fsm_rt_on_cpl:
-        return ge_fsm_rt_on_cpl;
+        return RT_ERROR;
+    }
+    
+    this.chInitialState = RT_TRUE;
+    return RT_EOK;
+}
+    
+void ge_graphics_controller_entry(void *ptParam)
+{
+    ARM_2D_UNUSED(ptParam);
+    ge_gfx_ctrl_t sGfxController = {0};
+    ge_gfx_ctrl_t *ptThis = &sGfxController;
+    
+    this.chInitialState = RT_FALSE;
+    
+    while (_gfx_init(ptThis) != RT_EOK)
+    {
+        // todo:err handle
+    }
+    
+    while(1)
+    {
+        
     }
 }
     

@@ -8,18 +8,15 @@
  * 2023-07-08     AlgoOy     the first version
  */
  
-#ifndef __GE_STAGE_H__
-#define __GE_STAGE_H__
+#ifndef __TNSQ_GRAPHICS_H__
+#define __TNSQ_GRAPHICS_H__
 
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "rtdef.h"
-
-#include "arm_2d_helper_scene.h"
-
-#include "ge_layer.h"
+#include "tnsq_stage.h"
+#include "tiny_square_cfg.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -35,26 +32,8 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#ifdef __GE_STAGE_IMPLEMENT__
-#   undef __GE_STAGE_IMPLEMENT__
-#   define __ARM_2D_IMPL__
-#endif
-#include "arm_2d_utils.h"
-
-struct ge_stage_t
-{
-    ARM_PRIVATE
-	(
-        implement(arm_2d_scene_t);
-        rt_bool_t blsUserAllocated;
-    )
-    ge_layer_t *ptLayer;
-};
-typedef struct ge_stage_t ge_stage_t;
-
-#define ge_layer_register(__GE_STAGE_PTR, ...) __ge_layer_register((__GE_STAGE_PTR), (NULL, ##__VA_ARGS__))
-
-ARM_NONNULL(1) ge_layer_t *__ge_layer_register(ge_stage_t *ptStage, ge_layer_t *ptLayer);
+rt_err_t tnsq_init(void);
+void tnsq_graphics_controller_entry(void *ptParam);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
@@ -65,5 +44,6 @@ ARM_NONNULL(1) ge_layer_t *__ge_layer_register(ge_stage_t *ptStage, ge_layer_t *
 #ifdef   __cplusplus
 }
 #endif
-
+ 
 #endif
+ 
