@@ -11,6 +11,7 @@
 #include "arm_2d.h"
 
 #define __TNSQ_GFX_STAGE_IMPLEMENT__
+#define __TNSQ_GFX_LAYER_IMPLEMENT__
 #include "__tnsq_gfx_common.h"
 
 #include "arm_2d_helper.h"
@@ -34,7 +35,7 @@
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #   pragma clang diagnostic ignored "-Wunused-function"
-#   pragma clang diagnostic ignored "-Wmissing-declarations"  
+#   pragma clang diagnostic ignored "-Wmissing-declarations"
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #elif __IS_COMPILER_IAR__
 #   pragma diag_suppress=Pa089,Pe188,Pe177,Pe174
@@ -50,9 +51,9 @@
 #undef this
 #define this (*ptThis)
 
-static void _on_ge_stage_depose(arm_2d_scene_t *ptScene)
+static void _tnsq_gfx_on_stage_depose(arm_2d_scene_t *ptScene)
 {
-    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
+    tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
     
     this.use_as__arm_2d_scene_t.ptPlayer = NULL;
@@ -63,40 +64,40 @@ static void _on_ge_stage_depose(arm_2d_scene_t *ptScene)
     }
 }
 
-static void _on_ge_stage_background_start(arm_2d_scene_t *ptScene)
+static void _tnsq_gfx_on_stage_background_start(arm_2d_scene_t *ptScene)
 {
-    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
+    tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
-static void _on_ge_stage_background_complete(arm_2d_scene_t *ptScene)
+static void _tnsq_gfx_on_stage_background_complete(arm_2d_scene_t *ptScene)
 {
-    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
+    tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
 
-static void _on_ge_stage_frame_start(arm_2d_scene_t *ptScene)
+static void _tnsq_gfx_on_stage_frame_start(arm_2d_scene_t *ptScene)
 {
-    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
+    tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
-static void _on_ge_stage_frame_complete(arm_2d_scene_t *ptScene)
+static void _tnsq_gfx_on_stage_frame_complete(arm_2d_scene_t *ptScene)
 {
-    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
+    tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
-static void _before_ge_stage_switching_out(arm_2d_scene_t *ptScene)
+static void _tnsq_gfx_before_stage_switching_out(arm_2d_scene_t *ptScene)
 {
-    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
+    tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
-static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_background_handler)
+static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_background_handler)
 {
-    tnsq_stage_t *ptThis = (tnsq_stage_t *)pTarget;
+    tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)pTarget;
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
     /*-----------------------draw back ground begin-----------------------*/
@@ -109,9 +110,9 @@ static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_background_handler)
     return arm_fsm_rt_cpl;
 }
 
-static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_handler)
+static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
 {
-    tnsq_stage_t *ptThis = (tnsq_stage_t *)pTarget;
+    tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)pTarget;
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
     
@@ -127,13 +128,15 @@ static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_handler)
     return arm_fsm_rt_cpl;
 }
 
-static void _register_stage_to_disp_adapter(tnsq_stage_t *ptThis)
+static void _tnsq_gfx_register_stage_to_disp_adapter(tnsq_gfx_stage_t *ptThis)
 {
+    assert(ptThis != NULL);
+    
     arm_2d_scene_player_append_scenes(this.tStageCFG.ptDispAdapter.ptPlayer, &this.use_as__arm_2d_scene_t, 1);
 }
 
 
-ARM_NONNULL(1) tnsq_stage_t *__ge_stage_init(tnsq_stage_cfg_t *ptCFG, tnsq_stage_t *ptThis)
+ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptCFG, tnsq_gfx_stage_t *ptThis)
 {
     assert(ptCFG != NULL);
     
@@ -141,7 +144,7 @@ ARM_NONNULL(1) tnsq_stage_t *__ge_stage_init(tnsq_stage_cfg_t *ptCFG, tnsq_stage
     
     if (ptThis == NULL)
     {
-        ptThis = (tnsq_stage_t *)malloc(sizeof(tnsq_stage_t));
+        ptThis = (tnsq_gfx_stage_t *)malloc(sizeof(tnsq_gfx_stage_t));
         if (ptThis == NULL)
         {
             return NULL;
@@ -152,32 +155,53 @@ ARM_NONNULL(1) tnsq_stage_t *__ge_stage_init(tnsq_stage_cfg_t *ptCFG, tnsq_stage
         blsUserAllocated = RT_TRUE;
     }
 
-    memset(ptThis, 0, sizeof(tnsq_stage_t));
+    memset(ptThis, 0, sizeof(tnsq_gfx_stage_t));
 
-    *ptThis = (tnsq_stage_t){
+    *ptThis = (tnsq_gfx_stage_t){
         .use_as__arm_2d_scene_t = {
-            .fnBackground   = &_pfb_draw_ge_stage_background_handler,
-            .fnScene        = &_pfb_draw_ge_stage_handler,
+            .fnBackground   = &_tnsq_gfx_pfb_draw_stage_background_handler,
+            .fnScene        = &_tnsq_gfx_pfb_draw_stage_handler,
             //.ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
 
-            .fnOnBGStart    = &_on_ge_stage_background_start,
-            .fnOnBGComplete = &_on_ge_stage_background_complete,
-            .fnOnFrameStart = &_on_ge_stage_frame_start,
-            .fnBeforeSwitchOut = &_before_ge_stage_switching_out,
-            .fnOnFrameCPL   = &_on_ge_stage_frame_complete,
-            .fnDepose       = &_on_ge_stage_depose,
+            .fnOnBGStart    = &_tnsq_gfx_on_stage_background_start,
+            .fnOnBGComplete = &_tnsq_gfx_on_stage_background_complete,
+            .fnOnFrameStart = &_tnsq_gfx_on_stage_frame_start,
+            .fnBeforeSwitchOut = &_tnsq_gfx_before_stage_switching_out,
+            .fnOnFrameCPL   = &_tnsq_gfx_on_stage_frame_complete,
+            .fnDepose       = &_tnsq_gfx_on_stage_depose,
         },
-        .tStageCFG = *ptCFG,
         .blsUserAllocated = blsUserAllocated,
+        .tStageCFG = *ptCFG,
+        .ptLayersList = NULL,
     };
     
-    _register_disp_adapter_to_gfx_ctrl(ptThis, tnsq_get_gfx_ctrl());
+    tnsq_gfx_register_disp_adapter_to_crtl(tnsq_gfx_get_ctrl(), &ptCFG->ptDispAdapter);
 
-    _register_stage_to_disp_adapter(ptThis);
+    _tnsq_gfx_register_stage_to_disp_adapter(ptThis);
     
     return ptThis;
 }
 
+ARM_NONNULL(1, 2) void tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptThis, tnsq_gfx_layer_t *ptLayer)
+{
+    assert(ptThis != NULL);
+    assert(ptLayer != NULL);
+    
+    tnsq_gfx_layer_t *ptLayerListPtr = this.ptLayersList;
+    
+    if (ptLayerListPtr == NULL)
+    {
+        this.ptLayersList = ptLayer;
+    }
+    else
+    {
+        while (ptLayerListPtr->ptNext != NULL)
+        {
+            ptLayerListPtr = ptLayerListPtr->ptNext;
+        }
+        ptLayerListPtr->ptNext = ptLayer;
+    }
+}
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

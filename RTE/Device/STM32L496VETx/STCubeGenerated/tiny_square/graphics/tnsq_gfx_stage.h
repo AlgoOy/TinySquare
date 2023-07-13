@@ -59,20 +59,18 @@ struct tnsq_gfx_stage_t
     ARM_PRIVATE
 	(
         implement(arm_2d_scene_t);
-        tnsq_gfx_stage_cfg_t tStageCFG;
         rt_bool_t blsUserAllocated;
+        tnsq_gfx_stage_cfg_t tStageCFG;
+        tnsq_gfx_layer_t *ptLayersList;
     )
-    tnsq_layer_t *ptLayer;
 };
 typedef struct tnsq_gfx_stage_t tnsq_gfx_stage_t;
 
-#define tnsq_stage_init(__TNSQ_DISP_ADAPTER_PTR, ...) __tnsq_stage_init((__TNSQ_DISP_ADAPTER_PTR), (NULL, ##__VA_ARGS__))
+#define tnsq_gfx_stage_init(__TNSQ_GFX_STAGE_CFG_PTR, ...) __tnsq_gfx_stage_init((__TNSQ_GFX_STAGE_CFG_PTR), (NULL, ##__VA_ARGS__))
 
-ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_stage_init(tnsq_gfx_stage_cfg_t *ptStageCFG, tnsq_gfx_stage_t *ptStage);
+ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptStageCFG, tnsq_gfx_stage_t *ptStage);
 
-#define tnsq_layer_register(__TNSQ_STAGE_PTR, ...) __tnsq_layer_register((__TNSQ_STAGE_PTR), (NULL, ##__VA_ARGS__))
-
-ARM_NONNULL(1) tnsq_layer_t *__tnsq_layer_register(tnsq_gfx_stage_t *ptStage, tnsq_layer_t *ptLayer);
+ARM_NONNULL(1, 2) void tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptStage, tnsq_gfx_layer_t *ptLayer);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

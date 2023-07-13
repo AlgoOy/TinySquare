@@ -8,8 +8,7 @@
  * 2023-07-08     AlgoOy     the first version
  */
 
-#define __TNSQ_GFX_COMMON_IMPLEMENT__
-#include "__tnsq_gfx_common.h"
+#include "tnsq_snake.h"
  
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -42,53 +41,7 @@
 #undef this
 #define this (*ptThis)
     
-void tnsq_gfx_apply_for_refresh(void)
-{
-    tnsq_gfx_ctrl_t *ptThis = tnsq_gfx_get_ctrl();
-    
-    while (rt_sem_release(this.tRefresh.ptSemWaitReq) != RT_EOK)
-    {
-        /* error handle */
-    }
-    
-    while (rt_sem_take(this.tRefresh.ptSemGiveRsp, RT_WAITING_FOREVER) != RT_EOK)
-    {
-        /* error handle */
-    }
-}
-    
-void tnsq_gfx_task_entry(void *ptParam)
-{
-    ARM_2D_UNUSED(ptParam);
-    
-    tnsq_gfx_ctrl_t *ptThis = tnsq_gfx_get_ctrl();
-    
-    while (1)
-    {
-        while (rt_sem_take(this.tRefresh.ptSemWaitReq, RT_WAITING_FOREVER) != RT_EOK)
-        {
-            /* error handle */
-        }
-        
-        /* todo: if there many disp adapters waiting for run
-         * arm_2d_op_wait_async(disp_adapters_task());  ???
-         */
-        tnsq_gfx_disp_adapters_node_t *ptDispAdapterListPtr = this.ptDispAdapterList;
-        while (ptDispAdapterListPtr != NULL)
-        {
-            while (ptDispAdapterListPtr->ptDispAdapter.ptPlayerTask() != arm_fsm_rt_cpl)
-            {
-                /* waiting for task cpl */
-            }
-            ptDispAdapterListPtr = ptDispAdapterListPtr->ptNext;
-        }
-        
-        while (rt_sem_release(this.tRefresh.ptSemGiveRsp) != RT_EOK)
-        {
-            /* error handle */
-        }
-    }
-}
+
     
 #if defined(__clang__)
 #   pragma clang diagnostic pop

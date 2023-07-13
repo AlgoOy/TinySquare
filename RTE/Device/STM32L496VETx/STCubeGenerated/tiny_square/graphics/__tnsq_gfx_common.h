@@ -63,7 +63,7 @@ struct tnsq_gfx_ctrl_t
             rt_sem_t ptSemWaitReq;
             rt_sem_t ptSemGiveRsp;
         } tRefresh;
-        tnsq_gfx_disp_adapters_node_t *ptDispList;
+        tnsq_gfx_disp_adapters_node_t *ptDispAdapterList;
     )
 };
 typedef struct tnsq_gfx_ctrl_t tnsq_gfx_ctrl_t;

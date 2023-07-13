@@ -29,7 +29,7 @@
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #   pragma clang diagnostic ignored "-Wunused-function"
-#   pragma clang diagnostic ignored "-Wmissing-declarations"  
+#   pragma clang diagnostic ignored "-Wmissing-declarations"
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #elif __IS_COMPILER_IAR__
 #   pragma diag_suppress=Pa089,Pe188,Pe177,Pe174
@@ -47,7 +47,7 @@
     
 rt_err_t tnsq_init(void)
 {
-    if (tnsq_gfx_ctrl_init(tnsq_get_gfx_ctrl()) == RT_ERROR)
+    if (tnsq_gfx_ctrl_init(tnsq_gfx_get_ctrl()) == RT_ERROR)
     {
         return RT_ERROR;
     }

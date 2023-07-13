@@ -31,24 +31,24 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-typedef __arm_2d_color_t tnsq_color_t;
+typedef __arm_2d_color_t tnsq_gfx_color_t;
 
-#define TNSQ_COLOR_BLACK          (tnsq_color_t){GLCD_COLOR_BLACK}
-#define TNSQ_COLOR_NAVY           (tnsq_color_t){GLCD_COLOR_NAVY}
-#define TNSQ_COLOR_DARK_GREEN     (tnsq_color_t){GLCD_COLOR_DARK_GREEN}
-#define TNSQ_COLOR_DARK_CYAN      (tnsq_color_t){GLCD_COLOR_DARK_CYAN}
-#define TNSQ_COLOR_MAROON         (tnsq_color_t){GLCD_COLOR_MAROON}
-#define TNSQ_COLOR_PURPLE         (tnsq_color_t){GLCD_COLOR_PURPLE}
-#define TNSQ_COLOR_OLIVE          (tnsq_color_t){GLCD_COLOR_OLIVE}
-#define TNSQ_COLOR_LIGHT_GREY     (tnsq_color_t){GLCD_COLOR_LIGHT_GREY}
-#define TNSQ_COLOR_DARK_GREY      (tnsq_color_t){GLCD_COLOR_DARK_GREY}
-#define TNSQ_COLOR_BLUE           (tnsq_color_t){GLCD_COLOR_BLUE}
-#define TNSQ_COLOR_GREEN          (tnsq_color_t){GLCD_COLOR_GREEN}
-#define TNSQ_COLOR_CYAN           (tnsq_color_t){GLCD_COLOR_CYAN}
-#define TNSQ_COLOR_RED            (tnsq_color_t){GLCD_COLOR_RED}
-#define TNSQ_COLOR_MAGENTA        (tnsq_color_t){GLCD_COLOR_MAGENTA}
-#define TNSQ_COLOR_YELLOW         (tnsq_color_t){GLCD_COLOR_YELLOW}
-#define TNSQ_COLOR_WHITE          (tnsq_color_t){GLCD_COLOR_WHITE}
+#define TNSQ_GFX_COLOR_BLACK          (tnsq_gfx_color_t){GLCD_COLOR_BLACK}
+#define TNSQ_GFX_COLOR_NAVY           (tnsq_gfx_color_t){GLCD_COLOR_NAVY}
+#define TNSQ_GFX_COLOR_DARK_GREEN     (tnsq_gfx_color_t){GLCD_COLOR_DARK_GREEN}
+#define TNSQ_GFX_COLOR_DARK_CYAN      (tnsq_gfx_color_t){GLCD_COLOR_DARK_CYAN}
+#define TNSQ_GFX_COLOR_MAROON         (tnsq_gfx_color_t){GLCD_COLOR_MAROON}
+#define TNSQ_GFX_COLOR_PURPLE         (tnsq_gfx_color_t){GLCD_COLOR_PURPLE}
+#define TNSQ_GFX_COLOR_OLIVE          (tnsq_gfx_color_t){GLCD_COLOR_OLIVE}
+#define TNSQ_GFX_COLOR_LIGHT_GREY     (tnsq_gfx_color_t){GLCD_COLOR_LIGHT_GREY}
+#define TNSQ_GFX_COLOR_DARK_GREY      (tnsq_gfx_color_t){GLCD_COLOR_DARK_GREY}
+#define TNSQ_GFX_COLOR_BLUE           (tnsq_gfx_color_t){GLCD_COLOR_BLUE}
+#define TNSQ_GFX_COLOR_GREEN          (tnsq_gfx_color_t){GLCD_COLOR_GREEN}
+#define TNSQ_GFX_COLOR_CYAN           (tnsq_gfx_color_t){GLCD_COLOR_CYAN}
+#define TNSQ_GFX_COLOR_RED            (tnsq_gfx_color_t){GLCD_COLOR_RED}
+#define TNSQ_GFX_COLOR_MAGENTA        (tnsq_gfx_color_t){GLCD_COLOR_MAGENTA}
+#define TNSQ_GFX_COLOR_YELLOW         (tnsq_gfx_color_t){GLCD_COLOR_YELLOW}
+#define TNSQ_GFX_COLOR_WHITE          (tnsq_gfx_color_t){GLCD_COLOR_WHITE}
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

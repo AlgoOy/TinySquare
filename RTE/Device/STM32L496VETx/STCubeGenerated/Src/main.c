@@ -21,7 +21,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdio.h"
 #include "lcd.h"
 #include "key.h"
 #include "snake.h"
@@ -29,12 +28,10 @@
 #include "perf_counter.h"
 #include "arm_2d.h"
 #include "arm_2d_disp_adapters.h"
-#include "arm_2d_scenes.h"
 
 #include "rtthread.h"
 
-#include "layer_management.h"
-#include "event_management.h"
+#include "tiny_square.h"
 #include "snake_v2.h"
 
 #define THREAD_PRIORITY         25
@@ -64,13 +61,7 @@ int32_t arm_2d_helper_perf_counter_stop(void)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-extern 
-int32_t Disp0_DrawBitmap(int16_t x, 
-                        int16_t y, 
-                        int16_t width, 
-                        int16_t height, 
-                        const uint8_t *bitmap);
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -132,33 +123,30 @@ int main(void)
   	LCD_Init();
 	Key_Init();
 	arm_irq_safe {
-			arm_2d_init();
+        arm_2d_init();
+        tnsq_init();
 	}
-    
-    if(engine_init() != Game_Engine_EOK) {
-        while(1);
-    }
     
     rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL, gameTid = RT_NULL;
 	
-	engineTid = rt_thread_create("engine", GameEngineEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
+	engineTid = rt_thread_create("tnsq_gfx", tnsq_gfx_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
 	if (engineTid != RT_NULL) {
 		rt_thread_startup(engineTid);
 	} else {
         while(1);
     }
 	
-//	eventTid = rt_thread_create("event", EventProcessEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-1, THREAD_TIMESLICE);
+//	eventTid = rt_thread_create("tnsq_evt", tnsq_evt_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-1, THREAD_TIMESLICE);
 //	if (eventTid != RT_NULL) {
 //		rt_thread_startup(eventTid);
 //	}
 	
-	gameTid = rt_thread_create("game", SnakeGameEntry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-2, THREAD_TIMESLICE);
-	if (gameTid != RT_NULL) {
-		rt_thread_startup(gameTid);
-	}else {
-        while(1);
-    }
+//	gameTid = rt_thread_create("tnsq_snake", tnsq_snake_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-2, THREAD_TIMESLICE);
+//	if (gameTid != RT_NULL) {
+//		rt_thread_startup(gameTid);
+//	}else {
+//        while(1);
+//    }
     
 }
 

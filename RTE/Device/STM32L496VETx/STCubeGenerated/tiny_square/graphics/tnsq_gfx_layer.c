@@ -10,8 +10,8 @@
 
 #include "arm_2d.h"
 
-#define __TNSQ_LAYER_IMPLEMENT__
-#include "__tnsq_common.h"
+#define __TNSQ_GFX_LAYER_IMPLEMENT__
+#include "__tnsq_gfx_common.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -46,13 +46,16 @@
 
 #undef this
 #define this (*ptThis)
-
-ARM_NONNULL(1) ge_layer_t *__ge_layer_register(ge_stage_t *ptStage, ge_layer_t *ptThis)
+    
+ARM_NONNULL(1) tnsq_gfx_layer_t *__tnsq_gfx_layer_init(tnsq_gfx_layer_cfg_t *ptCFG, tnsq_gfx_layer_t *ptThis)
 {
+    assert(ptCFG != NULL);
+    
     rt_bool_t blsUserAllocated = RT_FALSE;
+    
     if (ptThis == NULL)
     {
-        ptThis = (ge_layer_t *)malloc(sizeof(ge_layer_t));
+        ptThis = (tnsq_gfx_layer_t *)malloc(sizeof(tnsq_gfx_layer_t));
         if (ptThis == NULL)
         {
             return NULL;
@@ -62,18 +65,21 @@ ARM_NONNULL(1) ge_layer_t *__ge_layer_register(ge_stage_t *ptStage, ge_layer_t *
     {
         blsUserAllocated = RT_TRUE;
     }
-
-    memset(ptThis, 0, sizeof(ge_layer_t));
-
-    *ptThis = (ge_layer_t){
+    
+    memset(ptThis, 0, sizeof(tnsq_gfx_layer_t));
+    
+    *ptThis = (tnsq_gfx_layer_t) {
         .blsUserAllocated = blsUserAllocated,
+        .tSize = {
+            .hwXCount = ptCFG->hwXCount,
+            .hwYCount = ptCFG->hwYCount,
+        },
+        .ptNext = NULL,
+        .ptCells = ptCFG->ptCells,
     };
     
-    ptStage->ptLayer = ptThis;
-
     return ptThis;
 }
-
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

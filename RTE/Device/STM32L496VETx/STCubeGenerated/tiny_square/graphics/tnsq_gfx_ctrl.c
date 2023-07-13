@@ -42,11 +42,11 @@
 #undef this
 #define this (*ptThis)
     
-static tnsq_gfx_ctrl_t sGfxController = {0};
+static tnsq_gfx_ctrl_t s_tGfxController = {0};
 
 tnsq_gfx_ctrl_t *tnsq_gfx_get_ctrl(void)
 {
-    return &sGfxController;
+    return &s_tGfxController;
 }
 
 /* Search for the specified display adapter in the display adapters list, if found, return RT_EOK, if not found, return RT_ERROR */
@@ -55,14 +55,14 @@ static rt_err_t _tnsq_gfx_query_disp_adapter(tnsq_gfx_ctrl_t const *ptThis, tnsq
     assert(ptThis != NULL);
     assert(ptDispAdapter != NULL);
     
-    tnsq_gfx_disp_adapters_node_t *ptDispListPtr = this.ptDispList;
-    while (ptDispListPtr != NULL)
+    tnsq_gfx_disp_adapters_node_t *ptDispAdapterListPtr = this.ptDispAdapterList;
+    while (ptDispAdapterListPtr != NULL)
     {
-        if (ptDispListPtr->ptDispAdapter.ptPlayer == ptDispAdapter->ptPlayer)
+        if (ptDispAdapterListPtr->ptDispAdapter.ptPlayer == ptDispAdapter->ptPlayer)
         {
             return RT_EOK;
         }
-        ptDispListPtr = ptDispListPtr->ptNext;
+        ptDispAdapterListPtr = ptDispAdapterListPtr->ptNext;
     }
     return RT_ERROR;
 }
@@ -84,36 +84,36 @@ static rt_err_t _tnsq_gfx_set_disp_adapter(tnsq_gfx_ctrl_t *ptThis, tnsq_gfx_dis
     ptNewDispNode->ptDispAdapter = *ptDispAdapter;
     ptNewDispNode->ptNext = NULL;
     
-    tnsq_gfx_disp_adapters_node_t *ptDispListPtr = this.ptDispList;
-    if (ptDispListPtr == NULL)
+    tnsq_gfx_disp_adapters_node_t *ptDispAdapterListPtr = this.ptDispAdapterList;
+    if (ptDispAdapterListPtr == NULL)
     {
-        this.ptDispList = ptNewDispNode;
+        this.ptDispAdapterList = ptNewDispNode;
     }
     else
     {
-        while (ptDispListPtr->ptNext != NULL)
+        while (ptDispAdapterListPtr->ptNext != NULL)
         {
-            ptDispListPtr = ptDispListPtr->ptNext;
+            ptDispAdapterListPtr = ptDispAdapterListPtr->ptNext;
         }
-        ptDispListPtr->ptNext = ptNewDispNode;
+        ptDispAdapterListPtr->ptNext = ptNewDispNode;
     }
     return RT_EOK;
 }
     
-tnsq_gfx_disp_adapters_node_t const *tnsq_get_disp_adapters_list(tnsq_gfx_ctrl_t const *ptThis)
+tnsq_gfx_disp_adapters_node_t const *tnsq_gfx_get_disp_adapters_list(tnsq_gfx_ctrl_t const *ptThis)
 {
     assert(ptThis != NULL);
-    return this.ptDispList;
+    return this.ptDispAdapterList;
 }
 
-rt_err_t tnsq_register_disp_adapters_to_gfx_crtl(tnsq_gfx_ctrl_t *ptThis, tnsq_gfx_disp_adapter_t const *ptDispAdapter)
+rt_err_t tnsq_gfx_register_disp_adapter_to_crtl(tnsq_gfx_ctrl_t *ptThis, tnsq_gfx_disp_adapter_t const *ptDispAdapter)
 {
     assert(ptThis != NULL);
     assert(ptDispAdapter != NULL);
     
-    if (_tnsq_query_disp_adapter(ptThis, ptDispAdapter) == RT_ERROR)
+    if (_tnsq_gfx_query_disp_adapter(ptThis, ptDispAdapter) == RT_ERROR)
     {
-        if (_tnsq_set_disp_adapter(ptThis, ptDispAdapter) == RT_ERROR)
+        if (_tnsq_gfx_set_disp_adapter(ptThis, ptDispAdapter) == RT_ERROR)
         {
             return RT_ERROR;
         }
@@ -122,16 +122,16 @@ rt_err_t tnsq_register_disp_adapters_to_gfx_crtl(tnsq_gfx_ctrl_t *ptThis, tnsq_g
     return RT_EOK;
 }
 
-void tnsq_destroy_disp_adapters_list(tnsq_gfx_ctrl_t *ptThis)
+void tnsq_gfx_destroy_disp_adapters_list(tnsq_gfx_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);
     
-    tnsq_gfx_disp_adapters_node_t *ptDispListPtr = this.ptDispList;
-    while (ptDispListPtr != NULL)
+    tnsq_gfx_disp_adapters_node_t *ptDispAdapterListPtr = this.ptDispAdapterList;
+    while (ptDispAdapterListPtr != NULL)
     {
-        tnsq_gfx_disp_adapters_node_t *ptDispListPtrNext = ptDispListPtr->ptNext;
-        free(ptDispListPtr);
-        ptDispListPtr = ptDispListPtrNext;
+        tnsq_gfx_disp_adapters_node_t *ptDispAdapterListPtrNext = ptDispAdapterListPtr->ptNext;
+        free(ptDispAdapterListPtr);
+        ptDispAdapterListPtr = ptDispAdapterListPtrNext;
     }
 }
 
@@ -162,15 +162,17 @@ static rt_err_t _tnsq_gfx_ctrl_refresh_sem_init(tnsq_gfx_ctrl_t *ptThis)
 }
 
 /* Initialize the display adapters list in gfx_ctrl */
-static void _tnsq_gfx_ctrl_disp_list_init(tnsq_gfx_ctrl_t *ptThis)
+static void _tnsq_gfx_ctrl_disp_adapters_list_init(tnsq_gfx_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);
     
-    this.ptDispList = NULL;
+    this.ptDispAdapterList = NULL;
 }
     
 rt_err_t tnsq_gfx_ctrl_init(tnsq_gfx_ctrl_t *ptThis)
 {
+    assert(ptThis != NULL);
+    
     memset(ptThis, 0, sizeof(tnsq_gfx_ctrl_t));
     
     if (_tnsq_gfx_ctrl_refresh_sem_init(ptThis) != RT_EOK)
@@ -178,7 +180,7 @@ rt_err_t tnsq_gfx_ctrl_init(tnsq_gfx_ctrl_t *ptThis)
         return RT_ERROR;
     }
     
-    _tnsq_gfx_ctrl_disp_list_init(ptThis);
+    _tnsq_gfx_ctrl_disp_adapters_list_init(ptThis);
     
     return RT_EOK;
 }

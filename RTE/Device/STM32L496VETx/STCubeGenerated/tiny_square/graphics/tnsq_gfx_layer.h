@@ -39,25 +39,41 @@ extern "C" {
 #endif
 #include "arm_2d_utils.h"
 
-struct tnsq_cell_t
+struct tnsq_gfx_cell_t
 {
-    tnsq_color_t tColor;
+    tnsq_gfx_color_t tColor;
     rt_uint8_t chOpacity;
     rt_bool_t blsDirty;
 };
-typedef struct tnsq_cell_t tnsq_cell_t;
+typedef struct tnsq_gfx_cell_t tnsq_gfx_cell_t;
+
+struct tnsq_gfx_layer_cfg_t
+{
+    rt_uint16_t hwXCount;
+    rt_uint16_t hwYCount;
+    tnsq_gfx_cell_t *ptCells;
+};
+typedef struct tnsq_gfx_layer_cfg_t tnsq_gfx_layer_cfg_t;
  
-struct tnsq_layer_t
+struct tnsq_gfx_layer_t
 {
     ARM_PRIVATE
     (
         rt_bool_t blsUserAllocated;
+        struct
+        {
+            rt_uint16_t hwXCount;
+            rt_uint16_t hwYCount;
+        } tSize;
+        struct tnsq_gfx_layer_t *ptNext;
     )
-    rt_uint16_t hwXCount;
-    rt_uint16_t hwYCount;
-    tnsq_cell_t *ptCells;
+    tnsq_gfx_cell_t *ptCells;
 };
-typedef struct tnsq_layer_t tnsq_layer_t;
+typedef struct tnsq_gfx_layer_t tnsq_gfx_layer_t;
+
+#define tnsq_gfx_layer_init(__TNSQ_GFX_LAYER_CFG_PTR, ...) __tnsq_gfx_layer_init((__TNSQ_GFX_LAYER_CFG_PTR), (NULL, ##__VA_ARGS__))
+
+ARM_NONNULL(1) tnsq_gfx_layer_t *__tnsq_gfx_layer_init(tnsq_gfx_layer_cfg_t *ptLayerCFG, tnsq_gfx_layer_t *ptLayer);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
