@@ -8,16 +8,15 @@
  * 2023-07-08     AlgoOy     the first version
  */
  
-#ifndef __TNSQ_LAYER_H__
-#define __TNSQ_LAYER_H__
- 
+#ifndef __TNSQ_GFX_H__
+#define __TNSQ_GFX_H__
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "rtdef.h"
-
-#include "tnsq_color.h"
+#include "tnsq_gfx_stage.h"
+#include "tiny_square_cfg.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -33,31 +32,8 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#ifdef __TNSQ_LAYER_IMPLEMENT__
-#   undef __TNSQ_LAYER_IMPLEMENT__
-#   define __ARM_2D_IMPL__
-#endif
-#include "arm_2d_utils.h"
-
-struct tnsq_cell_t
-{
-    tnsq_color_t tColor;
-    rt_uint8_t chOpacity;
-    rt_bool_t blsDirty;
-};
-typedef struct tnsq_cell_t tnsq_cell_t;
- 
-struct tnsq_layer_t
-{
-    ARM_PRIVATE
-    (
-        rt_bool_t blsUserAllocated;
-    )
-    rt_uint16_t hwXCount;
-    rt_uint16_t hwYCount;
-    tnsq_cell_t *ptCells;
-};
-typedef struct tnsq_layer_t tnsq_layer_t;
+rt_err_t tnsq_init(void);
+void tnsq_graphics_controller_entry(void *ptParam);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
@@ -70,3 +46,4 @@ typedef struct tnsq_layer_t tnsq_layer_t;
 #endif
  
 #endif
+ 

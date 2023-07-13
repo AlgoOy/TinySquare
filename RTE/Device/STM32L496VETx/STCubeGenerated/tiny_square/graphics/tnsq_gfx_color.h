@@ -8,8 +8,8 @@
  * 2023-07-08     AlgoOy     the first version
  */
  
-#ifndef __TNSQ_COLOR_H__
-#define __TNSQ_COLOR_H__
+#ifndef __TNSQ_GFX_COLOR_H__
+#define __TNSQ_GFX_COLOR_H__
 
 #ifdef   __cplusplus
 extern "C" {

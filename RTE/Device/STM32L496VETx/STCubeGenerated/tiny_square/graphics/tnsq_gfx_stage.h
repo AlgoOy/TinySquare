@@ -8,8 +8,8 @@
  * 2023-07-08     AlgoOy     the first version
  */
  
-#ifndef __TNSQ_STAGE_H__
-#define __TNSQ_STAGE_H__
+#ifndef __TNSQ_GFX_STAGE_H__
+#define __TNSQ_GFX_STAGE_H__
 
 #ifdef   __cplusplus
 extern "C" {
@@ -19,7 +19,7 @@ extern "C" {
 
 #include "arm_2d_helper_scene.h"
 
-#include "tnsq_layer.h"
+#include "tnsq_gfx_layer.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -35,44 +35,44 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#ifdef __TNSQ_STAGE_IMPLEMENT__
-#   undef __TNSQ_STAGE_IMPLEMENT__
+#ifdef __TNSQ_GFX_STAGE_IMPLEMENT__
+#   undef __TNSQ_GFX_STAGE_IMPLEMENT__
 #   define __ARM_2D_IMPL__
 #endif
 #include "arm_2d_utils.h"
 
-struct tnsq_display_adapter_t
+struct tnsq_gfx_disp_adapter_t
 {
     arm_2d_scene_player_t *ptPlayer;
     arm_fsm_rt_t (*ptPlayerTask)(void);
 };
-typedef struct tnsq_display_adapter_t tnsq_display_adapter_t;
+typedef struct tnsq_gfx_disp_adapter_t tnsq_gfx_disp_adapter_t;
 
-struct tnsq_stage_cfg_t
+struct tnsq_gfx_stage_cfg_t
 {
-    tnsq_display_adapter_t ptDispAdapter;
+    tnsq_gfx_disp_adapter_t ptDispAdapter;
 };
-typedef struct tnsq_stage_cfg_t tnsq_stage_cfg_t;
+typedef struct tnsq_gfx_stage_cfg_t tnsq_gfx_stage_cfg_t;
 
-struct tnsq_stage_t
+struct tnsq_gfx_stage_t
 {
     ARM_PRIVATE
 	(
         implement(arm_2d_scene_t);
-        tnsq_stage_cfg_t tStageCFG;
+        tnsq_gfx_stage_cfg_t tStageCFG;
         rt_bool_t blsUserAllocated;
     )
     tnsq_layer_t *ptLayer;
 };
-typedef struct tnsq_stage_t tnsq_stage_t;
+typedef struct tnsq_gfx_stage_t tnsq_gfx_stage_t;
 
 #define tnsq_stage_init(__TNSQ_DISP_ADAPTER_PTR, ...) __tnsq_stage_init((__TNSQ_DISP_ADAPTER_PTR), (NULL, ##__VA_ARGS__))
 
-ARM_NONNULL(1) tnsq_stage_t *__tnsq_stage_init(tnsq_stage_cfg_t *ptStageCFG, tnsq_stage_t *ptStage);
+ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_stage_init(tnsq_gfx_stage_cfg_t *ptStageCFG, tnsq_gfx_stage_t *ptStage);
 
 #define tnsq_layer_register(__TNSQ_STAGE_PTR, ...) __tnsq_layer_register((__TNSQ_STAGE_PTR), (NULL, ##__VA_ARGS__))
 
-ARM_NONNULL(1) tnsq_layer_t *__tnsq_layer_register(tnsq_stage_t *ptStage, tnsq_layer_t *ptLayer);
+ARM_NONNULL(1) tnsq_layer_t *__tnsq_layer_register(tnsq_gfx_stage_t *ptStage, tnsq_layer_t *ptLayer);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

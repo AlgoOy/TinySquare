@@ -576,7 +576,7 @@
   </Group>
 
   <Group>
-    <GroupName>gfx</GroupName>
+    <GroupName>tnsq_gfx</GroupName>
     <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -600,8 +600,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_graphics_controller.c</PathWithFileName>
-      <FilenameWithoutPath>tnsq_graphics_controller.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_ctrl.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_gfx_ctrl.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -612,8 +612,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_layer.c</PathWithFileName>
-      <FilenameWithoutPath>tnsq_layer.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_gfx_layer.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -624,8 +624,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_stage.c</PathWithFileName>
-      <FilenameWithoutPath>tnsq_stage.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_stage.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_gfx_stage.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -636,34 +636,22 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_init.c</PathWithFileName>
-      <FilenameWithoutPath>tnsq_init.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>4</GroupNumber>
-      <FileNumber>17</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_disp.c</PathWithFileName>
-      <FilenameWithoutPath>tnsq_disp.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_task.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_gfx_task.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
   </Group>
 
   <Group>
-    <GroupName>event</GroupName>
+    <GroupName>tnsq_event</GroupName>
     <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>18</FileNumber>
+      <FileNumber>17</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -675,13 +663,33 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>19</FileNumber>
+      <FileNumber>18</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_event_controller.c</PathWithFileName>
       <FilenameWithoutPath>tnsq_event_controller.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>tnsq_common</GroupName>
+    <tvExp>1</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>19</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\common\tiny_square.c</PathWithFileName>
+      <FilenameWithoutPath>tiny_square.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

@@ -10,8 +10,8 @@
 
 #include "arm_2d.h"
 
-#define __TNSQ_STAGE_IMPLEMENT__
-#include "__tnsq_common.h"
+#define __TNSQ_GFX_STAGE_IMPLEMENT__
+#include "__tnsq_gfx_common.h"
 
 #include "arm_2d_helper.h"
 #include "arm_extra_controls.h"
@@ -52,7 +52,7 @@
 
 static void _on_ge_stage_depose(arm_2d_scene_t *ptScene)
 {
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
+    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
     
     this.use_as__arm_2d_scene_t.ptPlayer = NULL;
@@ -65,38 +65,38 @@ static void _on_ge_stage_depose(arm_2d_scene_t *ptScene)
 
 static void _on_ge_stage_background_start(arm_2d_scene_t *ptScene)
 {
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
+    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
 static void _on_ge_stage_background_complete(arm_2d_scene_t *ptScene)
 {
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
+    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
 
 static void _on_ge_stage_frame_start(arm_2d_scene_t *ptScene)
 {
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
+    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
 static void _on_ge_stage_frame_complete(arm_2d_scene_t *ptScene)
 {
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
+    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
 static void _before_ge_stage_switching_out(arm_2d_scene_t *ptScene)
 {
-    ge_stage_t *ptThis = (ge_stage_t *)ptScene;
+    tnsq_stage_t *ptThis = (tnsq_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
 static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_background_handler)
 {
-    ge_stage_t *ptThis = (ge_stage_t *)pTarget;
+    tnsq_stage_t *ptThis = (tnsq_stage_t *)pTarget;
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
     /*-----------------------draw back ground begin-----------------------*/
@@ -111,7 +111,7 @@ static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_background_handler)
 
 static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_handler)
 {
-    ge_stage_t *ptThis = (ge_stage_t *)pTarget;
+    tnsq_stage_t *ptThis = (tnsq_stage_t *)pTarget;
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
     
@@ -127,9 +127,9 @@ static IMPL_PFB_ON_DRAW(_pfb_draw_ge_stage_handler)
     return arm_fsm_rt_cpl;
 }
 
-static void _register_stage_to_player(arm_2d_scene_player_t *ptPlayer, tnsq_stage_t *ptThis)
+static void _register_stage_to_disp_adapter(tnsq_stage_t *ptThis)
 {
-    arm_2d_scene_player_append_scenes(ptPlayer, &this.use_as__arm_2d_scene_t, 1);
+    arm_2d_scene_player_append_scenes(this.tStageCFG.ptDispAdapter.ptPlayer, &this.use_as__arm_2d_scene_t, 1);
 }
 
 
@@ -171,9 +171,9 @@ ARM_NONNULL(1) tnsq_stage_t *__ge_stage_init(tnsq_stage_cfg_t *ptCFG, tnsq_stage
         .blsUserAllocated = blsUserAllocated,
     };
     
-    //_register_player_to_gfx_ctrl(ptDispAdapter->ptPlayer);
+    _register_disp_adapter_to_gfx_ctrl(ptThis, tnsq_get_gfx_ctrl());
 
-    _register_stage_to_player(this.tStageCFG.ptDispAdapter.ptPlayer , ptThis);
+    _register_stage_to_disp_adapter(ptThis);
     
     return ptThis;
 }

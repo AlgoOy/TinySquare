@@ -452,7 +452,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>gfx</GroupName>
+          <GroupName>tnsq_gfx</GroupName>
           <Files>
             <File>
               <FileName>layer_management.c</FileName>
@@ -460,34 +460,29 @@
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\layer_management.c</FilePath>
             </File>
             <File>
-              <FileName>tnsq_graphics_controller.c</FileName>
+              <FileName>tnsq_gfx_ctrl.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_graphics_controller.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_ctrl.c</FilePath>
             </File>
             <File>
-              <FileName>tnsq_layer.c</FileName>
+              <FileName>tnsq_gfx_layer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_layer.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer.c</FilePath>
             </File>
             <File>
-              <FileName>tnsq_stage.c</FileName>
+              <FileName>tnsq_gfx_stage.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_stage.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_stage.c</FilePath>
             </File>
             <File>
-              <FileName>tnsq_init.c</FileName>
+              <FileName>tnsq_gfx_task.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_init.c</FilePath>
-            </File>
-            <File>
-              <FileName>tnsq_disp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_disp.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_task.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>event</GroupName>
+          <GroupName>tnsq_event</GroupName>
           <Files>
             <File>
               <FileName>event_management.c</FileName>
@@ -498,6 +493,16 @@
               <FileName>tnsq_event_controller.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_event_controller.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>tnsq_common</GroupName>
+          <Files>
+            <File>
+              <FileName>tiny_square.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\common\tiny_square.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -967,7 +972,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>gfx</GroupName>
+          <GroupName>tnsq_gfx</GroupName>
           <Files>
             <File>
               <FileName>layer_management.c</FileName>
@@ -975,34 +980,29 @@
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\layer_management.c</FilePath>
             </File>
             <File>
-              <FileName>tnsq_graphics_controller.c</FileName>
+              <FileName>tnsq_gfx_ctrl.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_graphics_controller.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_ctrl.c</FilePath>
             </File>
             <File>
-              <FileName>tnsq_layer.c</FileName>
+              <FileName>tnsq_gfx_layer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_layer.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer.c</FilePath>
             </File>
             <File>
-              <FileName>tnsq_stage.c</FileName>
+              <FileName>tnsq_gfx_stage.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_stage.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_stage.c</FilePath>
             </File>
             <File>
-              <FileName>tnsq_init.c</FileName>
+              <FileName>tnsq_gfx_task.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_init.c</FilePath>
-            </File>
-            <File>
-              <FileName>tnsq_disp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_disp.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_task.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>event</GroupName>
+          <GroupName>tnsq_event</GroupName>
           <Files>
             <File>
               <FileName>event_management.c</FileName>
@@ -1013,6 +1013,16 @@
               <FileName>tnsq_event_controller.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_event_controller.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>tnsq_common</GroupName>
+          <Files>
+            <File>
+              <FileName>tiny_square.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\common\tiny_square.c</FilePath>
             </File>
           </Files>
         </Group>

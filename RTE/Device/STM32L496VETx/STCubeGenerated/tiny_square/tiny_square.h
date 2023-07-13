@@ -15,7 +15,9 @@
 extern "C" {
 #endif
 
+#include "rtdef.h"
 #include "tiny_square_cfg.h"
+#include "tnsq_gfx.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -30,6 +32,8 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpedantic"
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
+
+rt_err_t tnsq_init(void);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
