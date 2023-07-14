@@ -8,8 +8,12 @@
  * 2023-07-08     AlgoOy     the first version
  */
 
-#ifndef __TINY_SQUARE_CFG_H__
-#define __TINY_SQUARE_CFG_H__
+#ifndef __TNSQ_EVT_KEY_H__
+#define __TNSQ_EVT_KEY_H__
+
+#include "rtthread.h"
+
+#include "tiny_square.h"
 
 #ifdef   __cplusplus
 extern "C" {
@@ -29,7 +33,18 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#define TNSQ_EVT_MAILBOX_SIZE   64
+struct tnsq_evt_key_t
+{
+    rt_uint8_t chValue;
+    enum{
+        tnsq_evt_key_invalid        = 0x00,
+        tnsq_evt_key_up             = 0x01,
+        tnsq_evt_key_down           = 0x02,
+        tnsq_evt_key_pressed        = 0x03,
+        tnsq_evt_key_long_pressed   = 0x04,
+    } tEvent;
+};
+typedef struct tnsq_evt_key_t tnsq_evt_key_t;
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
@@ -40,5 +55,5 @@ extern "C" {
 #ifdef   __cplusplus
 }
 #endif
- 
+
 #endif

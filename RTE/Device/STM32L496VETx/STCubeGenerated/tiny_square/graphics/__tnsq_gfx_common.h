@@ -38,8 +38,8 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#ifdef __TNSQ_GFX_COMMON_IMPLEMENT__
-#   undef __TNSQ_GFX_COMMON_IMPLEMENT__
+#ifdef ____TNSQ_GFX_COMMON_IMPLEMENT__
+#   undef ____TNSQ_GFX_COMMON_IMPLEMENT__
 #   define __ARM_2D_IMPL__
 #endif
 #include "arm_2d_utils.h"

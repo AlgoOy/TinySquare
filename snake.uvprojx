@@ -494,6 +494,21 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_event_controller.c</FilePath>
             </File>
+            <File>
+              <FileName>tnsq_evt_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_evt_ctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt_ctrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_evt_key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt_key.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1028,6 +1043,21 @@
               <FileName>tnsq_event_controller.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_event_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_evt_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_evt_ctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt_ctrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_evt_key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt_key.c</FilePath>
             </File>
           </Files>
         </Group>

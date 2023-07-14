@@ -8,7 +8,7 @@
  * 2023-07-08     AlgoOy     the first version
  */
 
-#define __TNSQ_GFX_COMMON_IMPLEMENT__
+#define ____TNSQ_GFX_COMMON_IMPLEMENT__
 #include "__tnsq_gfx_common.h"
  
 #if defined(__clang__)
@@ -59,7 +59,7 @@ void tnsq_gfx_apply_for_refresh(void)
     
 void tnsq_gfx_task_entry(void *ptParam)
 {
-    ARM_2D_UNUSED(ptParam);
+    (void)ptParam;
     
     tnsq_gfx_ctrl_t *ptThis = tnsq_gfx_get_ctrl();
     

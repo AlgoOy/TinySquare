@@ -8,7 +8,7 @@
  * 2023-07-08     AlgoOy     the first version
  */
  
-#define __TNSQ_GFX_COMMON_IMPLEMENT__
+#define ____TNSQ_GFX_COMMON_IMPLEMENT__
 #include "__tnsq_gfx_common.h"
  
 #if defined(__clang__)
@@ -140,33 +140,19 @@ static rt_err_t _tnsq_gfx_ctrl_refresh_sem_init(tnsq_gfx_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);
     
-    if (this.tRefresh.ptSemWaitReq != RT_NULL)
+    this.tRefresh.ptSemWaitReq = rt_sem_create("tnsqWaitReq", 0, RT_IPC_FLAG_FIFO);
+    if (this.tRefresh.ptSemWaitReq == RT_NULL)
     {
-        this.tRefresh.ptSemWaitReq = rt_sem_create("tnsqWaitReq", 0, RT_IPC_FLAG_FIFO);
-        if (this.tRefresh.ptSemWaitReq == RT_NULL)
-        {
-            return RT_ERROR;
-        }
+        return RT_ERROR;
     }
-    
-    if (this.tRefresh.ptSemGiveRsp != RT_NULL)
+
+    this.tRefresh.ptSemGiveRsp = rt_sem_create("tnsqGiveRsp", 0, RT_IPC_FLAG_FIFO);
+    if (this.tRefresh.ptSemGiveRsp == RT_NULL)
     {
-        this.tRefresh.ptSemGiveRsp = rt_sem_create("tnsqGiveRsp", 0, RT_IPC_FLAG_FIFO);
-        if (this.tRefresh.ptSemGiveRsp == RT_NULL)
-        {
-            return RT_ERROR;
-        }
+        return RT_ERROR;
     }
     
     return RT_EOK;
-}
-
-/* Initialize the display adapters list in gfx_ctrl */
-static void _tnsq_gfx_ctrl_disp_adapters_list_init(tnsq_gfx_ctrl_t *ptThis)
-{
-    assert(ptThis != NULL);
-    
-    this.ptDispAdapterList = NULL;
 }
     
 rt_err_t tnsq_gfx_ctrl_init(tnsq_gfx_ctrl_t *ptThis)
@@ -175,12 +161,18 @@ rt_err_t tnsq_gfx_ctrl_init(tnsq_gfx_ctrl_t *ptThis)
     
     memset(ptThis, 0, sizeof(tnsq_gfx_ctrl_t));
     
+    *ptThis = (tnsq_gfx_ctrl_t) {
+        .ptDispAdapterList = NULL,
+        .tRefresh = {
+            .ptSemGiveRsp = NULL,
+            .ptSemWaitReq = NULL,
+        },
+    };
+    
     if (_tnsq_gfx_ctrl_refresh_sem_init(ptThis) != RT_EOK)
     {
         return RT_ERROR;
     }
-    
-    _tnsq_gfx_ctrl_disp_adapters_list_init(ptThis);
     
     return RT_EOK;
 }

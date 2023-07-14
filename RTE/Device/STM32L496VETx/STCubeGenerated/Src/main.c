@@ -129,6 +129,7 @@ int main(void)
     
     rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL, gameTid = RT_NULL;
 	
+    /* todo: put task create into tnsq init */
 	engineTid = rt_thread_create("tnsq_gfx", tnsq_gfx_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
 	if (engineTid != RT_NULL) {
 		rt_thread_startup(engineTid);

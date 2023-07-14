@@ -7,11 +7,7 @@
  * Date           Author     Notes
  * 2023-07-08     AlgoOy     the first version
  */
- 
-#include "tiny_square.h"
-#include "tiny_square_cfg.h"
- 
-#include "__tnsq_gfx_common.h"
+
 #include "__tnsq_evt_common.h"
  
 #if defined(__clang__)
@@ -29,7 +25,7 @@
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #   pragma clang diagnostic ignored "-Wunused-function"
-#   pragma clang diagnostic ignored "-Wmissing-declarations"
+#   pragma clang diagnostic ignored "-Wmissing-declarations"  
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #elif __IS_COMPILER_IAR__
 #   pragma diag_suppress=Pa089,Pe188,Pe177,Pe174
@@ -45,19 +41,10 @@
 #undef this
 #define this (*ptThis)
     
-rt_err_t tnsq_init(void)
+void tnsq_evt_task_entry(void *ptParam)
 {
-    if (tnsq_gfx_ctrl_init(tnsq_gfx_get_ctrl()) == RT_ERROR)
-    {
-        return RT_ERROR;
-    }
+    (void)ptParam;
     
-    if (tnsq_evt_ctrl_init(tnsq_evt_get_ctrl()) == RT_ERROR)
-    {
-        return RT_ERROR;
-    }
-    
-    return RT_EOK;
 }
     
 #if defined(__clang__)
