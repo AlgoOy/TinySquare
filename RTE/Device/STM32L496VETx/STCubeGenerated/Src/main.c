@@ -19,11 +19,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+#include "stdio.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "lcd.h"
 #include "key.h"
-#include "snake.h"
+#include "uart.h"
 
 #include "perf_counter.h"
 #include "arm_2d.h"
@@ -32,7 +34,7 @@
 #include "rtthread.h"
 
 #include "tiny_square.h"
-#include "snake_v2.h"
+//#include "snake_v2.h"
 
 #define THREAD_PRIORITY         25
 #define THREAD_STACK_SIZE       512
@@ -122,6 +124,10 @@ int main(void)
   /* USER CODE BEGIN 2 */
   	LCD_Init();
 	Key_Init();
+    if (DEBUG_USART_CONFIG_INIT() != PERIPHERAL_CFG_OK)
+    {
+        while(1);
+    }
 	arm_irq_safe {
         arm_2d_init();
         tnsq_init();

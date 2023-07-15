@@ -29,7 +29,7 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#define TNSQ_EVT_MAILBOX_SIZE   64
+#define TNSQ_EVT_ITC_NUM            64
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

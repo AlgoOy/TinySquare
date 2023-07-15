@@ -1,9 +1,9 @@
 ./objects/snake.o: \
-  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake.c \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c \
   RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
   RTE\_snake_v2\Pre_Include_Global.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\include\snake.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_types.h \
@@ -54,7 +54,7 @@
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_disp_adapters.h \
   RTE\Acceleration\arm_2d_disp_adapter_0.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper_scene.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\__common.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc\__common.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_list.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\__arm_2d_helper_common.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\arm_extra_controls.h \
@@ -62,6 +62,7 @@
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\busy_wheel.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\shape_round_corner_box.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\spinning_wheel.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\__common.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\progress_bar_drill.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\progress_bar_flowing.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\progress_bar_simple.h \
@@ -98,4 +99,6 @@
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr_ex.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h

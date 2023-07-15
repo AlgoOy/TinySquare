@@ -32,14 +32,18 @@
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr_ex.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc\lcd.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc\key.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\include\snake.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc\uart.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc\__common.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\GorgonMeducer\perf_counter\2.2.2\lib\perf_counter.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_types.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\assert.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_features.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_utils.h \
@@ -75,43 +79,27 @@
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_conversion.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_alpha_blending.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_transform.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\__arm_2d_helper_common.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_pfb.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_scene.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper_pfb.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_disp_adapters.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_disp_adapters.h \
   RTE\Acceleration\arm_2d_disp_adapter_0.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper_scene.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\__common.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_list.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\__arm_2d_helper_common.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\arm_extra_controls.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\__common.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\busy_wheel.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\shape_round_corner_box.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\spinning_wheel.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\progress_bar_drill.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\progress_bar_flowing.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\progress_bar_simple.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\number_list.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper_list.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\arm_extra_lcd_printf.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\progress_wheel.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\list_view.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\battery_gasgauge.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\GorgonMeducer\perf_counter\2.2.2\lib\perf_counter.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_disp_adapters.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_scenes.h \
-  RTE\Acceleration\arm_2d_scene_0.h RTE\Acceleration\arm_2d_scene_1.h \
-  RTE\Acceleration\arm_2d_scene_2.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper_pfb.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\__arm_2d_helper_common.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtthread.h \
   RTE\RTOS\rtconfig.h \
   C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdebug.h \
   C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdef.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
   C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtservice.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\include\layer_management.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\event\include\event_management.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\include\snake_v2.h
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\tiny_square.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\tiny_square_cfg.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_stage.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_color.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_pfb.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_scene.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_disp_adapters.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_list.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\__arm_2d_helper_common.h

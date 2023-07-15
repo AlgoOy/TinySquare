@@ -31,4 +31,6 @@
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr_ex.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h

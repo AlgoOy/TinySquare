@@ -1,16 +1,16 @@
 ./objects/snake_v2.o: \
-  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\src\snake_v2.c \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake_v2.c \
   RTE\Acceleration\arm_2d_cfg.h RTE\_snake_v2\RTE_Components.h \
   RTE\_snake_v2\Pre_Include_Global.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\example\snake\include\snake_v2.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake_v2.h \
   C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtthread.h \
   RTE\RTOS\rtconfig.h \
   C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdebug.h \
   C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdef.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
   C:\Users\24073\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtservice.h \
-  RTE\Device\STM32L496VETx\STCubeGenerated\game_engine\graphics\include\layer_management.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\layer_management.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Library\Include\arm_2d_types.h \
@@ -61,7 +61,7 @@
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_disp_adapters.h \
   RTE\Acceleration\arm_2d_disp_adapter_0.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\arm_2d_helper_scene.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\__common.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Inc\__common.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_list.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\__arm_2d_helper_common.h \
   C:\Users\24073\AppData\Local\Arm\Packs\GorgonMeducer\perf_counter\2.2.2\lib\perf_counter.h \
@@ -92,4 +92,6 @@
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_pwr_ex.h \
   C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_spi_ex.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart.h \
+  C:\Users\24073\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal_uart_ex.h

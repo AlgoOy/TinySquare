@@ -46,6 +46,9 @@ struct tnsq_evt_key_t
 };
 typedef struct tnsq_evt_key_t tnsq_evt_key_t;
 
+rt_err_t tnsq_evt_itc_get(tnsq_evt_key_t *ptThis, rt_int32_t timeout);
+rt_err_t tnsq_evt_itc_put(tnsq_evt_key_t *ptThis);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__

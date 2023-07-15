@@ -15,6 +15,8 @@
 
 #include "tiny_square.h"
 
+#include "tnsq_evt_key.h"
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
@@ -43,8 +45,11 @@ struct tnsq_evt_ctrl_t
 {
     ARM_PRIVATE
     (
-        rt_mailbox_t ptEvtGetMail;
-        rt_mailbox_t ptEvtPutMail;
+        struct
+        {
+            rt_mq_t ptMsgI2E;
+            rt_mq_t ptMsgE2G;
+        } tEvtITC;
     )
 };
 typedef struct tnsq_evt_ctrl_t tnsq_evt_ctrl_t;
@@ -52,6 +57,8 @@ typedef struct tnsq_evt_ctrl_t tnsq_evt_ctrl_t;
 tnsq_evt_ctrl_t *tnsq_evt_get_ctrl(void);
 
 rt_err_t tnsq_evt_ctrl_init(tnsq_evt_ctrl_t *ptThis);
+
+rt_err_t tnsq_evt_itc_key_handler(void);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

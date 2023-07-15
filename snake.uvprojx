@@ -425,9 +425,9 @@
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
             </File>
             <File>
-              <FileName>snake_v2.c</FileName>
+              <FileName>tnsq_snake.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake_v2.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -449,16 +449,16 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Src\key.c</FilePath>
             </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Src\uart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>tnsq_gfx</GroupName>
           <Files>
-            <File>
-              <FileName>layer_management.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\layer_management.c</FilePath>
-            </File>
             <File>
               <FileName>tnsq_gfx_ctrl.c</FileName>
               <FileType>1</FileType>
@@ -529,11 +529,6 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c</FilePath>
             </File>
-            <File>
-              <FileName>snake_v2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake_v2.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -541,9 +536,6 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -975,9 +967,9 @@
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
             </File>
             <File>
-              <FileName>snake_v2.c</FileName>
+              <FileName>tnsq_snake.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake_v2.c</FilePath>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -999,16 +991,16 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Src\key.c</FilePath>
             </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\Bsp\Src\uart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>tnsq_gfx</GroupName>
           <Files>
-            <File>
-              <FileName>layer_management.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\layer_management.c</FilePath>
-            </File>
             <File>
               <FileName>tnsq_gfx_ctrl.c</FileName>
               <FileType>1</FileType>
@@ -1079,11 +1071,6 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c</FilePath>
             </File>
-            <File>
-              <FileName>snake_v2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake_v2.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1091,9 +1078,6 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -1211,27 +1195,6 @@
           <targetInfo name="snake_v2"/>
         </targetInfos>
       </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
-        <targetInfos>
-          <targetInfo name="snake"/>
-          <targetInfo name="snake_v2"/>
-        </targetInfos>
-      </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
-        <targetInfos>
-          <targetInfo name="snake"/>
-          <targetInfo name="snake_v2"/>
-        </targetInfos>
-      </component>
-      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="ITM" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with ITM">
-        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
-        <targetInfos>
-          <targetInfo name="snake"/>
-          <targetInfo name="snake_v2"/>
-        </targetInfos>
-      </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="Common" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL Common">
         <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
         <targetInfos>
@@ -1275,6 +1238,13 @@
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="SPI" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL DMA">
+        <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
+        <targetInfos>
+          <targetInfo name="snake"/>
+          <targetInfo name="snake_v2"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="UART" Cvendor="Keil" Cversion="1.13.0" condition="STM32L4 HAL DMA">
         <package name="STM32L4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.6.2"/>
         <targetInfos>
           <targetInfo name="snake"/>

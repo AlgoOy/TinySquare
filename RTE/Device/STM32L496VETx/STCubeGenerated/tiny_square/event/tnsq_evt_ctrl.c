@@ -49,18 +49,18 @@ tnsq_evt_ctrl_t *tnsq_evt_get_ctrl(void)
     return &s_tEvtController;
 }
 
-static rt_err_t _tnsq_evt_ctrl_mailbox_init(tnsq_evt_ctrl_t *ptThis)
+static rt_err_t _tnsq_evt_ctrl_itc_init(tnsq_evt_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);
     
-    this.ptEvtGetMail = rt_mb_create("tnsqEvtGet", TNSQ_EVT_MAILBOX_SIZE, RT_IPC_FLAG_FIFO);
-    if (this.ptEvtGetMail == RT_NULL)
+    this.tEvtITC.ptMsgI2E = rt_mq_create("tnsqEvtI2E", sizeof(tnsq_evt_key_t), TNSQ_EVT_ITC_NUM, RT_IPC_FLAG_FIFO);
+    if (this.tEvtITC.ptMsgI2E == RT_NULL)
     {
         return RT_ERROR;
     }
     
-    this.ptEvtPutMail = rt_mb_create("tnsqEvtPut", TNSQ_EVT_MAILBOX_SIZE, RT_IPC_FLAG_FIFO);
-    if (this.ptEvtPutMail == RT_NULL)
+    this.tEvtITC.ptMsgE2G = rt_mq_create("tnsqEvtE2G", sizeof(tnsq_evt_key_t), TNSQ_EVT_ITC_NUM, RT_IPC_FLAG_FIFO);
+    if (this.tEvtITC.ptMsgE2G == RT_NULL)
     {
         return RT_ERROR;
     }
@@ -75,11 +75,13 @@ rt_err_t tnsq_evt_ctrl_init(tnsq_evt_ctrl_t *ptThis)
     memset(ptThis, 0, sizeof(tnsq_evt_ctrl_t));
     
     *ptThis = (tnsq_evt_ctrl_t) {
-        .ptEvtGetMail = NULL,
-        .ptEvtPutMail = NULL,
+        .tEvtITC = {
+            .ptMsgI2E = NULL,
+            .ptMsgE2G = NULL,
+        },
     };
     
-    if (_tnsq_evt_ctrl_mailbox_init(ptThis) != RT_EOK)
+    if (_tnsq_evt_ctrl_itc_init(ptThis) != RT_EOK)
     {
         return RT_ERROR;
     }

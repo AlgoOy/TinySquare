@@ -22,18 +22,21 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 D:\SourceCode\embedded\Arm-2D-Snake\snake.uvprojx
-Project File Date:  07/11/2023
+Project File Date:  07/15/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'snake_v2'
-compiling snake_v2.c...
+Note: source file '.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c' - object file renamed from '.\Objects\tnsq_snake.o' to '.\Objects\tnsq_snake_1.o'.
+Note: source file '.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c' - object file renamed from '.\Objects\tnsq_snake.o' to '.\Objects\tnsq_snake_1.o'.
+compiling main.c...
 linking...
+.\Objects\snake.axf: Warning: L6304W: Duplicate input file .\objects\tnsq_snake_1.o ignored.
 .\Objects\snake.axf: Warning: L6989W: Could not apply patch sdcomp-29491-629360 to instruction VPOP     {d8-d15} at offset 0xf4, instruction is within an IT block and is not the last instruction for log.o(i.__hardfp_log).
-Program Size: Code=16344 RO-data=1500 RW-data=96 ZI-data=32176  
-Finished: 0 information, 1 warning and 0 error messages.
+Program Size: Code=12356 RO-data=824 RW-data=92 ZI-data=19196  
+Finished: 0 information, 2 warning and 0 error messages.
 FromELF: creating hex file...
-".\Objects\snake.axf" - 0 Error(s), 1 Warning(s).
+".\Objects\snake.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -76,14 +79,6 @@ Package Vendor: RealThread
    * Component: kernel Version: 3.1.5
 
 Package Vendor: Keil
-                https://www.keil.com/pack/Keil.ARM_Compiler.1.7.2.pack
-                Keil.ARM_Compiler.1.7.2
-                Keil ARM Compiler extensions for ARM Compiler 5 and ARM Compiler 6
-   * Component: STDERR Variant: ITM Version: 1.2.0
-   * Component: STDIN Variant: ITM Version: 1.2.0
-   * Component: STDOUT Variant: ITM Version: 1.2.0
-
-Package Vendor: Keil
                 project-path/Keil.FrameworkCubeMX.1.0.0.pack
                 Keil.FrameworkCubeMX.1.0.0
                 STM32CubeMX generated pack description
@@ -101,6 +96,7 @@ Package Vendor: Keil
    * Component: PWR Version: 1.13.0
    * Component: RCC Version: 1.13.0
    * Component: SPI Version: 1.13.0
+   * Component: UART Version: 1.13.0
    * Component: Startup Version: 1.3.1
 
 <h2>Collection of Component include folders:</h2>
@@ -127,64 +123,64 @@ Package Vendor: Keil
    * Component: ::Device:STM32Cube Framework:1.1.0 (API)
 
    * Component: ARM::Acceleration:Arm-2D Extras:Controls:1.4.2
-      Source file:   examples/common/asset/QuaterArc.c
-      Source file:   examples/common/asset/cmsis_logo.c
-      Source file:   examples/common/asset/blue_slashes.c
-      Source file:   examples/common/asset/SpinWheel.c
-      Source file:   examples/common/asset/wave.c
-      Source file:   examples/common/asset/ListCover.c
       Source file:   examples/common/controls/controls.c
-      Source file:   examples/common/asset/white_dot.c
-      Source file:   examples/common/controls/busy_wheel.c
       Source file:   examples/common/controls/spinning_wheel.c
-      Source file:   examples/common/controls/progress_bar_drill.c
-      Source file:   examples/common/asset/DigitsFont.c
-      Source file:   examples/common/controls/progress_bar_flowing.c
-      Source file:   examples/common/controls/progress_bar_simple.c
-      Source file:   examples/common/controls/number_list.c
-      Source file:   examples/common/controls/progress_wheel.c
+      Source file:   examples/common/controls/busy_wheel.c
+      Source file:   examples/common/controls/shape_round_corner_box.c
+      Source file:   examples/common/asset/QuaterArc.c
       Source file:   examples/common/controls/list_view.c
       Source file:   examples/common/controls/battery_gasgauge.c
-      Source file:   examples/common/asset/GreenCircle.c
-      Source file:   examples/common/controls/shape_round_corner_box.c
-      Source file:   examples/common/asset/battery_gasgauge_block.c
-      Source file:   examples/common/asset/Lighting.c
-      Source file:   examples/common/asset/pointer_sec.c
-      Source file:   examples/common/asset/gear_01.c
-      Source file:   examples/common/asset/software.c
-      Source file:   examples/common/asset/Pointer.c
-      Source file:   examples/common/asset/gear_02.c
-      Source file:   examples/common/asset/glass_reflection_narrow.c
-      Source file:   examples/common/asset/small_icon_sun.c
-      Source file:   examples/common/asset/wifi_signal.c
+      Source file:   examples/common/controls/progress_bar_drill.c
       Source file:   examples/common/asset/battery_boarder_1.c
-      Source file:   examples/common/asset/circle_small.c
-      Source file:   examples/common/asset/SinWave.c
-      Source file:   examples/common/asset/star.c
-      Source file:   examples/common/asset/circle_mask.c
-      Source file:   examples/common/asset/battery_gasgauge_grade_boarder.c
-      Source file:   examples/common/asset/glass_reflection_wide.c
+      Source file:   examples/common/asset/white_dot.c
+      Source file:   examples/common/asset/glass_reflection_narrow.c
+      Source file:   examples/common/asset/ListCover.c
+      Source file:   examples/common/asset/Lighting.c
+      Source file:   examples/common/asset/cmsis_logo.c
+      Source file:   examples/common/asset/GreenCircle.c
+      Source file:   examples/common/asset/Pointer.c
       Source file:   examples/common/asset/watch_panel.c
+      Source file:   examples/common/asset/wave.c
+      Source file:   examples/common/asset/gear_01.c
+      Source file:   examples/common/asset/gear_02.c
+      Source file:   examples/common/controls/progress_wheel.c
+      Source file:   examples/common/asset/SpinWheel.c
+      Source file:   examples/common/asset/DigitsFont.c
+      Source file:   examples/common/controls/progress_bar_simple.c
+      Source file:   examples/common/asset/star.c
+      Source file:   examples/common/asset/battery_gasgauge_grade_boarder.c
+      Source file:   examples/common/asset/small_icon_sun.c
+      Source file:   examples/common/asset/software.c
+      Source file:   examples/common/controls/number_list.c
+      Source file:   examples/common/asset/circle_mask.c
+      Source file:   examples/common/asset/glass_reflection_wide.c
+      Source file:   examples/common/asset/pointer_sec.c
+      Source file:   examples/common/asset/SinWave.c
+      Source file:   examples/common/controls/progress_bar_flowing.c
+      Source file:   examples/common/asset/blue_slashes.c
+      Source file:   examples/common/asset/battery_gasgauge_block.c
+      Source file:   examples/common/asset/circle_small.c
+      Source file:   examples/common/asset/wifi_signal.c
 
    * Component: ARM::Acceleration:Arm-2D Extras:LCD ASCII Printf:1.3.1
       Source file:   examples/common/controls/lcd_printf.c
       Source file:   examples/common/controls/GLCD_Fonts.c
 
    * Component: ARM::Acceleration:Arm-2D Helper:Display Adapter:1.5.10
-      Include file:  Helper/Include/template/arm_2d_disp_adapter.h
       Source file:   Helper/Source/template/arm_2d_disp_adapter.c
+      Include file:  Helper/Include/template/arm_2d_disp_adapter.h
 
    * Component: ARM::Acceleration:Arm-2D Helper:PFB:1.6.7
+      Source file:   Helper/Source/arm_2d_helper_pfb.c
+      Source file:   Helper/Source/arm_2d_helper_scene.c
+      Source file:   Helper/Source/arm_2d_helper_list.c
+      Source file:   Helper/Source/template/arm_2d_helper_rtos_user.c
+      Source file:   examples/common/scenes/meter/arm_2d_scene_meter.c
       Source file:   examples/common/asset/MeterPanel.c
       Include file:  examples/common/scenes/meter/arm_2d_scene_meter.h
-      Include file:  examples/common/scenes/watch/arm_2d_scene_watch.h
-      Source file:   examples/common/scenes/meter/arm_2d_scene_meter.c
       Source file:   Helper/Source/arm_2d_helper.c
-      Source file:   Helper/Source/arm_2d_helper_pfb.c
-      Source file:   Helper/Source/arm_2d_helper_list.c
       Source file:   examples/common/scenes/watch/arm_2d_scene_watch.c
-      Source file:   Helper/Source/arm_2d_helper_scene.c
-      Source file:   Helper/Source/template/arm_2d_helper_rtos_user.c
+      Include file:  examples/common/scenes/watch/arm_2d_scene_watch.h
 
    * Component: ARM::Acceleration:Arm-2D Helper:RTOS Helper:RT-Thread:1.0.0
       Source file:   Helper/Source/template/arm_2d_helper_rtos_rt_thread.c
@@ -197,14 +193,14 @@ Package Vendor: Keil
       Source file:   Library/Source/arm_2d_alpha_blending.c
 
    * Component: ARM::Acceleration:Arm-2D:Core:1.1.3
-      Include file:  examples/common/controls/template/user_control_template.h
-      Source file:   examples/common/controls/template/user_control_template.c
-      Source file:   Helper/Source/template/arm_2d_scene_template.c
-      Include file:  Helper/Include/template/arm_2d_scene_template.h
-      Source file:   Library/Source/arm_2d_conversion.c
-      Source file:   Library/Source/arm_2d.c
       Source file:   Library/Source/arm_2d_async.c
+      Source file:   Library/Source/arm_2d.c
+      Source file:   Library/Source/arm_2d_conversion.c
+      Source file:   examples/common/controls/template/user_control_template.c
       Source file:   Library/Source/arm_2d_draw.c
+      Source file:   Helper/Source/template/arm_2d_scene_template.c
+      Include file:  examples/common/controls/template/user_control_template.h
+      Include file:  Helper/Include/template/arm_2d_scene_template.h
 
    * Component: ARM::Acceleration:Arm-2D:Transform:1.1.3
       Source file:   Library/Source/arm_2d_transform.c
@@ -212,59 +208,50 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: ARM::CMSIS:DSP:Source:1.14.4
-      Source file:   Source/QuaternionMathFunctions/QuaternionMathFunctions.c
-      Include file:  Include/arm_const_structs.h
-      Source file:   Source/BayesFunctions/BayesFunctions.c
-      Source file:   Source/CommonTables/CommonTables.c
-      Source file:   Source/ComplexMathFunctions/ComplexMathFunctions.c
+      Source file:   Source/InterpolationFunctions/InterpolationFunctionsF16.c
+      Source file:   Source/SVMFunctions/SVMFunctionsF16.c
       Source file:   Source/DistanceFunctions/DistanceFunctions.c
-      Source file:   Source/FastMathFunctions/FastMathFunctions.c
+      Source file:   Source/FastMathFunctions/FastMathFunctionsF16.c
+      Source file:   Source/BayesFunctions/BayesFunctions.c
       Source file:   Source/ControllerFunctions/ControllerFunctions.c
       Source file:   Source/FilteringFunctions/FilteringFunctions.c
+      Source file:   Source/ComplexMathFunctions/ComplexMathFunctions.c
+      Source file:   Source/BasicMathFunctions/BasicMathFunctionsF16.c
+      Source file:   Source/CommonTables/CommonTablesF16.c
+      Source file:   Source/InterpolationFunctions/InterpolationFunctions.c
+      Source file:   Source/CommonTables/CommonTables.c
+      Source file:   Source/StatisticsFunctions/StatisticsFunctions.c
+      Source file:   Source/TransformFunctions/TransformFunctions.c
+      Source file:   Source/SVMFunctions/SVMFunctions.c
+      Source file:   Source/MatrixFunctions/MatrixFunctionsF16.c
+      Source file:   Source/StatisticsFunctions/StatisticsFunctionsF16.c
+      Source file:   Source/SupportFunctions/SupportFunctionsF16.c
+      Source file:   Source/SupportFunctions/SupportFunctions.c
+      Source file:   Source/FastMathFunctions/FastMathFunctions.c
       Source file:   Source/MatrixFunctions/MatrixFunctions.c
-      Include file:  Include/arm_common_tables.h
-      Include file:  Include/arm_common_tables_f16.h
-      Include file:  Include/arm_math_f16.h
-      Source file:   Source/BasicMathFunctions/BasicMathFunctions.c
-      Include file:  Include/arm_math.h
-      Include file:  Include/arm_const_structs_f16.h
-      Source file:   Source/InterpolationFunctions/InterpolationFunctionsF16.c
       Source file:   Source/FilteringFunctions/FilteringFunctionsF16.c
-      Source file:   Source/FastMathFunctions/FastMathFunctionsF16.c
+      Source file:   Source/BayesFunctions/BayesFunctionsF16.c
       Source file:   Source/DistanceFunctions/DistanceFunctionsF16.c
       Source file:   Source/ComplexMathFunctions/ComplexMathFunctionsF16.c
-      Source file:   Source/SVMFunctions/SVMFunctions.c
-      Source file:   Source/SupportFunctions/SupportFunctionsF16.c
-      Source file:   Source/StatisticsFunctions/StatisticsFunctions.c
-      Source file:   Source/SupportFunctions/SupportFunctions.c
-      Source file:   Source/BayesFunctions/BayesFunctionsF16.c
-      Source file:   Source/TransformFunctions/TransformFunctions.c
-      Source file:   Source/SVMFunctions/SVMFunctionsF16.c
-      Source file:   Source/InterpolationFunctions/InterpolationFunctions.c
-      Source file:   Source/BasicMathFunctions/BasicMathFunctionsF16.c
       Source file:   Source/TransformFunctions/TransformFunctionsF16.c
-      Source file:   Source/CommonTables/CommonTablesF16.c
-      Source file:   Source/StatisticsFunctions/StatisticsFunctionsF16.c
-      Source file:   Source/MatrixFunctions/MatrixFunctionsF16.c
+      Include file:  Include/arm_const_structs_f16.h
+      Include file:  Include/arm_const_structs.h
+      Include file:  Include/arm_common_tables_f16.h
+      Source file:   Source/BasicMathFunctions/BasicMathFunctions.c
+      Include file:  Include/arm_math.h
+      Include file:  Include/arm_math_f16.h
+      Include file:  Include/arm_common_tables.h
+      Source file:   Source/QuaternionMathFunctions/QuaternionMathFunctions.c
 
    * Component: GorgonMeducer::Utilities:perf_counter:Core:Source:2.2.2
-      Include file:  lib/perf_counter.h
       Source file:   perf_counter.c
+      Include file:  lib/perf_counter.h
       Source file:   systick_wrapper_ual.s
 
-   * Component: Keil.ARM Compiler::Compiler:I/O:STDERR:ITM:1.2.0
-      Source file:   Source/retarget_io.c
-
-   * Component: Keil.ARM Compiler::Compiler:I/O:STDIN:ITM:1.2.0
-      Source file:   Source/retarget_io.c
-
-   * Component: Keil.ARM Compiler::Compiler:I/O:STDOUT:ITM:1.2.0
-      Source file:   Source/retarget_io.c
-
    * Component: Keil::Device:STM32Cube Framework:STM32CubeMX:1.1.0
+      Include file:  MX_Device.h
       Include file:  STCubeGenerated/Inc/stm32l4xx_hal_conf.h
       Source file:   STCubeGenerated/Src/stm32l4xx_hal_msp.c
-      Include file:  MX_Device.h
 
    * Component: Keil::Device:STM32Cube HAL:Common:1.13.0
       Source file:   Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.c
@@ -289,32 +276,36 @@ Package Vendor: Keil
       Source file:   Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:SPI:1.13.0
-      Source file:   Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi.c
       Source file:   Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi_ex.c
+      Source file:   Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi.c
+
+   * Component: Keil::Device:STM32Cube HAL:UART:1.13.0
+      Source file:   Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c
+      Source file:   Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c
 
    * Component: Keil::Device:Startup:1.3.1
+      Source file:   Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/arm/startup_stm32l496xx.s
       Source file:   MDK/Device/Source/ARM/STM32L4xx_DB_OPT.s
       Include file:  Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h
-      Source file:   Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/arm/startup_stm32l496xx.s
       Source file:   Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/system_stm32l4xx.c
 
    * Component: RealThread.RT-Thread::RTOS:kernel:3.1.5
-      Include file:  bsp/_template/rtconfig.h
       Source file:   src/irq.c
-      Source file:   src/kservice.c
-      Source file:   src/mempool.c
-      Source file:   src/thread.c
       Source file:   src/timer.c
-      Source file:   src/ipc.c
       Source file:   src/object.c
-      Source file:   bsp/_template/board.c
-      Source file:   src/clock.c
       Source file:   src/idle.c
-      Source file:   src/components.c
-      Source file:   src/mem.c
+      Source file:   src/ipc.c
       Source file:   src/scheduler.c
-      Source file:   libcpu/arm/cortex-m4/cpuport.c
+      Include file:  bsp/_template/rtconfig.h
+      Source file:   src/kservice.c
       Source file:   libcpu/arm/cortex-m4/context_rvds.S
+      Source file:   src/components.c
+      Source file:   src/thread.c
+      Source file:   libcpu/arm/cortex-m4/cpuport.c
+      Source file:   src/mempool.c
+      Source file:   src/clock.c
+      Source file:   bsp/_template/board.c
+      Source file:   src/mem.c
 Build Time Elapsed:  00:00:02
 </pre>
 </body>
