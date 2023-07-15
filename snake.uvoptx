@@ -512,8 +512,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</PathWithFileName>
-      <FilenameWithoutPath>snake.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c</PathWithFileName>
+      <FilenameWithoutPath>tnsq_snake.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -524,8 +524,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c</PathWithFileName>
-      <FilenameWithoutPath>tnsq_snake.c</FilenameWithoutPath>
+      <PathWithFileName>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</PathWithFileName>
+      <FilenameWithoutPath>snake.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

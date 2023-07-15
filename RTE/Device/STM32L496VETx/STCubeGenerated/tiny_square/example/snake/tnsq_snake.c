@@ -9,6 +9,8 @@
  */
 
 #include "tnsq_snake.h"
+#include "tnsq_evt.h"
+#include "uart.h"
  
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -41,7 +43,32 @@
 #undef this
 #define this (*ptThis)
     
-
+void tnsq_snake_task_entry(void *ptParam)
+{
+    tnsq_evt_key_t tEvtKey = {0};
+    while (1)
+    {
+        tnsq_evt_itc_get(&tEvtKey, RT_WAITING_FOREVER);
+        switch (tEvtKey.tEvent) 
+        {
+        case tnsq_evt_key_down:
+            UART_Print("key down\n");
+            break;
+        case tnsq_evt_key_up:
+            UART_Print("key up\n");
+            break;
+        case tnsq_evt_key_pressed:
+            UART_Print("key pressed\n");
+            break;
+        case tnsq_evt_key_long_pressed:
+            UART_Print("key long pressed\n");
+            break;
+        default:
+            break;
+        }
+    }
+    
+}
     
 #if defined(__clang__)
 #   pragma clang diagnostic pop

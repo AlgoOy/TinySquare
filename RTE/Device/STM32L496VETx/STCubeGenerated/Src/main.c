@@ -34,6 +34,7 @@
 #include "rtthread.h"
 
 #include "tiny_square.h"
+#include "tnsq_snake.h"
 //#include "snake_v2.h"
 
 #define THREAD_PRIORITY         25
@@ -137,23 +138,23 @@ int main(void)
 	
     /* todo: put task create into tnsq init */
 	engineTid = rt_thread_create("tnsq_gfx", tnsq_gfx_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
-	if (engineTid != RT_NULL) {
-		rt_thread_startup(engineTid);
-	} else {
-        while(1);
-    }
-	
-//	eventTid = rt_thread_create("tnsq_evt", tnsq_evt_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-1, THREAD_TIMESLICE);
-//	if (eventTid != RT_NULL) {
-//		rt_thread_startup(eventTid);
-//	}
-	
-//	gameTid = rt_thread_create("tnsq_snake", tnsq_snake_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-2, THREAD_TIMESLICE);
-//	if (gameTid != RT_NULL) {
-//		rt_thread_startup(gameTid);
-//	}else {
+//	if (engineTid != RT_NULL) {
+//		rt_thread_startup(engineTid);
+//	} else {
 //        while(1);
 //    }
+	
+	eventTid = rt_thread_create("tnsq_evt", tnsq_evt_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-1, THREAD_TIMESLICE);
+	if (eventTid != RT_NULL) {
+		rt_thread_startup(eventTid);
+	}
+	
+	gameTid = rt_thread_create("tnsq_snake", tnsq_snake_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-2, THREAD_TIMESLICE);
+	if (gameTid != RT_NULL) {
+		rt_thread_startup(gameTid);
+	}else {
+        while(1);
+    }
     
 }
 

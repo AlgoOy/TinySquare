@@ -69,6 +69,8 @@
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\__arm_2d_helper_common.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\tiny_square_cfg.h \
   RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\tiny_square.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt_key.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\arm_extra_controls.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\__common.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\examples\common\controls\.\busy_wheel.h \

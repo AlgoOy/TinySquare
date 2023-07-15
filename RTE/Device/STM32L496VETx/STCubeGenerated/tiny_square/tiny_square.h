@@ -18,6 +18,7 @@ extern "C" {
 #include "rtdef.h"
 #include "tiny_square_cfg.h"
 #include "tnsq_gfx.h"
+#include "tnsq_evt.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

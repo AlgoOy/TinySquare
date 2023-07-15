@@ -102,4 +102,7 @@
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_scene.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_disp_adapters.h \
   C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\.\arm_2d_helper_list.h \
-  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\__arm_2d_helper_common.h
+  C:\Users\24073\AppData\Local\Arm\Packs\ARM\Arm-2D\1.1.3\Helper\Include\__arm_2d_helper_common.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\event\tnsq_evt_key.h \
+  RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.h

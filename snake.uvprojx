@@ -420,14 +420,14 @@
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\logo.c</FilePath>
             </File>
             <File>
-              <FileName>snake.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
-            </File>
-            <File>
               <FileName>tnsq_snake.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c</FilePath>
+            </File>
+            <File>
+              <FileName>snake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -962,14 +962,14 @@
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\logo.c</FilePath>
             </File>
             <File>
-              <FileName>snake.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
-            </File>
-            <File>
               <FileName>tnsq_snake.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c</FilePath>
+            </File>
+            <File>
+              <FileName>snake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -47,7 +47,7 @@ void tnsq_evt_task_entry(void *ptParam)
     
     tnsq_evt_ctrl_t *ptThis = tnsq_evt_get_ctrl();
     
-    while(1)
+    while (1)
     {
         tnsq_evt_itc_key_handler();
     }
