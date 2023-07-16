@@ -56,59 +56,74 @@ void Key_Init(void) {
 	HAL_NVIC_EnableIRQ(KEY3_EXIT_IRQ);
 }
 
-static void _key_handler(GPIO_TypeDef *GPIO_PORT, uint16_t GPIO_PIN, uint8_t chValue)
+static void _pressed_low_level_key_handler(GPIO_TypeDef *GPIO_PORT, uint16_t GPIO_PIN, uint8_t chValue)
 {
     tnsq_evt_key_t tEvtKey = {0};
     GPIO_PinState state = HAL_GPIO_ReadPin(GPIO_PORT, GPIO_PIN);
     if (state == GPIO_PIN_RESET)
     {
         tEvtKey = (tnsq_evt_key_t) {
-            .chValue = chValue,
-            .tEvent = tnsq_evt_key_down,
+            .tDirection = chValue,
+            .tEvent = TNSQ_EVT_KEY_EVENT_DOWN,
         };
         tnsq_evt_itc_put(&tEvtKey);
     }
     else
     {
         tEvtKey = (tnsq_evt_key_t) {
-            .chValue = chValue,
-            .tEvent = tnsq_evt_key_up,
+            .tDirection = chValue,
+            .tEvent = TNSQ_EVT_KEY_EVENT_UP,
+        };
+        tnsq_evt_itc_put(&tEvtKey);
+    }
+}
+
+static void _pressed_high_level_key_handler(GPIO_TypeDef *GPIO_PORT, uint16_t GPIO_PIN, uint8_t chValue)
+{
+    tnsq_evt_key_t tEvtKey = {0};
+    GPIO_PinState state = HAL_GPIO_ReadPin(GPIO_PORT, GPIO_PIN);
+    if (state != GPIO_PIN_RESET)
+    {
+        tEvtKey = (tnsq_evt_key_t) {
+            .tDirection = chValue,
+            .tEvent = TNSQ_EVT_KEY_EVENT_DOWN,
+        };
+        tnsq_evt_itc_put(&tEvtKey);
+    }
+    else
+    {
+        tEvtKey = (tnsq_evt_key_t) {
+            .tDirection = chValue,
+            .tEvent = TNSQ_EVT_KEY_EVENT_UP,
         };
         tnsq_evt_itc_put(&tEvtKey);
     }
 }
 
 void KEY0_IRQHandler (void) {
-    //any_key_press = true;
-
     if (__HAL_GPIO_EXTI_GET_IT(KEY0_GPIO_PIN) != RESET) {
         __HAL_GPIO_EXTI_CLEAR_IT(KEY0_GPIO_PIN);
-        //get_key_press = key_0;
         
-        _key_handler(KEY0_GPIO_PORT, KEY0_GPIO_PIN, 0);
+        _pressed_low_level_key_handler(KEY0_GPIO_PORT, KEY0_GPIO_PIN, TNSQ_EVT_KEY_DERECTION_RIGHT);
     }
 	
     if (__HAL_GPIO_EXTI_GET_IT(KEY3_GPIO_PIN) != RESET) {
         __HAL_GPIO_EXTI_CLEAR_IT(KEY3_GPIO_PIN);
-        //get_key_press = key_3;
         
-        _key_handler(KEY3_GPIO_PORT, KEY3_GPIO_PIN, 3);
+        _pressed_high_level_key_handler(KEY3_GPIO_PORT, KEY3_GPIO_PIN, TNSQ_EVT_KEY_DERECTION_UP);
     }
 }
 
 void KEY1_IRQHandler (void) {
-    //any_key_press = true;
     if (__HAL_GPIO_EXTI_GET_IT(KEY1_GPIO_PIN) != RESET) {
         __HAL_GPIO_EXTI_CLEAR_IT(KEY1_GPIO_PIN);
-        //get_key_press = key_1;
         
-        _key_handler(KEY1_GPIO_PORT, KEY1_GPIO_PIN, 1);
+        _pressed_low_level_key_handler(KEY1_GPIO_PORT, KEY1_GPIO_PIN, TNSQ_EVT_KEY_DERECTION_DOWN);
     }
 	
     if (__HAL_GPIO_EXTI_GET_IT(KEY2_GPIO_PIN) != RESET) {
         __HAL_GPIO_EXTI_CLEAR_IT(KEY2_GPIO_PIN);
-        //get_key_press = key_2;
         
-        _key_handler(KEY2_GPIO_PORT, KEY2_GPIO_PIN, 2);
+        _pressed_low_level_key_handler(KEY2_GPIO_PORT, KEY2_GPIO_PIN, TNSQ_EVT_KEY_DERECTION_LEFT);
     }
 }

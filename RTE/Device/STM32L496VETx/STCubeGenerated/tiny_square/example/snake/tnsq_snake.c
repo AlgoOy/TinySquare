@@ -51,17 +51,85 @@ void tnsq_snake_task_entry(void *ptParam)
         tnsq_evt_itc_get(&tEvtKey, RT_WAITING_FOREVER);
         switch (tEvtKey.tEvent) 
         {
-        case tnsq_evt_key_down:
+        case TNSQ_EVT_KEY_EVENT_DOWN:
             UART_Print("key down\n");
+            switch (tEvtKey.tDirection)
+            {
+            case TNSQ_EVT_KEY_DERECTION_UP:
+                UART_Print("DERECTION_UP\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_DOWN:
+                UART_Print("DERECTION_DOWN\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_LEFT:
+                UART_Print("DERECTION_LEFT\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_RIGHT:
+                UART_Print("DERECTION_RIGHT\n");
+                break;
+            default:
+                break;
+            }
             break;
-        case tnsq_evt_key_up:
+        case TNSQ_EVT_KEY_EVENT_UP:
             UART_Print("key up\n");
+            switch (tEvtKey.tDirection)
+            {
+            case TNSQ_EVT_KEY_DERECTION_UP:
+                UART_Print("DERECTION_UP\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_DOWN:
+                UART_Print("DERECTION_DOWN\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_LEFT:
+                UART_Print("DERECTION_LEFT\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_RIGHT:
+                UART_Print("DERECTION_RIGHT\n");
+                break;
+            default:
+                break;
+            }
             break;
-        case tnsq_evt_key_pressed:
+        case TNSQ_EVT_KEY_EVENT_PRESSED:
             UART_Print("key pressed\n");
+            switch (tEvtKey.tDirection)
+            {
+            case TNSQ_EVT_KEY_DERECTION_UP:
+                UART_Print("DERECTION_UP\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_DOWN:
+                UART_Print("DERECTION_DOWN\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_LEFT:
+                UART_Print("DERECTION_LEFT\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_RIGHT:
+                UART_Print("DERECTION_RIGHT\n");
+                break;
+            default:
+                break;
+            }
             break;
-        case tnsq_evt_key_long_pressed:
+        case TNSQ_EVT_KEY_EVENT_LONG_PRESSED:
             UART_Print("key long pressed\n");
+            switch (tEvtKey.tDirection)
+            {
+            case TNSQ_EVT_KEY_DERECTION_UP:
+                UART_Print("DERECTION_UP\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_DOWN:
+                UART_Print("DERECTION_DOWN\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_LEFT:
+                UART_Print("DERECTION_LEFT\n");
+                break;
+            case TNSQ_EVT_KEY_DERECTION_RIGHT:
+                UART_Print("DERECTION_RIGHT\n");
+                break;
+            default:
+                break;
+            }
             break;
         default:
             break;

@@ -89,7 +89,7 @@ rt_err_t tnsq_evt_itc_key_handler(void)
         if (s_blsfinsh == RT_FALSE && s_blsLongPressed == RT_FALSE)
         {
             s_blsLongPressed = RT_TRUE;
-            tEvtKey.tEvent = tnsq_evt_key_long_pressed;
+            tEvtKey.tEvent = TNSQ_EVT_KEY_EVENT_LONG_PRESSED;
             if (_tnsq_evt_key_put(&tEvtKey, ptEvtCtrl->tEvtITC.ptMsgE2G) != RT_EOK)
             {
                 return RT_ERROR;
@@ -103,7 +103,7 @@ rt_err_t tnsq_evt_itc_key_handler(void)
     
     switch(tEvtKey.tEvent)
     {
-    case tnsq_evt_key_down:
+    case TNSQ_EVT_KEY_EVENT_DOWN:
         if (s_blsfinsh == RT_FALSE)
         {
             return RT_ERROR;
@@ -117,7 +117,7 @@ rt_err_t tnsq_evt_itc_key_handler(void)
             s_blsfinsh = RT_FALSE;
         }
         break;
-    case tnsq_evt_key_up:
+    case TNSQ_EVT_KEY_EVENT_UP:
         if (s_blsfinsh == RT_TRUE)
         {
             return RT_ERROR;
@@ -130,7 +130,7 @@ rt_err_t tnsq_evt_itc_key_handler(void)
             }
             if (s_blsLongPressed == RT_FALSE)
             {
-                tEvtKey.tEvent = tnsq_evt_key_pressed;
+                tEvtKey.tEvent = TNSQ_EVT_KEY_EVENT_PRESSED;
                 if (_tnsq_evt_key_put(&tEvtKey, ptEvtCtrl->tEvtITC.ptMsgE2G) != RT_EOK)
                 {
                     return RT_ERROR;
@@ -143,9 +143,8 @@ rt_err_t tnsq_evt_itc_key_handler(void)
             s_blsfinsh = RT_TRUE;
         }
         break;
-    case tnsq_evt_key_invalid:
-    case tnsq_evt_key_long_pressed:
-    case tnsq_evt_key_pressed:
+    case TNSQ_EVT_KEY_EVENT_LONG_PRESSED:
+    case TNSQ_EVT_KEY_EVENT_PRESSED:
     default:
         return RT_ERROR;
     }

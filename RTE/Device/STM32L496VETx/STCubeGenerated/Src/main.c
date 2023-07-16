@@ -138,11 +138,11 @@ int main(void)
 	
     /* todo: put task create into tnsq init */
 	engineTid = rt_thread_create("tnsq_gfx", tnsq_gfx_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
-//	if (engineTid != RT_NULL) {
-//		rt_thread_startup(engineTid);
-//	} else {
-//        while(1);
-//    }
+	if (engineTid != RT_NULL) {
+		rt_thread_startup(engineTid);
+	} else {
+        while(1);
+    }
 	
 	eventTid = rt_thread_create("tnsq_evt", tnsq_evt_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-1, THREAD_TIMESLICE);
 	if (eventTid != RT_NULL) {

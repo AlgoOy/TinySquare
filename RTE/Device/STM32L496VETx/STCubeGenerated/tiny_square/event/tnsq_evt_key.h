@@ -35,13 +35,21 @@ extern "C" {
 
 struct tnsq_evt_key_t
 {
-    rt_uint8_t chValue;
-    enum{
-        tnsq_evt_key_invalid        = 0x00,
-        tnsq_evt_key_up             = 0x01,
-        tnsq_evt_key_down           = 0x02,
-        tnsq_evt_key_pressed        = 0x03,
-        tnsq_evt_key_long_pressed   = 0x04,
+    enum 
+    {
+        TNSQ_EVT_KEY_DERECTION_INVALID  = 0x00,
+        TNSQ_EVT_KEY_DERECTION_UP       = 0x01,
+        TNSQ_EVT_KEY_DERECTION_DOWN     = 0x02,
+        TNSQ_EVT_KEY_DERECTION_LEFT     = 0x03,
+        TNSQ_EVT_KEY_DERECTION_RIGHT    = 0x04,
+    } tDirection;
+    enum 
+    {
+        TNSQ_EVT_KEY_EVENT_INVALID        = 0x00,
+        TNSQ_EVT_KEY_EVENT_UP             = 0x01,
+        TNSQ_EVT_KEY_EVENT_DOWN           = 0x02,
+        TNSQ_EVT_KEY_EVENT_PRESSED        = 0x03,
+        TNSQ_EVT_KEY_EVENT_LONG_PRESSED   = 0x04,
     } tEvent;
 };
 typedef struct tnsq_evt_key_t tnsq_evt_key_t;
