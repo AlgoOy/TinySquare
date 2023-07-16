@@ -76,7 +76,6 @@ static void _tnsq_gfx_on_stage_background_complete(arm_2d_scene_t *ptScene)
     ARM_2D_UNUSED(ptThis);
 }
 
-
 static void _tnsq_gfx_on_stage_frame_start(arm_2d_scene_t *ptScene)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
@@ -119,7 +118,12 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
 
-
+    tnsq_gfx_layer_t *ptLayersList = this.ptLayersList;
+    while(ptLayersList != NULL)
+    {
+        tnsq_gfx_refresh_layer(ptLayersList, ptTile, this.tStageCFG.ptDispAdapter.ptPlayer);
+        ptLayersList = ptLayersList->ptNext;
+    }
 
     /*-----------------------draw the foreground end  -----------------------*/
     }

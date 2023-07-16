@@ -1,28 +1,7 @@
-/* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
-/* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
 #include "stdio.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
 #include "lcd.h"
 #include "key.h"
 #include "uart.h"
@@ -35,17 +14,13 @@
 
 #include "tiny_square.h"
 #include "tnsq_snake.h"
-//#include "snake_v2.h"
 
 #define THREAD_PRIORITY         25
-#define THREAD_STACK_SIZE       512
+#define THREAD_STACK_SIZE       1024
 #define THREAD_TIMESLICE        100
 
 static volatile int64_t s_lTimeStamp;
-/* USER CODE END Includes */
 
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
 __OVERRIDE_WEAK
 void arm_2d_helper_perf_counter_start(void)
 {
@@ -57,31 +32,9 @@ int32_t arm_2d_helper_perf_counter_stop(void)
 {
     return (int32_t)(get_system_ticks() - s_lTimeStamp);
 }
-/* USER CODE END PTD */
 
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
-
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
 
 extern 
 int32_t Disp0_DrawBitmap(int16_t x, 
@@ -90,45 +43,25 @@ int32_t Disp0_DrawBitmap(int16_t x,
                         int16_t height, 
                         const uint8_t *bitmap);
 
-/* USER CODE END 0 */
-
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
-
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
     HAL_Init();
 
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
     SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
-	//SystemCoreClock = 80000000ul;
     SystemCoreClockUpdate();
 	init_cycle_counter(true);
-  /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
     MX_GPIO_Init();
-  /* USER CODE BEGIN 2 */
   	LCD_Init();
 	Key_Init();
+    
     if (DEBUG_USART_CONFIG_INIT() != PERIPHERAL_CFG_OK)
     {
         while(1);
     }
+    
 	arm_irq_safe {
         arm_2d_init();
         tnsq_init();
@@ -155,7 +88,6 @@ int main(void)
 	}else {
         while(1);
     }
-    
 }
 
 /**

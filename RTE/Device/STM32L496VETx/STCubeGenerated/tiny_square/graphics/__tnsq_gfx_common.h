@@ -49,7 +49,7 @@ struct tnsq_gfx_disp_adapters_node_t
     ARM_PRIVATE
     (
         struct tnsq_gfx_disp_adapters_node_t *ptNext;
-        tnsq_gfx_disp_adapter_t ptDispAdapter;
+        tnsq_gfx_disp_adapter_t tDispAdapter;
     )
 };
 typedef struct tnsq_gfx_disp_adapters_node_t tnsq_gfx_disp_adapters_node_t;
@@ -79,6 +79,8 @@ tnsq_gfx_disp_adapters_node_t const *tnsq_gfx_get_disp_adapters_list(tnsq_gfx_ct
 rt_err_t tnsq_gfx_register_disp_adapter_to_crtl(tnsq_gfx_ctrl_t *ptThis, tnsq_gfx_disp_adapter_t const *ptDispAdapter);
 /* destroy display adapters list */
 void tnsq_gfx_destroy_disp_adapters_list(tnsq_gfx_ctrl_t *ptThis);
+
+void tnsq_gfx_refresh_layer(tnsq_gfx_layer_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_scene_player_t *ptDispAdapter);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

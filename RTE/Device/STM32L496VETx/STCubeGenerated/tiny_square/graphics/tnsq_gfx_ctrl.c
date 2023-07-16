@@ -58,7 +58,7 @@ static rt_err_t _tnsq_gfx_query_disp_adapter(tnsq_gfx_ctrl_t const *ptThis, tnsq
     tnsq_gfx_disp_adapters_node_t *ptDispAdapterListPtr = this.ptDispAdapterList;
     while (ptDispAdapterListPtr != NULL)
     {
-        if (ptDispAdapterListPtr->ptDispAdapter.ptPlayer == ptDispAdapter->ptPlayer)
+        if (ptDispAdapterListPtr->tDispAdapter.ptPlayer == ptDispAdapter->ptPlayer)
         {
             return RT_EOK;
         }
@@ -81,7 +81,7 @@ static rt_err_t _tnsq_gfx_set_disp_adapter(tnsq_gfx_ctrl_t *ptThis, tnsq_gfx_dis
     
     memset(ptNewDispNode, 0, sizeof(tnsq_gfx_disp_adapters_node_t));
     
-    ptNewDispNode->ptDispAdapter = *ptDispAdapter;
+    ptNewDispNode->tDispAdapter = *ptDispAdapter;
     ptNewDispNode->ptNext = NULL;
     
     tnsq_gfx_disp_adapters_node_t *ptDispAdapterListPtr = this.ptDispAdapterList;

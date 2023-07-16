@@ -76,7 +76,7 @@ void tnsq_gfx_task_entry(void *ptParam)
         tnsq_gfx_disp_adapters_node_t *ptDispAdapterListPtr = this.ptDispAdapterList;
         while (ptDispAdapterListPtr != NULL)
         {
-            while (ptDispAdapterListPtr->ptDispAdapter.ptPlayerTask() != arm_fsm_rt_cpl)
+            while (ptDispAdapterListPtr->tDispAdapter.ptPlayerTask() != arm_fsm_rt_cpl)
             {
                 /* waiting for task cpl */
             }

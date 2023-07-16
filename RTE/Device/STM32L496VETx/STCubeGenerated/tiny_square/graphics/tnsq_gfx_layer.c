@@ -10,6 +10,7 @@
 
 #include "arm_2d.h"
 
+#define ____TNSQ_GFX_COMMON_IMPLEMENT__
 #define __TNSQ_GFX_LAYER_IMPLEMENT__
 #include "__tnsq_gfx_common.h"
 
@@ -46,6 +47,39 @@
 
 #undef this
 #define this (*ptThis)
+    
+void tnsq_gfx_refresh_layer(tnsq_gfx_layer_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_scene_player_t *ptDispAdapter)
+{
+    arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
+        &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
+    
+    for (int i = 0; i < this.tSize.hwXCount * this.tSize.hwYCount; i ++)
+    {
+        if (this.ptCells[i].blsDirty == RT_TRUE)
+        {
+            arm_2dp_fill_colour_with_opacity
+            (
+                NULL,
+                ptTile,
+                (arm_2d_region_t []) {
+                    {
+                        .tLocation = {
+                            .iX = (i % this.tSize.hwXCount) * (tScreen.tSize.iWidth / this.tSize.hwXCount),
+                            .iY = (i / this.tSize.hwXCount) * (tScreen.tSize.iHeight / this.tSize.hwYCount),
+                        },
+                        .tSize = {
+                            .iWidth = tScreen.tSize.iWidth / this.tSize.hwXCount,
+                            .iHeight = tScreen.tSize.iHeight / this.tSize.hwYCount,
+                        },
+                    },
+                },
+                this.ptCells[i].tColor,
+                this.ptCells[i].chOpacity
+            );
+            arm_2d_op_wait_async(NULL);
+        }
+    }
+}
     
 ARM_NONNULL(1) tnsq_gfx_layer_t *__tnsq_gfx_layer_init(tnsq_gfx_layer_cfg_t *ptCFG, tnsq_gfx_layer_t *ptThis)
 {
