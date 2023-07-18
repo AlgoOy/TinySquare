@@ -8,17 +8,14 @@
  * 2023-07-08     AlgoOy     the first version
  */
 
-#ifndef ____TNSQ_GFX_COMMON_H__
-#define ____TNSQ_GFX_COMMON_H__
+#ifndef ____TNSQ_GFX_LAYER_CELL_H__
+#define ____TNSQ_GFX_LAYER_CELL_H__
 
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "tnsq_gfx.h"
-#include "__tnsq_gfx_ctrl.h"
-#include "__tnsq_gfx_layer.h"
-#include "__tnsq_gfx_layer_cell.h"
+#include "tnsq_gfx_layer_cell.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -33,6 +30,8 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpedantic"
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
+
+void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_scene_player_t *ptDispAdapter);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

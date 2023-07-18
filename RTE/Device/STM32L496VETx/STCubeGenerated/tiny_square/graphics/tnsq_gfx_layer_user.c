@@ -8,9 +8,11 @@
  * 2023-07-08     AlgoOy     the first version
  */
 
-#define ____TNSQ_GFX_CTRL_IMPLEMENT__
-#include "__tnsq_gfx_common.h"
- 
+#define __TNSQ_GFX_LAYER_USER_IMPLEMENT__
+#include "tnsq_gfx_layer_user.h"
+
+#include <stdlib.h>
+
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
@@ -42,52 +44,43 @@
 #undef this
 #define this (*ptThis)
     
-void tnsq_gfx_apply_for_refresh(void)
+ARM_NONNULL(1) tnsq_gfx_layer_user_t *__tnsq_gfx_layer_user_init(tnsq_gfx_layer_user_cfg_t *ptCFG, tnsq_gfx_layer_user_t *ptThis)
 {
-    tnsq_gfx_ctrl_t *ptThis = tnsq_gfx_get_ctrl();
+    assert(ptCFG != NULL);
     
-    while (rt_sem_release(this.tRefresh.ptSemWaitReq) != RT_EOK)
+    rt_bool_t blsUserAllocated = RT_FALSE;
+    
+    if (ptThis == NULL)
     {
-        /* error handle */
-    }
-    
-    while (rt_sem_take(this.tRefresh.ptSemGiveRsp, RT_WAITING_FOREVER) != RT_EOK)
-    {
-        /* error handle */
-    }
-}
-    
-void tnsq_gfx_task_entry(void *ptParam)
-{
-    (void)ptParam;
-    
-    tnsq_gfx_ctrl_t *ptThis = tnsq_gfx_get_ctrl();
-    
-    while (1)
-    {
-        while (rt_sem_take(this.tRefresh.ptSemWaitReq, RT_WAITING_FOREVER) != RT_EOK)
+        ptThis = (tnsq_gfx_layer_user_t *)malloc(sizeof(tnsq_gfx_layer_user_t));
+        if (ptThis == NULL)
         {
-            /* error handle */
-        }
-        
-        /* todo: if there many disp adapters waiting for run
-         * arm_2d_op_wait_async(disp_adapters_task());  ???
-         */
-        tnsq_gfx_disp_adapters_node_t *ptDispAdapterListPtr = this.ptDispAdapterList;
-        while (ptDispAdapterListPtr != NULL)
-        {
-            while (ptDispAdapterListPtr->tDispAdapter.ptPlayerTask() != arm_fsm_rt_cpl)
-            {
-                /* waiting for task cpl */
-            }
-            ptDispAdapterListPtr = ptDispAdapterListPtr->ptNext;
-        }
-        
-        while (rt_sem_release(this.tRefresh.ptSemGiveRsp) != RT_EOK)
-        {
-            /* error handle */
+            return NULL;
         }
     }
+    else
+    {
+        blsUserAllocated = RT_TRUE;
+    }
+    
+    memset(ptThis, 0, sizeof(tnsq_gfx_layer_user_t));
+    
+    *ptThis = (tnsq_gfx_layer_user_t) {
+        .use_as__tnsq_gfx_layer_base_t = {
+            .ptNext = NULL,
+            .tType  = TNSQ_GFX_LAYER_TYPE_USER,
+            .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
+        },
+        .blsUserAllocated = blsUserAllocated,
+        .tSize = {
+            .hwXCount = ptCFG->hwXCount,
+            .hwYCount = ptCFG->hwYCount,
+        },
+        .ptFunc = ptCFG->ptFunc,
+        .pchUserMap = ptCFG->pchUserMap,
+    };
+    
+    return ptThis;
 }
     
 #if defined(__clang__)

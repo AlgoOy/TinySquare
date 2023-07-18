@@ -15,8 +15,10 @@
 extern "C" {
 #endif
 
+#include "tnsq_gfx_color.h"
 #include "tnsq_gfx_stage.h"
-#include "tiny_square_cfg.h"
+#include "tnsq_gfx_layer_cell.h"
+#include "tnsq_gfx_layer_user.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

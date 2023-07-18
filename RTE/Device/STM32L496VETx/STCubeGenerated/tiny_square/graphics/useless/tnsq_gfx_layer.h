@@ -7,18 +7,17 @@
  * Date           Author     Notes
  * 2023-07-08     AlgoOy     the first version
  */
-
-#ifndef ____TNSQ_GFX_COMMON_H__
-#define ____TNSQ_GFX_COMMON_H__
-
+ 
+#ifndef __TNSQ_GFX_LAYER_H__
+#define __TNSQ_GFX_LAYER_H__
+ 
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "tnsq_gfx.h"
-#include "__tnsq_gfx_ctrl.h"
-#include "__tnsq_gfx_layer.h"
-#include "__tnsq_gfx_layer_cell.h"
+#include "rtdef.h"
+
+#include "tnsq_gfx_color.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -34,6 +33,14 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
+#ifdef __TNSQ_GFX_LAYER_IMPLEMENT__
+#   undef __TNSQ_GFX_LAYER_IMPLEMENT__
+#   define __ARM_2D_IMPL__
+#endif
+#include "arm_2d_utils.h"
+
+
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__
@@ -43,5 +50,5 @@ extern "C" {
 #ifdef   __cplusplus
 }
 #endif
-
+ 
 #endif

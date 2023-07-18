@@ -123,36 +123,36 @@ static tnsq_gfx_stage_t *_tnsq_snake_stage_init(void)
 
 static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
 {
-    tnsq_gfx_layer_cfg_t tGameBGLayerCFG = (tnsq_gfx_layer_cfg_t) {
+    tnsq_gfx_layer_cell_cfg_t tGameBGLayerCFG = (tnsq_gfx_layer_cell_cfg_t) {
         .hwXCount = BGCellsXCount,
         .hwYCount = BGCellsYCount,
         .ptCells = s_tBGCells,
     };
-    tnsq_gfx_layer_t *ptGameBGLayer = tnsq_gfx_layer_init(&tGameBGLayerCFG);
+    tnsq_gfx_layer_cell_t *ptGameBGLayer = tnsq_gfx_layer_cell_init(&tGameBGLayerCFG);
     if (ptGameBGLayer == NULL)
     {
         /* error handle */
         UART_Print("bg layer init failed");
     }
     
-    tnsq_gfx_layer_cfg_t tGameMLLayerCFG = (tnsq_gfx_layer_cfg_t) {
+    tnsq_gfx_layer_cell_cfg_t tGameMLLayerCFG = (tnsq_gfx_layer_cell_cfg_t) {
         .hwXCount = MLCellsXCount,
         .hwYCount = MLCellsYCount,
         .ptCells = s_tMLCells,
     };
-    tnsq_gfx_layer_t *ptGameMLLayer = tnsq_gfx_layer_init(&tGameMLLayerCFG);
+    tnsq_gfx_layer_cell_t *ptGameMLLayer = tnsq_gfx_layer_cell_init(&tGameMLLayerCFG);
     if (ptGameBGLayer == NULL)
     {
         /* error handle */
         UART_Print("ml layer init failed");
     }
     
-    tnsq_gfx_layer_cfg_t tGameFGLayerCFG = (tnsq_gfx_layer_cfg_t) {
+    tnsq_gfx_layer_cell_cfg_t tGameFGLayerCFG = (tnsq_gfx_layer_cell_cfg_t) {
         .hwXCount = FGCellsXCount,
         .hwYCount = FGCellsYCount,
         .ptCells = s_tFGCells,
     };
-    tnsq_gfx_layer_t *ptGameFGLayer = tnsq_gfx_layer_init(&tGameFGLayerCFG);
+    tnsq_gfx_layer_cell_t *ptGameFGLayer = tnsq_gfx_layer_cell_init(&tGameFGLayerCFG);
     if (ptGameFGLayer == NULL)
     {
         /* error handle */

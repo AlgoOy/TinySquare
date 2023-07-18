@@ -11,7 +11,8 @@
 #include "arm_2d.h"
 
 #define __TNSQ_GFX_STAGE_IMPLEMENT__
-#define __TNSQ_GFX_LAYER_IMPLEMENT__
+#include "tnsq_gfx_stage.h"
+
 #include "__tnsq_gfx_common.h"
 
 #include "arm_2d_helper.h"
@@ -118,10 +119,17 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
 
-    tnsq_gfx_layer_t *ptLayersList = this.ptLayersList;
+    tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;
     while(ptLayersList != NULL)
     {
-        tnsq_gfx_refresh_layer(ptLayersList, ptTile, this.tStageCFG.ptDispAdapter.ptPlayer);
+        if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_CELL)
+        {
+            tnsq_gfx_refresh_layer_cell((tnsq_gfx_layer_cell_t *)ptLayersList, ptTile, this.tStageCFG.ptDispAdapter.ptPlayer);
+        }
+        else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
+        {
+        
+        }
         ptLayersList = ptLayersList->ptNext;
     }
 
@@ -186,16 +194,19 @@ ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptC
     return ptThis;
 }
 
-ARM_NONNULL(1, 2) void tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptThis, tnsq_gfx_layer_t *ptLayer)
+ARM_NONNULL(1, 2) void tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptThis, void *ptLayer)
 {
     assert(ptThis != NULL);
     assert(ptLayer != NULL);
     
-    tnsq_gfx_layer_t *ptLayerListPtr = this.ptLayersList;
+    tnsq_gfx_layer_base_t *ptLayerBase = (tnsq_gfx_layer_base_t *)ptLayer;
+    assert(ptLayerBase->wMagic == TNSQ_GFX_LAYER_BASE_MAGIC);
+    
+    tnsq_gfx_layer_base_t *ptLayerListPtr = this.ptLayersList;
     
     if (ptLayerListPtr == NULL)
     {
-        this.ptLayersList = ptLayer;
+        this.ptLayersList = ptLayerBase;
     }
     else
     {
@@ -203,7 +214,7 @@ ARM_NONNULL(1, 2) void tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptThis
         {
             ptLayerListPtr = ptLayerListPtr->ptNext;
         }
-        ptLayerListPtr->ptNext = ptLayer;
+        ptLayerListPtr->ptNext = ptLayerBase;
     }
 }
 

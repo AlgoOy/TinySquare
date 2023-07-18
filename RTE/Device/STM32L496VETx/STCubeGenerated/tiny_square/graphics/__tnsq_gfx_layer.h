@@ -8,17 +8,14 @@
  * 2023-07-08     AlgoOy     the first version
  */
 
-#ifndef ____TNSQ_GFX_COMMON_H__
-#define ____TNSQ_GFX_COMMON_H__
+#ifndef ____TNSQ_GFX_LAYER_H__
+#define ____TNSQ_GFX_LAYER_H__
 
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "tnsq_gfx.h"
-#include "__tnsq_gfx_ctrl.h"
-#include "__tnsq_gfx_layer.h"
-#include "__tnsq_gfx_layer_cell.h"
+#include "rtdef.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -33,6 +30,21 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpedantic"
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
+
+#define TNSQ_GFX_LAYER_BASE_MAGIC   0xA0B9C8D7
+
+struct tnsq_gfx_layer_base_t
+{
+    struct tnsq_gfx_layer_base_t *ptNext;
+    enum
+    {
+        TNSQ_GFX_LAYER_TYPE_INVALID     = 0x00,
+        TNSQ_GFX_LAYER_TYPE_CELL        = 0x01,
+        TNSQ_GFX_LAYER_TYPE_USER        = 0x02,
+    } tType;
+    rt_int32_t wMagic;
+};
+typedef struct tnsq_gfx_layer_base_t tnsq_gfx_layer_base_t;
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

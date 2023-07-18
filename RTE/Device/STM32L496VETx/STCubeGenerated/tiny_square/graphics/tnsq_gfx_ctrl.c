@@ -8,8 +8,8 @@
  * 2023-07-08     AlgoOy     the first version
  */
  
-#define ____TNSQ_GFX_COMMON_IMPLEMENT__
-#include "__tnsq_gfx_common.h"
+#define ____TNSQ_GFX_CTRL_IMPLEMENT__
+#include "__tnsq_gfx_ctrl.h"
  
 #if defined(__clang__)
 #   pragma clang diagnostic push

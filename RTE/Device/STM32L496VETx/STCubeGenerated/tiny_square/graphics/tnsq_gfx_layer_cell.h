@@ -8,8 +8,8 @@
  * 2023-07-08     AlgoOy     the first version
  */
  
-#ifndef __TNSQ_GFX_LAYER_H__
-#define __TNSQ_GFX_LAYER_H__
+#ifndef __TNSQ_GFX_LAYER_CELL_H__
+#define __TNSQ_GFX_LAYER_CELL_H__
  
 #ifdef   __cplusplus
 extern "C" {
@@ -17,6 +17,7 @@ extern "C" {
 
 #include "rtdef.h"
 
+#include "__tnsq_gfx_layer.h"
 #include "tnsq_gfx_color.h"
 
 #if defined(__clang__)
@@ -33,8 +34,8 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#ifdef __TNSQ_GFX_LAYER_IMPLEMENT__
-#   undef __TNSQ_GFX_LAYER_IMPLEMENT__
+#ifdef __TNSQ_GFX_LAYER_CELL_IMPLEMENT__
+#   undef __TNSQ_GFX_LAYER_CELL_IMPLEMENT__
 #   define __ARM_2D_IMPL__
 #endif
 #include "arm_2d_utils.h"
@@ -47,33 +48,33 @@ struct tnsq_gfx_cell_t
 };
 typedef struct tnsq_gfx_cell_t tnsq_gfx_cell_t;
 
-struct tnsq_gfx_layer_cfg_t
+struct tnsq_gfx_layer_cell_cfg_t
 {
     rt_uint16_t hwXCount;
     rt_uint16_t hwYCount;
     tnsq_gfx_cell_t *ptCells;
 };
-typedef struct tnsq_gfx_layer_cfg_t tnsq_gfx_layer_cfg_t;
- 
-struct tnsq_gfx_layer_t
+typedef struct tnsq_gfx_layer_cell_cfg_t tnsq_gfx_layer_cell_cfg_t;
+
+struct tnsq_gfx_layer_cell_t
 {
     ARM_PRIVATE
     (
+        implement (tnsq_gfx_layer_base_t);
         rt_bool_t blsUserAllocated;
         struct
         {
             rt_uint16_t hwXCount;
             rt_uint16_t hwYCount;
         } tSize;
-        struct tnsq_gfx_layer_t *ptNext;
     )
     tnsq_gfx_cell_t *ptCells;
 };
-typedef struct tnsq_gfx_layer_t tnsq_gfx_layer_t;
+typedef struct tnsq_gfx_layer_cell_t tnsq_gfx_layer_cell_t;
 
-#define tnsq_gfx_layer_init(__TNSQ_GFX_LAYER_CFG_PTR, ...) __tnsq_gfx_layer_init((__TNSQ_GFX_LAYER_CFG_PTR), (NULL, ##__VA_ARGS__))
+#define tnsq_gfx_layer_cell_init(__TNSQ_GFX_LAYER_CFG_PTR, ...) __tnsq_gfx_layer_cell_init((__TNSQ_GFX_LAYER_CFG_PTR), (NULL, ##__VA_ARGS__))
 
-ARM_NONNULL(1) tnsq_gfx_layer_t *__tnsq_gfx_layer_init(tnsq_gfx_layer_cfg_t *ptLayerCFG, tnsq_gfx_layer_t *ptLayer);
+ARM_NONNULL(1) tnsq_gfx_layer_cell_t *__tnsq_gfx_layer_cell_init(tnsq_gfx_layer_cell_cfg_t *ptLayerCFG, tnsq_gfx_layer_cell_t *ptLayer);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
