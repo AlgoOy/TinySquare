@@ -19,6 +19,10 @@ extern "C" {
 #include "__tnsq_gfx_ctrl.h"
 #include "__tnsq_gfx_layer.h"
 #include "__tnsq_gfx_layer_cell.h"
+#include "__tnsq_gfx_layer_user.h"
+#include "__tnsq_gfx_layer_bg.h"
+#include "__tnsq_gfx_layer_bg_cl.h"
+
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

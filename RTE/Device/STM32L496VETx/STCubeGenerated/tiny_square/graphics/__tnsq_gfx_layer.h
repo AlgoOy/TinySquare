@@ -41,6 +41,8 @@ struct tnsq_gfx_layer_base_t
         TNSQ_GFX_LAYER_TYPE_INVALID     = 0x00,
         TNSQ_GFX_LAYER_TYPE_CELL        = 0x01,
         TNSQ_GFX_LAYER_TYPE_USER        = 0x02,
+        TNSQ_GFX_LAYER_TYPE_BG          = 0x03,
+        TNSQ_GFX_LAYER_TYPE_BG_CL       = 0x04,
     } tType;
     rt_int32_t wMagic;
 };

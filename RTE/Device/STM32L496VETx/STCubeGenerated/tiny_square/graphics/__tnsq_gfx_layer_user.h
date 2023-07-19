@@ -8,18 +8,14 @@
  * 2023-07-08     AlgoOy     the first version
  */
  
-#ifndef __TNSQ_GFX_H__
-#define __TNSQ_GFX_H__
-
+#ifndef ____TNSQ_GFX_LAYER_USER_H__
+#define ____TNSQ_GFX_LAYER_USER_H__
+ 
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "tnsq_gfx_stage.h"
-#include "tnsq_gfx_layer_cell.h"
 #include "tnsq_gfx_layer_user.h"
-#include "tnsq_gfx_layer_bg.h"
-#include "tnsq_gfx_layer_bg_cl.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -35,8 +31,7 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tnsq_gfx_task_entry(void *ptParam);
-void tnsq_gfx_apply_for_refresh(void);
+
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
@@ -49,4 +44,3 @@ void tnsq_gfx_apply_for_refresh(void);
 #endif
  
 #endif
- 

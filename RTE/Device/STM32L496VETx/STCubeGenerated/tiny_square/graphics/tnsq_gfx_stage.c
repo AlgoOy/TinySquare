@@ -128,6 +128,14 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
         }
         else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
         {
+            
+        }
+        else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
+        {
+            
+        }
+        else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG_CL)
+        {
         
         }
         ptLayersList = ptLayersList->ptNext;

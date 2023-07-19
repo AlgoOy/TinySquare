@@ -169,7 +169,7 @@ static rt_uint16_t _tnsq_pos_cal(tnsq_snake_point_t loc, rt_uint16_t YCount)
 	return (loc.x-1) * YCount + (loc.y-1);
 }
 
-static void draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, tnsq_gfx_color_t tColor)
+static void draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor)
 {
 	ptCells[pos].blsDirty = RT_TRUE;
 	ptCells[pos].chOpacity = chOpacity;

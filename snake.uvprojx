@@ -454,6 +454,16 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer_user.c</FilePath>
             </File>
+            <File>
+              <FileName>tnsq_gfx_layer_bg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer_bg.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_gfx_layer_bg_cl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer_bg_cl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -985,6 +995,16 @@
               <FileName>tnsq_gfx_layer_user.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer_user.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_gfx_layer_bg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer_bg.c</FilePath>
+            </File>
+            <File>
+              <FileName>tnsq_gfx_layer_bg_cl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer_bg_cl.c</FilePath>
             </File>
           </Files>
         </Group>

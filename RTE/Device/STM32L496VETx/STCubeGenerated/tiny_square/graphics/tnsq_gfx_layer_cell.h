@@ -17,8 +17,9 @@ extern "C" {
 
 #include "rtdef.h"
 
+#include "arm_2d_helper.h"
+
 #include "__tnsq_gfx_layer.h"
-#include "tnsq_gfx_color.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -42,7 +43,7 @@ extern "C" {
 
 struct tnsq_gfx_cell_t
 {
-    tnsq_gfx_color_t tColor;
+    __arm_2d_color_t tColor;
     rt_uint8_t chOpacity;
     rt_bool_t blsDirty;
 };
@@ -72,7 +73,8 @@ struct tnsq_gfx_layer_cell_t
 };
 typedef struct tnsq_gfx_layer_cell_t tnsq_gfx_layer_cell_t;
 
-#define tnsq_gfx_layer_cell_init(__TNSQ_GFX_LAYER_CFG_PTR, ...) __tnsq_gfx_layer_cell_init((__TNSQ_GFX_LAYER_CFG_PTR), (NULL, ##__VA_ARGS__))
+#define tnsq_gfx_layer_cell_init(__TNSQ_GFX_LAYER_CELL_CFG_PTR, ...) \
+            __tnsq_gfx_layer_cell_init((__TNSQ_GFX_LAYER_CELL_CFG_PTR), (NULL, ##__VA_ARGS__))
 
 ARM_NONNULL(1) tnsq_gfx_layer_cell_t *__tnsq_gfx_layer_cell_init(tnsq_gfx_layer_cell_cfg_t *ptLayerCFG, tnsq_gfx_layer_cell_t *ptLayer);
 
