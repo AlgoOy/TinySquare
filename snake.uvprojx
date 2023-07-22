@@ -464,6 +464,11 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer_bg_cl.c</FilePath>
             </File>
+            <File>
+              <FileName>tnsq_gfx_utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_utils.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -528,6 +533,11 @@
               <FileName>snake.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
+            </File>
+            <File>
+              <FileName>map.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\map.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1006,6 +1016,11 @@
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer_bg_cl.c</FilePath>
             </File>
+            <File>
+              <FileName>tnsq_gfx_utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_utils.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1070,6 +1085,11 @@
               <FileName>snake.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\snake.c</FilePath>
+            </File>
+            <File>
+              <FileName>map.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\map.c</FilePath>
             </File>
           </Files>
         </Group>

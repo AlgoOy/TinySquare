@@ -138,6 +138,7 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
         {
             tnsq_gfx_refresh_layer_bg_cl((tnsq_gfx_layer_bg_cl_t *)ptLayersList, ptTile);
         }
+        arm_2d_op_wait_async(NULL);
         ptLayersList = ptLayersList->ptNext;
     }
 

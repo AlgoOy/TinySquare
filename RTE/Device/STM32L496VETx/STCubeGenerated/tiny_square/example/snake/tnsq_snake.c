@@ -176,8 +176,8 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
                 .iY = 0,
             },
             .tSize = (arm_2d_size_t) {
-                .iWidth = tnsq_gfx_get_screen_size(&DISP0_ADAPTER).iWidth,
-                .iHeight = tnsq_gfx_get_screen_size(&DISP0_ADAPTER).iHeight,
+                .iWidth = c_tilebg_mapRGB565.tRegion.tSize.iWidth,
+                .iHeight = c_tilebg_mapRGB565.tRegion.tSize.iHeight,
             },
         },
     };
@@ -198,7 +198,7 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
     };
     tnsq_gfx_layer_cell_t *ptGameFGLayer = tnsq_gfx_layer_cell_init(&tGameFGLayerCFG);
     
-    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
+    //tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
     tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBG);
     tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameUser);
     tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameFGLayer);
@@ -252,7 +252,7 @@ static void _tnsq_snake_create_fruit(void)
         fruit.state = Exist;
         bls_map[_tnsq_pos_cal(fruit.loc, FGCellsYCount)] = RT_TRUE;
         
-        _tnsq_draw_fg(_tnsq_pos_cal(fruit.loc, FGCellsYCount), 255, FRUIT_COLOR);
+        _tnsq_draw_fg(_tnsq_pos_cal(fruit.loc, FGCellsYCount), 255, (__arm_2d_color_t){GLCD_COLOR_RED});
     }
 }
 
@@ -267,7 +267,7 @@ static void _tnsq_snake_fg_init(void)
         
         bls_map[_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount)] = RT_TRUE;
         
-        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount), 255, SNAKE_COLOR);
+        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount), 255, (__arm_2d_color_t){GLCD_COLOR_DARK_GREY});
         
         snake.direction = Right;
         
@@ -402,7 +402,7 @@ static void _tnsq_snake_game_logic(void)
             .x = newHead.x,
             .y = newHead.y,
         };
-        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount), 255, SNAKE_COLOR);
+        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount), 255, (__arm_2d_color_t){GLCD_COLOR_DARK_GREY});
     }
     else if (newHead.x < 1 || newHead.y < 1 || newHead.x > FGCellsXCount || newHead.y > FGCellsYCount)
     {
@@ -417,7 +417,7 @@ static void _tnsq_snake_game_logic(void)
     else
     {
         bls_map[_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount)] = RT_FALSE;
-        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount), 255, BG_COLOR);
+        //_tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount), 255, BG_COLOR);
         
         for (int i = 1; i < snake.length; i ++) {
 			if(newHead.x == snake.bodyloc[i].x && newHead.y == snake.bodyloc[i].y) {
@@ -435,7 +435,7 @@ static void _tnsq_snake_game_logic(void)
         };
         
         bls_map[_tnsq_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount)] = RT_TRUE;
-        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount), 255, SNAKE_COLOR);
+        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount), 255, (__arm_2d_color_t){GLCD_COLOR_DARK_GREY});
     }
     
     rt_thread_mdelay(snake.tSpeed);
