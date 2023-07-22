@@ -43,9 +43,9 @@ extern "C" {
 
 struct tnsq_gfx_layer_bg_cfg_t
 {
-    arm_2d_tile_t *ptBackGround;
-    arm_2d_tile_t *ptBackGroundMask;
-    arm_2d_region_t *ptRegion;
+    const arm_2d_tile_t *ptBackGround;
+    const arm_2d_tile_t *ptBackGroundMask;
+    arm_2d_region_t tRegion;
 };
 typedef struct tnsq_gfx_layer_bg_cfg_t tnsq_gfx_layer_bg_cfg_t;
 

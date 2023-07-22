@@ -128,15 +128,15 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
         }
         else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
         {
-            
+            tnsq_gfx_refresh_layer_user((tnsq_gfx_layer_user_t *)ptLayersList, ptTile, this.tStageCFG.ptDispAdapter.ptPlayer);
         }
         else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
         {
-            
+            tnsq_gfx_refresh_layer_bg((tnsq_gfx_layer_bg_t *)ptLayersList, ptTile);
         }
         else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG_CL)
         {
-        
+            tnsq_gfx_refresh_layer_bg_cl((tnsq_gfx_layer_bg_cl_t *)ptLayersList, ptTile);
         }
         ptLayersList = ptLayersList->ptNext;
     }

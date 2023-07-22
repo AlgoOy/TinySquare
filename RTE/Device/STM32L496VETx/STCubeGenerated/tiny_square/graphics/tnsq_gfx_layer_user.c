@@ -44,6 +44,27 @@
 #undef this
 #define this (*ptThis)
     
+void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_scene_player_t *ptDispAdapter)
+{
+    arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
+        &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
+    
+    for (int i = 0; i < this.tSize.hwXCount * this.tSize.hwYCount; i ++)
+    {
+        arm_2d_region_t tRegion = (arm_2d_region_t) {
+            .tLocation = {
+                .iX = (i % this.tSize.hwXCount) * (tScreen.tSize.iWidth / this.tSize.hwXCount),
+                .iY = (i / this.tSize.hwXCount) * (tScreen.tSize.iHeight / this.tSize.hwYCount),
+            },
+            .tSize = {
+                .iWidth = tScreen.tSize.iWidth / this.tSize.hwXCount,
+                .iHeight = tScreen.tSize.iHeight / this.tSize.hwYCount,
+            },
+        };
+        this.ptFunc(this.pchUserMap[i], ptTile, &tRegion);
+    }
+}
+    
 ARM_NONNULL(1) tnsq_gfx_layer_user_t *__tnsq_gfx_layer_user_init(tnsq_gfx_layer_user_cfg_t *ptCFG, tnsq_gfx_layer_user_t *ptThis)
 {
     assert(ptCFG != NULL);

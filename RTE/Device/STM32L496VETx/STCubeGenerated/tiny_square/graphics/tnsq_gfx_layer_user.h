@@ -17,7 +17,7 @@ extern "C" {
 
 #include "rtdef.h"
 
-#include "arm_2d.h"
+#include "arm_2d_helper.h"
 
 #include "__tnsq_gfx_layer.h"
 
@@ -42,7 +42,7 @@ extern "C" {
 #include "arm_2d_utils.h"
 
 typedef struct tnsq_gfx_layer_user_t tnsq_gfx_layer_user_t;
-typedef void (*ptLayerUserFunc_t)(tnsq_gfx_layer_user_t *ptLayer, arm_2d_tile_t *ptTile, arm_2d_region_t *ptRegion);
+typedef void (*ptLayerUserFunc_t)(rt_uint8_t idx, arm_2d_tile_t const *ptTile, arm_2d_region_t const *ptRegion);
 struct tnsq_gfx_layer_user_t
 {
     ARM_PRIVATE

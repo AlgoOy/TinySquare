@@ -43,21 +43,10 @@
 #undef this
 #define this (*ptThis)
     
-#define BGCellsXCount   1
-#define BGCellsYCount   1
-
 #define FGCellsXCount   10
 #define FGCellsYCount   10
 
-#define MLCellsXCount   10
-#define MLCellsYCount   10
-
 #define OBSTACLE_NUM    3
-
-#define BG_COLOR        TNSQ_GFX_COLOR_DARK_GREY
-#define SNAKE_COLOR     TNSQ_GFX_COLOR_GREEN
-#define FRUIT_COLOR     TNSQ_GFX_COLOR_RED
-#define OBSTACLE_COLOR  TNSQ_GFX_COLOR_BLACK
 
 typedef enum {
     GAME_LOW_SPEED  = 400,
@@ -93,9 +82,8 @@ struct {
     tnsq_snake_point_t loc[OBSTACLE_NUM];
 } obstacle = {0};
 
-static tnsq_gfx_cell_t s_tBGCells[BGCellsXCount * BGCellsXCount] = {0};
 static tnsq_gfx_cell_t s_tFGCells[FGCellsXCount * FGCellsXCount] = {0};
-static tnsq_gfx_cell_t s_tMLCells[MLCellsXCount * MLCellsXCount] = {0};
+static rt_uint8_t s_UserMap[FGCellsXCount * FGCellsXCount] = {0};
 
 static rt_bool_t bls_map[FGCellsXCount * FGCellsYCount] = {0};
 
@@ -121,31 +109,87 @@ static tnsq_gfx_stage_t *_tnsq_snake_stage_init(void)
     }
 }
 
+extern const arm_2d_tile_t c_tileFruitRGB565;
+extern const arm_2d_tile_t c_tileFruitMask;
+extern const arm_2d_tile_t c_tileSnakeBodyRGB565;
+extern const arm_2d_tile_t c_tileSnakeBodyMask;
+void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, arm_2d_region_t const *ptRegion)
+{
+    if (idx == 1)
+    {
+        arm_2d_tile_copy_with_src_mask(
+            &c_tileFruitRGB565,
+            &c_tileFruitMask,
+            ptTile,
+            ptRegion,
+            ARM_2D_CP_MODE_COPY
+        );
+    }
+    else if (idx == 2)
+    {
+        arm_2d_tile_copy_with_src_mask(
+            &c_tileSnakeBodyRGB565,
+            &c_tileSnakeBodyMask,
+            ptTile,
+            ptRegion,
+            ARM_2D_CP_MODE_COPY
+        );
+    }
+    else
+    {
+        arm_2d_fill_colour_with_opacity(
+            ptTile, 
+            ptRegion,
+            (__arm_2d_color_t){GLCD_COLOR_BLUE},
+            255
+        );
+    }
+}
+
+extern const arm_2d_tile_t c_tilebg_mapRGB565;
+extern const arm_2d_tile_t c_tilebg_mapMask;
 static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
 {
-    tnsq_gfx_layer_cell_cfg_t tGameBGLayerCFG = (tnsq_gfx_layer_cell_cfg_t) {
-        .hwXCount = BGCellsXCount,
-        .hwYCount = BGCellsYCount,
-        .ptCells = s_tBGCells,
+    tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = (tnsq_gfx_layer_bg_cl_cfg_t) {
+        .chOpacity = 255,
+        .ptBackGroundColorMask = NULL,
+        .tRegion = (arm_2d_region_t) {
+            .tLocation = (arm_2d_location_t){
+                .iX = 0,
+                .iY = 0,
+            },
+            .tSize = (arm_2d_size_t) {
+                .iWidth = tnsq_gfx_get_screen_size(&DISP0_ADAPTER).iWidth,
+                .iHeight = tnsq_gfx_get_screen_size(&DISP0_ADAPTER).iHeight,
+            },
+        },
+        .tColor = (__arm_2d_color_t){GLCD_COLOR_WHITE},
     };
-    tnsq_gfx_layer_cell_t *ptGameBGLayer = tnsq_gfx_layer_cell_init(&tGameBGLayerCFG);
-    if (ptGameBGLayer == NULL)
-    {
-        /* error handle */
-        UART_Print("bg layer init failed");
-    }
+    tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
     
-    tnsq_gfx_layer_cell_cfg_t tGameMLLayerCFG = (tnsq_gfx_layer_cell_cfg_t) {
-        .hwXCount = MLCellsXCount,
-        .hwYCount = MLCellsYCount,
-        .ptCells = s_tMLCells,
+    tnsq_gfx_layer_bg_cfg_t tGameBGCFG = (tnsq_gfx_layer_bg_cfg_t) {
+        .ptBackGround = &c_tilebg_mapRGB565,
+        .ptBackGroundMask = &c_tilebg_mapMask,
+        .tRegion = (arm_2d_region_t) {
+            .tLocation = (arm_2d_location_t){
+                .iX = 0,
+                .iY = 0,
+            },
+            .tSize = (arm_2d_size_t) {
+                .iWidth = tnsq_gfx_get_screen_size(&DISP0_ADAPTER).iWidth,
+                .iHeight = tnsq_gfx_get_screen_size(&DISP0_ADAPTER).iHeight,
+            },
+        },
     };
-    tnsq_gfx_layer_cell_t *ptGameMLLayer = tnsq_gfx_layer_cell_init(&tGameMLLayerCFG);
-    if (ptGameBGLayer == NULL)
-    {
-        /* error handle */
-        UART_Print("ml layer init failed");
-    }
+    tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
+    
+    tnsq_gfx_layer_user_cfg_t tGameUserCFG = (tnsq_gfx_layer_user_cfg_t) {
+        .hwXCount = FGCellsXCount,
+        .hwYCount = FGCellsYCount,
+        .pchUserMap = s_UserMap,
+        .ptFunc = UserMapFunc,
+    };
+    tnsq_gfx_layer_user_t *ptGameUser = tnsq_gfx_layer_user_init(&tGameUserCFG);
     
     tnsq_gfx_layer_cell_cfg_t tGameFGLayerCFG = (tnsq_gfx_layer_cell_cfg_t) {
         .hwXCount = FGCellsXCount,
@@ -153,14 +197,10 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
         .ptCells = s_tFGCells,
     };
     tnsq_gfx_layer_cell_t *ptGameFGLayer = tnsq_gfx_layer_cell_init(&tGameFGLayerCFG);
-    if (ptGameFGLayer == NULL)
-    {
-        /* error handle */
-        UART_Print("fg layer init failed");
-    }
     
-    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGLayer);
-    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameMLLayer);
+    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
+    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBG);
+    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameUser);
     tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameFGLayer);
 }
 
@@ -176,43 +216,25 @@ static void draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOp
 	ptCells[pos].tColor = tColor;
 }
 
-static void _tnsq_draw_bg(rt_uint16_t pos, rt_uint8_t chOpacity, tnsq_gfx_color_t tColor)
-{
-    draw_cell(s_tBGCells, pos, chOpacity, tColor);
-}
-
-static void _tnsq_draw_fg(rt_uint16_t pos, rt_uint8_t chOpacity, tnsq_gfx_color_t tColor)
+static void _tnsq_draw_fg(rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor)
 {
     draw_cell(s_tFGCells, pos, chOpacity, tColor);
 }
 
-static void _tnsq_draw_ml(rt_uint16_t pos, rt_uint8_t chOpacity, tnsq_gfx_color_t tColor)
-{
-    draw_cell(s_tMLCells, pos, chOpacity, tColor);
-}
-
-static void _tnsq_snake_bg_init(void)
-{
-    for (int i = 0; i < BGCellsXCount * BGCellsYCount; i ++)
-    {
-        _tnsq_draw_bg(i, 255, BG_COLOR);
-    }
-}
-
-static void _tnsq_snake_ml_init(void)
+static void _tnsq_snake_obstacle_init(void)
 {
     for (int i = 0; i < OBSTACLE_NUM; i ++)
     {
         do
         {
             srand((unsigned) HAL_GetTick());
-            obstacle.loc[i].x = (uint8_t)rand() % MLCellsXCount + 1;
-            obstacle.loc[i].y = (uint8_t)rand() % MLCellsYCount + 1;
-        } while (bls_map[_tnsq_pos_cal(obstacle.loc[i], MLCellsYCount)] == RT_TRUE);
+            obstacle.loc[i].x = (uint8_t)rand() % FGCellsXCount + 1;
+            obstacle.loc[i].y = (uint8_t)rand() % FGCellsYCount + 1;
+        } while (bls_map[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] == RT_TRUE);
         
-        bls_map[_tnsq_pos_cal(obstacle.loc[i], MLCellsYCount)] = RT_TRUE;
+        bls_map[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] = RT_TRUE;
         
-        _tnsq_draw_ml(_tnsq_pos_cal(obstacle.loc[i], MLCellsYCount), 255, OBSTACLE_COLOR);
+        s_UserMap[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] = i;
     }
 }
 
@@ -266,9 +288,8 @@ static void _tnsq_snake_game_init(void)
         _tnsq_snake_layer_init(ptGameStage);
     }
     
-    _tnsq_snake_bg_init();
+    _tnsq_snake_obstacle_init();
     _tnsq_snake_fg_init();
-    _tnsq_snake_ml_init();
 }
 
 static void _tnsq_snake_game_evt_handler(void)

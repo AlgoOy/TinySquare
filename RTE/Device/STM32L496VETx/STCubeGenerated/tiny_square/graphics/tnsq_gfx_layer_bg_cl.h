@@ -48,7 +48,7 @@ struct tnsq_gfx_layer_bg_cl_cfg_t
     __arm_2d_color_t tColor;
     rt_uint8_t chOpacity;
     arm_2d_tile_t *ptBackGroundColorMask;
-    arm_2d_region_t *ptRegion;
+    arm_2d_region_t tRegion;
 };
 typedef struct tnsq_gfx_layer_bg_cl_cfg_t tnsq_gfx_layer_bg_cl_cfg_t;
 

@@ -7,20 +7,17 @@
  * Date           Author     Notes
  * 2023-07-08     AlgoOy     the first version
  */
- 
-#ifndef __TNSQ_GFX_H__
-#define __TNSQ_GFX_H__
+
+#ifndef __TNSQ_GFX_UTILS_H__
+#define __TNSQ_GFX_UTILS_H__
 
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "tnsq_gfx_stage.h"
-#include "tnsq_gfx_utils.h"
-#include "tnsq_gfx_layer_cell.h"
-#include "tnsq_gfx_layer_user.h"
-#include "tnsq_gfx_layer_bg.h"
-#include "tnsq_gfx_layer_bg_cl.h"
+#include "arm_2d.h"
+
+#include "arm_2d_helper.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -36,18 +33,16 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tnsq_gfx_task_entry(void *ptParam);
-void tnsq_gfx_apply_for_refresh(void);
-
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic pop
 #endif
 
+arm_2d_size_t tnsq_gfx_get_screen_size(arm_2d_scene_player_t *ptDispAdapter);
+
 #ifdef   __cplusplus
 }
 #endif
- 
+
 #endif
- 
