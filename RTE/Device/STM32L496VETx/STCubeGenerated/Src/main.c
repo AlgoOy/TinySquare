@@ -15,23 +15,29 @@
 #include "tiny_square.h"
 #include "tnsq_snake.h"
 
+#include "arm_2d_scenes.h"
+
 #define THREAD_PRIORITY         25
-#define THREAD_STACK_SIZE       1024
+#define THREAD_STACK_SIZE       1024*3
 #define THREAD_TIMESLICE        100
 
 static volatile int64_t s_lTimeStamp;
 
-__OVERRIDE_WEAK
-void arm_2d_helper_perf_counter_start(void)
-{
-    s_lTimeStamp = get_system_ticks();
-}
 
-__OVERRIDE_WEAK
-int32_t arm_2d_helper_perf_counter_stop(void)
+#include "arm_2d.h"
+#include "cmsis_compiler.h"
+
+#if defined(__MICROLIB)
+void __aeabi_assert(const char *chCond, const char *chLine, int wErrCode) 
 {
-    return (int32_t)(get_system_ticks() - s_lTimeStamp);
+    ARM_2D_UNUSED(chCond);
+    ARM_2D_UNUSED(chLine);
+    ARM_2D_UNUSED(wErrCode);
+    while(1) {
+        __NOP();
+    }
 }
+#endif
 
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -66,6 +72,14 @@ int main(void)
         arm_2d_init();
         tnsq_init();
 	}
+    
+//    disp_adapter0_init();
+//    arm_2d_scene0_init(&DISP0_ADAPTER);
+//    //arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
+//    while(1)
+//    {
+//        disp_adapter0_task();
+//    }
     
     rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL, gameTid = RT_NULL;
 	

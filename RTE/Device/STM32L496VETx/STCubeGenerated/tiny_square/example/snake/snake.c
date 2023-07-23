@@ -72,7 +72,7 @@ SnakeGameStatus DrawStartGamePanel(const arm_2d_tile_t *ptTile, DrawSenceSelecti
 			arm_lcd_text_location((__GLCD_CFG_SCEEN_HEIGHT__ + 7) / 8 - 2,
 										((__GLCD_CFG_SCEEN_WIDTH__ / ARM_2D_FONT_6x8.use_as__arm_2d_font_t.tCharSize.iWidth) - strlen(pchString)) / 2);
 			arm_lcd_printf("%s", pchString);
-    }
+        }
 		/* foreground */
 	}
 	return Snake_Game_No_Error;

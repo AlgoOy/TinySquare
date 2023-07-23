@@ -31,10 +31,6 @@
 /* ARM::Acceleration:Arm-2D Helper:Scene:1.1.10 */
 #define RTE_Acceleration_Arm_2D_Scene0
     #define __RTE_ACCELERATION_ARM_2D_SCENE0__    /* this macro is deprecated, please use the macro above in your code */
-#define RTE_Acceleration_Arm_2D_Scene1
-    #define __RTE_ACCELERATION_ARM_2D_SCENE1__    /* this macro is deprecated, please use the macro above in your code */
-#define RTE_Acceleration_Arm_2D_Scene2
-    #define __RTE_ACCELERATION_ARM_2D_SCENE2__    /* this macro is deprecated, please use the macro above in your code */
 
 /* ARM::Acceleration:Arm-2D:Alpha-Blending:1.1.4 */
 #define RTE_Acceleration_Arm_2D_Alpha_Blending

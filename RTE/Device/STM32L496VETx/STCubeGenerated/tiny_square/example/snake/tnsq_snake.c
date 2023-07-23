@@ -144,32 +144,26 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
     tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = (tnsq_gfx_layer_bg_cl_cfg_t) {
         .chOpacity = 255,
         .ptBackGroundColorMask = NULL,
-        .tRegion = (arm_2d_region_t) {
-            .tLocation = (arm_2d_location_t){
+        .tRegion = {
+            .tLocation = {
                 .iX = 0,
                 .iY = 0,
             },
-            .tSize = (arm_2d_size_t) {
-                .iWidth = tnsq_gfx_get_screen_size(&DISP0_ADAPTER).iWidth,
-                .iHeight = tnsq_gfx_get_screen_size(&DISP0_ADAPTER).iHeight,
-            },
+            .tSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER),
         },
-        .tColor = (__arm_2d_color_t){GLCD_COLOR_WHITE},
+        .tColor = (__arm_2d_color_t){GLCD_COLOR_BLUE},
     };
     tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
     
     tnsq_gfx_layer_bg_cfg_t tGameBGCFG = (tnsq_gfx_layer_bg_cfg_t) {
         .ptBackGround = &c_tilebg_mapRGB565,
         .ptBackGroundMask = &c_tilebg_mapMask,
-        .tRegion = (arm_2d_region_t) {
-            .tLocation = (arm_2d_location_t){
+        .tRegion = {
+            .tLocation = {
                 .iX = 0,
                 .iY = 0,
             },
-            .tSize = (arm_2d_size_t) {
-                .iWidth = c_tilebg_mapRGB565.tRegion.tSize.iWidth,
-                .iHeight = c_tilebg_mapRGB565.tRegion.tSize.iHeight,
-            },
+            .tSize = c_tilebg_mapRGB565.tRegion.tSize,
         },
     };
     tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
