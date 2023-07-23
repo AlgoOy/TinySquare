@@ -46,7 +46,7 @@
 #define FGCellsXCount   10
 #define FGCellsYCount   10
 
-#define OBSTACLE_NUM    3
+#define OBSTACLE_NUM    2
 
 typedef enum {
     GAME_LOW_SPEED  = 400,
@@ -135,15 +135,6 @@ void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, arm_2d_region_t co
             ARM_2D_CP_MODE_COPY
         );
     }
-    else
-    {
-        arm_2d_fill_colour_with_opacity(
-            ptTile, 
-            ptRegion,
-            (__arm_2d_color_t){GLCD_COLOR_BLUE},
-            255
-        );
-    }
 }
 
 extern const arm_2d_tile_t c_tilebg_mapRGB565;
@@ -198,7 +189,7 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
     };
     tnsq_gfx_layer_cell_t *ptGameFGLayer = tnsq_gfx_layer_cell_init(&tGameFGLayerCFG);
     
-    //tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
+    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
     tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBG);
     tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameUser);
     tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameFGLayer);
@@ -206,7 +197,7 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
 
 static rt_uint16_t _tnsq_pos_cal(tnsq_snake_point_t loc, rt_uint16_t YCount)
 {
-	return (loc.x-1) * YCount + (loc.y-1);
+	return loc.x * YCount + loc.y;
 }
 
 static void draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor)
@@ -228,13 +219,13 @@ static void _tnsq_snake_obstacle_init(void)
         do
         {
             srand((unsigned) HAL_GetTick());
-            obstacle.loc[i].x = (uint8_t)rand() % FGCellsXCount + 1;
-            obstacle.loc[i].y = (uint8_t)rand() % FGCellsYCount + 1;
+            obstacle.loc[i].x = (uint8_t)rand() % FGCellsXCount;
+            obstacle.loc[i].y = (uint8_t)rand() % FGCellsYCount;
         } while (bls_map[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] == RT_TRUE);
         
         bls_map[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] = RT_TRUE;
         
-        s_UserMap[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] = i;
+        s_UserMap[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] = i+1;
     }
 }
 
@@ -245,8 +236,8 @@ static void _tnsq_snake_create_fruit(void)
         do
         {
             srand((unsigned) HAL_GetTick());
-            fruit.loc.x = (uint8_t)rand() % FGCellsXCount + 1;
-            fruit.loc.y = (uint8_t)rand() % FGCellsYCount + 1;
+            fruit.loc.x = (uint8_t)rand() % FGCellsXCount;
+            fruit.loc.y = (uint8_t)rand() % FGCellsYCount;
         } while (bls_map[_tnsq_pos_cal(fruit.loc, FGCellsYCount)] == RT_TRUE);
         
         fruit.state = Exist;
@@ -288,8 +279,8 @@ static void _tnsq_snake_game_init(void)
         _tnsq_snake_layer_init(ptGameStage);
     }
     
-    _tnsq_snake_obstacle_init();
     _tnsq_snake_fg_init();
+    _tnsq_snake_obstacle_init();
 }
 
 static void _tnsq_snake_game_evt_handler(void)
@@ -382,16 +373,6 @@ static void _tnsq_snake_game_logic(void)
         break;
     }
     
-    if(newHead.y == FGCellsYCount)
-    {
-        newHead.x ++;
-        newHead.y = 0;
-    }
-    if(newHead.x == FGCellsXCount)
-    {
-        
-    }
-    
     if (newHead.x == fruit.loc.x && newHead.y == fruit.loc.y)
     {
         fruit.state = notExist;
@@ -404,7 +385,7 @@ static void _tnsq_snake_game_logic(void)
         };
         _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount), 255, (__arm_2d_color_t){GLCD_COLOR_DARK_GREY});
     }
-    else if (newHead.x < 1 || newHead.y < 1 || newHead.x > FGCellsXCount || newHead.y > FGCellsYCount)
+    else if (newHead.x < 0 || newHead.y < 0 || newHead.x >= FGCellsXCount || newHead.y >= FGCellsYCount)
     {
         UART_Print("hit the wall\n");
         while (1);
@@ -417,7 +398,7 @@ static void _tnsq_snake_game_logic(void)
     else
     {
         bls_map[_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount)] = RT_FALSE;
-        //_tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount), 255, BG_COLOR);
+        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount), 0, (__arm_2d_color_t){GLCD_COLOR_DARK_GREY});
         
         for (int i = 1; i < snake.length; i ++) {
 			if(newHead.x == snake.bodyloc[i].x && newHead.y == snake.bodyloc[i].y) {

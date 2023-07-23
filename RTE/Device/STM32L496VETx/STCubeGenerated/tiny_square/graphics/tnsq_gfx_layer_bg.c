@@ -55,6 +55,7 @@ void tnsq_gfx_refresh_layer_bg(tnsq_gfx_layer_bg_t *ptThis, const arm_2d_tile_t 
         &this.tCFG.tRegion,
         ARM_2D_CP_MODE_COPY
     );
+    arm_2d_op_wait_async(NULL);
 }
     
 ARM_NONNULL(1) tnsq_gfx_layer_bg_t *__tnsq_gfx_layer_bg_init(tnsq_gfx_layer_bg_cfg_t *ptCFG, tnsq_gfx_layer_bg_t *ptThis)

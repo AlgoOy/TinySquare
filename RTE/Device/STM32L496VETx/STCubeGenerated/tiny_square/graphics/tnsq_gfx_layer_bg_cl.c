@@ -46,7 +46,7 @@
     
 void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_tile_t *ptTile)
 {
-    if (this.tCFG.ptBackGroundColorMask == NULL)
+    if (this.tCFG.ptBackGroundColorMask != NULL)
     {
         arm_2d_fill_colour_with_mask_and_opacity(
             ptTile, 
@@ -65,6 +65,7 @@ void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_t
             this.tCFG.chOpacity
         );
     }
+    arm_2d_op_wait_async(NULL);
 }
     
 ARM_NONNULL(1) tnsq_gfx_layer_bg_cl_t *__tnsq_gfx_layer_bg_cl_init(tnsq_gfx_layer_bg_cl_cfg_t *ptCFG, tnsq_gfx_layer_bg_cl_t *ptThis)

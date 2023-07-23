@@ -62,6 +62,7 @@ void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_til
             },
         };
         this.ptFunc(this.pchUserMap[i], ptTile, &tRegion);
+        arm_2d_op_wait_async(NULL);
     }
 }
     
