@@ -3665,7 +3665,7 @@
       <Doc>
         <Name>RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\__tnsq_gfx_layer_cell.h</Name>
         <ColumnNumber>15</ColumnNumber>
-        <TopLine>4</TopLine>
+        <TopLine>3</TopLine>
         <CurrentLine>4</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
@@ -3682,9 +3682,9 @@
       </Doc>
       <Doc>
         <Name>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\example\snake\tnsq_snake.c</Name>
-        <ColumnNumber>31</ColumnNumber>
-        <TopLine>394</TopLine>
-        <CurrentLine>418</CurrentLine>
+        <ColumnNumber>6</ColumnNumber>
+        <TopLine>166</TopLine>
+        <CurrentLine>182</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
