@@ -48,12 +48,12 @@
     
 void tnsq_gfx_refresh_layer_bg(tnsq_gfx_layer_bg_t *ptThis, const arm_2d_tile_t *ptTile)
 {
-    arm_2d_canvas(ptTile, layer_canvas) {
+    arm_2d_canvas(ptTile, __layer_bg_canvas) {
         arm_2d_tile_copy_with_src_mask_only(
             this.tCFG.ptBackGround,
             this.tCFG.ptBackGroundMask,
             ptTile,
-            &layer_canvas
+            &this.tCFG.tRegion
         );
     }
     arm_2d_op_wait_async(NULL);

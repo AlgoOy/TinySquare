@@ -41,13 +41,16 @@ extern "C" {
 #endif
 #include "arm_2d_utils.h"
 
+typedef struct tnsq_gfx_layer_cell_t tnsq_gfx_layer_cell_t;
+typedef struct tnsq_gfx_layer_cell_cfg_t tnsq_gfx_layer_cell_cfg_t;
+typedef struct tnsq_gfx_cell_t tnsq_gfx_cell_t;
+
 struct tnsq_gfx_cell_t
 {
     __arm_2d_color_t tColor;
     rt_uint8_t chOpacity;
     rt_bool_t blsDirty;
 };
-typedef struct tnsq_gfx_cell_t tnsq_gfx_cell_t;
 
 struct tnsq_gfx_layer_cell_cfg_t
 {
@@ -55,7 +58,6 @@ struct tnsq_gfx_layer_cell_cfg_t
     rt_uint16_t hwYCount;
     tnsq_gfx_cell_t *ptCells;
 };
-typedef struct tnsq_gfx_layer_cell_cfg_t tnsq_gfx_layer_cell_cfg_t;
 
 struct tnsq_gfx_layer_cell_t
 {
@@ -67,11 +69,16 @@ struct tnsq_gfx_layer_cell_t
         {
             rt_uint16_t hwXCount;
             rt_uint16_t hwYCount;
-        } tSize;
+            rt_uint16_t totalCount;
+        } tCount;
+        struct
+        {
+            rt_uint8_t hwXPixel;
+            rt_uint8_t hwYPixel;
+        } tPixel;
     )
     tnsq_gfx_cell_t *ptCells;
 };
-typedef struct tnsq_gfx_layer_cell_t tnsq_gfx_layer_cell_t;
 
 #define tnsq_gfx_layer_cell_init(__TNSQ_GFX_LAYER_CELL_CFG_PTR, ...) \
             __tnsq_gfx_layer_cell_init((__TNSQ_GFX_LAYER_CELL_CFG_PTR), (NULL, ##__VA_ARGS__))

@@ -46,24 +46,27 @@
     
 void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_tile_t *ptTile)
 {
-    if (this.tCFG.ptBackGroundColorMask != NULL)
+    arm_2d_canvas(ptTile, __layer_bg_cl_canvas) 
     {
-        arm_2d_fill_colour_with_mask_and_opacity(
-            ptTile, 
-            &this.tCFG.tRegion,
-            this.tCFG.ptBackGroundColorMask,
-            this.tCFG.tColor,
-            this.tCFG.chOpacity
-        );
-    }
-    else
-    {
-        arm_2d_fill_colour_with_opacity(
-            ptTile, 
-            &this.tCFG.tRegion,
-            this.tCFG.tColor,
-            this.tCFG.chOpacity
-        );
+        if (this.tCFG.ptBackGroundColorMask != NULL)
+        {
+            arm_2d_fill_colour_with_mask_and_opacity(
+                ptTile, 
+                &this.tCFG.tRegion,
+                this.tCFG.ptBackGroundColorMask,
+                this.tCFG.tColor,
+                this.tCFG.chOpacity
+            );
+        }
+        else
+        {
+            arm_2d_fill_colour_with_opacity(
+                ptTile, 
+                &this.tCFG.tRegion,
+                this.tCFG.tColor,
+                this.tCFG.chOpacity
+            );
+        }
     }
     arm_2d_op_wait_async(NULL);
 }

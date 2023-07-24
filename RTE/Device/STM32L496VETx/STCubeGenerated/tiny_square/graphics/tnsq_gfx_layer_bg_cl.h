@@ -43,6 +43,9 @@ extern "C" {
 #endif
 #include "arm_2d_utils.h"
 
+typedef struct tnsq_gfx_layer_bg_cl_cfg_t tnsq_gfx_layer_bg_cl_cfg_t;
+typedef struct tnsq_gfx_layer_bg_cl_t tnsq_gfx_layer_bg_cl_t;
+
 struct tnsq_gfx_layer_bg_cl_cfg_t
 {
     __arm_2d_color_t tColor;
@@ -50,7 +53,6 @@ struct tnsq_gfx_layer_bg_cl_cfg_t
     arm_2d_tile_t *ptBackGroundColorMask;
     arm_2d_region_t tRegion;
 };
-typedef struct tnsq_gfx_layer_bg_cl_cfg_t tnsq_gfx_layer_bg_cl_cfg_t;
 
 struct tnsq_gfx_layer_bg_cl_t
 {
@@ -61,7 +63,6 @@ struct tnsq_gfx_layer_bg_cl_t
         tnsq_gfx_layer_bg_cl_cfg_t tCFG;
     )
 };
-typedef struct tnsq_gfx_layer_bg_cl_t tnsq_gfx_layer_bg_cl_t;
 
 #define tnsq_gfx_layer_bg_cl_init(__TNSQ_GFX_LAYER_BG_CL_CFG_PTR, ...) \
             __tnsq_gfx_layer_bg_cl_init((__TNSQ_GFX_LAYER_BG_CL_CFG_PTR), (NULL, ##__VA_ARGS__))

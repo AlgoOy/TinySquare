@@ -41,8 +41,26 @@ extern "C" {
 #endif
 #include "arm_2d_utils.h"
 
+typedef struct tnsq_gfx_user_map_t tnsq_gfx_user_map_t;
+typedef struct tnsq_gfx_layer_user_cfg_t tnsq_gfx_layer_user_cfg_t;
 typedef struct tnsq_gfx_layer_user_t tnsq_gfx_layer_user_t;
+
 typedef void (*ptLayerUserFunc_t)(rt_uint8_t idx, arm_2d_tile_t const *ptTile, arm_2d_region_t const *ptRegion);
+
+struct tnsq_gfx_user_map_t
+{
+    rt_uint8_t bIsDirty : 1;
+    rt_uint8_t u7Idx    : 7;
+};
+
+struct tnsq_gfx_layer_user_cfg_t
+{
+    rt_uint16_t hwXCount;
+    rt_uint16_t hwYCount;
+    tnsq_gfx_user_map_t *pchUserMap;
+    ptLayerUserFunc_t ptFunc;
+};
+
 struct tnsq_gfx_layer_user_t
 {
     ARM_PRIVATE
@@ -53,20 +71,17 @@ struct tnsq_gfx_layer_user_t
         {
             rt_uint16_t hwXCount;
             rt_uint16_t hwYCount;
-        } tSize;
+            rt_uint16_t totalCount;
+        } tCount;
+        struct
+        {
+            rt_uint8_t hwXPixel;
+            rt_uint8_t hwYPixel;
+        } tPixel;
         ptLayerUserFunc_t ptFunc;
     )
-    rt_uint8_t *pchUserMap;
+    tnsq_gfx_user_map_t *pchUserMap;
 };
-
-struct tnsq_gfx_layer_user_cfg_t
-{
-    rt_uint16_t hwXCount;
-    rt_uint16_t hwYCount;
-    rt_uint8_t *pchUserMap;
-    ptLayerUserFunc_t ptFunc;
-};
-typedef struct tnsq_gfx_layer_user_cfg_t tnsq_gfx_layer_user_cfg_t;
 
 #define tnsq_gfx_layer_user_init(__TNSQ_GFX_LAYER_USER_CFG_PTR, ...) \
             __tnsq_gfx_layer_user_init((__TNSQ_GFX_LAYER_USER_CFG_PTR), (NULL, ##__VA_ARGS__))

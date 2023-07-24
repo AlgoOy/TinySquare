@@ -31,7 +31,9 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#define TNSQ_GFX_LAYER_BASE_MAGIC   0xA0B9C8D7
+#define TNSQ_GFX_LAYER_BASE_MAGIC   0xA0D7
+
+typedef struct tnsq_gfx_layer_base_t tnsq_gfx_layer_base_t;
 
 struct tnsq_gfx_layer_base_t
 {
@@ -44,9 +46,10 @@ struct tnsq_gfx_layer_base_t
         TNSQ_GFX_LAYER_TYPE_BG          = 0x03,
         TNSQ_GFX_LAYER_TYPE_BG_CL       = 0x04,
     } tType;
-    rt_int32_t wMagic;
+    rt_uint8_t bIsVisible : 1;
+    rt_uint8_t u7LayerID  : 7;
+    rt_uint16_t wMagic;
 };
-typedef struct tnsq_gfx_layer_base_t tnsq_gfx_layer_base_t;
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

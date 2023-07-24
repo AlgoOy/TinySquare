@@ -60,6 +60,7 @@ struct tnsq_gfx_stage_t
 	(
         implement(arm_2d_scene_t);
         rt_bool_t blsUserAllocated;
+        rt_uint8_t chLayerID;
         tnsq_gfx_stage_cfg_t tStageCFG;
         tnsq_gfx_layer_base_t *ptLayersList;
     )
@@ -70,7 +71,7 @@ typedef struct tnsq_gfx_stage_t tnsq_gfx_stage_t;
 
 ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptStageCFG, tnsq_gfx_stage_t *ptStage);
 
-ARM_NONNULL(1, 2) void tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptStage, void *ptLayer);
+ARM_NONNULL(1, 2) rt_uint8_t tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptStage, void *ptLayer);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

@@ -124,11 +124,11 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
     {
         if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_CELL)
         {
-            tnsq_gfx_refresh_layer_cell((tnsq_gfx_layer_cell_t *)ptLayersList, ptTile, this.tStageCFG.ptDispAdapter.ptPlayer);
+            tnsq_gfx_refresh_layer_cell((tnsq_gfx_layer_cell_t *)ptLayersList, ptTile);
         }
         else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
         {
-            tnsq_gfx_refresh_layer_user((tnsq_gfx_layer_user_t *)ptLayersList, ptTile, this.tStageCFG.ptDispAdapter.ptPlayer);
+            tnsq_gfx_refresh_layer_user((tnsq_gfx_layer_user_t *)ptLayersList, ptTile);
         }
         else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
         {
@@ -192,6 +192,7 @@ ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptC
             .fnDepose       = &_tnsq_gfx_on_stage_depose,
         },
         .blsUserAllocated = blsUserAllocated,
+        .chLayerID = 0,
         .tStageCFG = *ptCFG,
         .ptLayersList = NULL,
     };
@@ -203,7 +204,7 @@ ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptC
     return ptThis;
 }
 
-ARM_NONNULL(1, 2) void tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptThis, void *ptLayer)
+ARM_NONNULL(1, 2) rt_uint8_t tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptThis, void *ptLayer)
 {
     assert(ptThis != NULL);
     assert(ptLayer != NULL);
@@ -212,6 +213,17 @@ ARM_NONNULL(1, 2) void tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptThis
     assert(ptLayerBase->wMagic == TNSQ_GFX_LAYER_BASE_MAGIC);
     
     tnsq_gfx_layer_base_t *ptLayerListPtr = this.ptLayersList;
+    
+    if (ptLayerBase->tType == TNSQ_GFX_LAYER_TYPE_CELL)
+    {
+        tnsq_gfx_layer_cell_cal_pixel((tnsq_gfx_layer_cell_t *)ptLayerBase, this.tStageCFG.ptDispAdapter.ptPlayer);
+    }
+    else if (ptLayerBase->tType == TNSQ_GFX_LAYER_TYPE_USER)
+    {
+        tnsq_gfx_layer_user_cal_pixel((tnsq_gfx_layer_user_t *)ptLayerBase, this.tStageCFG.ptDispAdapter.ptPlayer);
+    }
+    
+    ptLayerBase->u7LayerID = this.chLayerID ++;
     
     if (ptLayerListPtr == NULL)
     {
@@ -225,6 +237,8 @@ ARM_NONNULL(1, 2) void tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptThis
         }
         ptLayerListPtr->ptNext = ptLayerBase;
     }
+    
+    return ptLayerBase->u7LayerID;
 }
 
 #if defined(__clang__)

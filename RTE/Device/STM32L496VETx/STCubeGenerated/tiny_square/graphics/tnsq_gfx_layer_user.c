@@ -44,26 +44,32 @@
 #undef this
 #define this (*ptThis)
     
-void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_scene_player_t *ptDispAdapter)
+void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile)
+{    
+    for (int i = 0; i < this.tCount.totalCount; i ++)
+    {
+        arm_2d_region_t tRegion = (arm_2d_region_t) {
+            .tLocation = {
+                .iX = (i % this.tCount.hwXCount) * this.tPixel.hwXPixel,
+                .iY = (i / this.tCount.hwXCount) * this.tPixel.hwYPixel,
+            },
+            .tSize = {
+                .iWidth = this.tPixel.hwXPixel,
+                .iHeight = this.tPixel.hwYPixel,
+            },
+        };
+        this.ptFunc(this.pchUserMap[i].u7Idx, ptTile, &tRegion);
+        arm_2d_op_wait_async(NULL);
+    }
+}
+
+void tnsq_gfx_layer_user_cal_pixel(tnsq_gfx_layer_user_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {
     arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
         &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
     
-    for (int i = 0; i < this.tSize.hwXCount * this.tSize.hwYCount; i ++)
-    {
-        arm_2d_region_t tRegion = (arm_2d_region_t) {
-            .tLocation = {
-                .iX = (i % this.tSize.hwXCount) * (tScreen.tSize.iWidth / this.tSize.hwXCount),
-                .iY = (i / this.tSize.hwXCount) * (tScreen.tSize.iHeight / this.tSize.hwYCount),
-            },
-            .tSize = {
-                .iWidth = tScreen.tSize.iWidth / this.tSize.hwXCount,
-                .iHeight = tScreen.tSize.iHeight / this.tSize.hwYCount,
-            },
-        };
-        this.ptFunc(this.pchUserMap[i], ptTile, &tRegion);
-        arm_2d_op_wait_async(NULL);
-    }
+    this.tPixel.hwXPixel = tScreen.tSize.iWidth / this.tCount.hwXCount;
+    this.tPixel.hwYPixel = tScreen.tSize.iHeight / this.tCount.hwYCount;
 }
     
 ARM_NONNULL(1) tnsq_gfx_layer_user_t *__tnsq_gfx_layer_user_init(tnsq_gfx_layer_user_cfg_t *ptCFG, tnsq_gfx_layer_user_t *ptThis)
@@ -94,9 +100,10 @@ ARM_NONNULL(1) tnsq_gfx_layer_user_t *__tnsq_gfx_layer_user_init(tnsq_gfx_layer_
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
         .blsUserAllocated = blsUserAllocated,
-        .tSize = {
+        .tCount = {
             .hwXCount = ptCFG->hwXCount,
             .hwYCount = ptCFG->hwYCount,
+            .totalCount = ptCFG->hwXCount * ptCFG->hwYCount,
         },
         .ptFunc = ptCFG->ptFunc,
         .pchUserMap = ptCFG->pchUserMap,

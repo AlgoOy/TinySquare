@@ -41,13 +41,15 @@ extern "C" {
 #endif
 #include "arm_2d_utils.h"
 
+typedef struct tnsq_gfx_layer_bg_cfg_t tnsq_gfx_layer_bg_cfg_t;
+typedef struct tnsq_gfx_layer_bg_t tnsq_gfx_layer_bg_t;
+
 struct tnsq_gfx_layer_bg_cfg_t
 {
     const arm_2d_tile_t *ptBackGround;
     const arm_2d_tile_t *ptBackGroundMask;
     arm_2d_region_t tRegion;
 };
-typedef struct tnsq_gfx_layer_bg_cfg_t tnsq_gfx_layer_bg_cfg_t;
 
 struct tnsq_gfx_layer_bg_t
 {
@@ -58,7 +60,6 @@ struct tnsq_gfx_layer_bg_t
         tnsq_gfx_layer_bg_cfg_t tCFG;
     )
 };
-typedef struct tnsq_gfx_layer_bg_t tnsq_gfx_layer_bg_t;
 
 #define tnsq_gfx_layer_bg_init(__TNSQ_GFX_LAYER_BG_CFG_PTR, ...) \
             __tnsq_gfx_layer_bg_init((__TNSQ_GFX_LAYER_BG_CFG_PTR), (NULL, ##__VA_ARGS__))
