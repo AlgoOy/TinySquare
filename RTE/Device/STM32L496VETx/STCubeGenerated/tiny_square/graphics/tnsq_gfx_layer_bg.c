@@ -84,6 +84,8 @@ ARM_NONNULL(1) tnsq_gfx_layer_bg_t *__tnsq_gfx_layer_bg_init(tnsq_gfx_layer_bg_c
         .use_as__tnsq_gfx_layer_base_t = {
             .ptNext = NULL,
             .tType  = TNSQ_GFX_LAYER_TYPE_BG,
+            .bIsVisible = RT_TRUE,
+            .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
         .blsUserAllocated = blsUserAllocated,

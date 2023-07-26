@@ -336,7 +336,72 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC8000 -FN1 -FF0STM32L4xx_512 -FS08000000 -FL080000 -FP0($$Device:STM32L496VETx$CMSIS\Flash\STM32L4xx_512.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>86</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134233336</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_stage.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\snake\RTE/Device/STM32L496VETx/STCubeGenerated/tiny_square/graphics/tnsq_gfx_stage.c\86</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>133</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134233444</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_stage.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\snake\RTE/Device/STM32L496VETx/STCubeGenerated/tiny_square/graphics/tnsq_gfx_stage.c\133</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>109</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134233432</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_stage.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\snake\RTE/Device/STM32L496VETx/STCubeGenerated/tiny_square/graphics/tnsq_gfx_stage.c\109</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>85</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134233416</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\RTE\Device\STM32L496VETx\STCubeGenerated\tiny_square\graphics\tnsq_gfx_layer_cell.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\snake\RTE/Device/STM32L496VETx/STCubeGenerated/tiny_square/graphics/tnsq_gfx_layer_cell.c\85</Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -787,7 +852,7 @@
 
   <Group>
     <GroupName>::Acceleration</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>1</RteFlg>
@@ -803,7 +868,7 @@
 
   <Group>
     <GroupName>::Device</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>1</RteFlg>

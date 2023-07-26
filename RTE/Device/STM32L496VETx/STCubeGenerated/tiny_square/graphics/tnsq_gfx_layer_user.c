@@ -48,18 +48,26 @@ void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_til
 {    
     for (int i = 0; i < this.tCount.totalCount; i ++)
     {
-        arm_2d_region_t tRegion = (arm_2d_region_t) {
-            .tLocation = {
-                .iX = (i % this.tCount.hwXCount) * this.tPixel.hwXPixel,
-                .iY = (i / this.tCount.hwXCount) * this.tPixel.hwYPixel,
-            },
-            .tSize = {
-                .iWidth = this.tPixel.hwXPixel,
-                .iHeight = this.tPixel.hwYPixel,
-            },
-        };
-        this.ptFunc(this.pchUserMap[i].u7Idx, ptTile, &tRegion);
-        arm_2d_op_wait_async(NULL);
+        if (this.pchUserMap[i].bIsDirty == RT_TRUE)
+        {
+            arm_2d_region_t tRegion = (arm_2d_region_t) {
+                .tLocation = {
+                    .iX = (i % this.tCount.hwXCount) * this.tPixel.hwXPixel,
+                    .iY = (i / this.tCount.hwXCount) * this.tPixel.hwYPixel,
+                },
+                .tSize = {
+                    .iWidth = this.tPixel.hwXPixel,
+                    .iHeight = this.tPixel.hwYPixel,
+                },
+            };
+            arm_2d_container(ptTile, __layer_user_tile, &tRegion)
+            {
+                this.ptFunc(this.pchUserMap[i].u7Idx, &__layer_user_tile);
+            }
+            arm_2d_op_wait_async(NULL);
+            
+            this.pchUserMap->bIsDirty = RT_FALSE;
+        }
     }
 }
 
@@ -97,6 +105,8 @@ ARM_NONNULL(1) tnsq_gfx_layer_user_t *__tnsq_gfx_layer_user_init(tnsq_gfx_layer_
         .use_as__tnsq_gfx_layer_base_t = {
             .ptNext = NULL,
             .tType  = TNSQ_GFX_LAYER_TYPE_USER,
+            .bIsVisible = RT_TRUE,
+            .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
         .blsUserAllocated = blsUserAllocated,

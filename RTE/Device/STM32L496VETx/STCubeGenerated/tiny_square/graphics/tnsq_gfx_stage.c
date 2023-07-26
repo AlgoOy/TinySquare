@@ -81,6 +81,31 @@ static void _tnsq_gfx_on_stage_frame_start(arm_2d_scene_t *ptScene)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
+    
+    tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;
+    while (ptLayersList != NULL)
+    {
+        if (ptLayersList->bIsVisible == RT_TRUE)
+        {
+            if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_CELL)
+            {
+                tnsq_gfx_get_layer_cell_dirty_region((tnsq_gfx_layer_cell_t *)ptLayersList, this.use_as__arm_2d_scene_t.ptDirtyRegion);
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
+            {
+                
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
+            {
+                
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG_CL)
+            {
+                
+            }
+        }
+        ptLayersList = ptLayersList->ptNext;
+    }
 }
 
 static void _tnsq_gfx_on_stage_frame_complete(arm_2d_scene_t *ptScene)
@@ -95,21 +120,6 @@ static void _tnsq_gfx_before_stage_switching_out(arm_2d_scene_t *ptScene)
     ARM_2D_UNUSED(ptThis);
 }
 
-static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_background_handler)
-{
-    tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)pTarget;
-    ARM_2D_UNUSED(ptTile);
-    ARM_2D_UNUSED(bIsNewFrame);
-    /*-----------------------draw back ground begin-----------------------*/
-
-
-
-    /*-----------------------draw back ground end  -----------------------*/
-    arm_2d_op_wait_async(NULL);
-
-    return arm_fsm_rt_cpl;
-}
-
 static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)pTarget;
@@ -120,25 +130,28 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
     /*-----------------------draw the foreground begin-----------------------*/
 
     tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;
-    while(ptLayersList != NULL)
+    while (ptLayersList != NULL)
     {
-        if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_CELL)
+        if (ptLayersList->bIsVisible == RT_TRUE)
         {
-            tnsq_gfx_refresh_layer_cell((tnsq_gfx_layer_cell_t *)ptLayersList, ptTile);
+            if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_CELL)
+            {
+                tnsq_gfx_refresh_layer_cell((tnsq_gfx_layer_cell_t *)ptLayersList, ptTile);
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
+            {
+                tnsq_gfx_refresh_layer_user((tnsq_gfx_layer_user_t *)ptLayersList, ptTile);
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
+            {
+                tnsq_gfx_refresh_layer_bg((tnsq_gfx_layer_bg_t *)ptLayersList, ptTile);
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG_CL)
+            {
+                tnsq_gfx_refresh_layer_bg_cl((tnsq_gfx_layer_bg_cl_t *)ptLayersList, ptTile);
+            }
+            arm_2d_op_wait_async(NULL);
         }
-        else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
-        {
-            tnsq_gfx_refresh_layer_user((tnsq_gfx_layer_user_t *)ptLayersList, ptTile);
-        }
-        else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
-        {
-            tnsq_gfx_refresh_layer_bg((tnsq_gfx_layer_bg_t *)ptLayersList, ptTile);
-        }
-        else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG_CL)
-        {
-            tnsq_gfx_refresh_layer_bg_cl((tnsq_gfx_layer_bg_cl_t *)ptLayersList, ptTile);
-        }
-        arm_2d_op_wait_async(NULL);
         ptLayersList = ptLayersList->ptNext;
     }
 
@@ -163,6 +176,18 @@ ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptC
     
     rt_bool_t blsUserAllocated = RT_FALSE;
     
+    IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, static)
+        
+        ADD_REGION_TO_LIST(s_tDirtyRegions, 0),
+    
+        ADD_REGION_TO_LIST(s_tDirtyRegions, 0),
+        
+        ADD_LAST_REGION_TO_LIST(s_tDirtyRegions, 0),
+        
+    END_IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions)
+    
+    s_tDirtyRegions[dimof(s_tDirtyRegions)-1].ptNext = NULL;
+    
     if (ptThis == NULL)
     {
         ptThis = (tnsq_gfx_stage_t *)malloc(sizeof(tnsq_gfx_stage_t));
@@ -180,14 +205,13 @@ ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptC
 
     *ptThis = (tnsq_gfx_stage_t){
         .use_as__arm_2d_scene_t = {
-            .fnBackground   = &_tnsq_gfx_pfb_draw_stage_background_handler,
             .fnScene        = &_tnsq_gfx_pfb_draw_stage_handler,
-            //.ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
+            .ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
 
-            .fnOnBGStart    = &_tnsq_gfx_on_stage_background_start,
-            .fnOnBGComplete = &_tnsq_gfx_on_stage_background_complete,
+            //.fnOnBGStart    = &_tnsq_gfx_on_stage_background_start,
+            //.fnOnBGComplete = &_tnsq_gfx_on_stage_background_complete,
             .fnOnFrameStart = &_tnsq_gfx_on_stage_frame_start,
-            .fnBeforeSwitchOut = &_tnsq_gfx_before_stage_switching_out,
+            //.fnBeforeSwitchOut = &_tnsq_gfx_before_stage_switching_out,
             .fnOnFrameCPL   = &_tnsq_gfx_on_stage_frame_complete,
             .fnDepose       = &_tnsq_gfx_on_stage_depose,
         },
@@ -224,6 +248,7 @@ ARM_NONNULL(1, 2) rt_uint8_t tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *
     }
     
     ptLayerBase->u7LayerID = this.chLayerID ++;
+    ptLayerBase->ptNext = NULL;
     
     if (ptLayerListPtr == NULL)
     {
@@ -239,6 +264,71 @@ ARM_NONNULL(1, 2) rt_uint8_t tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *
     }
     
     return ptLayerBase->u7LayerID;
+}
+
+ARM_NONNULL(1) void tnsq_gfx_remove_layer(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerID)
+{
+    assert(ptThis != NULL);
+    
+    tnsq_gfx_layer_base_t *ptLayerListPtr = this.ptLayersList;
+    
+    if (ptLayerListPtr == NULL)
+    {
+        return;
+    }
+    
+    if (ptLayerListPtr->u7LayerID == chLayerID)
+    {
+        this.ptLayersList = ptLayerListPtr->ptNext;
+        free(ptLayerListPtr);
+        return;
+    }
+    
+    tnsq_gfx_layer_base_t *ptPreLayerListPtr = ptLayerListPtr;
+    while ((ptLayerListPtr = ptLayerListPtr->ptNext) != NULL)
+    {
+        if (ptLayerListPtr->u7LayerID == chLayerID)
+        {
+            ptPreLayerListPtr->ptNext = ptLayerListPtr->ptNext;
+            free(ptLayerListPtr);
+            return;
+        }
+        ptPreLayerListPtr = ptLayerListPtr;
+    }
+}
+
+void tnsq_gfx_make_layer_visible(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerID)
+{
+    assert(ptThis != NULL);
+    
+    tnsq_gfx_layer_base_t *ptLayerListPtr = this.ptLayersList;
+    
+    while (ptLayerListPtr != NULL)
+    {
+        if (ptLayerListPtr->u7LayerID == chLayerID)
+        {
+            ptLayerListPtr->bIsVisible = RT_TRUE;
+            return;
+        }
+        ptLayerListPtr = ptLayerListPtr->ptNext;
+    }
+}
+
+void tnsq_gfx_make_layer_invisible(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerID)
+{
+    assert(ptThis != NULL);
+    
+    tnsq_gfx_layer_base_t *ptLayerListPtr = this.ptLayersList;
+    
+    while (ptLayerListPtr != NULL)
+    {
+        if (ptLayerListPtr->u7LayerID == chLayerID)
+        {
+            ptLayerListPtr->bIsVisible = RT_FALSE;
+            return;
+        }
+        ptLayerListPtr = ptLayerListPtr->ptNext;
+    }
 }
 
 #if defined(__clang__)

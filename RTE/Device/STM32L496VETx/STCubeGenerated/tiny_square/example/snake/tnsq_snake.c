@@ -87,6 +87,11 @@ static tnsq_gfx_user_map_t s_UserMap[FGCellsXCount * FGCellsXCount] = {0};
 
 static rt_bool_t bls_map[FGCellsXCount * FGCellsYCount] = {0};
 
+static rt_uint8_t bg_cl_id = 0;
+static rt_uint8_t bg_id = 0;
+static rt_uint8_t user_id = 0;
+static rt_uint8_t cell_id = 0;
+
 static tnsq_gfx_stage_t *_tnsq_snake_stage_init(void)
 {
     disp_adapter0_init();
@@ -113,25 +118,28 @@ extern const arm_2d_tile_t c_tileFruitRGB565;
 extern const arm_2d_tile_t c_tileFruitMask;
 extern const arm_2d_tile_t c_tileSnakeBodyRGB565;
 extern const arm_2d_tile_t c_tileSnakeBodyMask;
-void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, arm_2d_region_t const *ptRegion)
+void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile)
 {
-    if (idx == 1)
+    arm_2d_canvas(ptTile, __user_map_canvas)
     {
-        arm_2d_tile_copy_with_src_mask_only(
-            &c_tileFruitRGB565,
-            &c_tileFruitMask,
-            ptTile,
-            ptRegion
-        );
-    }
-    else if (idx == 2)
-    {
-        arm_2d_tile_copy_with_src_mask_only(
-            &c_tileSnakeBodyRGB565,
-            &c_tileSnakeBodyMask,
-            ptTile,
-            ptRegion
-        );
+        if (idx == 1)
+        {
+            arm_2d_tile_copy_with_src_mask_only(
+                &c_tileFruitRGB565,
+                &c_tileFruitMask,
+                ptTile,
+                &__user_map_canvas
+            );
+        }
+        else if (idx == 2)
+        {
+            arm_2d_tile_copy_with_src_mask_only(
+                &c_tileSnakeBodyRGB565,
+                &c_tileSnakeBodyMask,
+                ptTile,
+                &__user_map_canvas
+            );
+        }
     }
 }
 
@@ -181,10 +189,10 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
     };
     tnsq_gfx_layer_cell_t *ptGameFGLayer = tnsq_gfx_layer_cell_init(&tGameFGLayerCFG);
     
-    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
-    //tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBG);
-    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameUser);
-    tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameFGLayer);
+    bg_cl_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
+    //bg_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBG);
+    user_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameUser);
+    cell_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameFGLayer);
 }
 
 static rt_uint16_t _tnsq_pos_cal(tnsq_snake_point_t loc, rt_uint16_t YCount)
@@ -218,6 +226,7 @@ static void _tnsq_snake_obstacle_init(void)
         bls_map[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] = RT_TRUE;
         
         s_UserMap[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)].u7Idx = i+1;
+        s_UserMap[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)].bIsDirty = RT_TRUE;
     }
 }
 

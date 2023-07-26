@@ -73,7 +73,34 @@ void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_til
                 );
             }
             arm_2d_op_wait_async(NULL);
+            
+            this.ptCells[i].blsDirty = RT_FALSE;
         }
+    }
+}
+
+void tnsq_gfx_get_layer_cell_dirty_region(tnsq_gfx_layer_cell_t *ptThis, arm_2d_region_list_item_t *ptDirtyRegion)
+{
+    int s = 0;
+    for (int i = 0; i < this.tCount.totalCount && s < 3; i ++)
+    {
+        if (this.ptCells[i].blsDirty == RT_TRUE)
+        {
+            ptDirtyRegion[s++].tRegion = (arm_2d_region_t) {
+                .tLocation = {
+                    .iX = (i % this.tCount.hwXCount) * this.tPixel.hwXPixel,
+                    .iY = (i / this.tCount.hwXCount) * this.tPixel.hwYPixel,
+                },
+                .tSize = {
+                    .iWidth = this.tPixel.hwXPixel,
+                    .iHeight = this.tPixel.hwYPixel,
+                },
+            };
+        }
+    }
+    while (s < 3)
+    {
+        ptDirtyRegion[s++].tRegion = (arm_2d_region_t) {0};
     }
 }
 
@@ -111,6 +138,8 @@ ARM_NONNULL(1) tnsq_gfx_layer_cell_t *__tnsq_gfx_layer_cell_init(tnsq_gfx_layer_
         .use_as__tnsq_gfx_layer_base_t = {
             .ptNext = NULL,
             .tType  = TNSQ_GFX_LAYER_TYPE_CELL,
+            .bIsVisible = RT_TRUE,
+            .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
         .blsUserAllocated = blsUserAllocated,

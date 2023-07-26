@@ -32,7 +32,10 @@ extern "C" {
 #endif
 
 void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_tile_t *ptTile);
+
 void tnsq_gfx_layer_cell_cal_pixel(tnsq_gfx_layer_cell_t *ptThis, arm_2d_scene_player_t *ptDispAdapter);
+
+void tnsq_gfx_get_layer_cell_dirty_region(tnsq_gfx_layer_cell_t *ptThis, arm_2d_region_list_item_t *ptDirtyRegion);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
