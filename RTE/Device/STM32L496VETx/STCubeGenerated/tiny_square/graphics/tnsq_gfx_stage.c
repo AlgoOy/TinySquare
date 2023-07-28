@@ -112,6 +112,31 @@ static void _tnsq_gfx_on_stage_frame_complete(arm_2d_scene_t *ptScene)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
+    
+    tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;
+    while (ptLayersList != NULL)
+    {
+        if (ptLayersList->bIsVisible == RT_TRUE)
+        {
+            if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_CELL)
+            {
+                tnsq_gfx_clear_layer_cell_dirty_cell((tnsq_gfx_layer_cell_t *)ptLayersList);
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
+            {
+                
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
+            {
+                
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG_CL)
+            {
+                
+            }
+        }
+        ptLayersList = ptLayersList->ptNext;
+    }
 }
 
 static void _tnsq_gfx_before_stage_switching_out(arm_2d_scene_t *ptScene)
@@ -281,6 +306,7 @@ ARM_NONNULL(1) void tnsq_gfx_remove_layer(tnsq_gfx_stage_t *ptThis, rt_uint8_t c
     {
         this.ptLayersList = ptLayerListPtr->ptNext;
         free(ptLayerListPtr);
+        arm_2d_scene_player_update_scene_background(this.tStageCFG.ptDispAdapter.ptPlayer);
         return;
     }
     
@@ -291,6 +317,7 @@ ARM_NONNULL(1) void tnsq_gfx_remove_layer(tnsq_gfx_stage_t *ptThis, rt_uint8_t c
         {
             ptPreLayerListPtr->ptNext = ptLayerListPtr->ptNext;
             free(ptLayerListPtr);
+            arm_2d_scene_player_update_scene_background(this.tStageCFG.ptDispAdapter.ptPlayer);
             return;
         }
         ptPreLayerListPtr = ptLayerListPtr;

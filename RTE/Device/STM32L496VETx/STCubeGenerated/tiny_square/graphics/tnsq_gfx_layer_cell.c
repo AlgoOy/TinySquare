@@ -15,6 +15,9 @@
 
 #include <stdlib.h>
 
+// todo :delete
+#include <stdio.h>
+
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
@@ -74,6 +77,18 @@ void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_til
             }
             arm_2d_op_wait_async(NULL);
             
+            printf("cell: %d %d\n", ((i % this.tCount.hwXCount) * this.tPixel.hwXPixel)/24,
+                ((i / this.tCount.hwXCount) * this.tPixel.hwYPixel)/24);
+        }
+    }
+}
+
+void tnsq_gfx_clear_layer_cell_dirty_cell(tnsq_gfx_layer_cell_t *ptThis)
+{
+    for (int i = 0; i < this.tCount.totalCount; i ++)
+    {
+        if (this.ptCells[i].blsDirty == RT_TRUE)
+        {            
             this.ptCells[i].blsDirty = RT_FALSE;
         }
     }
@@ -96,11 +111,13 @@ void tnsq_gfx_get_layer_cell_dirty_region(tnsq_gfx_layer_cell_t *ptThis, arm_2d_
                     .iHeight = this.tPixel.hwYPixel,
                 },
             };
+            printf("dirty: %d %d\n", ptDirtyRegion[s-1].tRegion.tLocation.iX/24, ptDirtyRegion[s-1].tRegion.tLocation.iY/24);
         }
     }
     while (s < 3)
     {
         ptDirtyRegion[s++].tRegion = (arm_2d_region_t) {0};
+        printf("dirty region %d \n", s);
     }
 }
 

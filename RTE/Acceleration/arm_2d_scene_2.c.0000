@@ -20,16 +20,18 @@
 
 #include "arm_2d.h"
 
-#ifdef RTE_Acceleration_Arm_2D_Scene1
+#ifdef RTE_Acceleration_Arm_2D_Scene2
 
-#define __USER_SCENE1_IMPLEMENT__
-#include "arm_2d_scene_1.h"
+#define __USER_SCENE2_IMPLEMENT__
+#include "arm_2d_scene_2.h"
 
 #include "arm_2d_helper.h"
 #include "arm_extra_controls.h"
 
 #include <stdlib.h>
 #include <string.h>
+
+#include "snake.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -92,9 +94,9 @@ extern const arm_2d_tile_t c_tileCMSISLogoA4Mask;
 /*============================ IMPLEMENTATION ================================*/
 
 
-static void __on_scene1_depose(arm_2d_scene_t *ptScene)
+static void __on_scene2_depose(arm_2d_scene_t *ptScene)
 {
-    user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
+    user_scene_2_t *ptThis = (user_scene_2_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
     
     ptScene->ptPlayer = NULL;
@@ -110,34 +112,34 @@ static void __on_scene1_depose(arm_2d_scene_t *ptScene)
 }
 
 /*----------------------------------------------------------------------------*
- * Scene 1                                                                    *
+ * Scene 2                                                                    *
  *----------------------------------------------------------------------------*/
 
-static void __on_scene1_background_start(arm_2d_scene_t *ptScene)
+static void __on_scene2_background_start(arm_2d_scene_t *ptScene)
 {
-    user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
+    user_scene_2_t *ptThis = (user_scene_2_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 
 }
 
-static void __on_scene1_background_complete(arm_2d_scene_t *ptScene)
+static void __on_scene2_background_complete(arm_2d_scene_t *ptScene)
 {
-    user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
+    user_scene_2_t *ptThis = (user_scene_2_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 
 }
 
 
-static void __on_scene1_frame_start(arm_2d_scene_t *ptScene)
+static void __on_scene2_frame_start(arm_2d_scene_t *ptScene)
 {
-    user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
+    user_scene_2_t *ptThis = (user_scene_2_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 
 }
 
-static void __on_scene1_frame_complete(arm_2d_scene_t *ptScene)
+static void __on_scene2_frame_complete(arm_2d_scene_t *ptScene)
 {
-    user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
+    user_scene_2_t *ptThis = (user_scene_2_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
     
     /* switch to next scene after 3s */
@@ -146,20 +148,39 @@ static void __on_scene1_frame_complete(arm_2d_scene_t *ptScene)
     }
 }
 
-static void __before_scene1_switching_out(arm_2d_scene_t *ptScene)
+static void __before_scene2_switching_out(arm_2d_scene_t *ptScene)
 {
-    user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
+    user_scene_2_t *ptThis = (user_scene_2_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 
 }
 
 static
-IMPL_PFB_ON_DRAW(__pfb_draw_scene1_handler)
+IMPL_PFB_ON_DRAW(__pfb_draw_scene2_background_handler)
 {
-    user_scene_1_t *ptThis = (user_scene_1_t *)pTarget;
+    user_scene_2_t *ptThis = (user_scene_2_t *)pTarget;
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
+    /*-----------------------draw back ground begin-----------------------*/
+
+		DrawEndGamePanel(ptTile, background);
+
+    /*-----------------------draw back ground end  -----------------------*/
+    arm_2d_op_wait_async(NULL);
+
+    return arm_fsm_rt_cpl;
+}
+
+static
+IMPL_PFB_ON_DRAW(__pfb_draw_scene2_handler)
+{
+    user_scene_2_t *ptThis = (user_scene_2_t *)pTarget;
+    ARM_2D_UNUSED(ptTile);
+    ARM_2D_UNUSED(bIsNewFrame);
+	
+	DrawEndGamePanel(ptTile, foreground);
     
+	#if 0
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
         
@@ -215,18 +236,19 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene1_handler)
         arm_lcd_text_set_draw_region(NULL);
         arm_lcd_text_set_colour(GLCD_COLOR_RED, GLCD_COLOR_WHITE);
         arm_lcd_text_location(0,0);
-        arm_lcd_puts("Scene 1");
+        arm_lcd_puts("Scene 2");
 
     /*-----------------------draw the foreground end  -----------------------*/
     }
+		#endif
     arm_2d_op_wait_async(NULL);
 
     return arm_fsm_rt_cpl;
 }
 
 ARM_NONNULL(1)
-user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter, 
-                                        user_scene_1_t *ptThis)
+user_scene_2_t *__arm_2d_scene2_init(   arm_2d_scene_player_t *ptDispAdapter, 
+                                        user_scene_2_t *ptThis)
 {
     bool bUserAllocated = false;
     assert(NULL != ptDispAdapter);
@@ -235,45 +257,41 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
     IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, static)
 
         /* a dirty region to be specified at runtime*/
-        ADD_REGION_TO_LIST(s_tDirtyRegions,
-            0  /* initialize at runtime later */
-        ),
+//        ADD_REGION_TO_LIST(s_tDirtyRegions,
+//            0  /* initialize at runtime later */
+//        ),
         
         /* add the last region:
          * it is the top left corner for text display 
          */
         ADD_LAST_REGION_TO_LIST(s_tDirtyRegions,
             .tLocation = {
-                .iX = 0,
-                .iY = 0,
+							.iX = 0,
+							.iY = __GLCD_CFG_SCEEN_HEIGHT__ - 17,
             },
             .tSize = {
-                .iWidth = 0,
-                .iHeight = 8,
+                .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+                .iHeight = 9,
             },
         ),
 
-    END_IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions)
-
-    s_tDirtyRegions[dimof(s_tDirtyRegions)-1].ptNext = NULL;
-
+    END_IMPL_ARM_2D_REGION_LIST()
+    
     /* get the screen region */
-    arm_2d_region_t tScreen
-        = arm_2d_helper_pfb_get_display_area(
-            &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
-
+//    arm_2d_region_t tScreen
+//        = arm_2d_helper_pfb_get_display_area(
+//            &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
+    
     /* initialise dirty region 0 at runtime
      * this demo shows that we create a region in the centre of a screen(320*240)
      * for a image stored in the tile c_tileCMSISLogoMask
      */
-    arm_2d_align_centre(tScreen, c_tileCMSISLogoMask.tRegion.tSize) {
-        s_tDirtyRegions[0].tRegion = __centre_region;
-    }
-
-    s_tDirtyRegions[1].tRegion.tSize.iWidth = tScreen.tSize.iWidth;
+//    arm_2d_align_centre(tScreen, c_tileCMSISLogoMask.tRegion.tSize) {
+//        s_tDirtyRegions[0].tRegion = __centre_region;
+//    }
     
     if (NULL == ptThis) {
-        ptThis = (user_scene_1_t *)malloc(sizeof(user_scene_1_t));
+        ptThis = (user_scene_2_t *)malloc(sizeof(user_scene_2_t));
         assert(NULL != ptThis);
         if (NULL == ptThis) {
             return NULL;
@@ -281,22 +299,23 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
     } else {
         bUserAllocated = true;
     }
-    memset(ptThis, 0, sizeof(user_scene_1_t));
+    memset(ptThis, 0, sizeof(user_scene_2_t));
 
-    *ptThis = (user_scene_1_t){
+    *ptThis = (user_scene_2_t){
         .use_as__arm_2d_scene_t = {
             /* Please uncommon the callbacks if you need them
              */
-            .fnScene        = &__pfb_draw_scene1_handler,
+            .fnBackground   = &__pfb_draw_scene2_background_handler,
+            .fnScene        = &__pfb_draw_scene2_handler,
             .ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
             
 
-            //.fnOnBGStart    = &__on_scene1_background_start,
-            //.fnOnBGComplete = &__on_scene1_background_complete,
-            .fnOnFrameStart = &__on_scene1_frame_start,
-            //.fnBeforeSwitchOut = &__before_scene1_switching_out,
-            .fnOnFrameCPL   = &__on_scene1_frame_complete,
-            .fnDepose       = &__on_scene1_depose,
+            //.fnOnBGStart    = &__on_scene2_background_start,
+            //.fnOnBGComplete = &__on_scene2_background_complete,
+            //.fnOnFrameStart = &__on_scene2_frame_start,
+            //.fnBeforeSwitchOut = &__before_scene2_switching_out,
+            //.fnOnFrameCPL   = &__on_scene2_frame_complete,
+            .fnDepose       = &__on_scene2_depose,
         },
         .bUserAllocated = bUserAllocated,
     };

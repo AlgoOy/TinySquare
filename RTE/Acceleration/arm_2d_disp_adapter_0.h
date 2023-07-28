@@ -124,7 +124,7 @@ extern "C" {
 //     <1=>     Real FPS
 // <i> Decide the meaning of the real time FPS display
 #ifndef __DISP0_CFG_FPS_CACULATION_MODE__
-#   define __DISP0_CFG_FPS_CACULATION_MODE__                       1
+#   define __DISP0_CFG_FPS_CACULATION_MODE__                       0
 #endif
 
 // <q> Enable Dirty Region Debug Mode

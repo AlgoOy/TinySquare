@@ -24,23 +24,32 @@
 #define RTE_Acceleration_Arm_2D_Helper_Disp_Adapter0
     #define __RTE_ACCELERATION_ARM_2D_HELPER_DISP_ADAPTER0__  /* this macro is deprecated, please use the macro above in your code */
 
-/* ARM::Acceleration:Arm-2D Helper:PFB:1.7.2 */
+/* ARM::Acceleration:Arm-2D Helper:PFB:1.7.3 */
 #define RTE_Acceleration_Arm_2D_Helper_PFB
 /* ARM::Acceleration:Arm-2D Helper:RTOS Helper:RT-Thread:1.0.0 */
 #define RTE_Acceleration_Arm_2D_Helper_RTOS_RT_Thread
 /* ARM::Acceleration:Arm-2D Helper:Scene:1.1.10 */
 #define RTE_Acceleration_Arm_2D_Scene0
     #define __RTE_ACCELERATION_ARM_2D_SCENE0__    /* this macro is deprecated, please use the macro above in your code */
+#define RTE_Acceleration_Arm_2D_Scene1
+    #define __RTE_ACCELERATION_ARM_2D_SCENE1__    /* this macro is deprecated, please use the macro above in your code */
+#define RTE_Acceleration_Arm_2D_Scene2
+    #define __RTE_ACCELERATION_ARM_2D_SCENE2__    /* this macro is deprecated, please use the macro above in your code */
+#define RTE_Acceleration_Arm_2D_Scene3
+    #define __RTE_ACCELERATION_ARM_2D_SCENE3__    /* this macro is deprecated, please use the macro above in your code */
 
-/* ARM::Acceleration:Arm-2D:Alpha-Blending:1.1.4 */
+/* ARM::Acceleration:Arm-2D:Alpha-Blending:1.1.5 */
 #define RTE_Acceleration_Arm_2D_Alpha_Blending
-/* ARM::Acceleration:Arm-2D:Core:1.1.4 */
+/* ARM::Acceleration:Arm-2D:Core:1.1.5 */
 #define RTE_Acceleration_Arm_2D
 #define __RTE_ACCELERATION_ARM_2D__     /* this macro is deprecated, please use the macro above in your code */
-/* ARM::Acceleration:Arm-2D:Transform:1.1.4 */
+/* ARM::Acceleration:Arm-2D:Transform:1.1.5 */
 #define RTE_Acceleration_Arm_2D_Transform
 /* GorgonMeducer::Utilities:perf_counter:Core:Source:2.2.2 */
 #define __PERF_COUNTER__ 1
+/* Keil.ARM Compiler::Compiler:I/O:STDOUT:User:1.2.0 */
+#define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
+          #define RTE_Compiler_IO_STDOUT_User     /* Compiler I/O: STDOUT User */
 /* Keil::Device:STM32Cube Framework:STM32CubeMX:1.1.0 */
 #define RTE_DEVICE_FRAMEWORK_CUBE_MX
 /* Keil::Device:STM32Cube HAL:Common:1.13.0 */

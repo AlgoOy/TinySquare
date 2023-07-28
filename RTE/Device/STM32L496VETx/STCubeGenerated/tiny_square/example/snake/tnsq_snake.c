@@ -10,7 +10,11 @@
 
 #include "tnsq_snake.h"
 #include "tiny_square.h"
-#include "uart.h"
+
+#include "stm32l4xx_hal.h"
+
+// todo: just for debug
+#include "stdio.h"
  
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -95,8 +99,8 @@ static rt_uint8_t cell_id = 0;
 static tnsq_gfx_stage_t *_tnsq_snake_stage_init(void)
 {
     disp_adapter0_init();
-    tnsq_gfx_stage_cfg_t tGameStageCFG = (tnsq_gfx_stage_cfg_t) {
-        .ptDispAdapter = (tnsq_gfx_disp_adapter_t) {
+    tnsq_gfx_stage_cfg_t tGameStageCFG = {
+        .ptDispAdapter = {
             .ptPlayer = &DISP0_ADAPTER,
             .ptPlayerTask = disp_adapter0_task,
         },
@@ -105,7 +109,7 @@ static tnsq_gfx_stage_t *_tnsq_snake_stage_init(void)
     if (ptGameStage == NULL)
     {
         /* error handle */
-        UART_Print("game stage init failed");
+        printf("game stage init failed");
         return NULL;
     }
     else
@@ -147,7 +151,7 @@ extern const arm_2d_tile_t c_tilebg_mapRGB565;
 extern const arm_2d_tile_t c_tilebg_mapMask;
 static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
 {
-    tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = (tnsq_gfx_layer_bg_cl_cfg_t) {
+    tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
         .chOpacity = 255,
         .ptBackGroundColorMask = NULL,
         .tRegion = {
@@ -161,7 +165,7 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
     };
     tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
     
-    tnsq_gfx_layer_bg_cfg_t tGameBGCFG = (tnsq_gfx_layer_bg_cfg_t) {
+    tnsq_gfx_layer_bg_cfg_t tGameBGCFG = {
         .ptBackGround = &c_tilebg_mapRGB565,
         .ptBackGroundMask = &c_tilebg_mapMask,
         .tRegion = {
@@ -174,7 +178,7 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
     };
     tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
     
-    tnsq_gfx_layer_user_cfg_t tGameUserCFG = (tnsq_gfx_layer_user_cfg_t) {
+    tnsq_gfx_layer_user_cfg_t tGameUserCFG = {
         .hwXCount = FGCellsXCount,
         .hwYCount = FGCellsYCount,
         .pchUserMap = s_UserMap,
@@ -182,7 +186,7 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
     };
     tnsq_gfx_layer_user_t *ptGameUser = tnsq_gfx_layer_user_init(&tGameUserCFG);
     
-    tnsq_gfx_layer_cell_cfg_t tGameFGLayerCFG = (tnsq_gfx_layer_cell_cfg_t) {
+    tnsq_gfx_layer_cell_cfg_t tGameFGLayerCFG = {
         .hwXCount = FGCellsXCount,
         .hwYCount = FGCellsYCount,
         .ptCells = s_tFGCells,
@@ -388,12 +392,12 @@ static void _tnsq_snake_game_logic(void)
     }
     else if (newHead.x < 0 || newHead.y < 0 || newHead.x >= FGCellsXCount || newHead.y >= FGCellsYCount)
     {
-        UART_Print("hit the wall\n");
+        printf("hit the wall\n");
         while (1);
     }
     else if (_tnsq_snake_not_hit_obstacle(newHead) == RT_FALSE)
     {
-        UART_Print("hit the obstacle\n");
+        printf("hit the obstacle\n");
         while (1);
     }
     else
@@ -403,7 +407,7 @@ static void _tnsq_snake_game_logic(void)
         
         for (int i = 1; i < snake.length; i ++) {
 			if(newHead.x == snake.bodyloc[i].x && newHead.y == snake.bodyloc[i].y) {
-				UART_Print("hit it self\n");
+				printf("hit it self\n");
 				while(1);
 			}
             snake.bodyloc[i - 1] = (tnsq_snake_point_t) {

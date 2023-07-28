@@ -133,3 +133,15 @@ void UART_Print(const char* buf) {
 void UART_PrintChar(int c) {
     HAL_UART_Transmit(&UartHandle, (uint8_t*)&c, 1, 0xFFFF);
 }
+
+int stdout_putchar(int ch)
+{
+    if ('\n' == ch) {
+        int temp = '\r';
+        UART_PrintChar(temp);
+    }
+    
+    UART_PrintChar(ch);
+    
+    return ch;
+}

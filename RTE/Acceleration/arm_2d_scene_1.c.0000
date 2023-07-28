@@ -31,6 +31,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "snake.h"
+
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
@@ -124,7 +126,7 @@ static void __on_scene1_background_complete(arm_2d_scene_t *ptScene)
 {
     user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
-
+		InitGame();
 }
 
 
@@ -132,18 +134,28 @@ static void __on_scene1_frame_start(arm_2d_scene_t *ptScene)
 {
     user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
-
+	
+	QuitGame(&this.game_end);
+	if(this.game_end) {
+		arm_2d_scene_player_switch_to_next_scene(ptScene->ptPlayer);
+	}
 }
 
 static void __on_scene1_frame_complete(arm_2d_scene_t *ptScene)
 {
     user_scene_1_t *ptThis = (user_scene_1_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
-    
+	
+	Game_State_Info state = getGameState();
+	if (arm_2d_helper_is_time_out(state.speed, &this.lTimestamp[0])) {
+		GameLogic();
+		this.lTimestamp[0] = 0;
+	}
+	
     /* switch to next scene after 3s */
-    if (arm_2d_helper_is_time_out(3000, &this.lTimestamp[0])) {
-        arm_2d_scene_player_switch_to_next_scene(ptScene->ptPlayer);
-    }
+//    if (arm_2d_helper_is_time_out(3000, &this.lTimestamp[0])) {
+//        arm_2d_scene_player_switch_to_next_scene(ptScene->ptPlayer);
+//    }
 }
 
 static void __before_scene1_switching_out(arm_2d_scene_t *ptScene)
@@ -154,15 +166,136 @@ static void __before_scene1_switching_out(arm_2d_scene_t *ptScene)
 }
 
 static
+IMPL_PFB_ON_DRAW(__pfb_draw_scene1_background_handler)
+{
+    user_scene_1_t *ptThis = (user_scene_1_t *)pTarget;
+    ARM_2D_UNUSED(ptTile);
+    ARM_2D_UNUSED(bIsNewFrame);
+    /*-----------------------draw back ground begin-----------------------*/
+	
+		DrawRunningGamePanel(ptTile, background);
+
+	#if 0
+		arm_2d_canvas(ptTile, __top_canvas) {
+			arm_2d_fill_colour(ptTile, NULL, GLCD_COLOR_WHITE);
+		}
+	#endif
+
+    /*-----------------------draw back ground end  -----------------------*/
+    arm_2d_op_wait_async(NULL);
+
+    return arm_fsm_rt_cpl;
+}
+
+static
 IMPL_PFB_ON_DRAW(__pfb_draw_scene1_handler)
 {
     user_scene_1_t *ptThis = (user_scene_1_t *)pTarget;
     ARM_2D_UNUSED(ptTile);
     ARM_2D_UNUSED(bIsNewFrame);
-    
+  
+		DrawRunningGamePanel(ptTile, foreground);
+		DrawGameElements(ptTile);
+	
+	#if 0
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
-        
+			
+			Game_State_Info gameState = getGameState();
+			
+			arm_lcd_text_set_target_framebuffer((arm_2d_tile_t *)ptTile);
+			arm_lcd_text_set_font(&ARM_2D_FONT_6x8.use_as__arm_2d_font_t);
+			arm_lcd_text_set_draw_region(NULL);
+			
+			arm_2dp_fill_colour_with_opacity(
+                    NULL, 
+                    ptTile, 
+                    (arm_2d_region_t []){
+                        {
+                            .tLocation = {
+                                .iX = 0,
+                                .iY = 0
+														},
+                            .tSize = {
+                                .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+                                .iHeight = STATE_VIEW_HEIGHT,
+                            },
+                        },
+//												{
+//													.tLocation = {
+//														.iX = 0,
+//														.iY = STATE_VIEW_HEIGHT + WIDTH_PIXELS_USED_BY_GAME,
+//													},
+//													.tSize = {
+//														.iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+//														.iHeight = __GLCD_CFG_SCEEN_HEIGHT__ - (STATE_VIEW_HEIGHT + HEIGHT_PIXELS_USED_BY_GAME),
+//													},
+//												},
+                    }, 
+                    (__arm_2d_color_t){__RGB(64, 64, 64)},
+                    255 - 128
+									);
+			arm_2d_op_wait_async(NULL);
+			arm_lcd_text_set_colour(GLCD_COLOR_GREEN, GLCD_COLOR_WHITE);
+			arm_lcd_text_location(0, 2);
+			arm_lcd_printf(" score: %4d\n  length: %4d", gameState.score, gameState.length);
+			//arm_lcd_printf(" score: %4d\n  length: %4d", WIDTH_PIXELS_USED_BY_GAME, HEIGHT_PIXELS_USED_BY_GAME);
+										
+			arm_2dp_fill_colour_with_opacity(
+			NULL, 
+			ptTile, 
+			(arm_2d_region_t []){
+				{
+					.tLocation = {
+						.iX = 0,
+						.iY = STATE_VIEW_HEIGHT + WIDTH_PIXELS_USED_BY_GAME,
+					},
+					.tSize = {
+						.iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+						.iHeight = __GLCD_CFG_SCEEN_HEIGHT__ - (STATE_VIEW_HEIGHT + HEIGHT_PIXELS_USED_BY_GAME),
+					},
+				},
+			}, 
+			(__arm_2d_color_t){__RGB(64, 64, 64)},
+			255 - 128);
+			
+			arm_2dp_fill_colour_with_opacity(
+			NULL, 
+			ptTile, 
+			(arm_2d_region_t []){
+				{
+					.tLocation = {
+						.iX = 0,
+						.iY = STATE_VIEW_HEIGHT,
+					},
+					.tSize = {
+						.iWidth = (__GLCD_CFG_SCEEN_WIDTH__ - WIDTH_PIXELS_USED_BY_GAME) / 2,
+						.iHeight = HEIGHT_PIXELS_USED_BY_GAME,
+					},
+				},
+			}, 
+			(__arm_2d_color_t){__RGB(64, 64, 64)},
+			255 - 128);
+			
+			arm_2dp_fill_colour_with_opacity(
+			NULL, 
+			ptTile, 
+			(arm_2d_region_t []){
+				{
+					.tLocation = {
+						.iX = __GLCD_CFG_SCEEN_WIDTH__ - ((__GLCD_CFG_SCEEN_WIDTH__ - WIDTH_PIXELS_USED_BY_GAME) / 2),
+						.iY = STATE_VIEW_HEIGHT,
+					},
+					.tSize = {
+						.iWidth = (__GLCD_CFG_SCEEN_WIDTH__ - WIDTH_PIXELS_USED_BY_GAME) / 2,
+						.iHeight = HEIGHT_PIXELS_USED_BY_GAME,
+					},
+				},
+			}, 
+			(__arm_2d_color_t){__RGB(64, 64, 64)},
+			255 - 128);
+			
+    #if 0
         /* following code is just a demo, you can remove them */
         
         arm_2d_fill_colour(ptTile, NULL, GLCD_COLOR_WHITE);
@@ -216,9 +349,12 @@ IMPL_PFB_ON_DRAW(__pfb_draw_scene1_handler)
         arm_lcd_text_set_colour(GLCD_COLOR_RED, GLCD_COLOR_WHITE);
         arm_lcd_text_location(0,0);
         arm_lcd_puts("Scene 1");
-
+		#endif
+		
     /*-----------------------draw the foreground end  -----------------------*/
     }
+		#endif
+		
     arm_2d_op_wait_async(NULL);
 
     return arm_fsm_rt_cpl;
@@ -235,9 +371,20 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
     IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, static)
 
         /* a dirty region to be specified at runtime*/
-        ADD_REGION_TO_LIST(s_tDirtyRegions,
-            0  /* initialize at runtime later */
-        ),
+//        ADD_REGION_TO_LIST(s_tDirtyRegions,
+//            0  /* initialize at runtime later */
+//        ),
+		
+				ADD_REGION_TO_LIST(s_tDirtyRegions,
+	          .tLocation = {
+							.iX = (__GLCD_CFG_SCEEN_WIDTH__ - WIDTH_PIXELS_USED_BY_GAME) / 2,
+                .iY = STATE_VIEW_HEIGHT,
+            },
+            .tSize = {
+                .iWidth = WIDTH_PIXELS_USED_BY_GAME,
+                .iHeight = HEIGHT_PIXELS_USED_BY_GAME,
+            },
+	        ),
         
         /* add the last region:
          * it is the top left corner for text display 
@@ -248,29 +395,27 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
                 .iY = 0,
             },
             .tSize = {
-                .iWidth = 0,
-                .iHeight = 8,
+							.iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+              .iHeight = 16,
+//							.iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+//							.iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
             },
         ),
 
-    END_IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions)
-
-    s_tDirtyRegions[dimof(s_tDirtyRegions)-1].ptNext = NULL;
-
+    END_IMPL_ARM_2D_REGION_LIST()
+    
     /* get the screen region */
-    arm_2d_region_t tScreen
-        = arm_2d_helper_pfb_get_display_area(
-            &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
-
+//    arm_2d_region_t tScreen
+//        = arm_2d_helper_pfb_get_display_area(
+//            &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
+    
     /* initialise dirty region 0 at runtime
      * this demo shows that we create a region in the centre of a screen(320*240)
      * for a image stored in the tile c_tileCMSISLogoMask
      */
-    arm_2d_align_centre(tScreen, c_tileCMSISLogoMask.tRegion.tSize) {
-        s_tDirtyRegions[0].tRegion = __centre_region;
-    }
-
-    s_tDirtyRegions[1].tRegion.tSize.iWidth = tScreen.tSize.iWidth;
+//    arm_2d_align_centre(tScreen, c_tileCMSISLogoMask.tRegion.tSize) {
+//        s_tDirtyRegions[0].tRegion = __centre_region;
+//    }
     
     if (NULL == ptThis) {
         ptThis = (user_scene_1_t *)malloc(sizeof(user_scene_1_t));
@@ -287,12 +432,13 @@ user_scene_1_t *__arm_2d_scene1_init(   arm_2d_scene_player_t *ptDispAdapter,
         .use_as__arm_2d_scene_t = {
             /* Please uncommon the callbacks if you need them
              */
+            .fnBackground   = &__pfb_draw_scene1_background_handler,
             .fnScene        = &__pfb_draw_scene1_handler,
             .ptDirtyRegion  = (arm_2d_region_list_item_t *)s_tDirtyRegions,
             
 
             //.fnOnBGStart    = &__on_scene1_background_start,
-            //.fnOnBGComplete = &__on_scene1_background_complete,
+            .fnOnBGComplete = &__on_scene1_background_complete,
             .fnOnFrameStart = &__on_scene1_frame_start,
             //.fnBeforeSwitchOut = &__before_scene1_switching_out,
             .fnOnFrameCPL   = &__on_scene1_frame_complete,
