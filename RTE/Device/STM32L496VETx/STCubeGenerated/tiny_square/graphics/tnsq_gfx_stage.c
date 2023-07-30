@@ -82,30 +82,30 @@ static void _tnsq_gfx_on_stage_frame_start(arm_2d_scene_t *ptScene)
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
     
-    tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;
-    while (ptLayersList != NULL)
-    {
-        if (ptLayersList->bIsVisible == RT_TRUE)
-        {
-            if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_CELL)
-            {
-                tnsq_gfx_get_layer_cell_dirty_region((tnsq_gfx_layer_cell_t *)ptLayersList, this.use_as__arm_2d_scene_t.ptDirtyRegion);
-            }
-            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
-            {
-                
-            }
-            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
-            {
-                
-            }
-            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG_CL)
-            {
-                
-            }
-        }
-        ptLayersList = ptLayersList->ptNext;
-    }
+//    tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;
+//    while (ptLayersList != NULL)
+//    {
+//        if (ptLayersList->bIsVisible == RT_TRUE)
+//        {
+//            if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_CELL)
+//            {
+//                tnsq_gfx_get_layer_cell_dirty_region((tnsq_gfx_layer_cell_t *)ptLayersList, this.use_as__arm_2d_scene_t.ptDirtyRegion);
+//            }
+//            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
+//            {
+//                
+//            }
+//            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
+//            {
+//                
+//            }
+//            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG_CL)
+//            {
+//                
+//            }
+//        }
+//        ptLayersList = ptLayersList->ptNext;
+//    }
 }
 
 static void _tnsq_gfx_on_stage_frame_complete(arm_2d_scene_t *ptScene)
@@ -161,7 +161,7 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
         {
             if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_CELL)
             {
-                tnsq_gfx_refresh_layer_cell((tnsq_gfx_layer_cell_t *)ptLayersList, ptTile);
+                tnsq_gfx_refresh_layer_cell((tnsq_gfx_layer_cell_t *)ptLayersList, ptTile, this.use_as__arm_2d_scene_t.ptDirtyRegion);
             }
             else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
             {
@@ -203,14 +203,15 @@ ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptC
     
     IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, static)
         
-        ADD_REGION_TO_LIST(s_tDirtyRegions, 0),
-    
-        ADD_REGION_TO_LIST(s_tDirtyRegions, 0),
+//        ADD_REGION_TO_LIST(s_tDirtyRegions, 0),
+//    
+//        ADD_REGION_TO_LIST(s_tDirtyRegions, 0),
         
         ADD_LAST_REGION_TO_LIST(s_tDirtyRegions, 0),
         
     END_IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions)
     
+    s_tDirtyRegions[dimof(s_tDirtyRegions)-1].bUpdated = false;
     s_tDirtyRegions[dimof(s_tDirtyRegions)-1].ptNext = NULL;
     
     if (ptThis == NULL)
@@ -235,7 +236,7 @@ ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptC
 
             //.fnOnBGStart    = &_tnsq_gfx_on_stage_background_start,
             //.fnOnBGComplete = &_tnsq_gfx_on_stage_background_complete,
-            .fnOnFrameStart = &_tnsq_gfx_on_stage_frame_start,
+            //.fnOnFrameStart = &_tnsq_gfx_on_stage_frame_start,
             //.fnBeforeSwitchOut = &_tnsq_gfx_before_stage_switching_out,
             .fnOnFrameCPL   = &_tnsq_gfx_on_stage_frame_complete,
             .fnDepose       = &_tnsq_gfx_on_stage_depose,

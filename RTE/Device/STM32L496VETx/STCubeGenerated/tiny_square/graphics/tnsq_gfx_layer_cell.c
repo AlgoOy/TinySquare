@@ -49,12 +49,17 @@
 #undef this
 #define this (*ptThis)
     
-void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_tile_t *ptTile)
+static int idx = -1;
+
+void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion)
 {
-    for (int i = 0; i < this.tCount.totalCount; i ++)
+    for (int curCell = 0; curCell < this.tCount.totalCount; curCell ++)
     {
-        if (this.ptCells[i].blsDirty == RT_TRUE)
+        if (this.ptCells[curCell].bIsDirty == RT_TRUE)
         {
+            int16_t iX = (curCell % this.tCount.hwXCount) * this.tPixel.hwXPixel;
+            int16_t iY = (curCell / this.tCount.hwXCount) * this.tPixel.hwYPixel;
+            
             arm_2d_canvas(ptTile, __layer_cell_canvas)
             {                
                 arm_2dp_fill_colour_with_opacity
@@ -63,22 +68,43 @@ void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_til
                     ptTile,
                     &(arm_2d_region_t) {
                         .tLocation = {
-                            .iX = (i % this.tCount.hwXCount) * this.tPixel.hwXPixel,
-                            .iY = (i / this.tCount.hwXCount) * this.tPixel.hwYPixel,
+                            .iX = iX,
+                            .iY = iY,
                         },
                         .tSize = {
                             .iWidth = this.tPixel.hwXPixel,
                             .iHeight = this.tPixel.hwYPixel,
                         },
                     },
-                    this.ptCells[i].tColor,
-                    this.ptCells[i].chOpacity
+                    this.ptCells[curCell].tColor,
+                    this.ptCells[curCell].chOpacity
                 );
             }
             arm_2d_op_wait_async(NULL);
             
-            printf("cell: %d %d\n", ((i % this.tCount.hwXCount) * this.tPixel.hwXPixel)/24,
-                ((i / this.tCount.hwXCount) * this.tPixel.hwYPixel)/24);
+            if (ptDirtyRegion[0].bUpdated == false)
+            {
+                if (idx == curCell || idx > curCell)
+                {
+                    continue;
+                }
+                idx = curCell;
+                
+                ptDirtyRegion[0].tRegion = (arm_2d_region_t) {
+                    .tLocation = {
+                        .iX = iX,
+                        .iY = iY,
+                    },
+                    .tSize = {
+                        .iWidth = this.tPixel.hwXPixel,
+                        .iHeight = this.tPixel.hwYPixel,
+                    },
+                };
+                ptDirtyRegion[0].bUpdated = true;
+                
+                printf("cell %d: %d %d\n", curCell, ptDirtyRegion[0].tRegion.tLocation.iX/24,
+                    ptDirtyRegion[0].tRegion.tLocation.iY/24);
+            }
         }
     }
 }
@@ -87,39 +113,41 @@ void tnsq_gfx_clear_layer_cell_dirty_cell(tnsq_gfx_layer_cell_t *ptThis)
 {
     for (int i = 0; i < this.tCount.totalCount; i ++)
     {
-        if (this.ptCells[i].blsDirty == RT_TRUE)
-        {            
-            this.ptCells[i].blsDirty = RT_FALSE;
+        if (this.ptCells[i].bIsDirty == RT_TRUE)
+        {
+            this.ptCells[i].bIsDirty = RT_FALSE;
         }
     }
+    idx = -1;
+    printf("where\n");
 }
 
-void tnsq_gfx_get_layer_cell_dirty_region(tnsq_gfx_layer_cell_t *ptThis, arm_2d_region_list_item_t *ptDirtyRegion)
-{
-    int s = 0;
-    for (int i = 0; i < this.tCount.totalCount && s < 3; i ++)
-    {
-        if (this.ptCells[i].blsDirty == RT_TRUE)
-        {
-            ptDirtyRegion[s++].tRegion = (arm_2d_region_t) {
-                .tLocation = {
-                    .iX = (i % this.tCount.hwXCount) * this.tPixel.hwXPixel,
-                    .iY = (i / this.tCount.hwXCount) * this.tPixel.hwYPixel,
-                },
-                .tSize = {
-                    .iWidth = this.tPixel.hwXPixel,
-                    .iHeight = this.tPixel.hwYPixel,
-                },
-            };
-            printf("dirty: %d %d\n", ptDirtyRegion[s-1].tRegion.tLocation.iX/24, ptDirtyRegion[s-1].tRegion.tLocation.iY/24);
-        }
-    }
-    while (s < 3)
-    {
-        ptDirtyRegion[s++].tRegion = (arm_2d_region_t) {0};
-        printf("dirty region %d \n", s);
-    }
-}
+//void tnsq_gfx_get_layer_cell_dirty_region(tnsq_gfx_layer_cell_t *ptThis, arm_2d_region_list_item_t *ptDirtyRegion)
+//{
+//    int s = 0;
+//    for (int i = 0; i < this.tCount.totalCount && s < 3; i ++)
+//    {
+//        if (this.ptCells[i].blsDirty == RT_TRUE)
+//        {
+//            ptDirtyRegion[s++].tRegion = (arm_2d_region_t) {
+//                .tLocation = {
+//                    .iX = (i % this.tCount.hwXCount) * this.tPixel.hwXPixel,
+//                    .iY = (i / this.tCount.hwXCount) * this.tPixel.hwYPixel,
+//                },
+//                .tSize = {
+//                    .iWidth = this.tPixel.hwXPixel,
+//                    .iHeight = this.tPixel.hwYPixel,
+//                },
+//            };
+//            printf("dirty: %d %d\n", ptDirtyRegion[s-1].tRegion.tLocation.iX/24, ptDirtyRegion[s-1].tRegion.tLocation.iY/24);
+//        }
+//    }
+//    while (s < 3)
+//    {
+//        ptDirtyRegion[s++].tRegion = (arm_2d_region_t) {0};
+//        printf("dirty region %d \n", s);
+//    }
+//}
 
 void tnsq_gfx_layer_cell_cal_pixel(tnsq_gfx_layer_cell_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {

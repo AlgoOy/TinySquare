@@ -206,7 +206,7 @@ static rt_uint16_t _tnsq_pos_cal(tnsq_snake_point_t loc, rt_uint16_t YCount)
 
 static void draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor)
 {
-	ptCells[pos].blsDirty = RT_TRUE;
+	ptCells[pos].bIsDirty = RT_TRUE;
 	ptCells[pos].chOpacity = chOpacity;
 	ptCells[pos].tColor = tColor;
 }

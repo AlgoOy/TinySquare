@@ -1138,21 +1138,21 @@
     </apis>
     <components>
       <component Cclass="Acceleration" Cgroup="Arm-2D Extras" Csub="Controls" Cvendor="ARM" Cversion="1.4.4" condition="Arm-2D-EXTRA">
-        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.4"/>
+        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.5-dev6+ge3cfa38"/>
         <targetInfos>
           <targetInfo name="snake"/>
           <targetInfo name="snake_v2"/>
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D Extras" Csub="LCD ASCII Printf" Cvendor="ARM" Cversion="2.0.0" condition="Arm-2D-CORE">
-        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.4"/>
+        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.5-dev6+ge3cfa38"/>
         <targetInfos>
           <targetInfo name="snake"/>
           <targetInfo name="snake_v2"/>
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D Helper" Csub="Display Adapter" Cvendor="ARM" Cversion="1.6.3" condition="Arm-2D-Helper" maxInstances="8">
-        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.4"/>
+        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.5-dev6+ge3cfa38"/>
         <targetInfos>
           <targetInfo name="snake"/>
           <targetInfo name="snake_v2"/>
@@ -1166,14 +1166,14 @@
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D Helper" Csub="RTOS Helper" Cvariant="RT-Thread" Cvendor="ARM" Cversion="1.0.0" condition="Arm-2D-PFB">
-        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.4"/>
+        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.5-dev6+ge3cfa38"/>
         <targetInfos>
           <targetInfo name="snake"/>
           <targetInfo name="snake_v2"/>
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D Helper" Csub="Scene" Cvendor="ARM" Cversion="1.1.10" condition="Arm-2D-Helper" maxInstances="1000">
-        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.4"/>
+        <package name="Arm-2D" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="ARM" version="1.1.5-dev6+ge3cfa38"/>
         <targetInfos>
           <targetInfo instances="4" name="snake" versionMatchMode=""/>
           <targetInfo instances="4" name="snake_v2" versionMatchMode=""/>

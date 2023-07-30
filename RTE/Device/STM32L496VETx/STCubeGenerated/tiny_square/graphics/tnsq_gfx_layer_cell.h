@@ -49,7 +49,7 @@ struct tnsq_gfx_cell_t
 {
     __arm_2d_color_t tColor;
     rt_uint8_t chOpacity;
-    rt_bool_t blsDirty;
+    rt_bool_t bIsDirty;
 };
 
 struct tnsq_gfx_layer_cell_cfg_t
