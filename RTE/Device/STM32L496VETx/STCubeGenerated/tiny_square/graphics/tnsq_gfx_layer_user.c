@@ -44,16 +44,21 @@
 #undef this
 #define this (*ptThis)
     
-void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile)
+static int __idx = -1;
+    
+void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion)
 {    
-    for (int i = 0; i < this.tCount.totalCount; i ++)
+    for (int curIdx = 0; curIdx < this.tCount.totalCount; curIdx ++)
     {
-        if (this.pchUserMap[i].bIsDirty == RT_TRUE)
+        if (this.pchUserMap[curIdx].bIsDirty == RT_TRUE)
         {
+            int16_t iX = (curIdx % this.tCount.hwXCount) * this.tPixel.hwXPixel;
+            int16_t iY = (curIdx / this.tCount.hwXCount) * this.tPixel.hwYPixel;
+            
             arm_2d_region_t tRegion = (arm_2d_region_t) {
                 .tLocation = {
-                    .iX = (i % this.tCount.hwXCount) * this.tPixel.hwXPixel,
-                    .iY = (i / this.tCount.hwXCount) * this.tPixel.hwYPixel,
+                    .iX = iX,
+                    .iY = iY,
                 },
                 .tSize = {
                     .iWidth = this.tPixel.hwXPixel,
@@ -62,13 +67,44 @@ void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_til
             };
             arm_2d_container(ptTile, __layer_user_tile, &tRegion)
             {
-                this.ptFunc(this.pchUserMap[i].u7Idx, &__layer_user_tile);
+                this.ptFunc(this.pchUserMap[curIdx].u7Idx, &__layer_user_tile);
             }
             arm_2d_op_wait_async(NULL);
             
-            this.pchUserMap->bIsDirty = RT_FALSE;
+            if (ptDirtyRegion[0].bUpdated == false)
+            {
+                if (__idx == curIdx || __idx > curIdx)
+                {
+                    continue;
+                }
+                __idx = curIdx;
+                
+                ptDirtyRegion[0].tRegion = (arm_2d_region_t) {
+                    .tLocation = {
+                        .iX = iX,
+                        .iY = iY,
+                    },
+                    .tSize = {
+                        .iWidth = this.tPixel.hwXPixel,
+                        .iHeight = this.tPixel.hwYPixel,
+                    },
+                };
+                ptDirtyRegion[0].bUpdated = true;
+            }
         }
     }
+}
+
+void tnsq_gfx_clear_layer_user_dirty_cell(tnsq_gfx_layer_user_t *ptThis)
+{
+    for (int i = 0; i < this.tCount.totalCount; i ++)
+    {
+        if (this.pchUserMap[i].bIsDirty == RT_TRUE)
+        {
+            this.pchUserMap[i].bIsDirty = RT_FALSE;
+        }
+    }
+    __idx = -1;
 }
 
 void tnsq_gfx_layer_user_cal_pixel(tnsq_gfx_layer_user_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)

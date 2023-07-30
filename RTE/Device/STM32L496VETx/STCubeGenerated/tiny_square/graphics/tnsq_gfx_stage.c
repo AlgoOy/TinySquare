@@ -165,7 +165,7 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
             }
             else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_USER)
             {
-                tnsq_gfx_refresh_layer_user((tnsq_gfx_layer_user_t *)ptLayersList, ptTile);
+                tnsq_gfx_refresh_layer_user((tnsq_gfx_layer_user_t *)ptLayersList, ptTile, this.use_as__arm_2d_scene_t.ptDirtyRegion);
             }
             else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_BG)
             {
