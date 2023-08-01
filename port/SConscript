@@ -3,8 +3,12 @@ from building import *
 cwd = GetCurrentDir()
 
 src = Glob('*.c')
+src += Glob('math/*.c')
+src += Glob('math/dsp/*.c')
 
 path = [cwd]
+path += [cwd + '/math']
+path += [cwd + '/math/dsp']
 
 group = DefineGroup('TinySquare', src, depend = ['PKG_USING_TINYSQUARE'], CPPPATH = path)
 
