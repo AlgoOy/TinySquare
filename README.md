@@ -10,6 +10,8 @@
 | ---- | ---- |
 | docs | 文档目录 |
 | examples | 例子目录 |
+| library | 依赖库目录 |
+| port | 移植代码目录 |
 | source | 源代码目录 |
 
 ### 1.2 许可证
@@ -29,5 +31,6 @@ TinySquare 遵循 Apache-2.0 许可，详见`LICENSE`文件。
 
 ## 5、联系方式 & 感谢
 
-* 维护：AlgoOy
+* 维护：[AlgoOy](https://github.com/AlgoOy)
 * 主页：https://github.com/AlgoOy/TinySquare
+* 感谢：[GorgonMeducer](https://github.com/GorgonMeducer)
