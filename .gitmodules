@@ -1,0 +1,4 @@
+[submodule "library/arm-2d-dev"]
+	path = library/arm-2d-dev
+	url = git@github.com:ARM-software/Arm-2D.git
+	branch = developing
