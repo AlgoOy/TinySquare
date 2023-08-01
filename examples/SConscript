@@ -1,0 +1,14 @@
+from building import *
+
+cwd = GetCurrentDir()
+
+src = []
+path = []
+
+if GetDepend('TINYSQUARE_USING_EXAMPLES_SNAKE'):
+    src += Glob('snake/*.c')
+    path += [cwd + '/snake']
+
+group = DefineGroup('TinySquare', src, depend = ['PKG_USING_TINYSQUARE'], CPPPATH = path)
+
+Return('group')

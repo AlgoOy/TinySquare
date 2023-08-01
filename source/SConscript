@@ -1,0 +1,16 @@
+from building import *
+
+cwd = GetCurrentDir()
+
+src = Glob('common/*.c')
+src += Glob('graphics/*.c')
+src += Glob('event/*.c')
+
+path = [cwd]
+path += [cwd + '/common']
+path += [cwd + '/graphics']
+path += [cwd + '/event']
+
+group = DefineGroup('TinySquare', src, depend = ['PKG_USING_TINYSQUARE'], CPPPATH = path)
+
+Return('group')
