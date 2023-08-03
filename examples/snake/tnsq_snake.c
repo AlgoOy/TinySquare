@@ -11,8 +11,6 @@
 #include "tnsq_snake.h"
 #include "tiny_square.h"
 
-#include "stm32l4xx_hal.h"
-
 // todo: just for debug
 #include "stdio.h"
  
@@ -222,7 +220,7 @@ static void _tnsq_snake_obstacle_init(void)
     {
         do
         {
-            srand((unsigned) HAL_GetTick());
+            srand((unsigned) arm_2d_helper_get_system_timestamp());
             obstacle.loc[i].x = (uint8_t)rand() % FGCellsXCount;
             obstacle.loc[i].y = (uint8_t)rand() % FGCellsYCount;
         } while (bls_map[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] == RT_TRUE);
@@ -240,7 +238,7 @@ static void _tnsq_snake_create_fruit(void)
     {
         do
         {
-            srand((unsigned) HAL_GetTick());
+            srand((unsigned) arm_2d_helper_get_system_timestamp());
             fruit.loc.x = (uint8_t)rand() % FGCellsXCount;
             fruit.loc.y = (uint8_t)rand() % FGCellsYCount;
         } while (bls_map[_tnsq_pos_cal(fruit.loc, FGCellsYCount)] == RT_TRUE);
