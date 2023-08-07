@@ -43,12 +43,76 @@
 
 #undef this
 #define this (*ptThis)
-    
-static tnsq_gfx_cell_t s_tFGCells[TNSQ_TETRIS_X_COUNT * TNSQ_TETRIS_Y_COUNT] = {0};
-    
-void tnsq_tetris_draw_interface(rt_bool_t (*pMap)[], rt_uint8_t x, rt_uint8_t y)
+
+tnsq_gfx_stage_t *tnsq_tetris_stage_init(void)
 {
+    disp_adapter0_init();
+    tnsq_gfx_stage_cfg_t tGameStageCFG = {
+        .ptDispAdapter = {
+            .ptPlayer = &DISP0_ADAPTER,
+            .ptPlayerTask = disp_adapter0_task,
+        },
+    };
+    tnsq_gfx_stage_t *ptGameStage = tnsq_gfx_stage_init(&tGameStageCFG);
+    if (ptGameStage == NULL)
+    {
+        /* error handle */
+        printf("game stage init failed");
+        return NULL;
+    }
+    else
+    {
+        return ptGameStage;
+    }
+}
+
+rt_uint8_t tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
+{
+    tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
+        .chOpacity = 255,
+        .ptBackGroundColorMask = NULL,
+        .tRegion = {
+            .tLocation = {
+                .iX = 0,
+                .iY = 0,
+            },
+            .tSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER),
+        },
+        .tColor = (__arm_2d_color_t){GLCD_COLOR_BLACK},
+    };
+    tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
     
+    return tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
+}
+
+rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_cell_t *ptCells)
+{
+    tnsq_gfx_layer_cell_cfg_t tInterfaceCFG = {
+        .hwXCount = TNSQ_TETRIS_X_COUNT,
+        .hwYCount = TNSQ_TETRIS_Y_COUNT,
+        .ptCells  = ptCells,
+    };
+    tnsq_gfx_layer_cell_t *ptGameInterfaceLayer = tnsq_gfx_layer_cell_init(&tInterfaceCFG);
+    
+    return tnsq_gfx_register_layer_to_stage(ptStage, ptGameInterfaceLayer);
+}
+
+static void _draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor)
+{
+	ptCells[pos].bIsDirty = RT_TRUE;
+	ptCells[pos].chOpacity = chOpacity;
+	ptCells[pos].tColor = tColor;
+}
+    
+void tnsq_tetris_draw_interface(tnsq_gfx_cell_t *ptCells, rt_uint8_t x, rt_uint8_t y)
+{
+    for (int i = 0; i < x * y; i ++)
+    {
+        if (ptCells[i].bIsDirty == RT_TRUE)
+        {
+            _draw_cell(ptCells, i, 255, (__arm_2d_color_t){GLCD_COLOR_DARK_GREY});
+        }
+    }
 }
     
 #if defined(__clang__)
