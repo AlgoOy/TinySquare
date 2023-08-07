@@ -46,11 +46,39 @@
 #undef this
 #define this (*ptThis)
     
+static rt_uint8_t bg_cl_layer_id = 0;
+static rt_uint8_t interface_layer_id = 0;
+
+static tnsq_gfx_cell_t s_tInterfaceCells[TNSQ_TETRIS_X_COUNT][TNSQ_TETRIS_Y_COUNT] = {0};
+
 rt_bool_t bls_map[TNSQ_TETRIS_X_COUNT][TNSQ_TETRIS_Y_COUNT] = {0};
+
+void _tnsq_tetris_register_layer(void)
+{
+    // initial stage
+    tnsq_gfx_stage_t *ptStage = tnsq_tetris_stage_init();
+    
+    // initial bg_cl layer
+    bg_cl_layer_id = tnsq_tetris_init_bg_cl_layer(ptStage);
+    
+    // initial interface layer
+    interface_layer_id = tnsq_tetris_init_interface_layer(ptStage, s_tInterfaceCells[0]);
+}
+
+
 
 static void _tnsq_tetris_init_interface(void)
 {
-    
+    for (int i = 0; i < TNSQ_TETRIS_X_COUNT-1; i ++)
+    {
+        s_tInterfaceCells[i][0].bIsDirty = RT_TRUE;
+        s_tInterfaceCells[i][TNSQ_TETRIS_Y_COUNT - 1].bIsDirty = RT_TRUE;
+        s_tInterfaceCells[i][TNSQ_TETRIS_Y_COUNT - 8].bIsDirty = RT_TRUE;
+    }
+    for (int i = 0; i < TNSQ_TETRIS_Y_COUNT; i ++)
+    {
+        s_tInterfaceCells[TNSQ_TETRIS_X_COUNT - 1][i].bIsDirty = RT_TRUE;
+    }
 }
     
 static void _tnsq_tetris_init_block(void)
@@ -59,12 +87,15 @@ static void _tnsq_tetris_init_block(void)
 }
     
 static void _game_initial(void) 
-{
+{    
+    // initial and register layer
+    _tnsq_tetris_register_layer();
+    
     // initial game interface
     _tnsq_tetris_init_interface();
     
     // draw game interface
-    tnsq_tetris_draw_interface(bls_map, TNSQ_TETRIS_X_COUNT, TNSQ_TETRIS_Y_COUNT);
+    tnsq_tetris_draw_interface(s_tInterfaceCells[0], TNSQ_TETRIS_X_COUNT, TNSQ_TETRIS_Y_COUNT);
     
     // initial block info
     _tnsq_tetris_init_block();

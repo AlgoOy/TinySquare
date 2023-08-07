@@ -31,10 +31,17 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#define TNSQ_TETRIS_X_COUNT 10
-#define TNSQ_TETRIS_Y_COUNT 10
+#define TNSQ_TETRIS_X_COUNT 20
+#define TNSQ_TETRIS_Y_COUNT 20
 
-void tnsq_tetris_draw_interface(rt_bool_t (*pMap)[], rt_uint8_t x, rt_uint8_t y);
+tnsq_gfx_stage_t *tnsq_tetris_stage_init(void);
+
+rt_uint8_t tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage);
+rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_cell_t *ptCells);
+
+void draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor);
+
+void tnsq_tetris_draw_interface(tnsq_gfx_cell_t *ptCells, rt_uint8_t x, rt_uint8_t y);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
