@@ -33,7 +33,6 @@ extern "C" {
 
 #define TNSQ_TETRIS_X_COUNT 20
 #define TNSQ_TETRIS_Y_COUNT 20
-<<<<<<< HEAD
 #define TNSQ_TETRIS_Y_GAME_COUNT (20 - 8)
 
 #define T_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_BLUE}
@@ -44,9 +43,6 @@ extern "C" {
 #define O_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_OLIVE}
 #define I_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_PURPLE}
 
-=======
-
->>>>>>> 3d9dea1fa2cdc7f505a43ba91238b87be96681ee
 tnsq_gfx_stage_t *tnsq_tetris_stage_init(void);
 
 rt_uint8_t tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage);
