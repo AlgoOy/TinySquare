@@ -112,7 +112,27 @@ static void _tnsq_tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTi
 {
     arm_2d_canvas(ptTile, __user_map_canvas)
     {
-        if (idx == 1)
+        if (idx == 0)
+        {
+            arm_2dp_fill_colour_with_opacity
+            (
+                NULL,
+                ptTile,
+                &(arm_2d_region_t) {
+                    .tLocation = {
+                        .iX = __user_map_canvas.tLocation.iX + 1,
+                        .iY = __user_map_canvas.tLocation.iY + 1,
+                    },
+                    .tSize = {
+                        .iWidth = __user_map_canvas.tSize.iWidth - 2,
+                        .iHeight = __user_map_canvas.tSize.iHeight - 2,
+                    },
+                },
+                (__arm_2d_color_t){GLCD_COLOR_DARK_GREY},
+                255
+            );
+        }
+        else if (idx == 1)
         {
             draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_BLUE, 255, bIsNewFrame);
         }
@@ -140,17 +160,22 @@ static void _tnsq_tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTi
         {
             draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_PURPLE, 255, bIsNewFrame);
         }
+        else if (idx == 8)
+        {
+            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_WHITE, 0, bIsNewFrame);
+        }
     }
 }
 
-rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_cell_t *ptCells)
+rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptUserMap)
 {
-    tnsq_gfx_layer_cell_cfg_t tInterfaceCFG = {
+    tnsq_gfx_layer_user_cfg_t tInterfaceCFG = {
         .hwXCount = TNSQ_TETRIS_X_COUNT,
         .hwYCount = TNSQ_TETRIS_Y_COUNT,
-        .ptCells  = ptCells,
+        .pchUserMap = ptUserMap,
+        .ptFunc = _tnsq_tetris_user_map_func,
     };
-    tnsq_gfx_layer_cell_t *ptGameInterfaceLayer = tnsq_gfx_layer_cell_init(&tInterfaceCFG);
+    tnsq_gfx_layer_user_t *ptGameInterfaceLayer = tnsq_gfx_layer_user_init(&tInterfaceCFG);
     
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameInterfaceLayer);
 }
@@ -159,7 +184,7 @@ rt_uint8_t tnsq_tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
 {
     tnsq_gfx_layer_text_cfg_t tTextCFG = {
         .chOpacity = 100,
-        .ptFont = &ARM_2D_FONT_16x24.use_as__arm_2d_font_t,
+        .ptFont = &ARM_2D_FONT_6x8.use_as__arm_2d_font_t,
         .tColour = {
             .tBackground = GLCD_COLOR_WHITE,
             .tForeground = GLCD_COLOR_GREEN,
@@ -174,34 +199,17 @@ rt_uint8_t tnsq_tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
                 .iY = 100,
             },
             .tSize = {
-                .iWidth = 100,
+                .iWidth = 150,
                 .iHeight = 100,
             },
         }
     };
     tnsq_gfx_layer_text_t *ptGameTextLayer = tnsq_gfx_layer_text_init(&tTextCFG);
     
-    tnsq_gfx_layer_text_printf(ptGameTextLayer, "1234567890");
+    char *str = "TinySquare";
+    tnsq_gfx_layer_text_printf(ptGameTextLayer, "Hello, %s", str);
     
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameTextLayer);
-}
-
-static void _draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor)
-{
-	ptCells[pos].bIsDirty = RT_TRUE;
-	ptCells[pos].chOpacity = chOpacity;
-	ptCells[pos].tColor = tColor;
-}
-    
-void tnsq_tetris_draw_interface(tnsq_gfx_cell_t *ptCells, rt_uint8_t x, rt_uint8_t y)
-{
-    for (int i = 0; i < x * y; i ++)
-    {
-        if (ptCells[i].bIsDirty == RT_TRUE)
-        {
-            _draw_cell(ptCells, i, 255, (__arm_2d_color_t){GLCD_COLOR_DARK_GREY});
-        }
-    }
 }
     
 #if defined(__clang__)

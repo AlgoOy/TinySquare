@@ -35,24 +35,22 @@ extern "C" {
 #define TNSQ_TETRIS_Y_COUNT 20
 #define TNSQ_TETRIS_Y_GAME_COUNT (20 - 8)
 
-#define T_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_BLUE}
-#define L_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_GREEN}
-#define J_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_CYAN}
-#define Z_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_RED}
-#define S_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_YELLOW}
-#define O_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_OLIVE}
-#define I_BLOCK_INFO (tnsq_gfx_cell_t){.bIsDirty = RT_TRUE, .chOpacity = 255, .tColor = GLCD_COLOR_PURPLE}
+#define BOARD_BLOCK_INFO (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 0}
+#define T_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 1}
+#define L_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 2}
+#define J_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 3}
+#define Z_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 4}
+#define S_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 5}
+#define O_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 6}
+#define I_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 7}
+#define CLEAR_BLOCK_INFO (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 8}
 
 tnsq_gfx_stage_t *tnsq_tetris_stage_init(void);
 
 rt_uint8_t tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage);
 rt_uint8_t tnsq_tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage);
-rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_cell_t *ptCells);
+rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptCells);
 rt_uint8_t tnsq_tetris_init_text_layer(tnsq_gfx_stage_t *ptStage);
-
-void draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor);
-
-void tnsq_tetris_draw_interface(tnsq_gfx_cell_t *ptCells, rt_uint8_t x, rt_uint8_t y);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

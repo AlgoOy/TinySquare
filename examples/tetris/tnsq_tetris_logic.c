@@ -51,13 +51,13 @@ static rt_uint8_t bg_layer_id = 0;
 static rt_uint8_t interface_layer_id = 0;
 static rt_uint8_t text_layer_id = 0;
 
-static tnsq_gfx_cell_t s_tInterfaceCells[TNSQ_TETRIS_X_COUNT][TNSQ_TETRIS_Y_COUNT] = {0};
+static tnsq_gfx_user_map_t s_tInterfaceCells[TNSQ_TETRIS_X_COUNT][TNSQ_TETRIS_Y_COUNT] = {0};
 
 rt_bool_t bls_map[TNSQ_TETRIS_X_COUNT][TNSQ_TETRIS_Y_COUNT] = {0};
 
 static struct tetris_block_t 
 {
-    tnsq_gfx_cell_t space[4][4];
+    tnsq_gfx_user_map_t space[4][4];
 } block[7][4];
 
 void _tnsq_tetris_register_layer(void)
@@ -84,18 +84,18 @@ static void _tnsq_tetris_init_interface(void)
 {
     for (int i = 0; i < TNSQ_TETRIS_X_COUNT-1; i ++)
     {
-        s_tInterfaceCells[i][0].bIsDirty = RT_TRUE;
+        s_tInterfaceCells[i][0] = BOARD_BLOCK_INFO;
         bls_map[i][0] = RT_TRUE;
         
-        s_tInterfaceCells[i][TNSQ_TETRIS_Y_COUNT - 1].bIsDirty = RT_TRUE;
+        s_tInterfaceCells[i][TNSQ_TETRIS_Y_COUNT - 1] = BOARD_BLOCK_INFO;
         bls_map[i][TNSQ_TETRIS_Y_COUNT - 1] = RT_TRUE;
         
-        s_tInterfaceCells[i][TNSQ_TETRIS_Y_GAME_COUNT].bIsDirty = RT_TRUE;
+        s_tInterfaceCells[i][TNSQ_TETRIS_Y_GAME_COUNT] = BOARD_BLOCK_INFO;
         bls_map[i][TNSQ_TETRIS_Y_GAME_COUNT] = RT_TRUE;        
     }
     for (int i = 0; i < TNSQ_TETRIS_Y_COUNT; i ++)
     {
-        s_tInterfaceCells[TNSQ_TETRIS_X_COUNT - 1][i].bIsDirty = RT_TRUE;
+        s_tInterfaceCells[TNSQ_TETRIS_X_COUNT - 1][i] = BOARD_BLOCK_INFO;
         bls_map[TNSQ_TETRIS_X_COUNT - 1][i] = RT_TRUE;
     }
 }
@@ -137,7 +137,7 @@ static void _tnsq_tetris_init_block(void)
 		block[6][0].space[i][1] = I_BLOCK_INFO;
     }
     
-    tnsq_gfx_cell_t temp[4][4];
+    tnsq_gfx_user_map_t temp[4][4];
 	for (int shape = 0; shape < 7; shape++)
 	{
 		for (int form = 0; form < 3; form++)
@@ -170,9 +170,6 @@ static void _tnsq_tetris_game_initial(void)
     // initial game interface
     _tnsq_tetris_init_interface();
     
-    // draw game interface
-    tnsq_tetris_draw_interface(s_tInterfaceCells[0], TNSQ_TETRIS_X_COUNT, TNSQ_TETRIS_Y_COUNT);
-    
     // initial block info
     _tnsq_tetris_init_block();
     
@@ -202,8 +199,7 @@ static void _tnsq_tetris_clear_block(rt_uint8_t shape, rt_uint8_t form, rt_uint8
         {
             if (block[shape][form].space[i][j].bIsDirty == RT_TRUE)
             {
-                s_tInterfaceCells[x+i][y+j].bIsDirty = RT_TRUE;
-                s_tInterfaceCells[x+i][y+j].chOpacity = 0;
+                s_tInterfaceCells[x+i][y+j] = CLEAR_BLOCK_INFO;
             }
         }
     }
@@ -243,8 +239,7 @@ static rt_bool_t _tnsq_tetris_judge()
         {
             for (int j = 1; j < TNSQ_TETRIS_Y_GAME_COUNT; j ++)
             {
-                s_tInterfaceCells[i][j].bIsDirty = RT_TRUE;
-                s_tInterfaceCells[i][j].chOpacity = 0;
+                s_tInterfaceCells[i][j] = CLEAR_BLOCK_INFO;
                 bls_map[i][j] = RT_FALSE;
             }
             
@@ -260,8 +255,7 @@ static rt_bool_t _tnsq_tetris_judge()
                     {
                         s_tInterfaceCells[m][n] = s_tInterfaceCells[m-1][n];
                         s_tInterfaceCells[m][n].bIsDirty = RT_TRUE;
-                        s_tInterfaceCells[m-1][n].bIsDirty = RT_TRUE;
-                        s_tInterfaceCells[m-1][n].chOpacity = 0;
+                        s_tInterfaceCells[m-1][n] = CLEAR_BLOCK_INFO;
                     }
                 }
                 

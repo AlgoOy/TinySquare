@@ -51,17 +51,33 @@
 
 void tnsq_gfx_refresh_layer_text(tnsq_gfx_layer_text_t *ptThis, const arm_2d_tile_t *ptTile)
 {
-    arm_2d_canvas(ptTile, __layer_text_canvas)
+    arm_2d_size_t tTextSize = this.tCFG.ptFont->tCharSize;
+    tTextSize.iWidth *= strlen(this.pchStr);
+    
+    arm_2d_container(ptTile, __text_tile, &this.tCFG.tRegion)
     {
-        arm_lcd_text_set_target_framebuffer(ptTile);
-        arm_lcd_text_set_font(ptThis->tCFG.ptFont);
-        arm_lcd_text_set_draw_region(&ptThis->tCFG.tRegion);
-        arm_lcd_text_set_colour(ptThis->tCFG.tColour.tForeground, ptThis->tCFG.tColour.tBackground);
-        arm_lcd_text_set_opacity(ptThis->tCFG.chOpacity);
-        arm_lcd_text_location(ptThis->tCFG.tDrawOffset.iX, ptThis->tCFG.tDrawOffset.iY);
-        arm_lcd_puts(ptThis->pchStr);
+        arm_2d_align_centre(__text_tile_canvas, tTextSize)
+        {
+            arm_lcd_text_set_target_framebuffer((arm_2d_tile_t *)&__text_tile);
+            arm_lcd_text_set_font((arm_2d_font_t *)ptThis->tCFG.ptFont);
+            arm_lcd_text_set_draw_region(&__centre_region);
+            arm_lcd_text_set_colour(this.tCFG.tColour.tForeground, this.tCFG.tColour.tBackground);
+            arm_lcd_text_set_opacity(this.tCFG.chOpacity);
+            //arm_lcd_text_location(ptThis->tCFG.tDrawOffset.iX, ptThis->tCFG.tDrawOffset.iY);
+            arm_lcd_puts(this.pchStr);
+        }
     }
-    arm_2d_op_wait_async(NULL);
+//    arm_2d_canvas(ptTile, __layer_text_canvas)
+//    {
+//        arm_lcd_text_set_target_framebuffer(ptTile);
+//        arm_lcd_text_set_font(ptThis->tCFG.ptFont);
+//        arm_lcd_text_set_draw_region(&ptThis->tCFG.tRegion);
+//        arm_lcd_text_set_colour(ptThis->tCFG.tColour.tForeground, ptThis->tCFG.tColour.tBackground);
+//        arm_lcd_text_set_opacity(ptThis->tCFG.chOpacity);
+//        arm_lcd_text_location(ptThis->tCFG.tDrawOffset.iX, ptThis->tCFG.tDrawOffset.iY);
+//        arm_lcd_puts(ptThis->pchStr);
+//    }
+//    arm_2d_op_wait_async(NULL);
 }
     
 int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format, ...)
@@ -69,10 +85,10 @@ int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format
     int real_size;
     __va_list ap;
     va_start(ap, format);
-        real_size = vsnprintf(ptThis->pchStr, __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__, format, ap);
+        real_size = vsnprintf(this.pchStr, __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__, format, ap);
     va_end(ap);
-    real_size = MIN(sizeof(__LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__), real_size);
-    ptThis->pchStr[real_size] = '\0';
+    real_size = MIN(__LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__, real_size);
+    this.pchStr[real_size] = '\0';
     return real_size;
 }
 
