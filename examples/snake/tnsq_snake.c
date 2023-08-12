@@ -120,8 +120,10 @@ extern const arm_2d_tile_t c_tileFruitRGB565;
 extern const arm_2d_tile_t c_tileFruitMask;
 extern const arm_2d_tile_t c_tileSnakeBodyRGB565;
 extern const arm_2d_tile_t c_tileSnakeBodyMask;
-void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile)
+void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
 {
+    (void)bIsNewFrame;
+    
     arm_2d_canvas(ptTile, __user_map_canvas)
     {
         if (idx == 1)

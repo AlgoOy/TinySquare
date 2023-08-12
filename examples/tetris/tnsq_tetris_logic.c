@@ -47,7 +47,9 @@
 #define this (*ptThis)
     
 static rt_uint8_t bg_cl_layer_id = 0;
+static rt_uint8_t bg_layer_id = 0;
 static rt_uint8_t interface_layer_id = 0;
+static rt_uint8_t text_layer_id = 0;
 
 static tnsq_gfx_cell_t s_tInterfaceCells[TNSQ_TETRIS_X_COUNT][TNSQ_TETRIS_Y_COUNT] = {0};
 
@@ -63,11 +65,17 @@ void _tnsq_tetris_register_layer(void)
     // initial stage
     tnsq_gfx_stage_t *ptStage = tnsq_tetris_stage_init();
     
+    // initial bg layer
+    bg_layer_id = tnsq_tetris_init_bg_layer(ptStage);
+    
     // initial bg_cl layer
     bg_cl_layer_id = tnsq_tetris_init_bg_cl_layer(ptStage);
     
     // initial interface layer
     interface_layer_id = tnsq_tetris_init_interface_layer(ptStage, s_tInterfaceCells[0]);
+    
+    // initial text layer
+    text_layer_id = tnsq_tetris_init_text_layer(ptStage);
 }
 
 
@@ -181,7 +189,6 @@ static void _tnsq_tetris_draw_block(rt_uint8_t shape, rt_uint8_t form, rt_uint8_
             if (block[shape][form].space[i][j].bIsDirty == RT_TRUE)
             {
                 s_tInterfaceCells[x+i][y+j] = block[shape][form].space[i][j];
-                bls_map[x+i][y+j] = RT_TRUE;
             }
         }
     }
@@ -197,7 +204,6 @@ static void _tnsq_tetris_clear_block(rt_uint8_t shape, rt_uint8_t form, rt_uint8
             {
                 s_tInterfaceCells[x+i][y+j].bIsDirty = RT_TRUE;
                 s_tInterfaceCells[x+i][y+j].chOpacity = 0;
-                bls_map[x+i][y+j] = RT_FALSE;
             }
         }
     }
@@ -223,7 +229,7 @@ static rt_bool_t _tnsq_tetris_judge()
     for (int i = TNSQ_TETRIS_X_COUNT - 2; i > 4; i --)
     {
         int sum = 0;
-        for (int j = 1; j < TNSQ_TETRIS_Y_GAME_COUNT - 1; j ++)
+        for (int j = 1; j < TNSQ_TETRIS_Y_GAME_COUNT; j ++)
         {
             sum += bls_map[i][j];
         }
@@ -233,9 +239,9 @@ static rt_bool_t _tnsq_tetris_judge()
             break;
         }
         
-        if (sum == TNSQ_TETRIS_Y_GAME_COUNT - 2)
+        if (sum == TNSQ_TETRIS_Y_GAME_COUNT - 1)
         {
-            for (int j = 1; j < TNSQ_TETRIS_Y_GAME_COUNT - 1; j ++)
+            for (int j = 1; j < TNSQ_TETRIS_Y_GAME_COUNT; j ++)
             {
                 s_tInterfaceCells[i][j].bIsDirty = RT_TRUE;
                 s_tInterfaceCells[i][j].chOpacity = 0;
@@ -246,7 +252,7 @@ static rt_bool_t _tnsq_tetris_judge()
             {
                 sum = 0;
                 
-                for (int n = 1; n < TNSQ_TETRIS_Y_GAME_COUNT - 1; n ++)
+                for (int n = 1; n < TNSQ_TETRIS_Y_GAME_COUNT; n ++)
                 {
                     sum += bls_map[m - 1][n];
                     bls_map[m][n] = bls_map[m - 1][n];
@@ -254,6 +260,8 @@ static rt_bool_t _tnsq_tetris_judge()
                     {
                         s_tInterfaceCells[m][n] = s_tInterfaceCells[m-1][n];
                         s_tInterfaceCells[m][n].bIsDirty = RT_TRUE;
+                        s_tInterfaceCells[m-1][n].bIsDirty = RT_TRUE;
+                        s_tInterfaceCells[m-1][n].chOpacity = 0;
                     }
                 }
                 
@@ -265,7 +273,7 @@ static rt_bool_t _tnsq_tetris_judge()
         }
     }
     
-    for (int j = 1; j < TNSQ_TETRIS_Y_GAME_COUNT - 1; j ++)
+    for (int j = 1; j < TNSQ_TETRIS_Y_GAME_COUNT; j ++)
     {
         // Game Over!
         if (bls_map[1][j] == RT_TRUE)
@@ -309,6 +317,7 @@ static int _tnsq_snake_game_evt_handler(void)
 static void _tnsq_tetris_game_logic(void)
 {
     rt_uint8_t shape = rand() % 7, form = rand() % 4;
+    
     while (1)
     {
         int t = 0;
@@ -321,9 +330,10 @@ static void _tnsq_tetris_game_logic(void)
             int key = 0;
             _tnsq_tetris_draw_block(shape, form, x, y);
             tnsq_gfx_apply_for_refresh();
+            
             if (t == 0)
             {
-                t = 15000;
+                t = 500000;
             }
             while (--t)
             {
@@ -336,6 +346,16 @@ static void _tnsq_tetris_game_logic(void)
             {
                 if (_tnsq_tetris_is_legal(shape, form, x + 1, y) == RT_FALSE)
                 {
+                    for (int i = 0; i < 4; i ++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (block[shape][form].space[i][j].bIsDirty == RT_TRUE)
+                            {
+                                bls_map[x+i][y+j] = RT_TRUE;
+                            }
+                        }
+                    }
                     while (_tnsq_tetris_judge() == RT_FALSE);
                     break;
                 }

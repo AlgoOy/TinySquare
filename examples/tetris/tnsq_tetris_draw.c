@@ -10,6 +10,8 @@
 
 #include "tnsq_tetris_draw.h"
 
+#include "arm_extra_controls.h"
+
 // todo: just for debug
 #include "stdio.h"
  
@@ -66,10 +68,31 @@ tnsq_gfx_stage_t *tnsq_tetris_stage_init(void)
     }
 }
 
+extern const arm_2d_tile_t c_tilebg_tetrisRGB565;
+extern const arm_2d_tile_t c_tilebg_tetrisMask;
+
+rt_uint8_t tnsq_tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage)
+{
+    tnsq_gfx_layer_bg_cfg_t tGameBGCFG = {
+        .ptBackGround = &c_tilebg_tetrisRGB565,
+        .ptBackGroundMask = &c_tilebg_tetrisMask,
+        .tRegion = {
+            .tLocation = {
+                .iX = 0,
+                .iY = 0,
+            },
+            .tSize = c_tilebg_tetrisRGB565.tRegion.tSize,
+        },
+    };
+    tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
+    
+    return tnsq_gfx_register_layer_to_stage(ptStage, ptGameBG);
+}
+
 rt_uint8_t tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
 {
     tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
-        .chOpacity = 255,
+        .chOpacity = 32,
         .ptBackGroundColorMask = NULL,
         .tRegion = {
             .tLocation = {
@@ -85,6 +108,41 @@ rt_uint8_t tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
 }
 
+static void _tnsq_tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
+{
+    arm_2d_canvas(ptTile, __user_map_canvas)
+    {
+        if (idx == 1)
+        {
+            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_BLUE, 255, bIsNewFrame);
+        }
+        else if (idx == 2)
+        {
+            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_GREEN, 255, bIsNewFrame);
+        }
+        else if (idx == 3)
+        {
+            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_CYAN, 255, bIsNewFrame);
+        }
+        else if (idx == 4)
+        {
+            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_RED, 255, bIsNewFrame);
+        }
+        else if (idx == 5)
+        {
+            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_YELLOW, 255, bIsNewFrame);
+        }
+        else if (idx == 6)
+        {
+            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_OLIVE, 255, bIsNewFrame);
+        }
+        else if (idx == 7)
+        {
+            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_PURPLE, 255, bIsNewFrame);
+        }
+    }
+}
+
 rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_cell_t *ptCells)
 {
     tnsq_gfx_layer_cell_cfg_t tInterfaceCFG = {
@@ -95,6 +153,37 @@ rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_
     tnsq_gfx_layer_cell_t *ptGameInterfaceLayer = tnsq_gfx_layer_cell_init(&tInterfaceCFG);
     
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameInterfaceLayer);
+}
+
+rt_uint8_t tnsq_tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
+{
+    tnsq_gfx_layer_text_cfg_t tTextCFG = {
+        .chOpacity = 100,
+        .ptFont = &ARM_2D_FONT_16x24.use_as__arm_2d_font_t,
+        .tColour = {
+            .tBackground = GLCD_COLOR_WHITE,
+            .tForeground = GLCD_COLOR_GREEN,
+        },
+        .tDrawOffset = {
+            .iX = 50,
+            .iY = 50,
+        },
+        .tRegion = {
+            .tLocation = {
+                .iX = 100,
+                .iY = 100,
+            },
+            .tSize = {
+                .iWidth = 100,
+                .iHeight = 100,
+            },
+        }
+    };
+    tnsq_gfx_layer_text_t *ptGameTextLayer = tnsq_gfx_layer_text_init(&tTextCFG);
+    
+    tnsq_gfx_layer_text_printf(ptGameTextLayer, "1234567890");
+    
+    return tnsq_gfx_register_layer_to_stage(ptStage, ptGameTextLayer);
 }
 
 static void _draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, __arm_2d_color_t tColor)

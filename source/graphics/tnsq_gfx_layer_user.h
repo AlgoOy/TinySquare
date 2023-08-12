@@ -45,7 +45,7 @@ typedef struct tnsq_gfx_user_map_t tnsq_gfx_user_map_t;
 typedef struct tnsq_gfx_layer_user_cfg_t tnsq_gfx_layer_user_cfg_t;
 typedef struct tnsq_gfx_layer_user_t tnsq_gfx_layer_user_t;
 
-typedef void (*ptLayerUserFunc_t)(rt_uint8_t idx, arm_2d_tile_t const *ptTile);
+typedef void (*ptLayerUserFunc_t)(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame);
 
 struct tnsq_gfx_user_map_t
 {

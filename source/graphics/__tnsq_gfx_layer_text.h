@@ -5,17 +5,17 @@
  *
  * Change Logs:
  * Date           Author     Notes
- * 2023-07-08     AlgoOy     the first version
+ * 2023-08-11     AlgoOy     the first version
  */
  
-#ifndef ____TNSQ_GFX_LAYER_USER_H__
-#define ____TNSQ_GFX_LAYER_USER_H__
+#ifndef ____TNSQ_GFX_LAYER_TEXT_H__
+#define ____TNSQ_GFX_LAYER_TEXT_H__
  
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "tnsq_gfx_layer_user.h"
+#include "tnsq_gfx_layer_text.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -31,11 +31,7 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame);
-
-void tnsq_gfx_layer_user_cal_pixel(tnsq_gfx_layer_user_t *ptThis, arm_2d_scene_player_t *ptDispAdapter);
-
-void tnsq_gfx_clear_layer_user_dirty_cell(tnsq_gfx_layer_user_t *ptThis);
+void tnsq_gfx_refresh_layer_text(tnsq_gfx_layer_text_t *ptThis, const arm_2d_tile_t *ptTile);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
