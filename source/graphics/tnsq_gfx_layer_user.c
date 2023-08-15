@@ -46,7 +46,7 @@
     
 static int __idx = -1;
     
-void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion)
+void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame)
 {    
     for (int curIdx = 0; curIdx < this.tCount.totalCount; curIdx ++)
     {
@@ -67,7 +67,7 @@ void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_til
             };
             arm_2d_container(ptTile, __layer_user_tile, &tRegion)
             {
-                this.ptFunc(this.pchUserMap[curIdx].u7Idx, &__layer_user_tile);
+                this.ptFunc(this.pchUserMap[curIdx].u7Idx, &__layer_user_tile, bIsNewFrame);
             }
             arm_2d_op_wait_async(NULL);
             

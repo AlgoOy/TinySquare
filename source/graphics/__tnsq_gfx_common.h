@@ -22,6 +22,7 @@ extern "C" {
 #include "__tnsq_gfx_layer_user.h"
 #include "__tnsq_gfx_layer_bg.h"
 #include "__tnsq_gfx_layer_bg_cl.h"
+#include "__tnsq_gfx_layer_text.h"
 
 
 #if defined(__clang__)

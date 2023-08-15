@@ -21,6 +21,8 @@ extern "C" {
 
 #include "arm_2d_helper.h"
 
+#include "arm_extra_controls.h"
+
 #include "__tnsq_gfx_layer.h"
 
 #if defined(__clang__)
@@ -48,10 +50,19 @@ typedef struct tnsq_gfx_layer_bg_cl_t tnsq_gfx_layer_bg_cl_t;
 
 struct tnsq_gfx_layer_bg_cl_cfg_t
 {
+    enum
+    {
+        TNSQ_GFX_BG_CL_NORMAL = 0x00,
+        TNSQ_GFX_BG_CL_NORMAL_WITH_MASK = 0x01,
+        TNSQ_GFX_BG_CL_BOX = 0x02,
+        TNSQ_GFX_BG_CL_BORDER = 0x03,
+    } tType;
     __arm_2d_color_t tColor;
     rt_uint8_t chOpacity;
     arm_2d_tile_t *ptBackGroundColorMask;
     arm_2d_region_t tRegion;
+    arm_2d_border_opacity_t borderOpacity;
+    arm_2d_corner_opacity_t cornerOpacity;
 };
 
 struct tnsq_gfx_layer_bg_cl_t
