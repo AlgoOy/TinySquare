@@ -31,7 +31,9 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tnsq_gfx_refresh_layer_text(tnsq_gfx_layer_text_t *ptThis, const arm_2d_tile_t *ptTile);
+void tnsq_gfx_refresh_layer_text(tnsq_gfx_layer_text_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion);
+
+void tnsq_gfx_clear_layer_text_dirty_region(tnsq_gfx_layer_text_t *ptThis);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

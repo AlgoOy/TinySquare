@@ -89,9 +89,12 @@ rt_uint8_t tnsq_tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage)
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameBG);
 }
 
-rt_uint8_t tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
+void tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
 {
+    arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
+    
     tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
+        .tType = TNSQ_GFX_BG_CL_NORMAL,
         .chOpacity = 32,
         .ptBackGroundColorMask = NULL,
         .tRegion = {
@@ -102,10 +105,74 @@ rt_uint8_t tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .tSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER),
         },
         .tColor = (__arm_2d_color_t){GLCD_COLOR_BLACK},
+        .borderOpacity = NULL,
+        .cornerOpacity = NULL,
     };
     tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+//    tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
     
-    return tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
+    tGameBGCLCFG = (tnsq_gfx_layer_bg_cl_cfg_t){
+        .tType = TNSQ_GFX_BG_CL_NORMAL,
+        .chOpacity = 128,
+        .ptBackGroundColorMask = NULL,
+        .tRegion = {
+            .tLocation = {
+                .iX = (TNSQ_TETRIS_Y_GAME_COUNT + 1) * (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT),
+                .iY = 0,
+            },
+            .tSize = {
+                .iWidth = (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT) * 6,
+                .iHeight = tScreenSize.iHeight - (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT),
+            },
+        },
+        .tColor = (__arm_2d_color_t){GLCD_COLOR_DARK_GREY},
+        .borderOpacity = NULL,
+        .cornerOpacity = NULL,
+    };
+    tnsq_gfx_layer_bg_cl_t *ptGameBGCL1 = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+    tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL1);
+    
+    tGameBGCLCFG = (tnsq_gfx_layer_bg_cl_cfg_t){
+        .tType = TNSQ_GFX_BG_CL_BOX,
+        .chOpacity = 128,
+        .ptBackGroundColorMask = NULL,
+        .tRegion = {
+            .tLocation = {
+                .iX = TNSQ_TETRIS_NEXT_BLOCK_Y * (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT),
+                .iY = TNSQ_TETRIS_NEXT_BLOCK_X * (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT),
+            },
+            .tSize = {
+                .iWidth = (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT) * 4,
+                .iHeight = (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT) * 4,
+            },
+        },
+        .tColor = (__arm_2d_color_t){GLCD_COLOR_BLACK},
+        .borderOpacity = NULL,
+        .cornerOpacity = NULL,
+    };
+    tnsq_gfx_layer_bg_cl_t *ptGameBGCL2 = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+    tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL2);
+    
+    tGameBGCLCFG = (tnsq_gfx_layer_bg_cl_cfg_t){
+        .tType = TNSQ_GFX_BG_CL_BOX,
+        .chOpacity = 128,
+        .ptBackGroundColorMask = NULL,
+        .tRegion = {
+            .tLocation = {
+                .iX = TNSQ_TETRIS_SCORE_Y * (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT),
+                .iY = TNSQ_TETRIS_SCORE_X * (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT),
+            },
+            .tSize = {
+                .iWidth = (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT) * 4,
+                .iHeight = (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT) * 2,
+            },
+        },
+        .tColor = (__arm_2d_color_t){GLCD_COLOR_BLACK},
+        .borderOpacity = NULL,
+        .cornerOpacity = NULL,
+    };
+    tnsq_gfx_layer_bg_cl_t *ptGameBGCL3 = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+    tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL3);
 }
 
 static void _tnsq_tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
@@ -118,18 +185,9 @@ static void _tnsq_tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTi
             (
                 NULL,
                 ptTile,
-                &(arm_2d_region_t) {
-                    .tLocation = {
-                        .iX = __user_map_canvas.tLocation.iX + 1,
-                        .iY = __user_map_canvas.tLocation.iY + 1,
-                    },
-                    .tSize = {
-                        .iWidth = __user_map_canvas.tSize.iWidth - 2,
-                        .iHeight = __user_map_canvas.tSize.iHeight - 2,
-                    },
-                },
+                &__user_map_canvas,
                 (__arm_2d_color_t){GLCD_COLOR_DARK_GREY},
-                255
+                128
             );
         }
         else if (idx == 1)
@@ -182,32 +240,26 @@ rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_
 
 rt_uint8_t tnsq_tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
 {
+    arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
+    
     tnsq_gfx_layer_text_cfg_t tTextCFG = {
-        .chOpacity = 100,
+        .chOpacity = 255,
         .ptFont = &ARM_2D_FONT_6x8.use_as__arm_2d_font_t,
         .tColour = {
-            .tBackground = GLCD_COLOR_WHITE,
             .tForeground = GLCD_COLOR_GREEN,
-        },
-        .tDrawOffset = {
-            .iX = 50,
-            .iY = 50,
         },
         .tRegion = {
             .tLocation = {
-                .iX = 100,
-                .iY = 100,
+                .iX = TNSQ_TETRIS_SCORE_Y * (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT),
+                .iY = TNSQ_TETRIS_SCORE_X * (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT),
             },
             .tSize = {
-                .iWidth = 150,
-                .iHeight = 100,
+                .iWidth = (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT) * 4,
+                .iHeight = (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT) * 2,
             },
         }
     };
     tnsq_gfx_layer_text_t *ptGameTextLayer = tnsq_gfx_layer_text_init(&tTextCFG);
-    
-    char *str = "TinySquare";
-    tnsq_gfx_layer_text_printf(ptGameTextLayer, "Hello, %s", str);
     
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameTextLayer);
 }

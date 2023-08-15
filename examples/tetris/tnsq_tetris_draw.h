@@ -35,6 +35,12 @@ extern "C" {
 #define TNSQ_TETRIS_Y_COUNT 20
 #define TNSQ_TETRIS_Y_GAME_COUNT (20 - 8)
 
+#define TNSQ_TETRIS_NEXT_BLOCK_X (TNSQ_TETRIS_X_COUNT -12)
+#define TNSQ_TETRIS_NEXT_BLOCK_Y (TNSQ_TETRIS_Y_GAME_COUNT + 2)
+
+#define TNSQ_TETRIS_SCORE_X (TNSQ_TETRIS_X_COUNT -17)
+#define TNSQ_TETRIS_SCORE_Y (TNSQ_TETRIS_Y_GAME_COUNT + 2)
+
 #define BOARD_BLOCK_INFO (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 0}
 #define T_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 1}
 #define L_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 2}
@@ -47,7 +53,7 @@ extern "C" {
 
 tnsq_gfx_stage_t *tnsq_tetris_stage_init(void);
 
-rt_uint8_t tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage);
+void tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage);
 rt_uint8_t tnsq_tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage);
 rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptCells);
 rt_uint8_t tnsq_tetris_init_text_layer(tnsq_gfx_stage_t *ptStage);

@@ -46,7 +46,6 @@
 #undef this
 #define this (*ptThis)
     
-static rt_uint8_t bg_cl_layer_id = 0;
 static rt_uint8_t bg_layer_id = 0;
 static rt_uint8_t interface_layer_id = 0;
 static rt_uint8_t text_layer_id = 0;
@@ -54,6 +53,11 @@ static rt_uint8_t text_layer_id = 0;
 static tnsq_gfx_user_map_t s_tInterfaceCells[TNSQ_TETRIS_X_COUNT][TNSQ_TETRIS_Y_COUNT] = {0};
 
 rt_bool_t bls_map[TNSQ_TETRIS_X_COUNT][TNSQ_TETRIS_Y_COUNT] = {0};
+
+static rt_uint16_t score = 0;
+
+static tnsq_gfx_stage_t *ptStage = NULL;
+static tnsq_gfx_layer_text_t *textLayerPtr = NULL;
 
 static struct tetris_block_t 
 {
@@ -63,13 +67,13 @@ static struct tetris_block_t
 void _tnsq_tetris_register_layer(void)
 {
     // initial stage
-    tnsq_gfx_stage_t *ptStage = tnsq_tetris_stage_init();
+    ptStage = tnsq_tetris_stage_init();
     
     // initial bg layer
     bg_layer_id = tnsq_tetris_init_bg_layer(ptStage);
     
     // initial bg_cl layer
-    bg_cl_layer_id = tnsq_tetris_init_bg_cl_layer(ptStage);
+    tnsq_tetris_init_bg_cl_layer(ptStage);
     
     // initial interface layer
     interface_layer_id = tnsq_tetris_init_interface_layer(ptStage, s_tInterfaceCells[0]);
@@ -175,6 +179,10 @@ static void _tnsq_tetris_game_initial(void)
     
     // initial seed
     srand((unsigned) arm_2d_helper_get_system_timestamp());
+    
+    textLayerPtr = tnsq_gfx_get_layer_ptr(ptStage, text_layer_id);
+    
+    tnsq_gfx_layer_text_printf(textLayerPtr, "%d", score);
 }
 
 static void _tnsq_tetris_draw_block(rt_uint8_t shape, rt_uint8_t form, rt_uint8_t x, rt_uint8_t y)
@@ -237,6 +245,8 @@ static rt_bool_t _tnsq_tetris_judge()
         
         if (sum == TNSQ_TETRIS_Y_GAME_COUNT - 1)
         {
+            score += 100;
+            tnsq_gfx_layer_text_printf(textLayerPtr, "%d", score);
             for (int j = 1; j < TNSQ_TETRIS_Y_GAME_COUNT; j ++)
             {
                 s_tInterfaceCells[i][j] = CLEAR_BLOCK_INFO;
@@ -317,7 +327,7 @@ static void _tnsq_tetris_game_logic(void)
         int t = 0;
         rt_uint8_t next_shape = rand() % 7, next_form = rand() % 4;
         rt_uint8_t x = 0, y = (TNSQ_TETRIS_Y_GAME_COUNT - 2) / 2;
-        _tnsq_tetris_draw_block(next_shape, next_form, TNSQ_TETRIS_X_COUNT -12, TNSQ_TETRIS_Y_GAME_COUNT + 2);
+        _tnsq_tetris_draw_block(next_shape, next_form, TNSQ_TETRIS_NEXT_BLOCK_X, TNSQ_TETRIS_NEXT_BLOCK_Y);
         
         while (1)
         {
@@ -395,7 +405,7 @@ static void _tnsq_tetris_game_logic(void)
             }
         }
         shape = next_shape, form = next_form;
-        _tnsq_tetris_clear_block(next_shape, next_form, TNSQ_TETRIS_X_COUNT -12, TNSQ_TETRIS_Y_GAME_COUNT + 2);
+        _tnsq_tetris_clear_block(next_shape, next_form, TNSQ_TETRIS_NEXT_BLOCK_X, TNSQ_TETRIS_NEXT_BLOCK_Y);
     }
 }
     
