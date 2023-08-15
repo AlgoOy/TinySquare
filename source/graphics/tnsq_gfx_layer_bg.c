@@ -49,12 +49,23 @@
 void tnsq_gfx_refresh_layer_bg(tnsq_gfx_layer_bg_t *ptThis, const arm_2d_tile_t *ptTile)
 {
     arm_2d_canvas(ptTile, __layer_bg_canvas) {
-        arm_2d_tile_copy_with_src_mask_only(
-            this.tCFG.ptBackGround,
-            this.tCFG.ptBackGroundMask,
-            ptTile,
-            &this.tCFG.tRegion
-        );
+        if (this.tCFG.ptBackGroundMask != NULL)
+        {
+            arm_2d_tile_copy_with_src_mask_only(
+                this.tCFG.ptBackGround,
+                this.tCFG.ptBackGroundMask,
+                ptTile,
+                &this.tCFG.tRegion
+            );
+        }
+        else
+        {
+            arm_2d_tile_copy_only(
+                this.tCFG.ptBackGround,
+                ptTile,
+                &this.tCFG.tRegion
+            );
+        }
     }
     arm_2d_op_wait_async(NULL);
 }

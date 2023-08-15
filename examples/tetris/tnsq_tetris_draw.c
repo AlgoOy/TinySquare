@@ -69,13 +69,12 @@ tnsq_gfx_stage_t *tnsq_tetris_stage_init(void)
 }
 
 extern const arm_2d_tile_t c_tilebg_tetrisRGB565;
-extern const arm_2d_tile_t c_tilebg_tetrisMask;
 
 rt_uint8_t tnsq_tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage)
 {
     tnsq_gfx_layer_bg_cfg_t tGameBGCFG = {
         .ptBackGround = &c_tilebg_tetrisRGB565,
-        .ptBackGroundMask = &c_tilebg_tetrisMask,
+        .ptBackGroundMask = NULL,
         .tRegion = {
             .tLocation = {
                 .iX = 0,

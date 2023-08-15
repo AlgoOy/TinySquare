@@ -53,9 +53,8 @@ struct tnsq_gfx_layer_bg_cl_cfg_t
     enum
     {
         TNSQ_GFX_BG_CL_NORMAL = 0x00,
-        TNSQ_GFX_BG_CL_NORMAL_WITH_MASK = 0x01,
-        TNSQ_GFX_BG_CL_BOX = 0x02,
-        TNSQ_GFX_BG_CL_BORDER = 0x03,
+        TNSQ_GFX_BG_CL_BOX = 0x01,
+        TNSQ_GFX_BG_CL_BORDER = 0x02,
     } tType;
     __arm_2d_color_t tColor;
     rt_uint8_t chOpacity;

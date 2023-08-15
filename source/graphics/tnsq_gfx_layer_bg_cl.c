@@ -52,22 +52,25 @@ void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_t
         {
             if (this.tCFG.tType == TNSQ_GFX_BG_CL_NORMAL)
             {
-                arm_2d_fill_colour_with_opacity(
-                    &__bg_cl_tile, 
-                    &__layer_bg_cl_canvas,
-                    this.tCFG.tColor,
-                    this.tCFG.chOpacity
-                );            
-            }
-            else if (this.tCFG.tType == TNSQ_GFX_BG_CL_NORMAL_WITH_MASK)
-            {
-                arm_2d_fill_colour_with_mask_and_opacity(
-                    &__bg_cl_tile, 
-                    &__layer_bg_cl_canvas,
-                    this.tCFG.ptBackGroundColorMask,
-                    this.tCFG.tColor,
-                    this.tCFG.chOpacity
-                );        
+                if (this.tCFG.ptBackGroundColorMask == NULL)
+                {
+                    arm_2d_fill_colour_with_opacity(
+                        &__bg_cl_tile, 
+                        &__layer_bg_cl_canvas,
+                        this.tCFG.tColor,
+                        this.tCFG.chOpacity
+                    );                 
+                }
+                else
+                {
+                    arm_2d_fill_colour_with_mask_and_opacity(
+                        &__bg_cl_tile, 
+                        &__layer_bg_cl_canvas,
+                        this.tCFG.ptBackGroundColorMask,
+                        this.tCFG.tColor,
+                        this.tCFG.chOpacity
+                    );                 
+                }
             }
             else if (this.tCFG.tType == TNSQ_GFX_BG_CL_BOX)
             {
