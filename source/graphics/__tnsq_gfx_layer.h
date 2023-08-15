@@ -45,6 +45,7 @@ struct tnsq_gfx_layer_base_t
         TNSQ_GFX_LAYER_TYPE_USER        = 0x02,
         TNSQ_GFX_LAYER_TYPE_BG          = 0x03,
         TNSQ_GFX_LAYER_TYPE_BG_CL       = 0x04,
+        TNSQ_GFX_LAYER_TYPE_TEXT        = 0x05,
     } tType;
     rt_uint8_t bIsVisible : 1;
     rt_uint8_t u7LayerID  : 7;

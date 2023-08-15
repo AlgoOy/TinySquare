@@ -11,8 +11,6 @@
 #include "tnsq_snake.h"
 #include "tiny_square.h"
 
-#include "stm32l4xx_hal.h"
-
 // todo: just for debug
 #include "stdio.h"
  
@@ -122,8 +120,10 @@ extern const arm_2d_tile_t c_tileFruitRGB565;
 extern const arm_2d_tile_t c_tileFruitMask;
 extern const arm_2d_tile_t c_tileSnakeBodyRGB565;
 extern const arm_2d_tile_t c_tileSnakeBodyMask;
-void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile)
+void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
 {
+    (void)bIsNewFrame;
+    
     arm_2d_canvas(ptTile, __user_map_canvas)
     {
         if (idx == 1)
@@ -222,7 +222,7 @@ static void _tnsq_snake_obstacle_init(void)
     {
         do
         {
-            srand((unsigned) HAL_GetTick());
+            srand((unsigned) arm_2d_helper_get_system_timestamp());
             obstacle.loc[i].x = (uint8_t)rand() % FGCellsXCount;
             obstacle.loc[i].y = (uint8_t)rand() % FGCellsYCount;
         } while (bls_map[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] == RT_TRUE);
@@ -240,7 +240,7 @@ static void _tnsq_snake_create_fruit(void)
     {
         do
         {
-            srand((unsigned) HAL_GetTick());
+            srand((unsigned) arm_2d_helper_get_system_timestamp());
             fruit.loc.x = (uint8_t)rand() % FGCellsXCount;
             fruit.loc.y = (uint8_t)rand() % FGCellsYCount;
         } while (bls_map[_tnsq_pos_cal(fruit.loc, FGCellsYCount)] == RT_TRUE);

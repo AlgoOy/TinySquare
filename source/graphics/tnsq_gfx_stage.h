@@ -78,6 +78,8 @@ ARM_NONNULL(1) void tnsq_gfx_remove_layer(tnsq_gfx_stage_t *ptStage, rt_uint8_t 
 void tnsq_gfx_make_layer_visible(tnsq_gfx_stage_t *ptStage, rt_uint8_t chLayerID);
 void tnsq_gfx_make_layer_invisible(tnsq_gfx_stage_t *ptStage, rt_uint8_t chLayerID);
 
+void *tnsq_gfx_get_layer_ptr(tnsq_gfx_stage_t *ptStage, rt_uint8_t chLayerID);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__

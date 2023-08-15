@@ -7,10 +7,13 @@ path = []
 
 if GetDepend('TINYSQUARE_USING_INTERNEL_ARM_2D'):
     src += Glob('arm-2d-dev/Library/Source/*.c')
-    src += Glob('arm-2d-dev/Helper/Sources/*.c')
+    src += Glob('arm-2d-dev/Helper/Source/*.c')
+    src += Glob('arm-2d-dev/examples/common/asset/*.c')
+    src += Glob('arm-2d-dev/examples/common/benchmark/*.c')
     src += Glob('arm-2d-dev/examples/common/controls/*.c')
     path += [cwd + '/arm-2d-dev/Library/Include']
     path += [cwd + '/arm-2d-dev/Helper/Include']
+    path += [cwd + '/arm-2d-dev/examples/common/benchmark']
     path += [cwd + '/arm-2d-dev/examples/common/controls']
 
 group = DefineGroup('TinySquare', src, depend = ['PKG_USING_TINYSQUARE'], CPPPATH = path)
