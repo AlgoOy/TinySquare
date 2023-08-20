@@ -138,6 +138,10 @@ static void _tnsq_gfx_on_stage_frame_complete(arm_2d_scene_t *ptScene)
             {
                 tnsq_gfx_clear_layer_text_dirty_region((tnsq_gfx_layer_text_t *)ptLayersList);
             }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_MENU)
+            {
+                tnsq_gfx_clear_layer_menu_dirty_region((tnsq_gfx_layer_menu_t *)ptLayersList);
+            }
         }
         ptLayersList = ptLayersList->ptNext;
     }
@@ -182,6 +186,10 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
             else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_TEXT)
             {
                 tnsq_gfx_refresh_layer_text((tnsq_gfx_layer_text_t *)ptLayersList, ptTile, this.use_as__arm_2d_scene_t.ptDirtyRegion);
+            }
+            else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_MENU)
+            {
+                tnsq_gfx_refresh_layer_menu((tnsq_gfx_layer_menu_t *)ptLayersList, ptTile, this.use_as__arm_2d_scene_t.ptDirtyRegion, bIsNewFrame);
             }
             arm_2d_op_wait_async(NULL);
         }

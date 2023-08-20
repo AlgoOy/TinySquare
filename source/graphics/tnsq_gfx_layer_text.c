@@ -5,7 +5,7 @@
  *
  * Change Logs:
  * Date           Author     Notes
- * 2023-08-11     AlgoOy     the first version
+ * 2023-08-18     AlgoOy     the first version
  */
 
 #define __TNSQ_GFX_LAYER_TEXT_IMPLEMENT__

@@ -22,6 +22,7 @@ extern "C" {
 #include "tnsq_gfx_layer_bg.h"
 #include "tnsq_gfx_layer_bg_cl.h"
 #include "tnsq_gfx_layer_text.h"
+#include "tnsq_gfx_layer_menu.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

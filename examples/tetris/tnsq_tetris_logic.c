@@ -70,16 +70,18 @@ void _tnsq_tetris_register_layer(void)
     ptStage = tnsq_tetris_stage_init();
     
     // initial bg layer
-    bg_layer_id = tnsq_tetris_init_bg_layer(ptStage);
+//    bg_layer_id = tnsq_tetris_init_bg_layer(ptStage);
+//    
+//    // initial bg_cl layer
+//    tnsq_tetris_init_bg_cl_layer(ptStage);
+//    
+//    // initial interface layer
+//    interface_layer_id = tnsq_tetris_init_interface_layer(ptStage, s_tInterfaceCells[0]);
+//    
+//    // initial text layer
+//    text_layer_id = tnsq_tetris_init_text_layer(ptStage);
     
-    // initial bg_cl layer
-    tnsq_tetris_init_bg_cl_layer(ptStage);
-    
-    // initial interface layer
-    interface_layer_id = tnsq_tetris_init_interface_layer(ptStage, s_tInterfaceCells[0]);
-    
-    // initial text layer
-    text_layer_id = tnsq_tetris_init_text_layer(ptStage);
+    tetris_memu_layer(ptStage);
 }
 
 
@@ -191,7 +193,7 @@ static void _tnsq_tetris_draw_block(rt_uint8_t shape, rt_uint8_t form, rt_uint8_
     {
         for (int j = 0; j < 4; j ++)
         {
-            if (block[shape][form].space[i][j].bIsDirty == RT_TRUE)
+            if (block[shape][form].space[i][j].bIsDirty)
             {
                 s_tInterfaceCells[x+i][y+j] = block[shape][form].space[i][j];
             }
@@ -205,7 +207,7 @@ static void _tnsq_tetris_clear_block(rt_uint8_t shape, rt_uint8_t form, rt_uint8
     {
         for (int j = 0; j < 4; j ++)
         {
-            if (block[shape][form].space[i][j].bIsDirty == RT_TRUE)
+            if (block[shape][form].space[i][j].bIsDirty)
             {
                 s_tInterfaceCells[x+i][y+j] = CLEAR_BLOCK_INFO;
             }
@@ -219,7 +221,7 @@ static rt_bool_t _tnsq_tetris_is_legal(rt_uint8_t shape, rt_uint8_t form, rt_uin
     {
         for (int j = 0; j < 4; j ++)
         {
-            if (block[shape][form].space[i][j].bIsDirty == RT_TRUE && bls_map[x+i][y+j] == RT_TRUE)
+            if (block[shape][form].space[i][j].bIsDirty && bls_map[x+i][y+j])
             {
                 return RT_FALSE;
             }
@@ -280,7 +282,7 @@ static rt_bool_t _tnsq_tetris_judge()
     for (int j = 1; j < TNSQ_TETRIS_Y_GAME_COUNT; j ++)
     {
         // Game Over!
-        if (bls_map[1][j] == RT_TRUE)
+        if (bls_map[1][j])
         {
             printf("Game Over!\n");
             while(1);

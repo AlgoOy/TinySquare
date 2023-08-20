@@ -5,26 +5,17 @@
  *
  * Change Logs:
  * Date           Author     Notes
- * 2023-07-08     AlgoOy     the first version
+ * 2023-08-11     AlgoOy     the first version
  */
-
-#ifndef ____TNSQ_GFX_COMMON_H__
-#define ____TNSQ_GFX_COMMON_H__
-
+ 
+#ifndef ____TNSQ_GFX_LAYER_MENU_H__
+#define ____TNSQ_GFX_LAYER_MENU_H__
+ 
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "tnsq_gfx.h"
-#include "__tnsq_gfx_ctrl.h"
-#include "__tnsq_gfx_layer.h"
-#include "__tnsq_gfx_layer_cell.h"
-#include "__tnsq_gfx_layer_user.h"
-#include "__tnsq_gfx_layer_bg.h"
-#include "__tnsq_gfx_layer_bg_cl.h"
-#include "__tnsq_gfx_layer_text.h"
-#include "__tnsq_gfx_layer_menu.h"
-
+#include "tnsq_gfx_layer_menu.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -40,6 +31,10 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
+void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame);
+
+void tnsq_gfx_clear_layer_menu_dirty_region(tnsq_gfx_layer_menu_t *ptThis);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__
@@ -49,5 +44,5 @@ extern "C" {
 #ifdef   __cplusplus
 }
 #endif
-
+ 
 #endif
