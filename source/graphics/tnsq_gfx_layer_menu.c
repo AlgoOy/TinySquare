@@ -132,15 +132,11 @@ static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const 
         arm_2d_size_t tTextSize = ARM_2D_FONT_16x24.use_as__arm_2d_font_t.tCharSize;
         tTextSize.iWidth *= strlen(this.pchStr);
         
-        arm_2d_align_centre(__canvas, tTextSize)
-        {
-            arm_lcd_text_set_target_framebuffer(ptTile);
-            arm_lcd_text_set_font((arm_2d_font_t *)&ARM_2D_FONT_16x24);
-            arm_lcd_text_set_colour(__RGB(0x94, 0xd2, 0x52), GLCD_COLOR_BLACK);
-            arm_lcd_text_set_opacity(chOpacity);
-            //arm_lcd_puts(this.pchStr);
-            arm_print_banner(this.pchStr, __canvas);
-        }
+        arm_lcd_text_set_target_framebuffer(ptTile);
+        arm_lcd_text_set_font((arm_2d_font_t *)&ARM_2D_FONT_16x24);
+        arm_lcd_text_set_colour(__RGB(0x94, 0xd2, 0x52), GLCD_COLOR_BLACK);
+        arm_lcd_text_set_opacity(chOpacity);
+        arm_print_banner(this.pchStr, __canvas);
     }
     
     return arm_fsm_rt_cpl;

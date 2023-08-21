@@ -33,6 +33,8 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
+typedef struct tnsq_evt_key_t tnsq_evt_key_t;
+
 struct tnsq_evt_key_t
 {
     enum 
@@ -52,7 +54,6 @@ struct tnsq_evt_key_t
         TNSQ_EVT_KEY_EVENT_LONG_PRESSED   = 0x04,
     } tEvent;
 };
-typedef struct tnsq_evt_key_t tnsq_evt_key_t;
 
 rt_err_t tnsq_evt_itc_get(tnsq_evt_key_t *ptThis, rt_int32_t timeout);
 rt_err_t tnsq_evt_itc_put(tnsq_evt_key_t *ptThis);

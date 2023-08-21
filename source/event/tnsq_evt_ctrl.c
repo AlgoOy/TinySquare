@@ -74,13 +74,6 @@ rt_err_t tnsq_evt_ctrl_init(tnsq_evt_ctrl_t *ptThis)
     
     memset(ptThis, 0, sizeof(tnsq_evt_ctrl_t));
     
-    *ptThis = (tnsq_evt_ctrl_t) {
-        .tEvtITC = {
-            .ptMsgI2E = NULL,
-            .ptMsgE2G = NULL,
-        },
-    };
-    
     if (_tnsq_evt_ctrl_itc_init(ptThis) != RT_EOK)
     {
         return RT_ERROR;

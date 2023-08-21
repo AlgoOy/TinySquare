@@ -41,6 +41,8 @@ extern "C" {
 #endif
 #include "arm_2d_utils.h"
 
+typedef struct tnsq_evt_ctrl_t tnsq_evt_ctrl_t;
+
 struct tnsq_evt_ctrl_t
 {
     ARM_PRIVATE
@@ -52,7 +54,6 @@ struct tnsq_evt_ctrl_t
         } tEvtITC;
     )
 };
-typedef struct tnsq_evt_ctrl_t tnsq_evt_ctrl_t;
 
 tnsq_evt_ctrl_t *tnsq_evt_get_ctrl(void);
 
