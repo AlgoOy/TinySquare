@@ -46,6 +46,12 @@ struct tnsq_gfx_layer_menu_cfg_t
 {
     rt_uint8_t chItemsNum;
     char **pchItems;
+    arm_2d_size_t tItemSize;
+    struct
+    {
+        uint8_t Pre;
+        uint8_t Next;
+    } tItemPadding;
 };
 
 struct tnsq_gfx_layer_menu_t
@@ -55,6 +61,7 @@ struct tnsq_gfx_layer_menu_t
         implement (tnsq_gfx_layer_base_t);
         rt_bool_t blsUserAllocated;
         list_view_t tListView;
+        arm_2d_size_t tItemSize;
     )
 };
 

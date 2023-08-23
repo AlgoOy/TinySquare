@@ -294,7 +294,8 @@ static rt_bool_t _tnsq_tetris_judge()
 static int _tnsq_snake_game_evt_handler(void)
 {
     tnsq_evt_key_t tKey = {0};
-    while(tnsq_evt_itc_get(&tKey, RT_WAITING_NO) != -RT_ETIMEOUT)
+    rt_err_t tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
+    while(tErr != -RT_ETIMEOUT && tErr != -RT_ERROR)
     {
         if(tKey.tEvent != TNSQ_EVT_KEY_EVENT_PRESSED && tKey.tEvent != TNSQ_EVT_KEY_EVENT_LONG_PRESSED)
         {

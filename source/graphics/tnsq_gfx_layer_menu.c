@@ -14,6 +14,8 @@
 #include "arm_2d_helper.h"
 #include "arm_extra_controls.h"
 
+#include "tnsq_evt_key.h"
+
 //todo: just for test
 #include "stdio.h"
  
@@ -71,52 +73,27 @@ void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_til
         
         ptDirtyRegion[0].tRegion = (arm_2d_region_t){
             .tLocation = {
-                .iX = 0,
-                .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 110) >> 1),
+                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - this.tItemSize.iWidth) >> 1),
+                .iY = 0,
             },
             .tSize = {
-                .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
-                .iHeight = 110,
+                .iWidth = this.tItemSize.iWidth,
+                .iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
             },
         };
         ptDirtyRegion[0].bUpdated = true;
-
-        printf("here: %d\n", bIsNewFrame ? 1 : 0);
     }
-    
-//    if (this.bIsDirty == RT_TRUE)
-//    {
-//        arm_2d_size_t tTextSize = this.tCFG.ptFont->tCharSize;
-//        tTextSize.iWidth *= strlen(this.pchStr);
-//        
-//        arm_2d_container(ptTile, __text_tile, &this.tCFG.tRegion)
-//        {
-//            arm_2d_align_centre(__text_tile_canvas, tTextSize)
-//            {
-//                arm_lcd_text_set_target_framebuffer((arm_2d_tile_t *)&__text_tile);
-//                arm_lcd_text_set_font((arm_2d_font_t *)ptThis->tCFG.ptFont);
-//                arm_lcd_text_set_draw_region(&__centre_region);
-//                arm_lcd_text_set_colour(this.tCFG.tColour.tForeground, GLCD_COLOR_WHITE);
-//                arm_lcd_text_set_opacity(this.tCFG.chOpacity);
-//                arm_lcd_puts(this.pchStr);
-//            }
-//        }
-//        arm_2d_op_wait_async(NULL);
-//        
-//        if (ptDirtyRegion[0].bUpdated == false && __idx)
-//        {
-//            __idx = RT_FALSE;
-//            ptDirtyRegion[0].tRegion = this.tCFG.tRegion;
-//            ptDirtyRegion[0].bUpdated = true;
-//        }
-//    }
 }
 
 void tnsq_gfx_clear_layer_menu_dirty_region(tnsq_gfx_layer_menu_t *ptThis)
 {
     __idx = RT_TRUE;
-//    this.bIsDirty = RT_FALSE;
-//    __idx = RT_TRUE;
+}
+
+static void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
+{
+    tnsq_evt_key_t tKey = {0};
+    rt_err_t tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
 }
 
 static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const arm_2d_tile_t *ptTile, bool bIsNewFrame, arm_2d_list_item_param_t *ptParam)
@@ -172,6 +149,7 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
         .blsUserAllocated = blsUserAllocated,
+        .tItemSize = ptCFG->tItemSize,
     };
     
     do {
@@ -187,9 +165,10 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
                     .bIsVisible = true,
                     .bIsReadOnly = true,
                     .Padding = {
-                        5,5,
+                        ptCFG->tItemPadding.Pre,
+                        ptCFG->tItemPadding.Next,
                     },
-                    .tSize = { 90, 110 },
+                    .tSize = ptCFG->tItemSize,
                     .fnOnDrawItem = &_list_view_item_draw_func,
                     .pTarget = (uintptr_t) ptThis,
                 },
@@ -198,9 +177,13 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
         
         list_view_cfg_t tListViewCFG = {
             .fnIterator = &ARM_2D_LIST_ITERATOR_ARRAY,
-            .fnCalculator = &ARM_2D_LIST_CALCULATOR_MIDDLE_ALIGNED_HORIZONTAL,
+            .fnCalculator = &ARM_2D_LIST_CALCULATOR_MIDDLE_ALIGNED_VERTICAL,
             
-            .tListSize = {0, 110},
+            .tListSize = 
+            {
+                .iWidth = ptCFG->tItemSize.iWidth,
+                .iHeight = 0,
+            },
             .ptItems = (arm_2d_list_item_t *)ptItems,
             .hwCount = ptCFG->chItemsNum,
             .hwItemSizeInByte = sizeof(tnsq_gfx_list_item_t),

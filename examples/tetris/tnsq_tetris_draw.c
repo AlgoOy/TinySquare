@@ -280,6 +280,14 @@ void tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
         tnsq_gfx_layer_menu_cfg_t tMenuCFG = {
             .chItemsNum = 2,
             .pchItems = pchItems,
+            .tItemSize = {
+                .iWidth = 100,
+                .iHeight = 80,
+            },
+            .tItemPadding = {
+                .Pre = 5,
+                .Next = 5,
+            }
         };
         tnsq_gfx_layer_menu_t *ptMenuLayer = tnsq_gfx_layer_menu_init(&tMenuCFG);
         
