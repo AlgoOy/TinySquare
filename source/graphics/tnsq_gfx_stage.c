@@ -142,6 +142,8 @@ static void _tnsq_gfx_on_stage_frame_complete(arm_2d_scene_t *ptScene)
             else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_MENU)
             {
                 tnsq_gfx_clear_layer_menu_dirty_region((tnsq_gfx_layer_menu_t *)ptLayersList);
+                tnsq_gfx_layer_menu_evt_handle((tnsq_gfx_layer_menu_t *)ptLayersList);
+                tnsq_evt_get_lock(tnsq_evt_get_ctrl());
             }
         }
         ptLayersList = ptLayersList->ptNext;
@@ -162,9 +164,9 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
     
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
-        
-    tnsq_evt_get_unlock(tnsq_evt_get_ctrl());
 
+    tnsq_evt_get_unlock(tnsq_evt_get_ctrl());
+        
     tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;
     while (ptLayersList != NULL)
     {
@@ -193,7 +195,6 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
             else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_MENU)
             {
                 tnsq_gfx_refresh_layer_menu((tnsq_gfx_layer_menu_t *)ptLayersList, ptTile, this.use_as__arm_2d_scene_t.ptDirtyRegion, bIsNewFrame);
-                tnsq_evt_get_lock(tnsq_evt_get_ctrl());
             }
             arm_2d_op_wait_async(NULL);
         }
@@ -291,6 +292,10 @@ ARM_NONNULL(1, 2) rt_uint8_t tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *
     else if (ptLayerBase->tType == TNSQ_GFX_LAYER_TYPE_USER)
     {
         tnsq_gfx_layer_user_cal_pixel((tnsq_gfx_layer_user_t *)ptLayerBase, this.tStageCFG.ptDispAdapter.ptPlayer);
+    }
+    else if (ptLayerBase->tType == TNSQ_GFX_LAYER_TYPE_MENU)
+    {
+        tnsq_gfx_layer_menu_get_screen_size((tnsq_gfx_layer_menu_t *)ptLayerBase, this.tStageCFG.ptDispAdapter.ptPlayer);
     }
     
     ptLayerBase->u7LayerID = this.chLayerID ++;

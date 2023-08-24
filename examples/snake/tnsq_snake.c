@@ -296,6 +296,7 @@ static void _tnsq_snake_game_evt_handler(void)
     {
         if(tKey.tEvent != TNSQ_EVT_KEY_EVENT_PRESSED && tKey.tEvent != TNSQ_EVT_KEY_EVENT_LONG_PRESSED)
         {
+            tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
             continue;
         }
         else

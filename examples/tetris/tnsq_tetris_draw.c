@@ -275,10 +275,11 @@ void tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
     do {    
         char *pchItems[] = {
             "Easy",
+            "Normal",
             "Hard",
         };
         tnsq_gfx_layer_menu_cfg_t tMenuCFG = {
-            .chItemsNum = 2,
+            .chItemsNum = sizeof(pchItems) >> 2,
             .pchItems = pchItems,
             .tItemSize = {
                 .iWidth = 100,

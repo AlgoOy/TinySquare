@@ -9,6 +9,8 @@
  */
 
 #define __TNSQ_GFX_LAYER_MENU_IMPLEMENT__
+#define __NUMBER_LIST_IMPLEMENT__
+#define __ARM_2D_HELPER_LIST_VIEW_IMPLEMENT__
 #include "tnsq_gfx_layer_menu.h"
 
 #include "arm_2d_helper.h"
@@ -54,6 +56,10 @@ typedef struct tnsq_gfx_list_item_t tnsq_gfx_list_item_t;
 
 #define TNSQ_GFX_ITEM_BG_OPACITY    (255)
 
+#define __REF_ITEM_ARRAY(__PTR, __INDEX) (arm_2d_list_item_t *)                 \
+                                    (   ((uintptr_t)(__PTR))                    \
+                                    +   this.tListView.tListViewCFG.hwItemSizeInByte * (__INDEX))
+
 struct tnsq_gfx_list_item_t
 {
     implement(arm_2d_list_item_t);
@@ -73,12 +79,12 @@ void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_til
         
         ptDirtyRegion[0].tRegion = (arm_2d_region_t){
             .tLocation = {
-                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - this.tItemSize.iWidth) >> 1),
+                .iX = ((this.tScreenSize.iWidth - this.tItemSize.iWidth) >> 1),
                 .iY = 0,
             },
             .tSize = {
                 .iWidth = this.tItemSize.iWidth,
-                .iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
+                .iHeight = this.tScreenSize.iHeight,
             },
         };
         ptDirtyRegion[0].bUpdated = true;
@@ -90,10 +96,39 @@ void tnsq_gfx_clear_layer_menu_dirty_region(tnsq_gfx_layer_menu_t *ptThis)
     __idx = RT_TRUE;
 }
 
-static void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
+void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
 {
     tnsq_evt_key_t tKey = {0};
     rt_err_t tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
+    while(tErr != -RT_ETIMEOUT && tErr != -RT_ERROR)
+    {
+        if(tKey.tEvent != TNSQ_EVT_KEY_EVENT_PRESSED && tKey.tEvent != TNSQ_EVT_KEY_EVENT_LONG_PRESSED)
+        {
+            tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
+            continue;
+        }
+        else
+        {
+            switch (tKey.tDirection) 
+            {
+            case TNSQ_EVT_KEY_DERECTION_DOWN:
+                list_view_move_selection(&this.tListView, 1, 150);
+                return;
+            case TNSQ_EVT_KEY_DERECTION_RIGHT:
+                this.pchstr = ((tnsq_gfx_list_item_t *)__REF_ITEM_ARRAY(this.tListView.tListViewCFG.ptItems, 
+                    this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection))->pchStr;
+                printf("%s\n", this.pchstr);
+                return;
+            default:
+                return;
+            }
+        }
+    }
+}
+
+char *tnsq_gfx_layer_menu_get_final_item(tnsq_gfx_layer_menu_t *ptThis)
+{
+    return this.pchstr;
 }
 
 static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const arm_2d_tile_t *ptTile, bool bIsNewFrame, arm_2d_list_item_param_t *ptParam)
@@ -117,6 +152,14 @@ static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const 
     }
     
     return arm_fsm_rt_cpl;
+}
+
+void tnsq_gfx_layer_menu_get_screen_size(tnsq_gfx_layer_menu_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
+{
+    arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
+        &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
+    
+    this.tScreenSize = tScreen.tSize;
 }
 
 ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_menu_cfg_t *ptCFG, tnsq_gfx_layer_menu_t *ptThis)
@@ -150,6 +193,7 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
         },
         .blsUserAllocated = blsUserAllocated,
         .tItemSize = ptCFG->tItemSize,
+        .pchstr = NULL,
     };
     
     do {
