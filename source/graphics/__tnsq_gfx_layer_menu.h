@@ -39,6 +39,8 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis);
 
 void tnsq_gfx_layer_menu_get_screen_size(tnsq_gfx_layer_menu_t *ptThis, arm_2d_scene_player_t *ptDispAdapter);
 
+void tnsq_gfx_layer_menu_depose(tnsq_gfx_layer_menu_t *ptThis);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__

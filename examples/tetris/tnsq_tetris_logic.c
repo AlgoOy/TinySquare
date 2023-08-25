@@ -59,6 +59,11 @@ static rt_uint16_t score = 0;
 static tnsq_gfx_stage_t *ptStage = NULL;
 static tnsq_gfx_layer_text_t *textLayerPtr = NULL;
 
+static rt_uint8_t menuLayerID = 0;
+static tnsq_gfx_stage_t *ptMenuStage = NULL;
+static tnsq_gfx_layer_menu_t *menuLayerPtr = NULL;
+static char *pchItem = NULL;
+
 static struct tetris_block_t 
 {
     tnsq_gfx_user_map_t space[4][4];
@@ -69,22 +74,20 @@ void _tnsq_tetris_register_layer(void)
     // initial stage
     ptStage = tnsq_tetris_stage_init();
     
-    // initial bg layer
-//    bg_layer_id = tnsq_tetris_init_bg_layer(ptStage);
-//    
-//    // initial bg_cl layer
-//    tnsq_tetris_init_bg_cl_layer(ptStage);
-//    
-//    // initial interface layer
-//    interface_layer_id = tnsq_tetris_init_interface_layer(ptStage, s_tInterfaceCells[0]);
-//    
-//    // initial text layer
-//    text_layer_id = tnsq_tetris_init_text_layer(ptStage);
+    arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
     
-    tetris_memu_layer(ptStage);
+    // initial bg layer
+    bg_layer_id = tnsq_tetris_init_bg_layer(ptStage);
+    
+    // initial bg_cl layer
+    tnsq_tetris_init_bg_cl_layer(ptStage);
+    
+    // initial interface layer
+    interface_layer_id = tnsq_tetris_init_interface_layer(ptStage, s_tInterfaceCells[0]);
+    
+    // initial text layer
+    text_layer_id = tnsq_tetris_init_text_layer(ptStage);
 }
-
-
 
 static void _tnsq_tetris_init_interface(void)
 {
@@ -412,15 +415,35 @@ static void _tnsq_tetris_game_logic(void)
         _tnsq_tetris_clear_block(next_shape, next_form, TNSQ_TETRIS_NEXT_BLOCK_X, TNSQ_TETRIS_NEXT_BLOCK_Y);
     }
 }
+
+static void _tetris_game_menu_initial(void)
+{
+    ptMenuStage = tnsq_tetris_stage_init();
+    
+    menuLayerID = tetris_memu_layer(ptMenuStage);
+}
+
+static void _tetris_game_get_menu_result(void)
+{
+    menuLayerPtr = tnsq_gfx_get_layer_ptr(ptMenuStage, menuLayerID);
+    while((pchItem = tnsq_gfx_layer_menu_get_final_item(menuLayerPtr)) == NULL)
+    {
+        tnsq_gfx_apply_for_refresh();
+    }
+}
     
 void tnsq_tetris_task_entry(void *ptParam)
 {
     (void)ptParam;
     
+    _tetris_game_menu_initial();
+    
+    _tetris_game_get_menu_result();
+    
     _tnsq_tetris_game_initial();
     
     tnsq_gfx_apply_for_refresh();
-        
+    
     _tnsq_tetris_game_logic();
 }
     

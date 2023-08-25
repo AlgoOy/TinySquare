@@ -47,7 +47,7 @@
 static int __idx = -1;
     
 void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame)
-{    
+{
     for (int curIdx = 0; curIdx < this.tCount.totalCount; curIdx ++)
     {
         if (this.pchUserMap[curIdx].bIsDirty == RT_TRUE)

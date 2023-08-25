@@ -117,7 +117,6 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
             case TNSQ_EVT_KEY_DERECTION_RIGHT:
                 this.pchstr = ((tnsq_gfx_list_item_t *)__REF_ITEM_ARRAY(this.tListView.tListViewCFG.ptItems, 
                     this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection))->pchStr;
-                printf("%s\n", this.pchstr);
                 return;
             default:
                 return;
@@ -160,6 +159,14 @@ void tnsq_gfx_layer_menu_get_screen_size(tnsq_gfx_layer_menu_t *ptThis, arm_2d_s
         &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
     
     this.tScreenSize = tScreen.tSize;
+}
+
+void tnsq_gfx_layer_menu_depose(tnsq_gfx_layer_menu_t *ptThis)
+{
+    if (this.tListView.tListViewCFG.ptItems != NULL)
+    {
+        free(this.tListView.tListViewCFG.ptItems);
+    }
 }
 
 ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_menu_cfg_t *ptCFG, tnsq_gfx_layer_menu_t *ptThis)

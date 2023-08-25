@@ -59,7 +59,7 @@ tnsq_gfx_stage_t *tnsq_tetris_stage_init(void)
     if (ptGameStage == NULL)
     {
         /* error handle */
-        printf("game stage init failed");
+        printf("game stage init failed\n");
         return NULL;
     }
     else
@@ -251,7 +251,7 @@ rt_uint8_t tnsq_tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameTextLayer);
 }
 
-void tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
+rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
 {
     arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
     
@@ -292,7 +292,7 @@ void tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
         };
         tnsq_gfx_layer_menu_t *ptMenuLayer = tnsq_gfx_layer_menu_init(&tMenuCFG);
         
-        tnsq_gfx_register_layer_to_stage(ptStage, ptMenuLayer);
+        return tnsq_gfx_register_layer_to_stage(ptStage, ptMenuLayer);
     } while (0);
 }
     

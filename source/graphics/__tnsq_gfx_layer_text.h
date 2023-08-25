@@ -35,6 +35,8 @@ void tnsq_gfx_refresh_layer_text(tnsq_gfx_layer_text_t *ptThis, const arm_2d_til
 
 void tnsq_gfx_clear_layer_text_dirty_region(tnsq_gfx_layer_text_t *ptThis);
 
+void tnsq_gfx_layer_text_depose(tnsq_gfx_layer_text_t *ptThis);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__

@@ -72,6 +72,8 @@ struct tnsq_gfx_layer_menu_t
 
 ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_menu_cfg_t *ptLayerCFG, tnsq_gfx_layer_menu_t *ptLayer);
 
+char *tnsq_gfx_layer_menu_get_final_item(tnsq_gfx_layer_menu_t *ptThis);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__

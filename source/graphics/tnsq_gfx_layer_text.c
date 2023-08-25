@@ -104,6 +104,14 @@ int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format
     return real_size;
 }
 
+void tnsq_gfx_layer_text_depose(tnsq_gfx_layer_text_t *ptThis)
+{
+    if (this.pchStr != NULL)
+    {
+        free(this.pchStr);
+    }
+}
+
 ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_text_cfg_t *ptCFG, tnsq_gfx_layer_text_t *ptThis)
 {
     assert(ptCFG != NULL);
