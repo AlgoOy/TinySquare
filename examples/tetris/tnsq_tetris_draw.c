@@ -48,7 +48,6 @@
 
 tnsq_gfx_stage_t *tnsq_tetris_stage_init(void)
 {
-    disp_adapter0_init();
     tnsq_gfx_stage_cfg_t tGameStageCFG = {
         .ptDispAdapter = {
             .ptPlayer = &DISP0_ADAPTER,

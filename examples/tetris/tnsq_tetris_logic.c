@@ -75,7 +75,6 @@ void _tnsq_tetris_register_layer(void)
     ptStage = tnsq_tetris_stage_init();
     
     arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
-    
     // initial bg layer
     bg_layer_id = tnsq_tetris_init_bg_layer(ptStage);
     
@@ -435,6 +434,8 @@ static void _tetris_game_get_menu_result(void)
 void tnsq_tetris_task_entry(void *ptParam)
 {
     (void)ptParam;
+    
+    disp_adapter0_init();
     
     _tetris_game_menu_initial();
     

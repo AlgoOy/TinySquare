@@ -41,8 +41,6 @@
 
 #undef this
 #define this (*ptThis)
-
-#include <stdio.h>
     
 void tnsq_gfx_apply_for_refresh(void)
 {

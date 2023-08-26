@@ -19,6 +19,9 @@
 #include "arm_2d_helper.h"
 #include "arm_extra_controls.h"
 
+// todo:just for debug
+#include "stdio.h"
+
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
@@ -146,7 +149,7 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
     
     arm_2d_canvas(ptTile, __top_canvas) {
     /*-----------------------draw the foreground begin-----------------------*/
-
+    
     tnsq_evt_get_unlock(tnsq_evt_get_ctrl());
         
     tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;

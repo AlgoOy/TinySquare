@@ -13,6 +13,9 @@
 
 #include <stdlib.h>
 
+// just for debug
+#include <stdio.h>
+
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
