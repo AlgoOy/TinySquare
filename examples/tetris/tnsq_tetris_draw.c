@@ -46,7 +46,7 @@
 #undef this
 #define this (*ptThis)
 
-tnsq_gfx_stage_t *tnsq_tetris_stage_init(void)
+tnsq_gfx_stage_t *tetris_stage_init(void)
 {
     tnsq_gfx_stage_cfg_t tGameStageCFG = {
         .ptDispAdapter = {
@@ -68,8 +68,7 @@ tnsq_gfx_stage_t *tnsq_tetris_stage_init(void)
 }
 
 extern const arm_2d_tile_t c_tilebg_tetrisRGB565;
-
-rt_uint8_t tnsq_tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage)
+rt_uint8_t tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage)
 {
     tnsq_gfx_layer_bg_cfg_t tGameBGCFG = {
         .ptBackGround = &c_tilebg_tetrisRGB565,
@@ -87,7 +86,7 @@ rt_uint8_t tnsq_tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage)
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameBG);
 }
 
-void tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
+void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
 {
     arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
     
@@ -161,7 +160,7 @@ void tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
     } while (0);
 }
 
-static void _tnsq_tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
+static void _tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
 {
     arm_2d_canvas(ptTile, __user_map_canvas)
     {
@@ -211,20 +210,20 @@ static void _tnsq_tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTi
     }
 }
 
-rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptUserMap)
+rt_uint8_t tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptUserMap)
 {
     tnsq_gfx_layer_user_cfg_t tInterfaceCFG = {
         .hwXCount = TNSQ_TETRIS_X_COUNT,
         .hwYCount = TNSQ_TETRIS_Y_COUNT,
         .pchUserMap = ptUserMap,
-        .ptFunc = _tnsq_tetris_user_map_func,
+        .ptFunc = _tetris_user_map_func,
     };
     tnsq_gfx_layer_user_t *ptGameInterfaceLayer = tnsq_gfx_layer_user_init(&tInterfaceCFG);
     
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameInterfaceLayer);
 }
 
-rt_uint8_t tnsq_tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
+rt_uint8_t tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
 {
     arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
     
@@ -263,7 +262,7 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
                 .tLocation = {0},
                 .tSize = tScreenSize,
             },
-            .tColor = (__arm_2d_color_t){GLCD_COLOR_BLACK},
+            .tColor = (__arm_2d_color_t){__RGB(0x6d, 0x54, 0x84)},
             .borderOpacity = NULL,
             .cornerOpacity = NULL,
         };

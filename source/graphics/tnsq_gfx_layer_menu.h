@@ -69,6 +69,7 @@ struct tnsq_gfx_layer_menu_t
         list_view_t tListView;
         arm_2d_size_t tItemSize;
         arm_2d_size_t tScreenSize;
+        rt_int8_t chIdx;
         char *pchstr;
     )
 };
@@ -78,7 +79,9 @@ struct tnsq_gfx_layer_menu_t
 
 ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_menu_cfg_t *ptLayerCFG, tnsq_gfx_layer_menu_t *ptLayer);
 
-char *tnsq_gfx_layer_menu_get_final_item(tnsq_gfx_layer_menu_t *ptThis);
+char *tnsq_gfx_layer_menu_get_item_name(tnsq_gfx_layer_menu_t *ptLayer);
+
+rt_int8_t tnsq_gfx_layer_menu_get_item_idx(tnsq_gfx_layer_menu_t *ptLayer);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

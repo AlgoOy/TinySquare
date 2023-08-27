@@ -124,6 +124,7 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
             case TNSQ_EVT_KEY_DERECTION_RIGHT:
                 this.pchstr = ((tnsq_gfx_list_item_t *)__REF_ITEM_ARRAY(this.tListView.tListViewCFG.ptItems, 
                     this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection))->pchStr;
+                this.chIdx = this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection;
                 return;
             default:
                 return;
@@ -132,9 +133,18 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
     }
 }
 
-char *tnsq_gfx_layer_menu_get_final_item(tnsq_gfx_layer_menu_t *ptThis)
+char *tnsq_gfx_layer_menu_get_item_name(tnsq_gfx_layer_menu_t *ptThis)
 {
-    return this.pchstr;
+    char *pchstr = this.pchstr;
+    this.pchstr = NULL;
+    return pchstr;
+}
+
+rt_int8_t tnsq_gfx_layer_menu_get_item_idx(tnsq_gfx_layer_menu_t *ptThis)
+{
+    rt_int8_t chIdx = this.chIdx;
+    this.chIdx = -1;
+    return chIdx;
 }
 
 static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const arm_2d_tile_t *ptTile, bool bIsNewFrame, arm_2d_list_item_param_t *ptParam)
@@ -207,6 +217,7 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
         },
         .blsUserAllocated = blsUserAllocated,
         .tItemSize = ptCFG->tItemSize,
+        .chIdx = -1,
         .pchstr = NULL,
     };
     
