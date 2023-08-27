@@ -49,9 +49,15 @@ struct tnsq_gfx_layer_menu_cfg_t
     arm_2d_size_t tItemSize;
     struct
     {
-        uint8_t Pre;
-        uint8_t Next;
+        uint8_t pre;
+        uint8_t next;
     } tItemPadding;
+    struct
+    {
+        COLOUR_INT box;
+        COLOUR_INT font;
+    } tColor;
+    rt_uint8_t chOpacity;
 };
 
 struct tnsq_gfx_layer_menu_t

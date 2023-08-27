@@ -441,7 +441,7 @@ void tnsq_tetris_task_entry(void *ptParam)
     
     _tetris_game_get_menu_result();
     
-    _tnsq_tetris_game_initial();
+    //_tnsq_tetris_game_initial();
     
     tnsq_gfx_apply_for_refresh();
     

@@ -271,23 +271,30 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
         tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
     } while (0);
     
-    do {    
+    do {
         char *pchItems[] = {
+            "Very Easy",
             "Easy",
             "Normal",
             "Hard",
+            "Insane"
         };
         tnsq_gfx_layer_menu_cfg_t tMenuCFG = {
             .chItemsNum = sizeof(pchItems) >> 2,
             .pchItems = pchItems,
             .tItemSize = {
-                .iWidth = 100,
-                .iHeight = 80,
+                .iWidth = 160,
+                .iHeight = 60,
             },
             .tItemPadding = {
-                .Pre = 5,
-                .Next = 5,
-            }
+                .pre = 5,
+                .next = 5,
+            },
+            .tColor = {
+                .box = __RGB(0xff, 0xff, 0xff),
+                .font = __RGB(0x94, 0xd2, 0x52),
+            },
+            .chOpacity = 255,
         };
         tnsq_gfx_layer_menu_t *ptMenuLayer = tnsq_gfx_layer_menu_init(&tMenuCFG);
         

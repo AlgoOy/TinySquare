@@ -151,7 +151,7 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
     /*-----------------------draw the foreground begin-----------------------*/
     
     tnsq_evt_get_unlock(tnsq_evt_get_ctrl());
-        
+    
     tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;
     while (ptLayersList != NULL)
     {

@@ -54,8 +54,6 @@
     
 typedef struct tnsq_gfx_list_item_t tnsq_gfx_list_item_t;
 
-#define TNSQ_GFX_ITEM_BG_OPACITY    (255)
-
 #define __REF_ITEM_ARRAY(__PTR, __INDEX) (arm_2d_list_item_t *)                 \
                                     (   ((uintptr_t)(__PTR))                    \
                                     +   this.tListView.tListViewCFG.hwItemSizeInByte * (__INDEX))
@@ -63,6 +61,15 @@ typedef struct tnsq_gfx_list_item_t tnsq_gfx_list_item_t;
 struct tnsq_gfx_list_item_t
 {
     implement(arm_2d_list_item_t);
+    struct
+    {
+        struct
+        {
+            COLOUR_INT box;
+            COLOUR_INT font;
+        } tColor;
+        rt_uint8_t chOpacity;
+    } tItemsAttr;
     char *pchStr;
 };
 
@@ -134,18 +141,18 @@ static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const 
 {    
     tnsq_gfx_list_item_t *ptThis = (tnsq_gfx_list_item_t *)ptItem;
     
-    rt_uint8_t chOpacity = arm_2d_helper_alpha_mix(TNSQ_GFX_ITEM_BG_OPACITY, ptParam->chOpacity);
+    rt_uint8_t chOpacity = arm_2d_helper_alpha_mix(this.tItemsAttr.chOpacity, ptParam->chOpacity);
     
     arm_2d_canvas(ptTile, __canvas)
     {
-        draw_round_corner_box(ptTile, &__canvas, GLCD_COLOR_WHITE, chOpacity, bIsNewFrame);
+        draw_round_corner_box(ptTile, &__canvas, this.tItemsAttr.tColor.box, chOpacity, bIsNewFrame);
         
         arm_2d_size_t tTextSize = ARM_2D_FONT_16x24.use_as__arm_2d_font_t.tCharSize;
         tTextSize.iWidth *= strlen(this.pchStr);
         
         arm_lcd_text_set_target_framebuffer(ptTile);
         arm_lcd_text_set_font((arm_2d_font_t *)&ARM_2D_FONT_16x24);
-        arm_lcd_text_set_colour(__RGB(0x94, 0xd2, 0x52), GLCD_COLOR_BLACK);
+        arm_lcd_text_set_colour(this.tItemsAttr.tColor.font, GLCD_COLOR_BLACK);
         arm_lcd_text_set_opacity(chOpacity);
         arm_print_banner(this.pchStr, __canvas);
     }
@@ -209,20 +216,28 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
         for (int idx = 0; idx < ptCFG->chItemsNum; idx ++)
         {
             ptItems[idx] = (tnsq_gfx_list_item_t){
-                .pchStr = ptCFG->pchItems[idx],
                 .use_as__arm_2d_list_item_t = {
                     .hwID = idx,
                     .bIsEnabled = true,
                     .bIsVisible = true,
                     .bIsReadOnly = true,
                     .Padding = {
-                        ptCFG->tItemPadding.Pre,
-                        ptCFG->tItemPadding.Next,
+                        ptCFG->tItemPadding.pre,
+                        ptCFG->tItemPadding.next,
                     },
                     .tSize = ptCFG->tItemSize,
                     .fnOnDrawItem = &_list_view_item_draw_func,
                     .pTarget = (uintptr_t) ptThis,
                 },
+                .tItemsAttr = {
+                    .chOpacity = ptCFG->chOpacity,
+                    .tColor = {
+                        .box = ptCFG->tColor.box,
+                        .font = ptCFG->tColor.font,
+                    },
+                },
+                .pchStr = ptCFG->pchItems[idx],
+
             };
         }
         
