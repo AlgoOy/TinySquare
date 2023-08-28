@@ -253,6 +253,13 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
 {
     arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
     
+    arm_2d_size_t tItemSize = {
+        .iWidth = 160,
+        .iHeight = 30,
+    };
+    
+    rt_uint8_t chShowItemNum = 3;
+    
     do {
         tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
             .tType = TNSQ_GFX_BG_CL_NORMAL,
@@ -271,6 +278,27 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
     } while (0);
     
     do {
+        tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
+            .tType = TNSQ_GFX_BG_CL_BORDER,
+            .tRegion = {
+                .tLocation = {
+                    .iX = (tScreenSize.iWidth - tItemSize.iWidth - 4) >> 1,
+                    .iY = (tScreenSize.iHeight - tItemSize.iHeight * chShowItemNum - 4) >> 1,
+                },
+                .tSize = {
+                    .iWidth = tItemSize.iWidth + 4,
+                    .iHeight = tItemSize.iHeight * chShowItemNum + 4,
+                },
+            },
+            .tColor = GLCD_COLOR_WHITE,
+            .borderOpacity = {255, 255, 255, 255},
+            .cornerOpacity = {255, 255, 255, 255},
+        };
+        tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+        tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
+    } while (0);
+    
+    do {
         char *pchItems[] = {
             "Very Easy",
             "Easy",
@@ -279,21 +307,28 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
             "Insane"
         };
         tnsq_gfx_layer_menu_cfg_t tMenuCFG = {
-            .chItemsNum = sizeof(pchItems) >> 2,
-            .pchItems = pchItems,
-            .tItemSize = {
-                .iWidth = 160,
-                .iHeight = 60,
+            .tItemGeneral = {
+                .chItemsNum = sizeof(pchItems) >> 2,
+                .pchItems = pchItems,
+                .tItemSize = tItemSize,
+                .tItemPadding = 0,
+                .chShowItemNum = chShowItemNum,
+                .nFinishInMs = 150,
             },
-            .tItemPadding = {
-                .pre = 5,
-                .next = 5,
+            .tItemNormal = {
+                .tColor = {
+                    .box = __RGB(0x6d, 0x54, 0x84),
+                    .font = __RGB(0x94, 0xd2, 0x52),
+                },
+                .chOpacity = 255,
             },
-            .tColor = {
-                .box = __RGB(0xff, 0xff, 0xff),
-                .font = __RGB(0x94, 0xd2, 0x52),
+            .tItemSelected = {
+                .tColor = {
+                    .box = __RGB(0xff, 0xff, 0xff),
+                    .font = __RGB(0x6d, 0x54, 0x84),
+                },
+                .chOpacity = 255,
             },
-            .chOpacity = 255,
         };
         tnsq_gfx_layer_menu_t *ptMenuLayer = tnsq_gfx_layer_menu_init(&tMenuCFG);
         

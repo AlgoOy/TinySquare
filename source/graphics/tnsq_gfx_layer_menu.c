@@ -61,22 +61,15 @@ typedef struct tnsq_gfx_list_item_t tnsq_gfx_list_item_t;
 struct tnsq_gfx_list_item_t
 {
     implement(arm_2d_list_item_t);
-    struct
-    {
-        struct
-        {
-            COLOUR_INT box;
-            COLOUR_INT font;
-        } tColor;
-        rt_uint8_t chOpacity;
-    } tItemsAttr;
+    struct tItemFormat tItemNormalAttr;
+    struct tItemFormat tItemSelectedAttr;
     char *pchStr;
 };
 
 static rt_bool_t __idx = RT_TRUE;
 
 void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame)
-{    
+{
     while (arm_fsm_rt_cpl != list_view_show(&this.tListView, ptTile, NULL, bIsNewFrame));
     arm_2d_op_wait_async(NULL);
     
@@ -84,16 +77,7 @@ void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_til
     {
         __idx = RT_FALSE;
         
-        ptDirtyRegion[0].tRegion = (arm_2d_region_t){
-            .tLocation = {
-                .iX = ((this.tScreenSize.iWidth - this.tItemSize.iWidth) >> 1),
-                .iY = 0,
-            },
-            .tSize = {
-                .iWidth = this.tItemSize.iWidth,
-                .iHeight = this.tScreenSize.iHeight,
-            },
-        };
+        ptDirtyRegion[0].tRegion = this.tDirtyRegion;
         ptDirtyRegion[0].bUpdated = true;
     }
 }
@@ -119,12 +103,12 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
             switch (tKey.tDirection) 
             {
             case TNSQ_EVT_KEY_DERECTION_DOWN:
-                list_view_move_selection(&this.tListView, 1, 150);
+                list_view_move_selection(&this.tListView, 1, this.nFinishInMs);
                 return;
             case TNSQ_EVT_KEY_DERECTION_RIGHT:
-                this.pchstr = ((tnsq_gfx_list_item_t *)__REF_ITEM_ARRAY(this.tListView.tListViewCFG.ptItems, 
+                this.pchSelectedStr = ((tnsq_gfx_list_item_t *)__REF_ITEM_ARRAY(this.tListView.tListViewCFG.ptItems, 
                     this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection))->pchStr;
-                this.chIdx = this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection;
+                this.chSelectedIdx = this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection;
                 return;
             default:
                 return;
@@ -135,34 +119,44 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
 
 char *tnsq_gfx_layer_menu_get_item_name(tnsq_gfx_layer_menu_t *ptThis)
 {
-    char *pchstr = this.pchstr;
-    this.pchstr = NULL;
-    return pchstr;
+    char *pchSelectedStr = this.pchSelectedStr;
+    this.pchSelectedStr = NULL;
+    return pchSelectedStr;
 }
 
 rt_int8_t tnsq_gfx_layer_menu_get_item_idx(tnsq_gfx_layer_menu_t *ptThis)
 {
-    rt_int8_t chIdx = this.chIdx;
-    this.chIdx = -1;
-    return chIdx;
+    rt_int8_t chSelectedIdx = this.chSelectedIdx;
+    this.chSelectedIdx = -1;
+    return chSelectedIdx;
 }
 
 static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const arm_2d_tile_t *ptTile, bool bIsNewFrame, arm_2d_list_item_param_t *ptParam)
 {    
     tnsq_gfx_list_item_t *ptThis = (tnsq_gfx_list_item_t *)ptItem;
     
-    rt_uint8_t chOpacity = arm_2d_helper_alpha_mix(this.tItemsAttr.chOpacity, ptParam->chOpacity);
+    rt_uint8_t chOpacity = 0;
     
     arm_2d_canvas(ptTile, __canvas)
     {
-        draw_round_corner_box(ptTile, &__canvas, this.tItemsAttr.tColor.box, chOpacity, bIsNewFrame);
+        if (ptParam->bIsSelected)
+        {
+            chOpacity = arm_2d_helper_alpha_mix(this.tItemSelectedAttr.chOpacity, ptParam->chOpacity);
+            draw_round_corner_box(ptTile, &__canvas, this.tItemSelectedAttr.tColor.box, chOpacity, bIsNewFrame);
+            arm_lcd_text_set_colour(this.tItemSelectedAttr.tColor.font, GLCD_COLOR_BLACK);
+        }
+        else
+        {
+            chOpacity = arm_2d_helper_alpha_mix(this.tItemNormalAttr.chOpacity, ptParam->chOpacity);
+            draw_round_corner_box(ptTile, &__canvas, this.tItemNormalAttr.tColor.box, chOpacity, bIsNewFrame);
+            arm_lcd_text_set_colour(this.tItemNormalAttr.tColor.font, GLCD_COLOR_BLACK);
+        }
         
         arm_2d_size_t tTextSize = ARM_2D_FONT_16x24.use_as__arm_2d_font_t.tCharSize;
         tTextSize.iWidth *= strlen(this.pchStr);
         
         arm_lcd_text_set_target_framebuffer(ptTile);
         arm_lcd_text_set_font((arm_2d_font_t *)&ARM_2D_FONT_16x24);
-        arm_lcd_text_set_colour(this.tItemsAttr.tColor.font, GLCD_COLOR_BLACK);
         arm_lcd_text_set_opacity(chOpacity);
         arm_print_banner(this.pchStr, __canvas);
     }
@@ -170,12 +164,18 @@ static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const 
     return arm_fsm_rt_cpl;
 }
 
-void tnsq_gfx_layer_menu_get_screen_size(tnsq_gfx_layer_menu_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
+void tnsq_gfx_layer_menu_get_dirty_region(tnsq_gfx_layer_menu_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {
     arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
         &ptDispAdapter->use_as__arm_2d_helper_pfb_t);
     
-    this.tScreenSize = tScreen.tSize;
+    this.tDirtyRegion = (arm_2d_region_t) {
+        .tLocation = {
+            .iX = ((tScreen.tSize.iWidth - this.tListView.tListViewCFG.tListSize.iWidth) >> 1),
+            .iY = ((tScreen.tSize.iHeight - this.tListView.tListViewCFG.tListSize.iHeight) >> 1),
+        },
+        .tSize = this.tListView.tListViewCFG.tListSize,
+    };
 }
 
 void tnsq_gfx_layer_menu_depose(tnsq_gfx_layer_menu_t *ptThis)
@@ -216,15 +216,16 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
         .blsUserAllocated = blsUserAllocated,
-        .tItemSize = ptCFG->tItemSize,
-        .chIdx = -1,
-        .pchstr = NULL,
+        .tItemSize = ptCFG->tItemGeneral.tItemSize,
+        .nFinishInMs = ptCFG->tItemGeneral.nFinishInMs,
+        .chSelectedIdx = -1,
+        .pchSelectedStr = NULL,
     };
     
     do {
-        tnsq_gfx_list_item_t *ptItems = (tnsq_gfx_list_item_t *)malloc(sizeof(tnsq_gfx_list_item_t) * ptCFG->chItemsNum);
+        tnsq_gfx_list_item_t *ptItems = (tnsq_gfx_list_item_t *)malloc(sizeof(tnsq_gfx_list_item_t) * ptCFG->tItemGeneral.chItemsNum);
         
-        for (int idx = 0; idx < ptCFG->chItemsNum; idx ++)
+        for (int idx = 0; idx < ptCFG->tItemGeneral.chItemsNum; idx ++)
         {
             ptItems[idx] = (tnsq_gfx_list_item_t){
                 .use_as__arm_2d_list_item_t = {
@@ -233,22 +234,16 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
                     .bIsVisible = true,
                     .bIsReadOnly = true,
                     .Padding = {
-                        ptCFG->tItemPadding.pre,
-                        ptCFG->tItemPadding.next,
+                        ptCFG->tItemGeneral.tItemPadding.pre,
+                        ptCFG->tItemGeneral.tItemPadding.next,
                     },
-                    .tSize = ptCFG->tItemSize,
+                    .tSize = ptCFG->tItemGeneral.tItemSize,
                     .fnOnDrawItem = &_list_view_item_draw_func,
                     .pTarget = (uintptr_t) ptThis,
                 },
-                .tItemsAttr = {
-                    .chOpacity = ptCFG->chOpacity,
-                    .tColor = {
-                        .box = ptCFG->tColor.box,
-                        .font = ptCFG->tColor.font,
-                    },
-                },
-                .pchStr = ptCFG->pchItems[idx],
-
+                .tItemNormalAttr = ptCFG->tItemNormal,
+                .tItemSelectedAttr = ptCFG->tItemSelected,
+                .pchStr = ptCFG->tItemGeneral.pchItems[idx],
             };
         }
         
@@ -258,11 +253,11 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
             
             .tListSize = 
             {
-                .iWidth = ptCFG->tItemSize.iWidth,
-                .iHeight = 0,
+                .iWidth = ptCFG->tItemGeneral.tItemSize.iWidth,
+                .iHeight = (ptCFG->tItemGeneral.tItemSize.iHeight + ptCFG->tItemGeneral.tItemPadding.pre + ptCFG->tItemGeneral.tItemPadding.pre) * ptCFG->tItemGeneral.chShowItemNum,
             },
             .ptItems = (arm_2d_list_item_t *)ptItems,
-            .hwCount = ptCFG->chItemsNum,
+            .hwCount = ptCFG->tItemGeneral.chItemsNum,
             .hwItemSizeInByte = sizeof(tnsq_gfx_list_item_t),
             
             .bIgnoreBackground = true,

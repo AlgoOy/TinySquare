@@ -42,22 +42,35 @@ extern "C" {
 typedef struct tnsq_gfx_layer_menu_t tnsq_gfx_layer_menu_t;
 typedef struct tnsq_gfx_layer_menu_cfg_t tnsq_gfx_layer_menu_cfg_t;
 
-struct tnsq_gfx_layer_menu_cfg_t
+struct tItemFormat
 {
-    rt_uint8_t chItemsNum;
-    char **pchItems;
-    arm_2d_size_t tItemSize;
-    struct
-    {
-        uint8_t pre;
-        uint8_t next;
-    } tItemPadding;
     struct
     {
         COLOUR_INT box;
         COLOUR_INT font;
     } tColor;
     rt_uint8_t chOpacity;
+};
+
+struct tnsq_gfx_layer_menu_cfg_t
+{
+    struct
+    {
+        rt_uint8_t chItemsNum;
+        char **pchItems;
+        arm_2d_size_t tItemSize;
+        struct
+        {
+            uint8_t pre;
+            uint8_t next;
+        } tItemPadding;
+        rt_uint8_t chShowItemNum;
+        rt_int32_t nFinishInMs;
+    } tItemGeneral;
+    
+    struct tItemFormat tItemNormal;
+    
+    struct tItemFormat tItemSelected;
 };
 
 struct tnsq_gfx_layer_menu_t
@@ -68,9 +81,10 @@ struct tnsq_gfx_layer_menu_t
         rt_bool_t blsUserAllocated;
         list_view_t tListView;
         arm_2d_size_t tItemSize;
-        arm_2d_size_t tScreenSize;
-        rt_int8_t chIdx;
-        char *pchstr;
+        arm_2d_region_t tDirtyRegion;
+        rt_int32_t nFinishInMs;
+        rt_int8_t chSelectedIdx;
+        char *pchSelectedStr;
     )
 };
 

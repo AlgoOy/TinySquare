@@ -279,7 +279,7 @@ ARM_NONNULL(1, 2) rt_uint8_t tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *
     }
     else if (ptLayerBase->tType == TNSQ_GFX_LAYER_TYPE_MENU)
     {
-        tnsq_gfx_layer_menu_get_screen_size((tnsq_gfx_layer_menu_t *)ptLayerBase, this.tStageCFG.ptDispAdapter.ptPlayer);
+        tnsq_gfx_layer_menu_get_dirty_region((tnsq_gfx_layer_menu_t *)ptLayerBase, this.tStageCFG.ptDispAdapter.ptPlayer);
     }
     
     ptLayerBase->u7LayerID = this.chLayerID ++;
