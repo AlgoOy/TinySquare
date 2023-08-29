@@ -82,6 +82,10 @@ rt_uint8_t tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage)
         },
     };
     tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
+    if (ptGameBG == NULL)
+    {
+        printf("bg layer init failed\n");
+    }
     
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameBG);
 }
@@ -110,6 +114,11 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .cornerOpacity = NULL,
         };
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+        if (ptGameBGCL == NULL)
+        {
+            printf("bg cl layer init failed\n");
+        }
+        
         tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
     } while (0);
     
@@ -133,6 +142,11 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .cornerOpacity = {0, 128, 128, 128},
         };
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+        if (ptGameBGCL == NULL)
+        {
+            printf("bg cl layer init failed\n");
+        }
+        
         tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
     } while (0);
     
@@ -156,6 +170,11 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .cornerOpacity = {0, 128, 128, 128},
         };
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+        if (ptGameBGCL == NULL)
+        {
+            printf("bg cl layer init failed\n");
+        }
+        
         tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);    
     } while (0);
 }
@@ -219,6 +238,10 @@ rt_uint8_t tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_
         .ptFunc = _tetris_user_map_func,
     };
     tnsq_gfx_layer_user_t *ptGameInterfaceLayer = tnsq_gfx_layer_user_init(&tInterfaceCFG);
+    if (ptGameInterfaceLayer == NULL)
+    {
+        printf("interface layer init failed\n");
+    }
     
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameInterfaceLayer);
 }
@@ -245,6 +268,10 @@ rt_uint8_t tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
         }
     };
     tnsq_gfx_layer_text_t *ptGameTextLayer = tnsq_gfx_layer_text_init(&tTextCFG);
+    if (ptGameTextLayer == NULL)
+    {
+        printf("text layer init failed\n");
+    }
     
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameTextLayer);
 }
@@ -274,6 +301,11 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
             .cornerOpacity = NULL,
         };
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+        if (ptGameBGCL == NULL)
+        {
+            printf("menu layer init failed\n");
+        }
+        
         tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
     } while (0);
     
@@ -295,6 +327,11 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
             .cornerOpacity = {255, 255, 255, 255},
         };
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+        if (ptGameBGCL == NULL)
+        {
+            printf("menu layer init failed\n");
+        }
+        
         tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
     } while (0);
     
@@ -331,6 +368,10 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
             },
         };
         tnsq_gfx_layer_menu_t *ptMenuLayer = tnsq_gfx_layer_menu_init(&tMenuCFG);
+        if (ptMenuLayer == NULL)
+        {
+            printf("menu layer init failed\n");
+        }
         
         return tnsq_gfx_register_layer_to_stage(ptStage, ptMenuLayer);
     } while (0);

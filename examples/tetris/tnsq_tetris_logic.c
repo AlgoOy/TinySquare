@@ -76,6 +76,9 @@ static void _tetris_register_layer(void)
     ptStage = tetris_stage_init();
     
     arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
+    
+    tnsq_gfx_apply_for_refresh();
+    
     // initial bg layer
     bg_layer_id = tetris_init_bg_layer(ptStage);
     
@@ -349,7 +352,7 @@ static int _tetris_evt_handler(void)
     return 0;
 }
 
-static void _tnsq_tetris_game_logic(void)
+static void _tetris_game_logic(void)
 {
     rt_uint8_t shape = rand() % 7, form = rand() % 4;
     
@@ -470,7 +473,7 @@ void tetris_task_entry(void *ptParam)
     
     tnsq_gfx_apply_for_refresh();
     
-    _tnsq_tetris_game_logic();
+    _tetris_game_logic();
 }
     
 #if defined(__clang__)

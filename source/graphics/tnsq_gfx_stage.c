@@ -74,10 +74,11 @@ static void _tnsq_gfx_on_stage_depose(arm_2d_scene_t *ptScene)
             tnsq_evt_get_unlock(tnsq_evt_get_ctrl());
         }
         
-        ptLayer = ptLayersList;               
+        ptLayer = ptLayersList;
         ptLayersList = ptLayersList->ptNext;
         free(ptLayer);
     }
+    printf("release\n");
 
     if (!this.blsUserAllocated) {
         free(ptThis);
