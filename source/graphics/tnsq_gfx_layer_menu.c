@@ -14,7 +14,6 @@
 #include "tnsq_gfx_layer_menu.h"
 
 #include "arm_2d_helper.h"
-#include "arm_extra_controls.h"
 
 #include "tnsq_evt_key.h"
 
@@ -102,6 +101,9 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
         {
             switch (tKey.tDirection) 
             {
+            case TNSQ_EVT_KEY_DERECTION_UP:
+                list_view_move_selection(&this.tListView, -1, this.nFinishInMs);
+                return;
             case TNSQ_EVT_KEY_DERECTION_DOWN:
                 list_view_move_selection(&this.tListView, 1, this.nFinishInMs);
                 return;
@@ -211,11 +213,11 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
         .use_as__tnsq_gfx_layer_base_t = {
             .ptNext = NULL,
             .tType  = TNSQ_GFX_LAYER_TYPE_MENU,
+            .blsUserAllocated = blsUserAllocated,
             .bIsVisible = RT_TRUE,
             .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
-        .blsUserAllocated = blsUserAllocated,
         .tItemSize = ptCFG->tItemGeneral.tItemSize,
         .nFinishInMs = ptCFG->tItemGeneral.nFinishInMs,
         .chSelectedIdx = -1,

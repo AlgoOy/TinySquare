@@ -147,11 +147,11 @@ ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_
         .use_as__tnsq_gfx_layer_base_t = {
             .ptNext = NULL,
             .tType  = TNSQ_GFX_LAYER_TYPE_TEXT,
+            .blsUserAllocated = blsUserAllocated,
             .bIsVisible = RT_TRUE,
             .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
-        .blsUserAllocated = blsUserAllocated,
         .bIsDirty = RT_FALSE,
         .tCFG = *ptCFG,
         .pchStr = pchStr,

@@ -458,12 +458,28 @@ static void _tetris_game_get_menu_result(void)
         tnsq_gfx_apply_for_refresh();
     }
 }
+
+static void _tetris_game_num_initial(void)
+{
+    ptMenuStage = tetris_stage_init();
+    
+    tetris_num_layer(ptMenuStage);
+    
+    tnsq_gfx_apply_for_refresh();
+    
+    while (1)
+    {
+        tnsq_gfx_apply_for_refresh();
+    }
+}
     
 void tetris_task_entry(void *ptParam)
 {
     (void)ptParam;
     
     disp_adapter0_init();
+    
+    //_tetris_game_num_initial();
     
     _tetris_game_menu_initial();
     

@@ -367,6 +367,7 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
                 .chOpacity = 255,
             },
         };
+        
         tnsq_gfx_layer_menu_t *ptMenuLayer = tnsq_gfx_layer_menu_init(&tMenuCFG);
         if (ptMenuLayer == NULL)
         {
@@ -374,6 +375,56 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
         }
         
         return tnsq_gfx_register_layer_to_stage(ptStage, ptMenuLayer);
+    } while (0);
+}
+
+rt_uint8_t tetris_num_layer(tnsq_gfx_stage_t *ptStage)
+{
+    arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
+    
+    do {
+        tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
+            .tType = TNSQ_GFX_BG_CL_NORMAL,
+            .chOpacity = 255,
+            .ptBackGroundColorMask = NULL,
+            .tRegion = {
+                .tLocation = {0},
+                .tSize = tScreenSize,
+            },
+            .tColor = GLCD_COLOR_BLACK,
+            .borderOpacity = NULL,
+            .cornerOpacity = NULL,
+        };
+        tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+        if (ptGameBGCL == NULL)
+        {
+            printf("menu layer init failed\n");
+        }
+        
+        tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
+    } while (0);
+    
+    do {
+        tnsq_gfx_layer_num_cfg_t tNumCFG = {
+            .chNum = 100,
+            .nFinishInMs = 100,
+            .tColor = {
+                .background = GLCD_COLOR_BLACK,
+                .font = __RGB(0x94, 0xd2, 0x52),
+            },
+            .tPadding = {
+                .pre = 3,
+                .next = 3,
+            },
+        };
+        
+        tnsq_gfx_layer_num_t *ptNumLayer = tnsq_gfx_layer_num_init(&tNumCFG);
+        if (ptNumLayer == NULL)
+        {
+            printf("num layer init failed\n");
+        }
+        
+        return tnsq_gfx_register_layer_to_stage(ptStage, ptNumLayer);
     } while (0);
 }
     

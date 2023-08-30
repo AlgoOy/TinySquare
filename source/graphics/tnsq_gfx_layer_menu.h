@@ -78,7 +78,6 @@ struct tnsq_gfx_layer_menu_t
     ARM_PRIVATE
     (
         implement (tnsq_gfx_layer_base_t);
-        rt_bool_t blsUserAllocated;
         list_view_t tListView;
         arm_2d_size_t tItemSize;
         arm_2d_region_t tDirtyRegion;

@@ -5,27 +5,17 @@
  *
  * Change Logs:
  * Date           Author     Notes
- * 2023-07-08     AlgoOy     the first version
+ * 2023-08-30     AlgoOy     the first version
  */
-
-#ifndef ____TNSQ_GFX_COMMON_H__
-#define ____TNSQ_GFX_COMMON_H__
-
+ 
+#ifndef ____TNSQ_GFX_LAYER_NUM_H__
+#define ____TNSQ_GFX_LAYER_NUM_H__
+ 
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#include "tnsq_gfx.h"
-#include "__tnsq_gfx_ctrl.h"
-#include "__tnsq_gfx_layer.h"
-#include "__tnsq_gfx_layer_cell.h"
-#include "__tnsq_gfx_layer_user.h"
-#include "__tnsq_gfx_layer_bg.h"
-#include "__tnsq_gfx_layer_bg_cl.h"
-#include "__tnsq_gfx_layer_text.h"
-#include "__tnsq_gfx_layer_menu.h"
-#include "__tnsq_gfx_layer_num.h"
-
+#include "tnsq_gfx_layer_num.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -41,6 +31,14 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
+void tnsq_gfx_refresh_layer_num(tnsq_gfx_layer_num_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame);
+
+void tnsq_gfx_clear_layer_num_dirty_region(tnsq_gfx_layer_num_t *ptThis);
+
+void tnsq_gfx_layer_num_evt_handle(tnsq_gfx_layer_num_t *ptThis);
+
+void tnsq_gfx_layer_num_get_dirty_region(tnsq_gfx_layer_num_t *ptThis, arm_2d_scene_player_t *ptDispAdapter);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__
@@ -50,5 +48,5 @@ extern "C" {
 #ifdef   __cplusplus
 }
 #endif
-
+ 
 #endif

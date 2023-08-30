@@ -58,6 +58,7 @@ rt_uint8_t tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage);
 rt_uint8_t tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptCells);
 rt_uint8_t tetris_init_text_layer(tnsq_gfx_stage_t *ptStage);
 rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage);
+rt_uint8_t tetris_num_layer(tnsq_gfx_stage_t *ptStage);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

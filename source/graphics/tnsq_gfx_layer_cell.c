@@ -76,7 +76,7 @@ void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_til
                             .iHeight = this.tPixel.hwYPixel,
                         },
                     },
-                    this.ptCells[curIdx].tColor,
+                    (__arm_2d_color_t)this.ptCells[curIdx].tColor,
                     this.ptCells[curIdx].chOpacity
                 );
             }
@@ -118,6 +118,14 @@ void tnsq_gfx_clear_layer_cell_dirty_cell(tnsq_gfx_layer_cell_t *ptThis)
     __idx = -1;
 }
 
+void tnsq_gfx_layer_cell_draw(tnsq_gfx_layer_cell_t *ptThis, rt_uint16_t iX, rt_uint16_t iY, rt_uint8_t chOpacity, COLOUR_INT tColor)
+{
+    rt_uint16_t pos = this.tCount.hwXCount * iY + iX;
+    this.ptCells[pos].bIsDirty = RT_TRUE;
+    this.ptCells[pos].chOpacity = chOpacity;
+    this.ptCells[pos].tColor = tColor;
+}
+
 void tnsq_gfx_layer_cell_cal_pixel(tnsq_gfx_layer_cell_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {
     arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
@@ -126,7 +134,7 @@ void tnsq_gfx_layer_cell_cal_pixel(tnsq_gfx_layer_cell_t *ptThis, arm_2d_scene_p
     this.tPixel.hwXPixel = tScreen.tSize.iWidth / this.tCount.hwXCount;
     this.tPixel.hwYPixel = tScreen.tSize.iHeight / this.tCount.hwYCount;
 }
-    
+
 ARM_NONNULL(1) tnsq_gfx_layer_cell_t *__tnsq_gfx_layer_cell_init(tnsq_gfx_layer_cell_cfg_t *ptCFG, tnsq_gfx_layer_cell_t *ptThis)
 {
     assert(ptCFG != NULL);
@@ -152,11 +160,11 @@ ARM_NONNULL(1) tnsq_gfx_layer_cell_t *__tnsq_gfx_layer_cell_init(tnsq_gfx_layer_
         .use_as__tnsq_gfx_layer_base_t = {
             .ptNext = NULL,
             .tType  = TNSQ_GFX_LAYER_TYPE_CELL,
+            .blsUserAllocated = blsUserAllocated,
             .bIsVisible = RT_TRUE,
             .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
-        .blsUserAllocated = blsUserAllocated,
         .tCount = {
             .hwXCount = ptCFG->hwXCount,
             .hwYCount = ptCFG->hwYCount,

@@ -56,7 +56,6 @@ struct tnsq_gfx_layer_bg_t
     ARM_PRIVATE
     (
         implement (tnsq_gfx_layer_base_t);
-        rt_bool_t blsUserAllocated;
         tnsq_gfx_layer_bg_cfg_t tCFG;
     )
 };

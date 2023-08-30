@@ -110,6 +110,13 @@ void tnsq_gfx_clear_layer_user_dirty_cell(tnsq_gfx_layer_user_t *ptThis)
     __idx = -1;
 }
 
+void tnsq_gfx_layer_user_draw(tnsq_gfx_layer_user_t *ptThis, rt_uint16_t iX, rt_uint16_t iY, rt_uint8_t u7Idx)
+{
+    rt_uint16_t pos = this.tCount.hwXCount * iY + iX;
+    this.pchUserMap[pos].bIsDirty = RT_TRUE;
+    this.pchUserMap[pos].u7Idx = u7Idx;
+}
+
 void tnsq_gfx_layer_user_cal_pixel(tnsq_gfx_layer_user_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {
     arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
@@ -144,11 +151,11 @@ ARM_NONNULL(1) tnsq_gfx_layer_user_t *__tnsq_gfx_layer_user_init(tnsq_gfx_layer_
         .use_as__tnsq_gfx_layer_base_t = {
             .ptNext = NULL,
             .tType  = TNSQ_GFX_LAYER_TYPE_USER,
+            .blsUserAllocated = blsUserAllocated,
             .bIsVisible = RT_TRUE,
             .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
-        .blsUserAllocated = blsUserAllocated,
         .tCount = {
             .hwXCount = ptCFG->hwXCount,
             .hwYCount = ptCFG->hwYCount,
