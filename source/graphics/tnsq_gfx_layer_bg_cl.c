@@ -50,41 +50,44 @@ void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_t
     {
         arm_2d_canvas(&__bg_cl_tile, __layer_bg_cl_canvas) 
         {
-            if (this.tCFG.tType == TNSQ_GFX_BG_CL_NORMAL)
+            if (this.tCFG.tType & TNSQ_GFX_BG_CL_NORMAL)
             {
-                arm_2d_fill_colour_with_opacity(
-                    &__bg_cl_tile, 
-                    &__layer_bg_cl_canvas,
-                    this.tCFG.tColor,
-                    this.tCFG.chOpacity
-                );            
+                if (this.tCFG.ptBackGroundColorMask == NULL)
+                {
+                    arm_2d_fill_colour_with_opacity(
+                        &__bg_cl_tile, 
+                        &__layer_bg_cl_canvas,
+                        (__arm_2d_color_t)this.tCFG.tColor,
+                        this.tCFG.chOpacity
+                    );                 
+                }
+                else
+                {
+                    arm_2d_fill_colour_with_mask_and_opacity(
+                        &__bg_cl_tile, 
+                        &__layer_bg_cl_canvas,
+                        this.tCFG.ptBackGroundColorMask,
+                        (__arm_2d_color_t)this.tCFG.tColor,
+                        this.tCFG.chOpacity
+                    );                 
+                }
             }
-            else if (this.tCFG.tType == TNSQ_GFX_BG_CL_NORMAL_WITH_MASK)
-            {
-                arm_2d_fill_colour_with_mask_and_opacity(
-                    &__bg_cl_tile, 
-                    &__layer_bg_cl_canvas,
-                    this.tCFG.ptBackGroundColorMask,
-                    this.tCFG.tColor,
-                    this.tCFG.chOpacity
-                );        
-            }
-            else if (this.tCFG.tType == TNSQ_GFX_BG_CL_BOX)
+            if (this.tCFG.tType & TNSQ_GFX_BG_CL_BOX)
             {
                 draw_round_corner_box(
                     &__bg_cl_tile,
                     &__layer_bg_cl_canvas,
-                    this.tCFG.tColor.tValue,
+                    ((__arm_2d_color_t)this.tCFG.tColor).tValue,
                     this.tCFG.chOpacity,
                     bIsNewFrame
                 );
             }
-            else if (this.tCFG.tType == TNSQ_GFX_BG_CL_BORDER)
+            if (this.tCFG.tType & TNSQ_GFX_BG_CL_BORDER)
             {
                 draw_round_corner_border(
                     &__bg_cl_tile,
                     &__layer_bg_cl_canvas,
-                    this.tCFG.tColor.tValue,
+                    ((__arm_2d_color_t)this.tCFG.tColor).tValue,
                     this.tCFG.borderOpacity,
                     this.tCFG.cornerOpacity
                 );
@@ -119,11 +122,11 @@ ARM_NONNULL(1) tnsq_gfx_layer_bg_cl_t *__tnsq_gfx_layer_bg_cl_init(tnsq_gfx_laye
         .use_as__tnsq_gfx_layer_base_t = {
             .ptNext = NULL,
             .tType  = TNSQ_GFX_LAYER_TYPE_BG_CL,
+            .blsUserAllocated = blsUserAllocated,
             .bIsVisible = RT_TRUE,
             .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
-        .blsUserAllocated = blsUserAllocated,
         .tCFG = *ptCFG,
     };
     

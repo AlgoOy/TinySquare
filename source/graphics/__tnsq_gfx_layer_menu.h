@@ -5,15 +5,17 @@
  *
  * Change Logs:
  * Date           Author     Notes
- * 2023-08-03     AlgoOy     the first version
+ * 2023-08-11     AlgoOy     the first version
  */
-
-#ifndef __TNSQ_TETRIS_LOGIC_H__
-#define __TNSQ_TETRIS_LOGIC_H__
-
+ 
+#ifndef ____TNSQ_GFX_LAYER_MENU_H__
+#define ____TNSQ_GFX_LAYER_MENU_H__
+ 
 #ifdef   __cplusplus
 extern "C" {
 #endif
+
+#include "tnsq_gfx_layer_menu.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -29,7 +31,15 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tetris_task_entry(void *ptParam);
+void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame);
+
+void tnsq_gfx_clear_layer_menu_dirty_region(tnsq_gfx_layer_menu_t *ptThis);
+
+void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis);
+
+void tnsq_gfx_layer_menu_get_dirty_region(tnsq_gfx_layer_menu_t *ptThis, arm_2d_scene_player_t *ptDispAdapter);
+
+void tnsq_gfx_layer_menu_depose(tnsq_gfx_layer_menu_t *ptThis);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

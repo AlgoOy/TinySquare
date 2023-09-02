@@ -5,7 +5,7 @@
  *
  * Change Logs:
  * Date           Author     Notes
- * 2023-08-11     AlgoOy     the first version
+ * 2023-08-18     AlgoOy     the first version
  */
 
 #define __TNSQ_GFX_LAYER_TEXT_IMPLEMENT__
@@ -104,6 +104,14 @@ int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format
     return real_size;
 }
 
+void tnsq_gfx_layer_text_depose(tnsq_gfx_layer_text_t *ptThis)
+{
+    if (this.pchStr != NULL)
+    {
+        free(this.pchStr);
+    }
+}
+
 ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_text_cfg_t *ptCFG, tnsq_gfx_layer_text_t *ptThis)
 {
     assert(ptCFG != NULL);
@@ -139,11 +147,11 @@ ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_
         .use_as__tnsq_gfx_layer_base_t = {
             .ptNext = NULL,
             .tType  = TNSQ_GFX_LAYER_TYPE_TEXT,
+            .blsUserAllocated = blsUserAllocated,
             .bIsVisible = RT_TRUE,
             .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
-        .blsUserAllocated = blsUserAllocated,
         .bIsDirty = RT_FALSE,
         .tCFG = *ptCFG,
         .pchStr = pchStr,
