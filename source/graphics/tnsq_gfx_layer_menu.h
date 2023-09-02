@@ -56,8 +56,9 @@ struct tnsq_gfx_layer_menu_cfg_t
 {
     struct
     {
-        rt_uint8_t chItemsNum;
-        char **pchItems;
+        const char *pchFormatString;
+        rt_uint8_t chStringCount;
+        const char **pchStringTable;
         arm_2d_size_t tItemSize;
         struct
         {
@@ -66,6 +67,7 @@ struct tnsq_gfx_layer_menu_cfg_t
         } tItemPadding;
         rt_uint8_t chShowItemNum;
         rt_int32_t nFinishInMs;
+        arm_2d_font_t *ptFont;
     } tItemGeneral;
     
     struct tItemFormat tItemNormal;
@@ -78,12 +80,12 @@ struct tnsq_gfx_layer_menu_t
     ARM_PRIVATE
     (
         implement (tnsq_gfx_layer_base_t);
+        arm_2d_list_item_t tTempItem;
         list_view_t tListView;
-        arm_2d_size_t tItemSize;
+        tnsq_gfx_layer_menu_cfg_t tCFG;
         arm_2d_region_t tDirtyRegion;
-        rt_int32_t nFinishInMs;
         rt_int8_t chSelectedIdx;
-        char *pchSelectedStr;
+        const char *pchSelectedStr;
     )
 };
 
@@ -92,7 +94,7 @@ struct tnsq_gfx_layer_menu_t
 
 ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_menu_cfg_t *ptLayerCFG, tnsq_gfx_layer_menu_t *ptLayer);
 
-char *tnsq_gfx_layer_menu_get_item_name(tnsq_gfx_layer_menu_t *ptLayer);
+const char *tnsq_gfx_layer_menu_get_item_name(tnsq_gfx_layer_menu_t *ptLayer);
 
 rt_int8_t tnsq_gfx_layer_menu_get_item_idx(tnsq_gfx_layer_menu_t *ptLayer);
 

@@ -57,7 +57,7 @@ void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_t
                     arm_2d_fill_colour_with_opacity(
                         &__bg_cl_tile, 
                         &__layer_bg_cl_canvas,
-                        this.tCFG.tColor,
+                        (__arm_2d_color_t)this.tCFG.tColor,
                         this.tCFG.chOpacity
                     );                 
                 }
@@ -67,7 +67,7 @@ void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_t
                         &__bg_cl_tile, 
                         &__layer_bg_cl_canvas,
                         this.tCFG.ptBackGroundColorMask,
-                        this.tCFG.tColor,
+                        (__arm_2d_color_t)this.tCFG.tColor,
                         this.tCFG.chOpacity
                     );                 
                 }
@@ -77,7 +77,7 @@ void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_t
                 draw_round_corner_box(
                     &__bg_cl_tile,
                     &__layer_bg_cl_canvas,
-                    this.tCFG.tColor.tValue,
+                    ((__arm_2d_color_t)this.tCFG.tColor).tValue,
                     this.tCFG.chOpacity,
                     bIsNewFrame
                 );
@@ -87,7 +87,7 @@ void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_t
                 draw_round_corner_border(
                     &__bg_cl_tile,
                     &__layer_bg_cl_canvas,
-                    this.tCFG.tColor.tValue,
+                    ((__arm_2d_color_t)this.tCFG.tColor).tValue,
                     this.tCFG.borderOpacity,
                     this.tCFG.cornerOpacity
                 );

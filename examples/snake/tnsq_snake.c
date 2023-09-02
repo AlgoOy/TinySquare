@@ -89,8 +89,6 @@ static tnsq_gfx_user_map_t s_UserMap[FGCellsXCount * FGCellsXCount] = {0};
 
 static rt_bool_t bls_map[FGCellsXCount * FGCellsYCount] = {0};
 
-static rt_uint8_t bg_cl_id = 0;
-static rt_uint8_t bg_id = 0;
 static rt_uint8_t user_id = 0;
 static rt_uint8_t cell_id = 0;
 
@@ -151,52 +149,60 @@ extern const arm_2d_tile_t c_tilebg_mapRGB565;
 extern const arm_2d_tile_t c_tilebg_mapMask;
 static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
 {
-    tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
-        .chOpacity = 255,
-        .ptBackGroundColorMask = NULL,
-        .tRegion = {
-            .tLocation = {
-                .iX = 0,
-                .iY = 0,
+    do {
+        tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
+            .tType = TNSQ_GFX_BG_CL_NORMAL,
+            .tColor = __RGB(0x6d, 0x54, 0x84),
+            .chOpacity = 255,
+            .ptBackGroundColorMask = NULL,
+            .tRegion = {
+                .tLocation = {
+                    .iX = 0,
+                    .iY = 0,
+                },
+                .tSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER),
             },
-            .tSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER),
-        },
-        .tColor = (__arm_2d_color_t){GLCD_COLOR_BLUE},
-    };
-    tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+        };
+        tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+        tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
+    } while (0);
     
-    tnsq_gfx_layer_bg_cfg_t tGameBGCFG = {
-        .ptBackGround = &c_tilebg_mapRGB565,
-        .ptBackGroundMask = &c_tilebg_mapMask,
-        .tRegion = {
-            .tLocation = {
-                .iX = 0,
-                .iY = 0,
-            },
-            .tSize = c_tilebg_mapRGB565.tRegion.tSize,
-        },
-    };
-    tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
+//    do {
+//        tnsq_gfx_layer_bg_cfg_t tGameBGCFG = {
+//            .ptBackGround = &c_tilebg_mapRGB565,
+//            .ptBackGroundMask = &c_tilebg_mapMask,
+//            .tRegion = {
+//                .tLocation = {
+//                    .iX = 0,
+//                    .iY = 0,
+//                },
+//                .tSize = c_tilebg_mapRGB565.tRegion.tSize,
+//            },
+//        };
+//        tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
+//        bg_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBG);
+//    } while (0);
     
-    tnsq_gfx_layer_user_cfg_t tGameUserCFG = {
-        .hwXCount = FGCellsXCount,
-        .hwYCount = FGCellsYCount,
-        .pchUserMap = s_UserMap,
-        .ptFunc = UserMapFunc,
-    };
-    tnsq_gfx_layer_user_t *ptGameUser = tnsq_gfx_layer_user_init(&tGameUserCFG);
+    do {
+        tnsq_gfx_layer_user_cfg_t tGameUserCFG = {
+            .hwXCount = FGCellsXCount,
+            .hwYCount = FGCellsYCount,
+            .pchUserMap = s_UserMap,
+            .ptFunc = UserMapFunc,
+        };
+        tnsq_gfx_layer_user_t *ptGameUser = tnsq_gfx_layer_user_init(&tGameUserCFG);
+        tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameUser);
+    } while (0);
     
-    tnsq_gfx_layer_cell_cfg_t tGameFGLayerCFG = {
-        .hwXCount = FGCellsXCount,
-        .hwYCount = FGCellsYCount,
-        .ptCells = s_tFGCells,
-    };
-    tnsq_gfx_layer_cell_t *ptGameFGLayer = tnsq_gfx_layer_cell_init(&tGameFGLayerCFG);
-    
-    bg_cl_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
-    //bg_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBG);
-    user_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameUser);
-    cell_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameFGLayer);
+    do {
+        tnsq_gfx_layer_cell_cfg_t tGameFGLayerCFG = {
+            .hwXCount = FGCellsXCount,
+            .hwYCount = FGCellsYCount,
+            .ptCells = s_tFGCells,
+        };
+        tnsq_gfx_layer_cell_t *ptGameFGLayer = tnsq_gfx_layer_cell_init(&tGameFGLayerCFG);
+        cell_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameFGLayer);
+    } while (0);
 }
 
 static rt_uint16_t _tnsq_pos_cal(tnsq_snake_point_t loc, rt_uint16_t YCount)
@@ -294,9 +300,11 @@ static void _tnsq_snake_game_evt_handler(void)
     rt_err_t tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
     while(tErr != -RT_ETIMEOUT && tErr != -RT_ERROR)
     {
+        printf("%s %d\n", __FILE_NAME__, __LINE__);
         if(tKey.tEvent != TNSQ_EVT_KEY_EVENT_PRESSED && tKey.tEvent != TNSQ_EVT_KEY_EVENT_LONG_PRESSED)
         {
             tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
+            printf("%ld %d\n", tErr, tKey.tEvent);
             continue;
         }
         else
@@ -338,6 +346,7 @@ static void _tnsq_snake_game_evt_handler(void)
             {
                 snake.tSpeed = GAME_HIGH_SPPED;
             }
+            return;
         }
     }
 }

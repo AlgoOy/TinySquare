@@ -109,7 +109,7 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
                     .iHeight = tScreenSize.iHeight - (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT),
                 },
             },
-            .tColor = (__arm_2d_color_t){GLCD_COLOR_DARK_GREY},
+            .tColor = GLCD_COLOR_DARK_GREY,
             .borderOpacity = NULL,
             .cornerOpacity = NULL,
         };
@@ -137,7 +137,7 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
                     .iHeight = (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT) * 4,
                 },
             },
-            .tColor = (__arm_2d_color_t){GLCD_COLOR_BLACK},
+            .tColor = GLCD_COLOR_BLACK,
             .borderOpacity = {32, 32, 255-64, 255-64},
             .cornerOpacity = {0, 128, 128, 128},
         };
@@ -165,7 +165,7 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
                     .iHeight = (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT) * 2,
                 },
             },
-            .tColor = (__arm_2d_color_t){GLCD_COLOR_BLACK},
+            .tColor = GLCD_COLOR_BLACK,
             .borderOpacity = {32, 32, 255-64, 255-64},
             .cornerOpacity = {0, 128, 128, 128},
         };
@@ -296,7 +296,7 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
                 .tLocation = {0},
                 .tSize = tScreenSize,
             },
-            .tColor = (__arm_2d_color_t){__RGB(0x6d, 0x54, 0x84)},
+            .tColor = __RGB(0x6d, 0x54, 0x84),
             .borderOpacity = NULL,
             .cornerOpacity = NULL,
         };
@@ -336,7 +336,7 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
     } while (0);
     
     do {
-        char *pchItems[] = {
+        const char *pchItems[] = {
             "Very Easy",
             "Easy",
             "Normal",
@@ -345,12 +345,13 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
         };
         tnsq_gfx_layer_menu_cfg_t tMenuCFG = {
             .tItemGeneral = {
-                .chItemsNum = sizeof(pchItems) >> 2,
-                .pchItems = pchItems,
+                .chStringCount = sizeof(pchItems) >> 2,
+                .pchStringTable = pchItems,
                 .tItemSize = tItemSize,
                 .tItemPadding = 0,
                 .chShowItemNum = chShowItemNum,
                 .nFinishInMs = 150,
+                .ptFont = (struct arm_2d_font_t *)&ARM_2D_FONT_16x24,
             },
             .tItemNormal = {
                 .tColor = {

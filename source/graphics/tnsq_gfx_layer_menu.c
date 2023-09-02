@@ -57,14 +57,6 @@ typedef struct tnsq_gfx_list_item_t tnsq_gfx_list_item_t;
                                     (   ((uintptr_t)(__PTR))                    \
                                     +   this.tListView.tListViewCFG.hwItemSizeInByte * (__INDEX))
 
-struct tnsq_gfx_list_item_t
-{
-    implement(arm_2d_list_item_t);
-    struct tItemFormat tItemNormalAttr;
-    struct tItemFormat tItemSelectedAttr;
-    char *pchStr;
-};
-
 static rt_bool_t __idx = RT_TRUE;
 
 void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame)
@@ -102,15 +94,14 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
             switch (tKey.tDirection) 
             {
             case TNSQ_EVT_KEY_DERECTION_UP:
-                list_view_move_selection(&this.tListView, -1, this.nFinishInMs);
+                list_view_move_selection(&this.tListView, -1, this.tCFG.tItemGeneral.nFinishInMs);
                 return;
             case TNSQ_EVT_KEY_DERECTION_DOWN:
-                list_view_move_selection(&this.tListView, 1, this.nFinishInMs);
+                list_view_move_selection(&this.tListView, 1, this.tCFG.tItemGeneral.nFinishInMs);
                 return;
             case TNSQ_EVT_KEY_DERECTION_RIGHT:
-                this.pchSelectedStr = ((tnsq_gfx_list_item_t *)__REF_ITEM_ARRAY(this.tListView.tListViewCFG.ptItems, 
-                    this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection))->pchStr;
                 this.chSelectedIdx = this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection;
+                this.pchSelectedStr = this.tCFG.tItemGeneral.pchStringTable[this.chSelectedIdx];
                 return;
             default:
                 return;
@@ -119,9 +110,9 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
     }
 }
 
-char *tnsq_gfx_layer_menu_get_item_name(tnsq_gfx_layer_menu_t *ptThis)
+const char *tnsq_gfx_layer_menu_get_item_name(tnsq_gfx_layer_menu_t *ptThis)
 {
-    char *pchSelectedStr = this.pchSelectedStr;
+    const char *pchSelectedStr = this.pchSelectedStr;
     this.pchSelectedStr = NULL;
     return pchSelectedStr;
 }
@@ -131,39 +122,6 @@ rt_int8_t tnsq_gfx_layer_menu_get_item_idx(tnsq_gfx_layer_menu_t *ptThis)
     rt_int8_t chSelectedIdx = this.chSelectedIdx;
     this.chSelectedIdx = -1;
     return chSelectedIdx;
-}
-
-static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const arm_2d_tile_t *ptTile, bool bIsNewFrame, arm_2d_list_item_param_t *ptParam)
-{    
-    tnsq_gfx_list_item_t *ptThis = (tnsq_gfx_list_item_t *)ptItem;
-    
-    rt_uint8_t chOpacity = 0;
-    
-    arm_2d_canvas(ptTile, __canvas)
-    {
-        if (ptParam->bIsSelected)
-        {
-            chOpacity = arm_2d_helper_alpha_mix(this.tItemSelectedAttr.chOpacity, ptParam->chOpacity);
-            draw_round_corner_box(ptTile, &__canvas, this.tItemSelectedAttr.tColor.box, chOpacity, bIsNewFrame);
-            arm_lcd_text_set_colour(this.tItemSelectedAttr.tColor.font, GLCD_COLOR_BLACK);
-        }
-        else
-        {
-            chOpacity = arm_2d_helper_alpha_mix(this.tItemNormalAttr.chOpacity, ptParam->chOpacity);
-            draw_round_corner_box(ptTile, &__canvas, this.tItemNormalAttr.tColor.box, chOpacity, bIsNewFrame);
-            arm_lcd_text_set_colour(this.tItemNormalAttr.tColor.font, GLCD_COLOR_BLACK);
-        }
-        
-        arm_2d_size_t tTextSize = ARM_2D_FONT_16x24.use_as__arm_2d_font_t.tCharSize;
-        tTextSize.iWidth *= strlen(this.pchStr);
-        
-        arm_lcd_text_set_target_framebuffer(ptTile);
-        arm_lcd_text_set_font((arm_2d_font_t *)&ARM_2D_FONT_16x24);
-        arm_lcd_text_set_opacity(chOpacity);
-        arm_print_banner(this.pchStr, __canvas);
-    }
-    
-    return arm_fsm_rt_cpl;
 }
 
 void tnsq_gfx_layer_menu_get_dirty_region(tnsq_gfx_layer_menu_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
@@ -186,6 +144,147 @@ void tnsq_gfx_layer_menu_depose(tnsq_gfx_layer_menu_t *ptThis)
     {
         free(this.tListView.tListViewCFG.ptItems);
     }
+}
+
+#if defined(__IS_COMPILER_IAR__) && __IS_COMPILER_IAR__
+#define __va_list    va_list
+#endif
+
+static int __printf(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_region_t *ptRegion, const char *format, ...)
+{
+    int real_size;
+    static char s_chBuffer[__LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__ + 1];
+    __va_list ap;
+    va_start(ap, format);
+        real_size = vsnprintf(s_chBuffer, sizeof(s_chBuffer)-1, format, ap);
+    va_end(ap);
+    real_size = MIN(sizeof(s_chBuffer)-1, real_size);
+    s_chBuffer[real_size] = '\0';
+    
+    int16_t iWidth = this.tCFG.tItemGeneral.ptFont->tCharSize.iWidth;
+    int16_t iHeight = this.tCFG.tItemGeneral.ptFont->tCharSize.iHeight;
+
+    arm_2d_align_centre( *ptRegion, (int16_t)real_size * iWidth, iHeight) {
+        arm_lcd_text_set_draw_region(&__centre_region);
+        arm_lcd_puts(s_chBuffer);
+        arm_lcd_text_set_draw_region(NULL);
+    }
+    return real_size;
+}
+
+static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const arm_2d_tile_t *ptTile, bool bIsNewFrame, arm_2d_list_item_param_t *ptParam)
+{    
+    tnsq_gfx_layer_menu_t *ptThis = (tnsq_gfx_layer_menu_t *)ptItem->pTarget;
+    
+    rt_uint8_t chOpacity = 0;
+    
+    arm_2d_canvas(ptTile, __canvas)
+    {
+        if (ptParam->bIsSelected)
+        {
+            chOpacity = arm_2d_helper_alpha_mix(this.tCFG.tItemSelected.chOpacity, ptParam->chOpacity);
+            draw_round_corner_box(ptTile, &__canvas, this.tCFG.tItemSelected.tColor.box, chOpacity, bIsNewFrame);
+            arm_lcd_text_set_colour(this.tCFG.tItemSelected.tColor.font, GLCD_COLOR_BLACK);
+        }
+        else
+        {
+            chOpacity = arm_2d_helper_alpha_mix(this.tCFG.tItemNormal.chOpacity, ptParam->chOpacity);
+            draw_round_corner_box(ptTile, &__canvas, this.tCFG.tItemNormal.tColor.box, chOpacity, bIsNewFrame);
+            arm_lcd_text_set_colour(this.tCFG.tItemNormal.tColor.font, GLCD_COLOR_BLACK);
+        }
+        
+        arm_lcd_text_set_font(this.tCFG.tItemGeneral.ptFont);
+        arm_lcd_text_set_display_mode(ARM_2D_DRW_PATN_MODE_COPY);
+        arm_lcd_text_set_target_framebuffer(ptTile);
+        arm_lcd_text_set_opacity(chOpacity);
+        
+        __printf(ptThis, &__canvas, this.tCFG.tItemGeneral.pchFormatString, this.tCFG.tItemGeneral.pchStringTable[this.tTempItem.hwID]);
+        
+        arm_lcd_text_set_target_framebuffer(NULL);
+    }
+    
+    return arm_fsm_rt_cpl;
+}
+
+#define STRUCT_ENTRY(STRUCT_ELEM, STRUCT, MEMBER) \
+    ((STRUCT *)((uint8_t *)(STRUCT_ELEM) - (size_t)(&((STRUCT *)0)->MEMBER)))
+
+static arm_2d_list_item_t *_tnsq_gfx_menu_list_iterator(
+                                        __arm_2d_list_core_t *ptListView,
+                                        arm_2d_list_iterator_dir_t tDirection,
+                                        uint_fast16_t hwID
+                                    )
+{
+    tnsq_gfx_layer_menu_t *ptThis = STRUCT_ENTRY(ptListView, tnsq_gfx_layer_menu_t, tListView);
+    int32_t nIterationIndex;
+    switch (tDirection) {
+        default:
+        case __ARM_2D_LIST_GET_ITEM_WITH_ID_WITHOUT_MOVE_POINTER:
+            nIterationIndex = hwID;
+            nIterationIndex %= this.tCFG.tItemGeneral.chStringCount;
+            break;
+
+        case __ARM_2D_LIST_GET_ITEM_AND_MOVE_POINTER:
+            this.tListView.nIterationIndex = hwID;
+            this.tListView.nIterationIndex %= this.tCFG.tItemGeneral.chStringCount;
+            nIterationIndex = this.tListView.nIterationIndex;
+            break;
+
+        case __ARM_2D_LIST_GET_PREVIOUS:
+            if (this.tListView.nIterationIndex) {
+                this.tListView.nIterationIndex--;
+            } else {
+                this.tListView.nIterationIndex = this.tCFG.tItemGeneral.chStringCount - 1;
+            }
+            nIterationIndex = this.tListView.nIterationIndex;
+            break;
+
+        case __ARM_2D_LIST_GET_NEXT:
+            this.tListView.nIterationIndex++;
+            this.tListView.nIterationIndex %= this.tCFG.tItemGeneral.chStringCount;
+            
+            nIterationIndex = this.tListView.nIterationIndex;
+            break;
+
+        case __ARM_2D_LIST_GET_FIRST_ITEM_WITHOUT_MOVE_POINTER:
+            nIterationIndex = 0;
+            break;
+
+        case __ARM_2D_LIST_GET_FIRST_ITEM:
+            this.tListView.nIterationIndex = 0;
+            nIterationIndex = this.tListView.nIterationIndex;
+            break;
+
+        case __ARM_2D_LIST_GET_CURRENT:
+            nIterationIndex = this.tListView.nIterationIndex;
+            break;
+
+        case __ARM_2D_LIST_GET_LAST_ITEM_WITHOUT_MOVE_POINTER:
+            nIterationIndex = this.tCFG.tItemGeneral.chStringCount - 1;
+            break;
+
+        case __ARM_2D_LIST_GET_LAST_ITEM:
+            this.tListView.nIterationIndex = this.tCFG.tItemGeneral.chStringCount - 1;
+            nIterationIndex = this.tListView.nIterationIndex;
+            break;
+    }
+
+    /* validate item size */
+    if (this.tTempItem.tSize.iHeight <= 0) {
+        this.tTempItem.tSize.iHeight = this.tCFG.tItemGeneral.ptFont->tCharSize.iHeight;
+    }
+    if (this.tTempItem.tSize.iWidth <= 0) {
+        this.tTempItem.tSize.iWidth 
+            = this.tListView.use_as____arm_2d_list_core_t
+                .Runtime.tileList.tRegion.tSize.iWidth;
+    }
+
+    nIterationIndex %= this.tCFG.tItemGeneral.chStringCount;
+
+    /* update item id : pretend that this is a different list core item */
+    this.tTempItem.hwID = (uint16_t)nIterationIndex;
+
+    return &this.tTempItem;
 }
 
 ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_menu_cfg_t *ptCFG, tnsq_gfx_layer_menu_t *ptThis)
@@ -218,52 +317,57 @@ ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_
             .u7LayerID = 0,
             .wMagic = TNSQ_GFX_LAYER_BASE_MAGIC,
         },
-        .tItemSize = ptCFG->tItemGeneral.tItemSize,
-        .nFinishInMs = ptCFG->tItemGeneral.nFinishInMs,
+        .tTempItem = {
+            .hwID = 0,
+            .bIsEnabled = true,
+            .bIsVisible = true,
+            .Padding = {
+                ptCFG->tItemGeneral.tItemPadding.pre,
+                ptCFG->tItemGeneral.tItemPadding.next,
+            },
+            .pTarget = (uintptr_t)ptThis,
+            .tSize = ptCFG->tItemGeneral.tItemSize,
+            .fnOnDrawItem = &_list_view_item_draw_func,
+        },
+        .tCFG = *ptCFG,
         .chSelectedIdx = -1,
         .pchSelectedStr = NULL,
     };
     
-    do {
-        tnsq_gfx_list_item_t *ptItems = (tnsq_gfx_list_item_t *)malloc(sizeof(tnsq_gfx_list_item_t) * ptCFG->tItemGeneral.chItemsNum);
-        
-        for (int idx = 0; idx < ptCFG->tItemGeneral.chItemsNum; idx ++)
-        {
-            ptItems[idx] = (tnsq_gfx_list_item_t){
-                .use_as__arm_2d_list_item_t = {
-                    .hwID = idx,
-                    .bIsEnabled = true,
-                    .bIsVisible = true,
-                    .bIsReadOnly = true,
-                    .Padding = {
-                        ptCFG->tItemGeneral.tItemPadding.pre,
-                        ptCFG->tItemGeneral.tItemPadding.next,
-                    },
-                    .tSize = ptCFG->tItemGeneral.tItemSize,
-                    .fnOnDrawItem = &_list_view_item_draw_func,
-                    .pTarget = (uintptr_t) ptThis,
-                },
-                .tItemNormalAttr = ptCFG->tItemNormal,
-                .tItemSelectedAttr = ptCFG->tItemSelected,
-                .pchStr = ptCFG->tItemGeneral.pchItems[idx],
-            };
-        }
-        
+    static const char c_chDefaultFormatString[] = {"%s"};
+    static const char c_chDefaultString[] = {"TinySquare"};
+    
+    do {        
         list_view_cfg_t tListViewCFG = {
-            .fnIterator = &ARM_2D_LIST_ITERATOR_ARRAY,
-            .fnCalculator = &ARM_2D_LIST_CALCULATOR_MIDDLE_ALIGNED_VERTICAL,
-            
+            .fnIterator = &_tnsq_gfx_menu_list_iterator,
+            .fnCalculator = &ARM_2D_LIST_CALCULATOR_MIDDLE_ALIGNED_FIXED_SIZED_ITEM_NO_STATUS_CHECK_VERTICAL,
             .tListSize = 
             {
                 .iWidth = ptCFG->tItemGeneral.tItemSize.iWidth,
                 .iHeight = (ptCFG->tItemGeneral.tItemSize.iHeight + ptCFG->tItemGeneral.tItemPadding.pre + ptCFG->tItemGeneral.tItemPadding.pre) * ptCFG->tItemGeneral.chShowItemNum,
             },
-            .ptItems = (arm_2d_list_item_t *)ptItems,
-            .hwCount = ptCFG->tItemGeneral.chItemsNum,
-            .hwItemSizeInByte = sizeof(tnsq_gfx_list_item_t),
+            .ptItems = (arm_2d_list_item_t *)&this.tTempItem,
+            .hwCount = ptCFG->tItemGeneral.chStringCount,
+            .hwItemSizeInByte = sizeof(arm_2d_list_item_t),
             
             .bIgnoreBackground = true,
         };
+        
+        if (NULL == this.tCFG.tItemGeneral.ptFont) {
+            this.tCFG.tItemGeneral.ptFont = (arm_2d_font_t *)&ARM_2D_FONT_6x8;
+        }
+        
+        if (!this.tCFG.tItemGeneral.chStringCount) {
+            this.tCFG.tItemGeneral.chStringCount = 1;
+        }
+
+        if (NULL == this.tCFG.tItemGeneral.pchStringTable) {
+            this.tCFG.tItemGeneral.pchStringTable = (const char **)c_chDefaultString;
+        }
+
+        if (NULL == this.tCFG.tItemGeneral.pchFormatString) {
+            this.tCFG.tItemGeneral.pchFormatString = c_chDefaultFormatString;
+        }
         
         list_view_init(&this.tListView, &tListViewCFG);
     } while (0);
