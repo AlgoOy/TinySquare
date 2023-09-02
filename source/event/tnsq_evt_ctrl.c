@@ -44,14 +44,37 @@
     
 static tnsq_evt_ctrl_t s_tEvtController = {0};
 
-tnsq_evt_ctrl_t *tnsq_evt_get_ctrl(void)
+inline tnsq_evt_ctrl_t *tnsq_evt_get_ctrl(void)
 {
     return &s_tEvtController;
+}
+
+inline void tnsq_evt_get_lock(tnsq_evt_ctrl_t *ptThis)
+{
+    this.tEvtLock.chGet = RT_FALSE;
+}
+
+inline void tnsq_evt_get_unlock(tnsq_evt_ctrl_t *ptThis)
+{
+    this.tEvtLock.chGet = RT_TRUE;
+}
+
+inline void tnsq_evt_put_lock(tnsq_evt_ctrl_t *ptThis)
+{
+    this.tEvtLock.chPut = RT_FALSE;
+}
+
+inline void tnsq_evt_put_unlock(tnsq_evt_ctrl_t *ptThis)
+{
+    this.tEvtLock.chPut = RT_TRUE;
 }
 
 static rt_err_t _tnsq_evt_ctrl_itc_init(tnsq_evt_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);
+    
+    this.tEvtLock.chGet = RT_TRUE;
+    this.tEvtLock.chPut = RT_TRUE;
     
     this.tEvtITC.ptMsgI2E = rt_mq_create("tnsqEvtI2E", sizeof(tnsq_evt_key_t), TNSQ_EVT_ITC_NUM, RT_IPC_FLAG_FIFO);
     if (this.tEvtITC.ptMsgI2E == RT_NULL)
@@ -73,13 +96,6 @@ rt_err_t tnsq_evt_ctrl_init(tnsq_evt_ctrl_t *ptThis)
     assert(ptThis != NULL);
     
     memset(ptThis, 0, sizeof(tnsq_evt_ctrl_t));
-    
-    *ptThis = (tnsq_evt_ctrl_t) {
-        .tEvtITC = {
-            .ptMsgI2E = NULL,
-            .ptMsgE2G = NULL,
-        },
-    };
     
     if (_tnsq_evt_ctrl_itc_init(ptThis) != RT_EOK)
     {

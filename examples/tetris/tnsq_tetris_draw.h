@@ -51,12 +51,14 @@ extern "C" {
 #define I_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 7}
 #define CLEAR_BLOCK_INFO (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 8}
 
-tnsq_gfx_stage_t *tnsq_tetris_stage_init(void);
+tnsq_gfx_stage_t *tetris_stage_init(void);
 
-void tnsq_tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage);
-rt_uint8_t tnsq_tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage);
-rt_uint8_t tnsq_tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptCells);
-rt_uint8_t tnsq_tetris_init_text_layer(tnsq_gfx_stage_t *ptStage);
+void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage);
+rt_uint8_t tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage);
+rt_uint8_t tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptCells);
+rt_uint8_t tetris_init_text_layer(tnsq_gfx_stage_t *ptStage);
+rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage);
+rt_uint8_t tetris_num_layer(tnsq_gfx_stage_t *ptStage);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

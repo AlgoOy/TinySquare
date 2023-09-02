@@ -59,7 +59,6 @@ struct tnsq_gfx_layer_text_t
     ARM_PRIVATE
     (
         implement (tnsq_gfx_layer_base_t);
-        rt_bool_t blsUserAllocated;
         rt_uint8_t bIsDirty;
         tnsq_gfx_layer_text_cfg_t tCFG;
         char *pchStr;

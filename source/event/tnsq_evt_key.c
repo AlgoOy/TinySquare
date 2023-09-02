@@ -60,14 +60,28 @@ rt_err_t tnsq_evt_itc_put(tnsq_evt_key_t *ptThis)
 {
     tnsq_evt_ctrl_t *ptEvtCtrl = tnsq_evt_get_ctrl();
     
-    return rt_mq_send(ptEvtCtrl->tEvtITC.ptMsgI2E, ptThis, sizeof(tnsq_evt_key_t));
+    if (ptEvtCtrl->tEvtLock.chPut)
+    {
+        return rt_mq_send(ptEvtCtrl->tEvtITC.ptMsgI2E, ptThis, sizeof(tnsq_evt_key_t));
+    }
+    else
+    {
+        return -RT_ERROR;
+    }
 }
 
 rt_err_t tnsq_evt_itc_get(tnsq_evt_key_t *ptThis, rt_int32_t timeout)
 {
     tnsq_evt_ctrl_t *ptEvtCtrl = tnsq_evt_get_ctrl();
     
-    return rt_mq_recv(ptEvtCtrl->tEvtITC.ptMsgE2G, ptThis, sizeof(tnsq_evt_key_t), timeout);
+    if (ptEvtCtrl->tEvtLock.chGet)
+    {
+        return rt_mq_recv(ptEvtCtrl->tEvtITC.ptMsgE2G, ptThis, sizeof(tnsq_evt_key_t), timeout);
+    }
+    else
+    {
+        return -RT_ERROR;
+    }
 }
     
 rt_err_t tnsq_evt_itc_key_handler(void)

@@ -47,7 +47,7 @@ typedef struct tnsq_gfx_cell_t tnsq_gfx_cell_t;
 
 struct tnsq_gfx_cell_t
 {
-    __arm_2d_color_t tColor;
+    COLOUR_INT tColor;
     rt_uint8_t chOpacity;
     rt_bool_t bIsDirty;
 };
@@ -64,7 +64,6 @@ struct tnsq_gfx_layer_cell_t
     ARM_PRIVATE
     (
         implement (tnsq_gfx_layer_base_t);
-        rt_bool_t blsUserAllocated;
         struct
         {
             rt_uint16_t hwXCount;
@@ -84,6 +83,8 @@ struct tnsq_gfx_layer_cell_t
             __tnsq_gfx_layer_cell_init((__TNSQ_GFX_LAYER_CELL_CFG_PTR), (NULL, ##__VA_ARGS__))
 
 ARM_NONNULL(1) tnsq_gfx_layer_cell_t *__tnsq_gfx_layer_cell_init(tnsq_gfx_layer_cell_cfg_t *ptLayerCFG, tnsq_gfx_layer_cell_t *ptLayer);
+
+void tnsq_gfx_layer_cell_draw(tnsq_gfx_layer_cell_t *ptLayer, rt_uint16_t iX, rt_uint16_t iY, rt_uint8_t chOpacity, COLOUR_INT tColor);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

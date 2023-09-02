@@ -23,6 +23,8 @@ extern "C" {
 #include "__tnsq_gfx_layer_bg.h"
 #include "__tnsq_gfx_layer_bg_cl.h"
 #include "__tnsq_gfx_layer_text.h"
+#include "__tnsq_gfx_layer_menu.h"
+#include "__tnsq_gfx_layer_num.h"
 
 
 #if defined(__clang__)

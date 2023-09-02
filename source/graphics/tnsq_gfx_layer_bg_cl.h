@@ -52,12 +52,11 @@ struct tnsq_gfx_layer_bg_cl_cfg_t
 {
     enum
     {
-        TNSQ_GFX_BG_CL_NORMAL = 0x00,
-        TNSQ_GFX_BG_CL_NORMAL_WITH_MASK = 0x01,
+        TNSQ_GFX_BG_CL_NORMAL = 0x01,
         TNSQ_GFX_BG_CL_BOX = 0x02,
-        TNSQ_GFX_BG_CL_BORDER = 0x03,
+        TNSQ_GFX_BG_CL_BORDER = 0x04,
     } tType;
-    __arm_2d_color_t tColor;
+    COLOUR_INT tColor;
     rt_uint8_t chOpacity;
     arm_2d_tile_t *ptBackGroundColorMask;
     arm_2d_region_t tRegion;
@@ -70,7 +69,6 @@ struct tnsq_gfx_layer_bg_cl_t
     ARM_PRIVATE
     (
         implement (tnsq_gfx_layer_base_t);
-        rt_bool_t blsUserAllocated;
         tnsq_gfx_layer_bg_cl_cfg_t tCFG;
     )
 };

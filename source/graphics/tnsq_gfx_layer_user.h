@@ -66,7 +66,6 @@ struct tnsq_gfx_layer_user_t
     ARM_PRIVATE
     (
         implement (tnsq_gfx_layer_base_t);
-        rt_bool_t blsUserAllocated;
         struct
         {
             rt_uint16_t hwXCount;
@@ -87,6 +86,8 @@ struct tnsq_gfx_layer_user_t
             __tnsq_gfx_layer_user_init((__TNSQ_GFX_LAYER_USER_CFG_PTR), (NULL, ##__VA_ARGS__))
 
 ARM_NONNULL(1) tnsq_gfx_layer_user_t *__tnsq_gfx_layer_user_init(tnsq_gfx_layer_user_cfg_t *ptLayerCFG, tnsq_gfx_layer_user_t *ptLayer);
+
+void tnsq_gfx_layer_user_draw(tnsq_gfx_layer_user_t *ptLayer, rt_uint16_t iX, rt_uint16_t iY, rt_uint8_t u7Idx);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
