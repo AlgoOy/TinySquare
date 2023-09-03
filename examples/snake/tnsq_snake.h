@@ -29,7 +29,7 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tnsq_snake_task_entry(void *ptParam);
+void snake_task_entry(void *ptParam);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

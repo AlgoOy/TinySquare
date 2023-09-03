@@ -53,15 +53,15 @@
 typedef enum {
     GAME_LOW_SPEED  = 400,
     GAME_HIGH_SPPED = 200,
-} tnsq_snake_game_speed_t;
+} snake_speed_t;
 
 typedef struct {
 	rt_uint8_t x;
 	rt_uint8_t y;
-} tnsq_snake_point_t;
+} snake_point_t;
 
 struct {
-	tnsq_snake_point_t bodyloc[FGCellsXCount*FGCellsYCount];
+	snake_point_t bodyloc[FGCellsXCount*FGCellsYCount];
 	rt_uint16_t length;
 	enum {
 		Up = 0x00,
@@ -69,11 +69,11 @@ struct {
 		Left = 0x02,
 		Right = 0x03,
 	} direction;
-    tnsq_snake_game_speed_t tSpeed;
+    snake_speed_t tSpeed;
 } snake = {0};
 
 struct {
-	tnsq_snake_point_t loc;
+	snake_point_t loc;
 	enum {
 		notExist = 0x00,
 		Exist = 0x01,
@@ -81,7 +81,7 @@ struct {
 } fruit = {0};
 
 struct {
-    tnsq_snake_point_t loc[OBSTACLE_NUM];
+    snake_point_t loc[OBSTACLE_NUM];
 } obstacle = {0};
 
 static tnsq_gfx_cell_t s_tFGCells[FGCellsXCount * FGCellsXCount] = {0};
@@ -92,7 +92,7 @@ static rt_bool_t bls_map[FGCellsXCount * FGCellsYCount] = {0};
 static rt_uint8_t user_id = 0;
 static rt_uint8_t cell_id = 0;
 
-static tnsq_gfx_stage_t *_tnsq_snake_stage_init(void)
+static tnsq_gfx_stage_t *_snake_stage_init(void)
 {
     disp_adapter0_init();
     tnsq_gfx_stage_cfg_t tGameStageCFG = {
@@ -114,10 +114,10 @@ static tnsq_gfx_stage_t *_tnsq_snake_stage_init(void)
     }
 }
 
-extern const arm_2d_tile_t c_tileFruitRGB565;
-extern const arm_2d_tile_t c_tileFruitMask;
-extern const arm_2d_tile_t c_tileSnakeBodyRGB565;
-extern const arm_2d_tile_t c_tileSnakeBodyMask;
+extern const arm_2d_tile_t c_tileobstacle1RGB565;
+extern const arm_2d_tile_t c_tileobstacle1Mask;
+extern const arm_2d_tile_t c_tileobstacle2RGB565;
+extern const arm_2d_tile_t c_tileobstacle2Mask;
 void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
 {
     (void)bIsNewFrame;
@@ -127,8 +127,8 @@ void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bI
         if (idx == 1)
         {
             arm_2d_tile_copy_with_src_mask_only(
-                &c_tileFruitRGB565,
-                &c_tileFruitMask,
+                &c_tileobstacle1RGB565,
+                &c_tileobstacle1Mask,
                 ptTile,
                 &__user_map_canvas
             );
@@ -136,8 +136,8 @@ void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bI
         else if (idx == 2)
         {
             arm_2d_tile_copy_with_src_mask_only(
-                &c_tileSnakeBodyRGB565,
-                &c_tileSnakeBodyMask,
+                &c_tileobstacle2RGB565,
+                &c_tileobstacle2Mask,
                 ptTile,
                 &__user_map_canvas
             );
@@ -147,12 +147,12 @@ void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bI
 
 extern const arm_2d_tile_t c_tilebg_mapRGB565;
 extern const arm_2d_tile_t c_tilebg_mapMask;
-static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
+static void _snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
 {
     do {
         tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
             .tType = TNSQ_GFX_BG_CL_NORMAL,
-            .tColor = __RGB(0x6d, 0x54, 0x84),
+            .tColor = __RGB(0xf8, 0xfd, 0xcc),
             .chOpacity = 255,
             .ptBackGroundColorMask = NULL,
             .tRegion = {
@@ -166,7 +166,7 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
         tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
     } while (0);
-    
+
 //    do {
 //        tnsq_gfx_layer_bg_cfg_t tGameBGCFG = {
 //            .ptBackGround = &c_tilebg_mapRGB565,
@@ -182,7 +182,7 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
 //        tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
 //        bg_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBG);
 //    } while (0);
-    
+
     do {
         tnsq_gfx_layer_user_cfg_t tGameUserCFG = {
             .hwXCount = FGCellsXCount,
@@ -205,24 +205,24 @@ static void _tnsq_snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
     } while (0);
 }
 
-static rt_uint16_t _tnsq_pos_cal(tnsq_snake_point_t loc, rt_uint16_t YCount)
+static rt_uint16_t _pos_cal(snake_point_t loc, rt_uint16_t YCount)
 {
 	return loc.x * YCount + loc.y;
 }
 
-static void draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, COLOUR_INT tColor)
+static void _draw_cell(tnsq_gfx_cell_t *ptCells, rt_uint16_t pos, rt_uint8_t chOpacity, COLOUR_INT tColor)
 {
 	ptCells[pos].bIsDirty = RT_TRUE;
 	ptCells[pos].chOpacity = chOpacity;
 	ptCells[pos].tColor = tColor;
 }
 
-static void _tnsq_draw_fg(rt_uint16_t pos, rt_uint8_t chOpacity, COLOUR_INT tColor)
+static void _draw_fg(rt_uint16_t pos, rt_uint8_t chOpacity, COLOUR_INT tColor)
 {
-    draw_cell(s_tFGCells, pos, chOpacity, tColor);
+    _draw_cell(s_tFGCells, pos, chOpacity, tColor);
 }
 
-static void _tnsq_snake_obstacle_init(void)
+static void _snake_obstacle_init(void)
 {
     for (int i = 0; i < OBSTACLE_NUM; i ++)
     {
@@ -231,16 +231,16 @@ static void _tnsq_snake_obstacle_init(void)
             srand((unsigned) arm_2d_helper_get_system_timestamp());
             obstacle.loc[i].x = (uint8_t)rand() % FGCellsXCount;
             obstacle.loc[i].y = (uint8_t)rand() % FGCellsYCount;
-        } while (bls_map[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] == RT_TRUE);
+        } while (bls_map[_pos_cal(obstacle.loc[i], FGCellsYCount)] == RT_TRUE);
         
-        bls_map[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)] = RT_TRUE;
+        bls_map[_pos_cal(obstacle.loc[i], FGCellsYCount)] = RT_TRUE;
         
-        s_UserMap[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)].u7Idx = i+1;
-        s_UserMap[_tnsq_pos_cal(obstacle.loc[i], FGCellsYCount)].bIsDirty = RT_TRUE;
+        s_UserMap[_pos_cal(obstacle.loc[i], FGCellsYCount)].u7Idx = i+1;
+        s_UserMap[_pos_cal(obstacle.loc[i], FGCellsYCount)].bIsDirty = RT_TRUE;
     }
 }
 
-static void _tnsq_snake_create_fruit(void)
+static void _snake_create_fruit(void)
 {
     if (fruit.state != Exist)
     {
@@ -249,16 +249,16 @@ static void _tnsq_snake_create_fruit(void)
             srand((unsigned) arm_2d_helper_get_system_timestamp());
             fruit.loc.x = (uint8_t)rand() % FGCellsXCount;
             fruit.loc.y = (uint8_t)rand() % FGCellsYCount;
-        } while (bls_map[_tnsq_pos_cal(fruit.loc, FGCellsYCount)] == RT_TRUE);
+        } while (bls_map[_pos_cal(fruit.loc, FGCellsYCount)] == RT_TRUE);
         
         fruit.state = Exist;
-        bls_map[_tnsq_pos_cal(fruit.loc, FGCellsYCount)] = RT_TRUE;
-        
-        _tnsq_draw_fg(_tnsq_pos_cal(fruit.loc, FGCellsYCount), 255, GLCD_COLOR_RED);
+        bls_map[_pos_cal(fruit.loc, FGCellsYCount)] = RT_TRUE;
+       
+        _draw_fg(_pos_cal(fruit.loc, FGCellsYCount), 255, GLCD_COLOR_RED);
     }
 }
 
-static void _tnsq_snake_fg_init(void)
+static void _snake_fg_init(void)
 {
     do
     {
@@ -267,9 +267,9 @@ static void _tnsq_snake_fg_init(void)
         snake.bodyloc[snake.length-1].x = snake.bodyloc[0].x = FGCellsXCount/4;
         snake.bodyloc[snake.length-1].y = snake.bodyloc[0].y = FGCellsXCount/4;
         
-        bls_map[_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount)] = RT_TRUE;
+        bls_map[_pos_cal(snake.bodyloc[0], FGCellsYCount)] = RT_TRUE;
         
-        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount), 255, GLCD_COLOR_DARK_GREY);
+        _draw_fg(_pos_cal(snake.bodyloc[0], FGCellsYCount), 255, GLCD_COLOR_DARK_GREY);
         
         snake.direction = Right;
         
@@ -278,23 +278,23 @@ static void _tnsq_snake_fg_init(void)
     
     do
     {
-        _tnsq_snake_create_fruit();
+        _snake_create_fruit();
     } while (0);
 }
     
-static void _tnsq_snake_game_init(void)
+static void _snake_game_init(void)
 {
-    tnsq_gfx_stage_t *ptGameStage = _tnsq_snake_stage_init();
+    tnsq_gfx_stage_t *ptGameStage = _snake_stage_init();
     if (ptGameStage != NULL)
     {
-        _tnsq_snake_layer_init(ptGameStage);
+        _snake_layer_init(ptGameStage);
     }
     
-    _tnsq_snake_fg_init();
-    _tnsq_snake_obstacle_init();
+    _snake_fg_init();
+    _snake_obstacle_init();
 }
 
-static void _tnsq_snake_game_evt_handler(void)
+static void _snake_game_evt_handler(void)
 {
     tnsq_evt_key_t tKey = {0};
     rt_err_t tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
@@ -351,7 +351,7 @@ static void _tnsq_snake_game_evt_handler(void)
     }
 }
 
-static rt_bool_t _tnsq_snake_not_hit_obstacle(tnsq_snake_point_t newHead)
+static rt_bool_t _snake_not_hit_obstacle(snake_point_t newHead)
 {
     for (int i = 0; i < OBSTACLE_NUM; i ++)
     {
@@ -363,14 +363,14 @@ static rt_bool_t _tnsq_snake_not_hit_obstacle(tnsq_snake_point_t newHead)
     return RT_TRUE;
 }
 
-static void _tnsq_snake_game_logic(void)
+static void _snake_game_logic(void)
 {  
-    tnsq_snake_point_t newHead = (tnsq_snake_point_t){
+    snake_point_t newHead = (snake_point_t){
         .x = snake.bodyloc[snake.length-1].x,
         .y = snake.bodyloc[snake.length-1].y,
     };
     
-    _tnsq_snake_game_evt_handler();
+    _snake_game_evt_handler();
     switch (snake.direction)
     {
     case Up:
@@ -392,59 +392,59 @@ static void _tnsq_snake_game_logic(void)
     if (newHead.x == fruit.loc.x && newHead.y == fruit.loc.y)
     {
         fruit.state = notExist;
-        _tnsq_snake_create_fruit();
+        _snake_create_fruit();
         
         snake.length ++;
-        snake.bodyloc[snake.length - 1] = (tnsq_snake_point_t) {
+        snake.bodyloc[snake.length - 1] = (snake_point_t) {
             .x = newHead.x,
             .y = newHead.y,
         };
-        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount), 255, GLCD_COLOR_DARK_GREY);
+        _draw_fg(_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount), 255, GLCD_COLOR_DARK_GREY);
     }
     else if (newHead.x < 0 || newHead.y < 0 || newHead.x >= FGCellsXCount || newHead.y >= FGCellsYCount)
     {
         printf("hit the wall\n");
         while (1);
     }
-    else if (_tnsq_snake_not_hit_obstacle(newHead) == RT_FALSE)
+    else if (_snake_not_hit_obstacle(newHead) == RT_FALSE)
     {
         printf("hit the obstacle\n");
         while (1);
     }
     else
     {
-        bls_map[_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount)] = RT_FALSE;
-        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[0], FGCellsYCount), 0, GLCD_COLOR_DARK_GREY);
+        bls_map[_pos_cal(snake.bodyloc[0], FGCellsYCount)] = RT_FALSE;
+        _draw_fg(_pos_cal(snake.bodyloc[0], FGCellsYCount), 0, GLCD_COLOR_DARK_GREY);
         
         for (int i = 1; i < snake.length; i ++) {
 			if(newHead.x == snake.bodyloc[i].x && newHead.y == snake.bodyloc[i].y) {
 				printf("hit it self\n");
 				while(1);
 			}
-            snake.bodyloc[i - 1] = (tnsq_snake_point_t) {
+            snake.bodyloc[i - 1] = (snake_point_t) {
                 .x = snake.bodyloc[i].x,
                 .y = snake.bodyloc[i].y,
             };
 		}
-        snake.bodyloc[snake.length - 1] = (tnsq_snake_point_t) {
+        snake.bodyloc[snake.length - 1] = (snake_point_t) {
             .x = newHead.x,
             .y = newHead.y,
         };
         
-        bls_map[_tnsq_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount)] = RT_TRUE;
-        _tnsq_draw_fg(_tnsq_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount), 255, GLCD_COLOR_DARK_GREY);
+        bls_map[_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount)] = RT_TRUE;
+        _draw_fg(_pos_cal(snake.bodyloc[snake.length - 1], FGCellsYCount), 255, GLCD_COLOR_DARK_GREY);
     }
     
     rt_thread_mdelay(snake.tSpeed);
 }
     
-void tnsq_snake_task_entry(void *ptParam)
+void snake_task_entry(void *ptParam)
 {
-    _tnsq_snake_game_init();
+    _snake_game_init();
     while (1)
     {
         tnsq_gfx_apply_for_refresh();
-        _tnsq_snake_game_logic();
+        _snake_game_logic();
     }
 }
     
