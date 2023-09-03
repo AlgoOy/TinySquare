@@ -104,14 +104,6 @@ int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format
     return real_size;
 }
 
-void tnsq_gfx_layer_text_depose(tnsq_gfx_layer_text_t *ptThis)
-{
-    if (this.pchStr != NULL)
-    {
-        free(this.pchStr);
-    }
-}
-
 ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_text_cfg_t *ptCFG, tnsq_gfx_layer_text_t *ptThis)
 {
     assert(ptCFG != NULL);
@@ -131,16 +123,6 @@ ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_
         blsUserAllocated = RT_TRUE;
     }
     
-    char *pchStr = (char *)malloc(sizeof(__LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__ + 1));
-    if (pchStr == NULL)
-    {
-        return NULL;
-    }
-    else
-    {
-        pchStr[0] = '\0';
-    }
-    
     memset(ptThis, 0, sizeof(tnsq_gfx_layer_text_t));
     
     *ptThis = (tnsq_gfx_layer_text_t) {
@@ -154,7 +136,7 @@ ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_
         },
         .bIsDirty = RT_FALSE,
         .tCFG = *ptCFG,
-        .pchStr = pchStr,
+        .pchStr[0] = '\0',
     };
     
     return ptThis;

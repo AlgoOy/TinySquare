@@ -64,20 +64,19 @@ static void _tnsq_gfx_on_stage_depose(arm_2d_scene_t *ptScene)
     tnsq_gfx_layer_base_t *ptLayersList = this.ptLayersList;
     while (ptLayersList != NULL)
     {
-        if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_TEXT)
+        if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_MENU)
         {
-            tnsq_gfx_layer_text_depose((tnsq_gfx_layer_text_t *)ptLayersList);
-        }
-        else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_MENU)
-        {
-            tnsq_gfx_layer_menu_depose((tnsq_gfx_layer_menu_t *)ptLayersList);
             tnsq_evt_get_unlock(tnsq_evt_get_ctrl());
         }
+		else if (ptLayersList->tType == TNSQ_GFX_LAYER_TYPE_NUM)
+		{
+			tnsq_evt_get_unlock(tnsq_evt_get_ctrl());
+		}
         
         ptLayer = ptLayersList;
         ptLayersList = ptLayersList->ptNext;
         
-        if (ptLayer->blsUserAllocated)
+        if (!ptLayer->blsUserAllocated)
         {
             free(ptLayer);
         }

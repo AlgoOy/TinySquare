@@ -138,14 +138,6 @@ void tnsq_gfx_layer_menu_get_dirty_region(tnsq_gfx_layer_menu_t *ptThis, arm_2d_
     };
 }
 
-void tnsq_gfx_layer_menu_depose(tnsq_gfx_layer_menu_t *ptThis)
-{
-    if (this.tListView.tListViewCFG.ptItems != NULL)
-    {
-        free(this.tListView.tListViewCFG.ptItems);
-    }
-}
-
 #if defined(__IS_COMPILER_IAR__) && __IS_COMPILER_IAR__
 #define __va_list    va_list
 #endif

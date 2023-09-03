@@ -75,6 +75,8 @@ struct tnsq_gfx_layer_num_t
 
 ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_num_cfg_t *ptLayerCFG, tnsq_gfx_layer_num_t *ptLayer);
 
+rt_int8_t tnsq_gfx_layer_num_get_item_idx(tnsq_gfx_layer_num_t *ptThis);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__

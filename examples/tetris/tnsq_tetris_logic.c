@@ -59,11 +59,19 @@ static rt_uint16_t score = 0;
 static tnsq_gfx_stage_t *ptStage = NULL;
 static tnsq_gfx_layer_text_t *textLayerPtr = NULL;
 
-static rt_uint8_t menuLayerID = 0;
 static tnsq_gfx_stage_t *ptMenuStage = NULL;
-static tnsq_gfx_layer_menu_t *menuLayerPtr = NULL;
-static rt_int8_t s_chItemIdx = -1;
+
+static rt_uint8_t menuLayerSelectID = 0;
+static tnsq_gfx_layer_menu_t *menuLayerSelectPtr = NULL;
+
+static rt_uint8_t menuLayerDiffcultyID = 0;
+static tnsq_gfx_layer_menu_t *menuLayerDiffcultyPtr = NULL;
+
+static rt_uint8_t numLayerLevelID = 0;
+static tnsq_gfx_layer_num_t *numLayerLevelPtr = NULL;
+
 static rt_uint32_t s_gameMode = 0;
+static rt_uint8_t s_gameLevel = 0;
 
 static struct tetris_block_t 
 {
@@ -173,29 +181,7 @@ static void _tetris_init_block(void)
 		}
 	}
 }
-
-static void _tetris_set_game_mode(void)
-{
-    switch (s_chItemIdx)
-    {
-    case 0:
-        s_gameMode = 600000;
-        break;
-    case 1:
-        s_gameMode = 500000;
-        break;
-    case 2:
-        s_gameMode = 400000;
-        break;
-    case 3:
-        s_gameMode = 300000;
-        break;
-    case 4:
-        s_gameMode = 200000;
-        break;
-    }
-}
-    
+ 
 static void _tetris_game_initial(void) 
 {    
     // initial and register layer
@@ -213,8 +199,6 @@ static void _tetris_game_initial(void)
     textLayerPtr = tnsq_gfx_get_layer_ptr(ptStage, text_layer_id);
     
     tnsq_gfx_layer_text_printf(textLayerPtr, "%d", score);
-    
-    _tetris_set_game_mode();
 }
 
 static void _tetris_draw_block(rt_uint8_t shape, rt_uint8_t form, rt_uint8_t x, rt_uint8_t y)
@@ -447,30 +431,95 @@ static void _tetris_game_menu_initial(void)
 {
     ptMenuStage = tetris_stage_init();
     
-    menuLayerID = tetris_memu_layer(ptMenuStage);
+    menuLayerSelectID = tetris_menu_layer_select(ptMenuStage);
+	
+//	menuLayerDiffcultyID = tetris_memu_layer_diffculty(ptMenuStage);
+//	tnsq_gfx_make_layer_invisible(ptMenuStage, menuLayerDiffcultyID);
+	
+	numLayerLevelID = tetris_num_layer_level(ptMenuStage);
+	tnsq_gfx_make_layer_invisible(ptMenuStage, numLayerLevelID);
+	
+	tnsq_gfx_apply_for_refresh();
 }
 
 static void _tetris_game_get_menu_result(void)
 {
-    menuLayerPtr = tnsq_gfx_get_layer_ptr(ptMenuStage, menuLayerID);
-    while((s_chItemIdx = tnsq_gfx_layer_menu_get_item_idx(menuLayerPtr)) == -1)
-    {
-        tnsq_gfx_apply_for_refresh();
-    }
-}
-
-static void _tetris_game_num_initial(void)
-{
-    ptMenuStage = tetris_stage_init();
-    
-    tetris_num_layer(ptMenuStage);
-    
-    tnsq_gfx_apply_for_refresh();
-    
-    while (1)
-    {
-        tnsq_gfx_apply_for_refresh();
-    }
+	s_gameMode = 400000;
+	s_gameLevel = 0;
+	
+    menuLayerSelectPtr = tnsq_gfx_get_layer_ptr(ptMenuStage, menuLayerSelectID);
+	menuLayerDiffcultyPtr = tnsq_gfx_get_layer_ptr(ptMenuStage, menuLayerDiffcultyID);
+	numLayerLevelPtr = tnsq_gfx_get_layer_ptr(ptMenuStage, numLayerLevelID);
+	
+	rt_int8_t chItemIdx = -1;
+	do {
+		while((chItemIdx = tnsq_gfx_layer_menu_get_item_idx(menuLayerSelectPtr)) == -1)
+		{
+			tnsq_gfx_apply_for_refresh();
+		}
+		
+		switch (chItemIdx)
+		{
+		case 0:
+			do {
+				tnsq_gfx_make_layer_invisible(ptMenuStage, menuLayerSelectID);
+				tnsq_gfx_make_layer_visible(ptMenuStage, menuLayerDiffcultyID);
+				tnsq_gfx_apply_for_refresh();
+				
+				while((chItemIdx = tnsq_gfx_layer_menu_get_item_idx(menuLayerDiffcultyPtr)) == -1)
+				{
+					tnsq_gfx_apply_for_refresh();
+				}
+				
+				switch (chItemIdx)
+				{
+				case 0:
+					s_gameMode = 600000;
+					break;
+				case 1:
+					s_gameMode = 500000;
+					break;
+				case 2:
+					s_gameMode = 400000;
+					break;
+				case 3:
+					s_gameMode = 300000;
+					break;
+				case 4:
+					s_gameMode = 200000;
+					break;
+				}
+				
+				tnsq_gfx_make_layer_invisible(ptMenuStage, menuLayerDiffcultyID);
+				tnsq_gfx_make_layer_visible(ptMenuStage, menuLayerSelectID);
+				tnsq_gfx_apply_for_refresh();
+			} while (0);
+			chItemIdx = -1;
+			break;
+		case 1:
+			do {
+				tnsq_gfx_make_layer_invisible(ptMenuStage, menuLayerSelectID);
+				tnsq_gfx_make_layer_visible(ptMenuStage, numLayerLevelID);
+				tnsq_gfx_apply_for_refresh();
+				
+				while((chItemIdx = tnsq_gfx_layer_num_get_item_idx(numLayerLevelPtr)) == -1)
+				{
+					tnsq_gfx_apply_for_refresh();
+				}
+				
+				s_gameLevel = chItemIdx;
+				
+				tnsq_gfx_make_layer_invisible(ptMenuStage, numLayerLevelID);
+				tnsq_gfx_make_layer_visible(ptMenuStage, menuLayerSelectID);
+				tnsq_gfx_apply_for_refresh();
+			} while (0);
+			chItemIdx = -1;
+			break;
+		case 2:
+			printf("%d\n", chItemIdx);
+			break;
+		}
+	} while (chItemIdx != 2);
 }
     
 void tetris_task_entry(void *ptParam)
@@ -479,11 +528,11 @@ void tetris_task_entry(void *ptParam)
     
     disp_adapter0_init();
     
-    //_tetris_game_num_initial();
-    
     _tetris_game_menu_initial();
     
     _tetris_game_get_menu_result();
+	
+	printf("here\n");
     
     _tetris_game_initial();
     

@@ -276,16 +276,16 @@ rt_uint8_t tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameTextLayer);
 }
 
-rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
+rt_uint8_t tetris_menu_layer_select(tnsq_gfx_stage_t *ptStage)
 {
-    arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
-    
-    arm_2d_size_t tItemSize = {
+	arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
+	
+	arm_2d_size_t tItemSize = {
         .iWidth = 160,
         .iHeight = 30,
     };
-    
-    rt_uint8_t chShowItemNum = 3;
+	
+	rt_uint8_t chShowItemNum = 3;
     
     do {
         tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
@@ -337,6 +337,107 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
     
     do {
         const char *pchItems[] = {
+            "difficulty",
+			"level",
+			"start"
+        };
+        tnsq_gfx_layer_menu_cfg_t tMenuCFG = {
+            .tItemGeneral = {
+                .chStringCount = sizeof(pchItems) >> 2,
+                .pchStringTable = pchItems,
+                .tItemSize = tItemSize,
+                .tItemPadding = 0,
+                .chShowItemNum = chShowItemNum,
+                .nFinishInMs = 150,
+                .ptFont = (struct arm_2d_font_t *)&ARM_2D_FONT_16x24,
+            },
+            .tItemNormal = {
+                .tColor = {
+                    .box = __RGB(0x6d, 0x54, 0x84),
+                    .font = __RGB(0x94, 0xd2, 0x52),
+                },
+                .chOpacity = 255,
+            },
+            .tItemSelected = {
+                .tColor = {
+                    .box = __RGB(0xff, 0xff, 0xff),
+                    .font = __RGB(0x6d, 0x54, 0x84),
+                },
+                .chOpacity = 255,
+            },
+        };
+        
+        tnsq_gfx_layer_menu_t *ptMenuLayer = tnsq_gfx_layer_menu_init(&tMenuCFG);
+        if (ptMenuLayer == NULL)
+        {
+            printf("menu layer init failed\n");
+        }
+        
+        return tnsq_gfx_register_layer_to_stage(ptStage, ptMenuLayer);
+    } while (0);
+}
+
+rt_uint8_t tetris_memu_layer_diffculty(tnsq_gfx_stage_t *ptStage)
+{
+    arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
+    
+    arm_2d_size_t tItemSize = {
+        .iWidth = 160,
+        .iHeight = 30,
+    };
+    
+    rt_uint8_t chShowItemNum = 3;
+    
+//    do {
+//        tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
+//            .tType = TNSQ_GFX_BG_CL_NORMAL,
+//            .chOpacity = 255,
+//            .ptBackGroundColorMask = NULL,
+//            .tRegion = {
+//                .tLocation = {0},
+//                .tSize = tScreenSize,
+//            },
+//            .tColor = __RGB(0x6d, 0x54, 0x84),
+//            .borderOpacity = NULL,
+//            .cornerOpacity = NULL,
+//        };
+//        tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+//        if (ptGameBGCL == NULL)
+//        {
+//            printf("menu layer init failed\n");
+//        }
+//        
+//        tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
+//    } while (0);
+    
+//    do {
+//        tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
+//            .tType = TNSQ_GFX_BG_CL_BORDER,
+//            .tRegion = {
+//                .tLocation = {
+//                    .iX = (tScreenSize.iWidth - tItemSize.iWidth - 4) >> 1,
+//                    .iY = (tScreenSize.iHeight - tItemSize.iHeight * chShowItemNum - 4) >> 1,
+//                },
+//                .tSize = {
+//                    .iWidth = tItemSize.iWidth + 4,
+//                    .iHeight = tItemSize.iHeight * chShowItemNum + 4,
+//                },
+//            },
+//            .tColor = GLCD_COLOR_WHITE,
+//            .borderOpacity = {255, 255, 255, 255},
+//            .cornerOpacity = {255, 255, 255, 255},
+//        };
+//        tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+//        if (ptGameBGCL == NULL)
+//        {
+//            printf("menu layer init failed\n");
+//        }
+//        
+//        tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
+//    } while (0);
+    
+    do {
+        const char *pchItems[] = {
             "Very Easy",
             "Easy",
             "Normal",
@@ -379,35 +480,35 @@ rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage)
     } while (0);
 }
 
-rt_uint8_t tetris_num_layer(tnsq_gfx_stage_t *ptStage)
+rt_uint8_t tetris_num_layer_level(tnsq_gfx_stage_t *ptStage)
 {
     arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
     
-    do {
-        tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
-            .tType = TNSQ_GFX_BG_CL_NORMAL,
-            .chOpacity = 255,
-            .ptBackGroundColorMask = NULL,
-            .tRegion = {
-                .tLocation = {0},
-                .tSize = tScreenSize,
-            },
-            .tColor = GLCD_COLOR_BLACK,
-            .borderOpacity = NULL,
-            .cornerOpacity = NULL,
-        };
-        tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
-        if (ptGameBGCL == NULL)
-        {
-            printf("menu layer init failed\n");
-        }
-        
-        tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
-    } while (0);
+//    do {
+//        tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
+//            .tType = TNSQ_GFX_BG_CL_NORMAL,
+//            .chOpacity = 255,
+//            .ptBackGroundColorMask = NULL,
+//            .tRegion = {
+//                .tLocation = {0},
+//                .tSize = tScreenSize,
+//            },
+//            .tColor = GLCD_COLOR_BLACK,
+//            .borderOpacity = NULL,
+//            .cornerOpacity = NULL,
+//        };
+//        tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+//        if (ptGameBGCL == NULL)
+//        {
+//            printf("menu layer init failed\n");
+//        }
+//        
+//        tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
+//    } while (0);
     
     do {
         tnsq_gfx_layer_num_cfg_t tNumCFG = {
-            .chNum = 100,
+            .chNum = 10,
             .nFinishInMs = 100,
             .tColor = {
                 .background = GLCD_COLOR_BLACK,
