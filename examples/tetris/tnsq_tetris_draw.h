@@ -51,7 +51,8 @@ extern "C" {
 #define I_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 7}
 #define CLEAR_BLOCK_INFO (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 8}
 
-tnsq_gfx_stage_t *tetris_stage_init(void);
+tnsq_gfx_stage_t *tetris_menu_stage_init(void);
+tnsq_gfx_stage_t *tetris_game_stage_init(void);
 
 void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage);
 rt_uint8_t tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage);

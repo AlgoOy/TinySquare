@@ -143,7 +143,8 @@ IMPL_PFB_ON_DRAW(__arm_2d_number_list_draw_cover)
             arm_2d_fill_colour_with_mask(   ptTile, 
                                             &__centre_region, 
                                             &c_tileListCoverMask, 
-                                            (__arm_2d_color_t){GLCD_COLOR_BLACK});
+                                            (arm_2d_color_rgb565_t)this.tNumListCFG.tBackgroundColour
+            );
         }
     }
 
@@ -195,13 +196,21 @@ ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_nu
             .tBackgroundColour = ptCFG->tColor.background,
             .chNextPadding = ptCFG->tPadding.next,
             .chPrviousePadding = ptCFG->tPadding.pre,
-            .tListSize = {
-                .iWidth = ARM_2D_FONT_A4_DIGITS_ONLY.use_as__arm_2d_user_font_t.use_as__arm_2d_font_t.tCharSize.iWidth * 2,
-                .iHeight = (ARM_2D_FONT_A4_DIGITS_ONLY.use_as__arm_2d_user_font_t.use_as__arm_2d_font_t.tCharSize.iHeight + ptCFG->tPadding.pre + ptCFG->tPadding.next) * 3,
-            },
-            .ptFont = (arm_2d_font_t *)&ARM_2D_FONT_A4_DIGITS_ONLY,
             .fnOnDrawListCover = &__arm_2d_number_list_draw_cover,
         };
+        
+        if (ptCFG->ptFont == NULL)
+        {
+            tNumCFG.ptFont = (arm_2d_font_t *)&ARM_2D_FONT_A4_DIGITS_ONLY;
+        }
+        else
+        {
+            tNumCFG.ptFont = ptCFG->ptFont;
+        }
+        
+        tNumCFG.tListSize.iWidth = tNumCFG.ptFont->tCharSize.iWidth * 2;
+        tNumCFG.tListSize.iHeight = (tNumCFG.ptFont->tCharSize.iHeight + ptCFG->tPadding.pre + ptCFG->tPadding.next) * ptCFG->chShowItemNum;
+        
         number_list_init(&this.tNumber, &tNumCFG);
     } while (0);
     

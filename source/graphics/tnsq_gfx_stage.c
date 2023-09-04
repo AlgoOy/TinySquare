@@ -351,6 +351,7 @@ void tnsq_gfx_make_layer_visible(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerID)
         if (ptLayerListPtr->u7LayerID == chLayerID)
         {
             ptLayerListPtr->bIsVisible = RT_TRUE;
+            arm_2d_scene_player_update_scene_background(this.tStageCFG.ptDispAdapter.ptPlayer);
             return;
         }
         ptLayerListPtr = ptLayerListPtr->ptNext;
@@ -368,6 +369,7 @@ void tnsq_gfx_make_layer_invisible(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerI
         if (ptLayerListPtr->u7LayerID == chLayerID)
         {
             ptLayerListPtr->bIsVisible = RT_FALSE;
+            arm_2d_scene_player_update_scene_background(this.tStageCFG.ptDispAdapter.ptPlayer);
             return;
         }
         ptLayerListPtr = ptLayerListPtr->ptNext;

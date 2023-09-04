@@ -46,6 +46,7 @@ struct tnsq_gfx_layer_num_cfg_t
 {
     rt_uint8_t chNum;
     rt_int32_t nFinishInMs;
+    rt_uint8_t chShowItemNum;
     struct
     {
         COLOUR_INT font;
@@ -56,6 +57,7 @@ struct tnsq_gfx_layer_num_cfg_t
         uint8_t pre;
         uint8_t next;
     } tPadding;
+    arm_2d_font_t *ptFont;
 };
 
 struct tnsq_gfx_layer_num_t

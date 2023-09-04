@@ -45,8 +45,8 @@
 
 #undef this
 #define this (*ptThis)
-
-tnsq_gfx_stage_t *tetris_stage_init(void)
+    
+tnsq_gfx_stage_t *tetris_game_stage_init(void)
 {
     tnsq_gfx_stage_cfg_t tGameStageCFG = {
         .ptDispAdapter = {
@@ -54,6 +54,29 @@ tnsq_gfx_stage_t *tetris_stage_init(void)
             .ptPlayerTask = disp_adapter0_task,
         },
     };
+    
+    tnsq_gfx_stage_t *ptGameStage = tnsq_gfx_stage_init(&tGameStageCFG);
+    if (ptGameStage == NULL)
+    {
+        /* error handle */
+        printf("game stage init failed\n");
+        return NULL;
+    }
+    else
+    {
+        return ptGameStage;
+    }
+}
+
+tnsq_gfx_stage_t *tetris_menu_stage_init(void)
+{
+    tnsq_gfx_stage_cfg_t tGameStageCFG = {
+        .ptDispAdapter = {
+            .ptPlayer = &DISP0_ADAPTER,
+            .ptPlayerTask = disp_adapter0_task,
+        },
+    };
+    
     tnsq_gfx_stage_t *ptGameStage = tnsq_gfx_stage_init(&tGameStageCFG);
     if (ptGameStage == NULL)
     {
@@ -81,6 +104,7 @@ rt_uint8_t tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage)
             .tSize = c_tilebg_tetrisRGB565.tRegion.tSize,
         },
     };
+    
     tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
     if (ptGameBG == NULL)
     {
@@ -113,6 +137,7 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .borderOpacity = NULL,
             .cornerOpacity = NULL,
         };
+        
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
         if (ptGameBGCL == NULL)
         {
@@ -141,6 +166,7 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .borderOpacity = {32, 32, 255-64, 255-64},
             .cornerOpacity = {0, 128, 128, 128},
         };
+        
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
         if (ptGameBGCL == NULL)
         {
@@ -169,6 +195,7 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .borderOpacity = {32, 32, 255-64, 255-64},
             .cornerOpacity = {0, 128, 128, 128},
         };
+        
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
         if (ptGameBGCL == NULL)
         {
@@ -237,6 +264,7 @@ rt_uint8_t tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_
         .pchUserMap = ptUserMap,
         .ptFunc = _tetris_user_map_func,
     };
+    
     tnsq_gfx_layer_user_t *ptGameInterfaceLayer = tnsq_gfx_layer_user_init(&tInterfaceCFG);
     if (ptGameInterfaceLayer == NULL)
     {
@@ -267,6 +295,7 @@ rt_uint8_t tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
             },
         }
     };
+    
     tnsq_gfx_layer_text_t *ptGameTextLayer = tnsq_gfx_layer_text_init(&tTextCFG);
     if (ptGameTextLayer == NULL)
     {
@@ -309,31 +338,31 @@ rt_uint8_t tetris_menu_layer_select(tnsq_gfx_stage_t *ptStage)
         tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
     } while (0);
     
-    do {
-        tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
-            .tType = TNSQ_GFX_BG_CL_BORDER,
-            .tRegion = {
-                .tLocation = {
-                    .iX = (tScreenSize.iWidth - tItemSize.iWidth - 4) >> 1,
-                    .iY = (tScreenSize.iHeight - tItemSize.iHeight * chShowItemNum - 4) >> 1,
-                },
-                .tSize = {
-                    .iWidth = tItemSize.iWidth + 4,
-                    .iHeight = tItemSize.iHeight * chShowItemNum + 4,
-                },
-            },
-            .tColor = GLCD_COLOR_WHITE,
-            .borderOpacity = {255, 255, 255, 255},
-            .cornerOpacity = {255, 255, 255, 255},
-        };
-        tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
-        if (ptGameBGCL == NULL)
-        {
-            printf("menu layer init failed\n");
-        }
-        
-        tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
-    } while (0);
+//    do {
+//        tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
+//            .tType = TNSQ_GFX_BG_CL_BORDER,
+//            .tRegion = {
+//                .tLocation = {
+//                    .iX = (tScreenSize.iWidth - tItemSize.iWidth - 4) >> 1,
+//                    .iY = (tScreenSize.iHeight - tItemSize.iHeight * chShowItemNum - 4) >> 1,
+//                },
+//                .tSize = {
+//                    .iWidth = tItemSize.iWidth + 4,
+//                    .iHeight = tItemSize.iHeight * chShowItemNum + 4,
+//                },
+//            },
+//            .tColor = GLCD_COLOR_WHITE,
+//            .borderOpacity = {255, 255, 255, 255},
+//            .cornerOpacity = {255, 255, 255, 255},
+//        };
+//        tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
+//        if (ptGameBGCL == NULL)
+//        {
+//            printf("menu layer init failed\n");
+//        }
+//        
+//        tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
+//    } while (0);
     
     do {
         const char *pchItems[] = {
@@ -509,15 +538,17 @@ rt_uint8_t tetris_num_layer_level(tnsq_gfx_stage_t *ptStage)
     do {
         tnsq_gfx_layer_num_cfg_t tNumCFG = {
             .chNum = 10,
+            .chShowItemNum = 3,
             .nFinishInMs = 100,
             .tColor = {
-                .background = GLCD_COLOR_BLACK,
+                .background = __RGB(0x6d, 0x54, 0x84),
                 .font = __RGB(0x94, 0xd2, 0x52),
             },
             .tPadding = {
                 .pre = 3,
                 .next = 3,
             },
+            .ptFont = (arm_2d_font_t *)&ARM_2D_FONT_A4_DIGITS_ONLY,
         };
         
         tnsq_gfx_layer_num_t *ptNumLayer = tnsq_gfx_layer_num_init(&tNumCFG);

@@ -81,7 +81,7 @@ static struct tetris_block_t
 static void _tetris_register_layer(void)
 {
     // initial stage
-    ptStage = tetris_stage_init();
+    ptStage = tetris_game_stage_init();
     
     arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
     
@@ -429,12 +429,12 @@ static void _tetris_game_logic(void)
 
 static void _tetris_game_menu_initial(void)
 {
-    ptMenuStage = tetris_stage_init();
+    ptMenuStage = tetris_menu_stage_init();
     
     menuLayerSelectID = tetris_menu_layer_select(ptMenuStage);
 	
-//	menuLayerDiffcultyID = tetris_memu_layer_diffculty(ptMenuStage);
-//	tnsq_gfx_make_layer_invisible(ptMenuStage, menuLayerDiffcultyID);
+	menuLayerDiffcultyID = tetris_memu_layer_diffculty(ptMenuStage);
+	tnsq_gfx_make_layer_invisible(ptMenuStage, menuLayerDiffcultyID);
 	
 	numLayerLevelID = tetris_num_layer_level(ptMenuStage);
 	tnsq_gfx_make_layer_invisible(ptMenuStage, numLayerLevelID);
@@ -516,7 +516,6 @@ static void _tetris_game_get_menu_result(void)
 			chItemIdx = -1;
 			break;
 		case 2:
-			printf("%d\n", chItemIdx);
 			break;
 		}
 	} while (chItemIdx != 2);
@@ -531,8 +530,6 @@ void tetris_task_entry(void *ptParam)
     _tetris_game_menu_initial();
     
     _tetris_game_get_menu_result();
-	
-	printf("here\n");
     
     _tetris_game_initial();
     

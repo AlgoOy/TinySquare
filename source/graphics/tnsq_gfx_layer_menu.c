@@ -50,12 +50,9 @@
 
 #undef this
 #define this (*ptThis)
-    
-typedef struct tnsq_gfx_list_item_t tnsq_gfx_list_item_t;
-
-#define __REF_ITEM_ARRAY(__PTR, __INDEX) (arm_2d_list_item_t *)                 \
-                                    (   ((uintptr_t)(__PTR))                    \
-                                    +   this.tListView.tListViewCFG.hwItemSizeInByte * (__INDEX))
+                                   
+#define STRUCT_ENTRY(STRUCT_ELEM, STRUCT, MEMBER) \
+    ((STRUCT *)((uint8_t *)(STRUCT_ELEM) - (size_t)(&((STRUCT *)0)->MEMBER)))
 
 static rt_bool_t __idx = RT_TRUE;
 
@@ -63,7 +60,6 @@ void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_til
 {
     while (arm_fsm_rt_cpl != list_view_show(&this.tListView, ptTile, NULL, bIsNewFrame));
     arm_2d_op_wait_async(NULL);
-    
     if (!ptDirtyRegion[0].bUpdated && __idx)
     {
         __idx = RT_FALSE;
@@ -197,9 +193,6 @@ static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const 
     
     return arm_fsm_rt_cpl;
 }
-
-#define STRUCT_ENTRY(STRUCT_ELEM, STRUCT, MEMBER) \
-    ((STRUCT *)((uint8_t *)(STRUCT_ELEM) - (size_t)(&((STRUCT *)0)->MEMBER)))
 
 static arm_2d_list_item_t *_tnsq_gfx_menu_list_iterator(
                                         __arm_2d_list_core_t *ptListView,
