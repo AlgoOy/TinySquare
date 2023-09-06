@@ -125,12 +125,12 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .ptBackGroundColorMask = NULL,
             .tRegion = {
                 .tLocation = {
-                    .iX = (TNSQ_TETRIS_Y_GAME_COUNT + 1) * (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT),
+                    .iX = (TETRIS_Y_GAME_COUNT + 1) * (tScreenSize.iWidth / TETRIS_X_COUNT),
                     .iY = 0,
                 },
                 .tSize = {
-                    .iWidth = (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT) * 6,
-                    .iHeight = tScreenSize.iHeight - (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT),
+                    .iWidth = (tScreenSize.iWidth / TETRIS_X_COUNT) * 6,
+                    .iHeight = tScreenSize.iHeight - (tScreenSize.iHeight / TETRIS_Y_COUNT),
                 },
             },
             .tColor = GLCD_COLOR_DARK_GREY,
@@ -154,12 +154,12 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .ptBackGroundColorMask = NULL,
             .tRegion = {
                 .tLocation = {
-                    .iX = TNSQ_TETRIS_NEXT_BLOCK_Y * (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT),
-                    .iY = TNSQ_TETRIS_NEXT_BLOCK_X * (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT),
+                    .iX = TETRIS_NEXT_BLOCK_Y * (tScreenSize.iWidth / TETRIS_X_COUNT),
+                    .iY = TETRIS_NEXT_BLOCK_X * (tScreenSize.iHeight / TETRIS_Y_COUNT),
                 },
                 .tSize = {
-                    .iWidth = (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT) * 4,
-                    .iHeight = (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT) * 4,
+                    .iWidth = (tScreenSize.iWidth / TETRIS_X_COUNT) * 4,
+                    .iHeight = (tScreenSize.iHeight / TETRIS_Y_COUNT) * 4,
                 },
             },
             .tColor = GLCD_COLOR_BLACK,
@@ -183,12 +183,12 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
             .ptBackGroundColorMask = NULL,
             .tRegion = {
                 .tLocation = {
-                    .iX = TNSQ_TETRIS_SCORE_Y * (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT),
-                    .iY = TNSQ_TETRIS_SCORE_X * (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT),
+                    .iX = TETRIS_SCORE_Y * (tScreenSize.iWidth / TETRIS_X_COUNT),
+                    .iY = TETRIS_SCORE_X * (tScreenSize.iHeight / TETRIS_Y_COUNT),
                 },
                 .tSize = {
-                    .iWidth = (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT) * 4,
-                    .iHeight = (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT) * 2,
+                    .iWidth = (tScreenSize.iWidth / TETRIS_X_COUNT) * 4,
+                    .iHeight = (tScreenSize.iHeight / TETRIS_Y_COUNT) * 2,
                 },
             },
             .tColor = GLCD_COLOR_BLACK,
@@ -259,8 +259,8 @@ static void _tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTile, c
 rt_uint8_t tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptUserMap)
 {
     tnsq_gfx_layer_user_cfg_t tInterfaceCFG = {
-        .hwXCount = TNSQ_TETRIS_X_COUNT,
-        .hwYCount = TNSQ_TETRIS_Y_COUNT,
+        .hwXCount = TETRIS_X_COUNT,
+        .hwYCount = TETRIS_Y_COUNT,
         .pchUserMap = ptUserMap,
         .ptFunc = _tetris_user_map_func,
     };
@@ -286,12 +286,12 @@ rt_uint8_t tetris_init_text_layer(tnsq_gfx_stage_t *ptStage)
         },
         .tRegion = {
             .tLocation = {
-                .iX = TNSQ_TETRIS_SCORE_Y * (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT),
-                .iY = TNSQ_TETRIS_SCORE_X * (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT),
+                .iX = TETRIS_SCORE_Y * (tScreenSize.iWidth / TETRIS_X_COUNT),
+                .iY = TETRIS_SCORE_X * (tScreenSize.iHeight / TETRIS_Y_COUNT),
             },
             .tSize = {
-                .iWidth = (tScreenSize.iWidth / TNSQ_TETRIS_X_COUNT) * 4,
-                .iHeight = (tScreenSize.iHeight / TNSQ_TETRIS_Y_COUNT) * 2,
+                .iWidth = (tScreenSize.iWidth / TETRIS_X_COUNT) * 4,
+                .iHeight = (tScreenSize.iHeight / TETRIS_Y_COUNT) * 2,
             },
         }
     };
@@ -365,15 +365,15 @@ rt_uint8_t tetris_menu_layer_select(tnsq_gfx_stage_t *ptStage)
 //    } while (0);
     
     do {
-        const char *pchItems[] = {
+         static const char *pchStringTable[] = {
+			"start",
             "difficulty",
-			"level",
-			"start"
+			"challenge"
         };
         tnsq_gfx_layer_menu_cfg_t tMenuCFG = {
             .tItemGeneral = {
-                .chStringCount = sizeof(pchItems) >> 2,
-                .pchStringTable = pchItems,
+                .chStringCount = sizeof(pchStringTable) >> 2,
+                .pchStringTable = pchStringTable,
                 .tItemSize = tItemSize,
                 .tItemPadding = 0,
                 .chShowItemNum = chShowItemNum,
@@ -466,7 +466,7 @@ rt_uint8_t tetris_memu_layer_diffculty(tnsq_gfx_stage_t *ptStage)
 //    } while (0);
     
     do {
-        const char *pchItems[] = {
+        static const char *pchItems[] = {
             "Very Easy",
             "Easy",
             "Normal",

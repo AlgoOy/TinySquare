@@ -194,11 +194,9 @@ static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const 
     return arm_fsm_rt_cpl;
 }
 
-static arm_2d_list_item_t *_tnsq_gfx_menu_list_iterator(
-                                        __arm_2d_list_core_t *ptListView,
-                                        arm_2d_list_iterator_dir_t tDirection,
-                                        uint_fast16_t hwID
-                                    )
+static arm_2d_list_item_t *_tnsq_gfx_menu_list_iterator(__arm_2d_list_core_t *ptListView,
+														arm_2d_list_iterator_dir_t tDirection,
+														uint_fast16_t hwID)
 {
     tnsq_gfx_layer_menu_t *ptThis = STRUCT_ENTRY(ptListView, tnsq_gfx_layer_menu_t, tListView);
     int32_t nIterationIndex;

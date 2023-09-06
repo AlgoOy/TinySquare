@@ -31,15 +31,15 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#define TNSQ_TETRIS_X_COUNT 20
-#define TNSQ_TETRIS_Y_COUNT 20
-#define TNSQ_TETRIS_Y_GAME_COUNT (20 - 8)
+#define TETRIS_X_COUNT 20
+#define TETRIS_Y_COUNT 20
+#define TETRIS_Y_GAME_COUNT (20 - 8)
 
-#define TNSQ_TETRIS_NEXT_BLOCK_X (TNSQ_TETRIS_X_COUNT -12)
-#define TNSQ_TETRIS_NEXT_BLOCK_Y (TNSQ_TETRIS_Y_GAME_COUNT + 2)
+#define TETRIS_NEXT_BLOCK_X (TETRIS_X_COUNT -12)
+#define TETRIS_NEXT_BLOCK_Y (TETRIS_Y_GAME_COUNT + 2)
 
-#define TNSQ_TETRIS_SCORE_X (TNSQ_TETRIS_X_COUNT -17)
-#define TNSQ_TETRIS_SCORE_Y (TNSQ_TETRIS_Y_GAME_COUNT + 2)
+#define TETRIS_SCORE_X (TETRIS_X_COUNT -17)
+#define TETRIS_SCORE_Y (TETRIS_Y_GAME_COUNT + 2)
 
 #define BOARD_BLOCK_INFO (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 0}
 #define T_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 1}

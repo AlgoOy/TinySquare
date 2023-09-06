@@ -172,7 +172,7 @@ ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_nu
         blsUserAllocated = RT_TRUE;
     }
         
-    memset(ptThis, 0, sizeof(tnsq_gfx_layer_menu_t));
+    memset(ptThis, 0, sizeof(tnsq_gfx_layer_num_t));
     
     *ptThis = (tnsq_gfx_layer_num_t) {
         .use_as__tnsq_gfx_layer_base_t = {
