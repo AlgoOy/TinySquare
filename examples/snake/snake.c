@@ -8,7 +8,7 @@
  * 2023-07-08     AlgoOy     the first version
  */
 
-#include "tnsq_snake.h"
+#include "snake.h"
 #include "tiny_square.h"
 
 // todo: just for debug

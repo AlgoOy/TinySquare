@@ -9,17 +9,15 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __TinySquare_EvtKey__H
-#define __TinySquare_EvtKey__H
+#ifndef __TinySquare_Gfx__H
+#define __TinySquare_Gfx__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_TinySquare_EvtKey(Args *args);
+PikaObj *New_TinySquare_Gfx(Args *args);
 
-void TinySquare_EvtKey___init__(PikaObj *self);
-int TinySquare_EvtKey_get_direction(PikaObj *self);
-int TinySquare_EvtKey_get_event(PikaObj *self);
-int TinySquare_EvtKey_update_key(PikaObj *self, int timeout);
+void TinySquare_Gfx___init__(PikaObj *self);
+void TinySquare_Gfx_refresh(PikaObj *self);
 
 #endif
