@@ -17,6 +17,6 @@
 
 PikaObj *New_TinySquare_LayerBGCL(Args *args);
 
-void TinySquare_LayerBGCL___init__(PikaObj *self, int tType, int tColor, int chOpacity, Arg* ptBGCLMask, Arg* tRegion, Arg* tBorderOpacity, Arg* tCornerOpacity);
+void TinySquare_LayerBGCL___init__(PikaObj *self, int type, int color, int opacity, Arg* bgCLMask, PikaObj* region, PikaObj* borderOpacity, PikaObj* cornerOpacity);
 
 #endif

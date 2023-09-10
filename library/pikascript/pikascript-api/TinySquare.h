@@ -17,6 +17,8 @@
 
 PikaObj *New_TinySquare(Args *args);
 
+Arg* TinySquare_BorderOpacity(PikaObj *self);
+Arg* TinySquare_CornerOpacity(PikaObj *self);
 Arg* TinySquare_EvtKey(PikaObj *self);
 Arg* TinySquare_Gfx(PikaObj *self);
 Arg* TinySquare_LayerBG(PikaObj *self);
@@ -26,6 +28,8 @@ Arg* TinySquare_LayerMenu(PikaObj *self);
 Arg* TinySquare_LayerNum(PikaObj *self);
 Arg* TinySquare_LayerText(PikaObj *self);
 Arg* TinySquare_LayerUser(PikaObj *self);
+Arg* TinySquare_Region(PikaObj *self);
+Arg* TinySquare_Screen(PikaObj *self);
 Arg* TinySquare_Stage(PikaObj *self);
 void TinySquare___init__(PikaObj *self);
 void TinySquare_init_evt(PikaObj *self, int priority, int stackSize, int timeSlice);

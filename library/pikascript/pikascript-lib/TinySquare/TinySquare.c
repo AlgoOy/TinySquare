@@ -1,3 +1,4 @@
+#include "pikaScript.h"
 #include "tiny_square.h"
 #include "arm_2d.h"
 #include "rtthread.h"

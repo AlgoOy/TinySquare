@@ -17,6 +17,6 @@
 
 PikaObj *New_TinySquare_LayerBG(Args *args);
 
-void TinySquare_LayerBG___init__(PikaObj *self, Arg* ptBG, Arg* ptBGMask, Arg* tRegion);
+void TinySquare_LayerBG___init__(PikaObj *self, Arg* bg, Arg* bgMask, PikaObj* region);
 
 #endif

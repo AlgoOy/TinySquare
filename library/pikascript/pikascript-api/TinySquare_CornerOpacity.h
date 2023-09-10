@@ -9,15 +9,14 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __TinySquare_LayerCell__H
-#define __TinySquare_LayerCell__H
+#ifndef __TinySquare_CornerOpacity__H
+#define __TinySquare_CornerOpacity__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_TinySquare_LayerCell(Args *args);
+PikaObj *New_TinySquare_CornerOpacity(Args *args);
 
-void TinySquare_LayerCell___init__(PikaObj *self, int hwXCount, int hwYCount);
-void TinySquare_LayerCell_draw_cell(PikaObj *self, int hwX, int hwY, int color, int opacity);
+void TinySquare_CornerOpacity___init__(PikaObj *self, int leftTop, int rightTop, int rightBottom, int leftBottom);
 
 #endif

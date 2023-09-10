@@ -17,7 +17,8 @@
 
 PikaObj *New_TinySquare_LayerText(Args *args);
 
-void TinySquare_LayerText___init__(PikaObj *self, Arg* ptFont, int tColor, int chOpacity, Arg* tRegion);
-void TinySquare_LayerText_print_text(PikaObj *self, char* format, PikaTuple* val);
+void TinySquare_LayerText___init__(PikaObj *self, int fontType, int color, int opacity, PikaObj* region);
+void TinySquare_LayerText_print_num(PikaObj *self, char* format, int number);
+void TinySquare_LayerText_print_str(PikaObj *self, char* format, char* string);
 
 #endif

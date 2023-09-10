@@ -57,6 +57,10 @@
 #include "PikaStdData_List.h"
 #include "TinySquare.h"
 #include "TinyObj.h"
+#include "TinySquare_BorderOpacity.h"
+#include "TinyObj.h"
+#include "TinySquare_CornerOpacity.h"
+#include "TinyObj.h"
 #include "TinySquare_EvtKey.h"
 #include "TinyObj.h"
 #include "TinySquare_Gfx.h"
@@ -74,6 +78,10 @@
 #include "TinySquare_LayerText.h"
 #include "TinyObj.h"
 #include "TinySquare_LayerUser.h"
+#include "TinyObj.h"
+#include "TinySquare_Region.h"
+#include "TinyObj.h"
+#include "TinySquare_Screen.h"
 #include "TinyObj.h"
 #include "TinySquare_Stage.h"
 #include "TinyObj.h"
@@ -1948,6 +1956,24 @@ Arg *PikaStdTask_Task(PikaObj *self){
 #endif
 
 #ifndef PIKA_MODULE_TINYSQUARE_DISABLE
+void TinySquare_BorderOpacityMethod(PikaObj *self, Args *args){
+    Arg* res = TinySquare_BorderOpacity(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    TinySquare_BorderOpacity,
+    "BorderOpacity", ""
+);
+
+void TinySquare_CornerOpacityMethod(PikaObj *self, Args *args){
+    Arg* res = TinySquare_CornerOpacity(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    TinySquare_CornerOpacity,
+    "CornerOpacity", ""
+);
+
 void TinySquare_EvtKeyMethod(PikaObj *self, Args *args){
     Arg* res = TinySquare_EvtKey(self);
     method_returnArg(args, res);
@@ -2029,6 +2055,24 @@ method_typedef(
     "LayerUser", ""
 );
 
+void TinySquare_RegionMethod(PikaObj *self, Args *args){
+    Arg* res = TinySquare_Region(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    TinySquare_Region,
+    "Region", ""
+);
+
+void TinySquare_ScreenMethod(PikaObj *self, Args *args){
+    Arg* res = TinySquare_Screen(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    TinySquare_Screen,
+    "Screen", ""
+);
+
 void TinySquare_StageMethod(PikaObj *self, Args *args){
     Arg* res = TinySquare_Stage(self);
     method_returnArg(args, res);
@@ -2070,11 +2114,15 @@ method_typedef(
 
 class_def(TinySquare){
     __BEFORE_MOETHOD_DEF
+    constructor_def(TinySquare_CornerOpacity, 69904935),
     constructor_def(TinySquare_Gfx, 193457802),
+    constructor_def(TinySquare_BorderOpacity, 207746396),
     constructor_def(TinySquare_Stage, 236861497),
     constructor_def(TinySquare_EvtKey, 829107229),
     method_def(TinySquare___init__, 904762485),
     constructor_def(TinySquare_LayerBG, 1226109099),
+    constructor_def(TinySquare_Region, 1317272489),
+    constructor_def(TinySquare_Screen, 1354426661),
     constructor_def(TinySquare_LayerBGCL, 1645465690),
     constructor_def(TinySquare_LayerCell, 1645535682),
     constructor_def(TinySquare_LayerMenu, 1645895127),
@@ -2090,6 +2138,66 @@ PikaObj *New_TinySquare(Args *args){
     PikaObj *self = New_TinyObj(args);
     obj_setClass(self, TinySquare);
     return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_TINYSQUARE_DISABLE
+void TinySquare_BorderOpacity___init__Method(PikaObj *self, Args *args){
+    int left = args_getInt(args, "left");
+    int right = args_getInt(args, "right");
+    int top = args_getInt(args, "top");
+    int bottom = args_getInt(args, "bottom");
+    TinySquare_BorderOpacity___init__(self, left, right, top, bottom);
+}
+method_typedef(
+    TinySquare_BorderOpacity___init__,
+    "__init__", "left,right,top,bottom"
+);
+
+class_def(TinySquare_BorderOpacity){
+    __BEFORE_MOETHOD_DEF
+    method_def(TinySquare_BorderOpacity___init__, 904762485),
+};
+class_inhert(TinySquare_BorderOpacity, TinyObj);
+
+PikaObj *New_TinySquare_BorderOpacity(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, TinySquare_BorderOpacity);
+    return self;
+}
+
+Arg *TinySquare_BorderOpacity(PikaObj *self){
+    return obj_newObjInPackage(New_TinySquare_BorderOpacity);
+}
+#endif
+
+#ifndef PIKA_MODULE_TINYSQUARE_DISABLE
+void TinySquare_CornerOpacity___init__Method(PikaObj *self, Args *args){
+    int leftTop = args_getInt(args, "leftTop");
+    int rightTop = args_getInt(args, "rightTop");
+    int rightBottom = args_getInt(args, "rightBottom");
+    int leftBottom = args_getInt(args, "leftBottom");
+    TinySquare_CornerOpacity___init__(self, leftTop, rightTop, rightBottom, leftBottom);
+}
+method_typedef(
+    TinySquare_CornerOpacity___init__,
+    "__init__", "leftTop,rightTop,rightBottom,leftBottom"
+);
+
+class_def(TinySquare_CornerOpacity){
+    __BEFORE_MOETHOD_DEF
+    method_def(TinySquare_CornerOpacity___init__, 904762485),
+};
+class_inhert(TinySquare_CornerOpacity, TinyObj);
+
+PikaObj *New_TinySquare_CornerOpacity(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, TinySquare_CornerOpacity);
+    return self;
+}
+
+Arg *TinySquare_CornerOpacity(PikaObj *self){
+    return obj_newObjInPackage(New_TinySquare_CornerOpacity);
 }
 #endif
 
@@ -2187,14 +2295,14 @@ Arg *TinySquare_Gfx(PikaObj *self){
 
 #ifndef PIKA_MODULE_TINYSQUARE_DISABLE
 void TinySquare_LayerBG___init__Method(PikaObj *self, Args *args){
-    Arg* ptBG = args_getArg(args, "ptBG");
-    Arg* ptBGMask = args_getArg(args, "ptBGMask");
-    Arg* tRegion = args_getArg(args, "tRegion");
-    TinySquare_LayerBG___init__(self, ptBG, ptBGMask, tRegion);
+    Arg* bg = args_getArg(args, "bg");
+    Arg* bgMask = args_getArg(args, "bgMask");
+    PikaObj* region = args_getPtr(args, "region");
+    TinySquare_LayerBG___init__(self, bg, bgMask, region);
 }
 method_typedef(
     TinySquare_LayerBG___init__,
-    "__init__", "ptBG,ptBGMask,tRegion"
+    "__init__", "bg,bgMask,region"
 );
 
 class_def(TinySquare_LayerBG){
@@ -2216,18 +2324,18 @@ Arg *TinySquare_LayerBG(PikaObj *self){
 
 #ifndef PIKA_MODULE_TINYSQUARE_DISABLE
 void TinySquare_LayerBGCL___init__Method(PikaObj *self, Args *args){
-    int tType = args_getInt(args, "tType");
-    int tColor = args_getInt(args, "tColor");
-    int chOpacity = args_getInt(args, "chOpacity");
-    Arg* ptBGCLMask = args_getArg(args, "ptBGCLMask");
-    Arg* tRegion = args_getArg(args, "tRegion");
-    Arg* tBorderOpacity = args_getArg(args, "tBorderOpacity");
-    Arg* tCornerOpacity = args_getArg(args, "tCornerOpacity");
-    TinySquare_LayerBGCL___init__(self, tType, tColor, chOpacity, ptBGCLMask, tRegion, tBorderOpacity, tCornerOpacity);
+    int type = args_getInt(args, "type");
+    int color = args_getInt(args, "color");
+    int opacity = args_getInt(args, "opacity");
+    Arg* bgCLMask = args_getArg(args, "bgCLMask");
+    PikaObj* region = args_getPtr(args, "region");
+    PikaObj* borderOpacity = args_getPtr(args, "borderOpacity");
+    PikaObj* cornerOpacity = args_getPtr(args, "cornerOpacity");
+    TinySquare_LayerBGCL___init__(self, type, color, opacity, bgCLMask, region, borderOpacity, cornerOpacity);
 }
 method_typedef(
     TinySquare_LayerBGCL___init__,
-    "__init__", "tType,tColor,chOpacity,ptBGCLMask,tRegion,tBorderOpacity,tCornerOpacity"
+    "__init__", "type,color,opacity,bgCLMask,region,borderOpacity,cornerOpacity"
 );
 
 class_def(TinySquare_LayerBGCL){
@@ -2251,24 +2359,23 @@ Arg *TinySquare_LayerBGCL(PikaObj *self){
 void TinySquare_LayerCell___init__Method(PikaObj *self, Args *args){
     int hwXCount = args_getInt(args, "hwXCount");
     int hwYCount = args_getInt(args, "hwYCount");
-    Arg* ptCells = args_getArg(args, "ptCells");
-    TinySquare_LayerCell___init__(self, hwXCount, hwYCount, ptCells);
+    TinySquare_LayerCell___init__(self, hwXCount, hwYCount);
 }
 method_typedef(
     TinySquare_LayerCell___init__,
-    "__init__", "hwXCount,hwYCount,ptCells"
+    "__init__", "hwXCount,hwYCount"
 );
 
 void TinySquare_LayerCell_draw_cellMethod(PikaObj *self, Args *args){
     int hwX = args_getInt(args, "hwX");
     int hwY = args_getInt(args, "hwY");
-    int tColor = args_getInt(args, "tColor");
-    int chOpacity = args_getInt(args, "chOpacity");
-    TinySquare_LayerCell_draw_cell(self, hwX, hwY, tColor, chOpacity);
+    int color = args_getInt(args, "color");
+    int opacity = args_getInt(args, "opacity");
+    TinySquare_LayerCell_draw_cell(self, hwX, hwY, color, opacity);
 }
 method_typedef(
     TinySquare_LayerCell_draw_cell,
-    "draw_cell", "hwX,hwY,tColor,chOpacity"
+    "draw_cell", "hwX,hwY,color,opacity"
 );
 
 class_def(TinySquare_LayerCell){
@@ -2343,31 +2450,42 @@ Arg *TinySquare_LayerNum(PikaObj *self){
 
 #ifndef PIKA_MODULE_TINYSQUARE_DISABLE
 void TinySquare_LayerText___init__Method(PikaObj *self, Args *args){
-    Arg* ptFont = args_getArg(args, "ptFont");
-    int tColor = args_getInt(args, "tColor");
-    int chOpacity = args_getInt(args, "chOpacity");
-    Arg* tRegion = args_getArg(args, "tRegion");
-    TinySquare_LayerText___init__(self, ptFont, tColor, chOpacity, tRegion);
+    int fontType = args_getInt(args, "fontType");
+    int color = args_getInt(args, "color");
+    int opacity = args_getInt(args, "opacity");
+    PikaObj* region = args_getPtr(args, "region");
+    TinySquare_LayerText___init__(self, fontType, color, opacity, region);
 }
 method_typedef(
     TinySquare_LayerText___init__,
-    "__init__", "ptFont,tColor,chOpacity,tRegion"
+    "__init__", "fontType,color,opacity,region"
 );
 
-void TinySquare_LayerText_print_textMethod(PikaObj *self, Args *args){
+void TinySquare_LayerText_print_numMethod(PikaObj *self, Args *args){
     char* format = args_getStr(args, "format");
-    PikaTuple* val = args_getTuple(args, "val");
-    TinySquare_LayerText_print_text(self, format, val);
+    int number = args_getInt(args, "number");
+    TinySquare_LayerText_print_num(self, format, number);
 }
 method_typedef(
-    TinySquare_LayerText_print_text,
-    "print_text", "format,*val"
+    TinySquare_LayerText_print_num,
+    "print_num", "format,number"
+);
+
+void TinySquare_LayerText_print_strMethod(PikaObj *self, Args *args){
+    char* format = args_getStr(args, "format");
+    char* string = args_getStr(args, "string");
+    TinySquare_LayerText_print_str(self, format, string);
+}
+method_typedef(
+    TinySquare_LayerText_print_str,
+    "print_str", "format,string"
 );
 
 class_def(TinySquare_LayerText){
     __BEFORE_MOETHOD_DEF
     method_def(TinySquare_LayerText___init__, 904762485),
-    method_def(TinySquare_LayerText_print_text, 1775039926),
+    method_def(TinySquare_LayerText_print_num, 964836737),
+    method_def(TinySquare_LayerText_print_str, 964842154),
 };
 class_inhert(TinySquare_LayerText, TinyObj);
 
@@ -2386,24 +2504,22 @@ Arg *TinySquare_LayerText(PikaObj *self){
 void TinySquare_LayerUser___init__Method(PikaObj *self, Args *args){
     int hwXCount = args_getInt(args, "hwXCount");
     int hwYCount = args_getInt(args, "hwYCount");
-    Arg* ptUserMap = args_getArg(args, "ptUserMap");
-    Arg* ptFunc = args_getArg(args, "ptFunc");
-    TinySquare_LayerUser___init__(self, hwXCount, hwYCount, ptUserMap, ptFunc);
+    TinySquare_LayerUser___init__(self, hwXCount, hwYCount);
 }
 method_typedef(
     TinySquare_LayerUser___init__,
-    "__init__", "hwXCount,hwYCount,ptUserMap,ptFunc"
+    "__init__", "hwXCount,hwYCount"
 );
 
 void TinySquare_LayerUser_draw_userMapMethod(PikaObj *self, Args *args){
     int hwX = args_getInt(args, "hwX");
     int hwY = args_getInt(args, "hwY");
-    int Idx = args_getInt(args, "Idx");
-    TinySquare_LayerUser_draw_userMap(self, hwX, hwY, Idx);
+    int idx = args_getInt(args, "idx");
+    TinySquare_LayerUser_draw_userMap(self, hwX, hwY, idx);
 }
 method_typedef(
     TinySquare_LayerUser_draw_userMap,
-    "draw_userMap", "hwX,hwY,Idx"
+    "draw_userMap", "hwX,hwY,idx"
 );
 
 class_def(TinySquare_LayerUser){
@@ -2425,6 +2541,82 @@ Arg *TinySquare_LayerUser(PikaObj *self){
 #endif
 
 #ifndef PIKA_MODULE_TINYSQUARE_DISABLE
+void TinySquare_Region___init__Method(PikaObj *self, Args *args){
+    int hwX = args_getInt(args, "hwX");
+    int hwY = args_getInt(args, "hwY");
+    int hwWidth = args_getInt(args, "hwWidth");
+    int hwHeight = args_getInt(args, "hwHeight");
+    TinySquare_Region___init__(self, hwX, hwY, hwWidth, hwHeight);
+}
+method_typedef(
+    TinySquare_Region___init__,
+    "__init__", "hwX,hwY,hwWidth,hwHeight"
+);
+
+class_def(TinySquare_Region){
+    __BEFORE_MOETHOD_DEF
+    method_def(TinySquare_Region___init__, 904762485),
+};
+class_inhert(TinySquare_Region, TinyObj);
+
+PikaObj *New_TinySquare_Region(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, TinySquare_Region);
+    return self;
+}
+
+Arg *TinySquare_Region(PikaObj *self){
+    return obj_newObjInPackage(New_TinySquare_Region);
+}
+#endif
+
+#ifndef PIKA_MODULE_TINYSQUARE_DISABLE
+void TinySquare_Screen___init__Method(PikaObj *self, Args *args){
+    TinySquare_Screen___init__(self);
+}
+method_typedef(
+    TinySquare_Screen___init__,
+    "__init__", ""
+);
+
+void TinySquare_Screen_heightMethod(PikaObj *self, Args *args){
+    int res = TinySquare_Screen_height(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    TinySquare_Screen_height,
+    "height", ""
+);
+
+void TinySquare_Screen_widthMethod(PikaObj *self, Args *args){
+    int res = TinySquare_Screen_width(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    TinySquare_Screen_width,
+    "width", ""
+);
+
+class_def(TinySquare_Screen){
+    __BEFORE_MOETHOD_DEF
+    method_def(TinySquare_Screen_height, 30836958),
+    method_def(TinySquare_Screen_width, 279163045),
+    method_def(TinySquare_Screen___init__, 904762485),
+};
+class_inhert(TinySquare_Screen, TinyObj);
+
+PikaObj *New_TinySquare_Screen(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, TinySquare_Screen);
+    return self;
+}
+
+Arg *TinySquare_Screen(PikaObj *self){
+    return obj_newObjInPackage(New_TinySquare_Screen);
+}
+#endif
+
+#ifndef PIKA_MODULE_TINYSQUARE_DISABLE
 void TinySquare_Stage___init__Method(PikaObj *self, Args *args){
     TinySquare_Stage___init__(self);
 }
@@ -2433,51 +2625,41 @@ method_typedef(
     "__init__", ""
 );
 
-void TinySquare_Stage_get_layerMethod(PikaObj *self, Args *args){
-    int chLayerID = args_getInt(args, "chLayerID");
-    Arg* res = TinySquare_Stage_get_layer(self, chLayerID);
-    method_returnArg(args, res);
-}
-method_typedef(
-    TinySquare_Stage_get_layer,
-    "get_layer", "chLayerID"
-);
-
 void TinySquare_Stage_invisible_layerMethod(PikaObj *self, Args *args){
-    int chLayerID = args_getInt(args, "chLayerID");
-    TinySquare_Stage_invisible_layer(self, chLayerID);
+    int layerID = args_getInt(args, "layerID");
+    TinySquare_Stage_invisible_layer(self, layerID);
 }
 method_typedef(
     TinySquare_Stage_invisible_layer,
-    "invisible_layer", "chLayerID"
+    "invisible_layer", "layerID"
 );
 
 void TinySquare_Stage_register_layerMethod(PikaObj *self, Args *args){
-    Arg* ptLayer = args_getArg(args, "ptLayer");
-    int res = TinySquare_Stage_register_layer(self, ptLayer);
+    PikaObj* layer = args_getPtr(args, "layer");
+    int res = TinySquare_Stage_register_layer(self, layer);
     method_returnInt(args, res);
 }
 method_typedef(
     TinySquare_Stage_register_layer,
-    "register_layer", "ptLayer"
+    "register_layer", "layer"
 );
 
 void TinySquare_Stage_remove_layerMethod(PikaObj *self, Args *args){
-    int chLayerID = args_getInt(args, "chLayerID");
-    TinySquare_Stage_remove_layer(self, chLayerID);
+    int layerID = args_getInt(args, "layerID");
+    TinySquare_Stage_remove_layer(self, layerID);
 }
 method_typedef(
     TinySquare_Stage_remove_layer,
-    "remove_layer", "chLayerID"
+    "remove_layer", "layerID"
 );
 
 void TinySquare_Stage_visible_layerMethod(PikaObj *self, Args *args){
-    int chLayerID = args_getInt(args, "chLayerID");
-    TinySquare_Stage_visible_layer(self, chLayerID);
+    int layerID = args_getInt(args, "layerID");
+    TinySquare_Stage_visible_layer(self, layerID);
 }
 method_typedef(
     TinySquare_Stage_visible_layer,
-    "visible_layer", "chLayerID"
+    "visible_layer", "layerID"
 );
 
 class_def(TinySquare_Stage){
@@ -2487,7 +2669,6 @@ class_def(TinySquare_Stage){
     method_def(TinySquare_Stage_visible_layer, 791456431),
     method_def(TinySquare_Stage___init__, 904762485),
     method_def(TinySquare_Stage_invisible_layer, 1228623686),
-    method_def(TinySquare_Stage_get_layer, 1291727201),
 };
 class_inhert(TinySquare_Stage, TinyObj);
 

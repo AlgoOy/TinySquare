@@ -17,7 +17,7 @@
 
 PikaObj *New_TinySquare_LayerUser(Args *args);
 
-void TinySquare_LayerUser___init__(PikaObj *self, int hwXCount, int hwYCount, Arg* ptUserMap, Arg* ptFunc);
-void TinySquare_LayerUser_draw_userMap(PikaObj *self, int hwX, int hwY, int Idx);
+void TinySquare_LayerUser___init__(PikaObj *self, int hwXCount, int hwYCount);
+void TinySquare_LayerUser_draw_userMap(PikaObj *self, int hwX, int hwY, int idx);
 
 #endif

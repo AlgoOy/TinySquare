@@ -18,10 +18,9 @@
 PikaObj *New_TinySquare_Stage(Args *args);
 
 void TinySquare_Stage___init__(PikaObj *self);
-Arg* TinySquare_Stage_get_layer(PikaObj *self, int chLayerID);
-void TinySquare_Stage_invisible_layer(PikaObj *self, int chLayerID);
-int TinySquare_Stage_register_layer(PikaObj *self, Arg* ptLayer);
-void TinySquare_Stage_remove_layer(PikaObj *self, int chLayerID);
-void TinySquare_Stage_visible_layer(PikaObj *self, int chLayerID);
+void TinySquare_Stage_invisible_layer(PikaObj *self, int layerID);
+int TinySquare_Stage_register_layer(PikaObj *self, PikaObj* layer);
+void TinySquare_Stage_remove_layer(PikaObj *self, int layerID);
+void TinySquare_Stage_visible_layer(PikaObj *self, int layerID);
 
 #endif
