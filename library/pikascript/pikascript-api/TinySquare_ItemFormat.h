@@ -9,15 +9,14 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __TinySquare_LayerMenu__H
-#define __TinySquare_LayerMenu__H
+#ifndef __TinySquare_ItemFormat__H
+#define __TinySquare_ItemFormat__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_TinySquare_LayerMenu(Args *args);
+PikaObj *New_TinySquare_ItemFormat(Args *args);
 
-void TinySquare_LayerMenu___init__(PikaObj *self, PikaObj* strTable, int itemWidth, int itemHeight, PikaObj* itemNormal, PikaObj* itemSelect);
-int TinySquare_LayerMenu_get_idx(PikaObj *self);
+void TinySquare_ItemFormat___init__(PikaObj *self, int boxColor, int textColor, int opacity);
 
 #endif

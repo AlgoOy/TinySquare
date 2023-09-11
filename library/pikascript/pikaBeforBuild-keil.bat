@@ -1,3 +1,5 @@
+cd /d %~dp0
+
 cd ../pikascript
 
 if not exist pikascript-core (

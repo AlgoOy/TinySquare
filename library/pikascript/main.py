@@ -1,7 +1,8 @@
 import PikaStdLib
 import TinySquare
-print('hello pikapython!')
-mem = PikaStdLib.MemChecker()
-print('mem used max:')
-mem.max()
 
+print('Hello, TinySquare!')
+
+print('mem used max:')
+mem = PikaStdLib.MemChecker()
+mem.max()

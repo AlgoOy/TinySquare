@@ -9,15 +9,16 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __TinySquare_LayerMenu__H
-#define __TinySquare_LayerMenu__H
+#ifndef __TinySquare_Engine__H
+#define __TinySquare_Engine__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_TinySquare_LayerMenu(Args *args);
+PikaObj *New_TinySquare_Engine(Args *args);
 
-void TinySquare_LayerMenu___init__(PikaObj *self, PikaObj* strTable, int itemWidth, int itemHeight, PikaObj* itemNormal, PikaObj* itemSelect);
-int TinySquare_LayerMenu_get_idx(PikaObj *self);
+void TinySquare_Engine___init__(PikaObj *self);
+void TinySquare_Engine_init_evt(PikaObj *self, int priority, int stackSize, int timeSlice);
+void TinySquare_Engine_init_gfx(PikaObj *self, int priority, int stackSize, int timeSlice);
 
 #endif

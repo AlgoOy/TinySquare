@@ -61,9 +61,13 @@
 #include "TinyObj.h"
 #include "TinySquare_CornerOpacity.h"
 #include "TinyObj.h"
+#include "TinySquare_Engine.h"
+#include "TinyObj.h"
 #include "TinySquare_EvtKey.h"
 #include "TinyObj.h"
 #include "TinySquare_Gfx.h"
+#include "TinyObj.h"
+#include "TinySquare_ItemFormat.h"
 #include "TinyObj.h"
 #include "TinySquare_LayerBG.h"
 #include "TinyObj.h"
@@ -1974,6 +1978,15 @@ method_typedef(
     "CornerOpacity", ""
 );
 
+void TinySquare_EngineMethod(PikaObj *self, Args *args){
+    Arg* res = TinySquare_Engine(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    TinySquare_Engine,
+    "Engine", ""
+);
+
 void TinySquare_EvtKeyMethod(PikaObj *self, Args *args){
     Arg* res = TinySquare_EvtKey(self);
     method_returnArg(args, res);
@@ -1990,6 +2003,15 @@ void TinySquare_GfxMethod(PikaObj *self, Args *args){
 method_typedef(
     TinySquare_Gfx,
     "Gfx", ""
+);
+
+void TinySquare_ItemFormatMethod(PikaObj *self, Args *args){
+    Arg* res = TinySquare_ItemFormat(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    TinySquare_ItemFormat,
+    "ItemFormat", ""
 );
 
 void TinySquare_LayerBGMethod(PikaObj *self, Args *args){
@@ -2082,45 +2104,16 @@ method_typedef(
     "Stage", ""
 );
 
-void TinySquare___init__Method(PikaObj *self, Args *args){
-    TinySquare___init__(self);
-}
-method_typedef(
-    TinySquare___init__,
-    "__init__", ""
-);
-
-void TinySquare_init_evtMethod(PikaObj *self, Args *args){
-    int priority = args_getInt(args, "priority");
-    int stackSize = args_getInt(args, "stackSize");
-    int timeSlice = args_getInt(args, "timeSlice");
-    TinySquare_init_evt(self, priority, stackSize, timeSlice);
-}
-method_typedef(
-    TinySquare_init_evt,
-    "init_evt", "priority,stackSize,timeSlice"
-);
-
-void TinySquare_init_gfxMethod(PikaObj *self, Args *args){
-    int priority = args_getInt(args, "priority");
-    int stackSize = args_getInt(args, "stackSize");
-    int timeSlice = args_getInt(args, "timeSlice");
-    TinySquare_init_gfx(self, priority, stackSize, timeSlice);
-}
-method_typedef(
-    TinySquare_init_gfx,
-    "init_gfx", "priority,stackSize,timeSlice"
-);
-
 class_def(TinySquare){
     __BEFORE_MOETHOD_DEF
     constructor_def(TinySquare_CornerOpacity, 69904935),
     constructor_def(TinySquare_Gfx, 193457802),
     constructor_def(TinySquare_BorderOpacity, 207746396),
     constructor_def(TinySquare_Stage, 236861497),
+    constructor_def(TinySquare_Engine, 819185627),
     constructor_def(TinySquare_EvtKey, 829107229),
-    method_def(TinySquare___init__, 904762485),
     constructor_def(TinySquare_LayerBG, 1226109099),
+    constructor_def(TinySquare_ItemFormat, 1291545821),
     constructor_def(TinySquare_Region, 1317272489),
     constructor_def(TinySquare_Screen, 1354426661),
     constructor_def(TinySquare_LayerBGCL, 1645465690),
@@ -2129,8 +2122,6 @@ class_def(TinySquare){
     constructor_def(TinySquare_LayerText, 1646147015),
     constructor_def(TinySquare_LayerUser, 1646197569),
     constructor_def(TinySquare_LayerNum, 1806909298),
-    method_def(TinySquare_init_evt, 1938837255),
-    method_def(TinySquare_init_gfx, 1938838909),
 };
 class_inhert(TinySquare, TinyObj);
 
@@ -2198,6 +2189,56 @@ PikaObj *New_TinySquare_CornerOpacity(Args *args){
 
 Arg *TinySquare_CornerOpacity(PikaObj *self){
     return obj_newObjInPackage(New_TinySquare_CornerOpacity);
+}
+#endif
+
+#ifndef PIKA_MODULE_TINYSQUARE_DISABLE
+void TinySquare_Engine___init__Method(PikaObj *self, Args *args){
+    TinySquare_Engine___init__(self);
+}
+method_typedef(
+    TinySquare_Engine___init__,
+    "__init__", ""
+);
+
+void TinySquare_Engine_init_evtMethod(PikaObj *self, Args *args){
+    int priority = args_getInt(args, "priority");
+    int stackSize = args_getInt(args, "stackSize");
+    int timeSlice = args_getInt(args, "timeSlice");
+    TinySquare_Engine_init_evt(self, priority, stackSize, timeSlice);
+}
+method_typedef(
+    TinySquare_Engine_init_evt,
+    "init_evt", "priority,stackSize,timeSlice"
+);
+
+void TinySquare_Engine_init_gfxMethod(PikaObj *self, Args *args){
+    int priority = args_getInt(args, "priority");
+    int stackSize = args_getInt(args, "stackSize");
+    int timeSlice = args_getInt(args, "timeSlice");
+    TinySquare_Engine_init_gfx(self, priority, stackSize, timeSlice);
+}
+method_typedef(
+    TinySquare_Engine_init_gfx,
+    "init_gfx", "priority,stackSize,timeSlice"
+);
+
+class_def(TinySquare_Engine){
+    __BEFORE_MOETHOD_DEF
+    method_def(TinySquare_Engine___init__, 904762485),
+    method_def(TinySquare_Engine_init_evt, 1938837255),
+    method_def(TinySquare_Engine_init_gfx, 1938838909),
+};
+class_inhert(TinySquare_Engine, TinyObj);
+
+PikaObj *New_TinySquare_Engine(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, TinySquare_Engine);
+    return self;
+}
+
+Arg *TinySquare_Engine(PikaObj *self){
+    return obj_newObjInPackage(New_TinySquare_Engine);
 }
 #endif
 
@@ -2290,6 +2331,35 @@ PikaObj *New_TinySquare_Gfx(Args *args){
 
 Arg *TinySquare_Gfx(PikaObj *self){
     return obj_newObjInPackage(New_TinySquare_Gfx);
+}
+#endif
+
+#ifndef PIKA_MODULE_TINYSQUARE_DISABLE
+void TinySquare_ItemFormat___init__Method(PikaObj *self, Args *args){
+    int boxColor = args_getInt(args, "boxColor");
+    int textColor = args_getInt(args, "textColor");
+    int opacity = args_getInt(args, "opacity");
+    TinySquare_ItemFormat___init__(self, boxColor, textColor, opacity);
+}
+method_typedef(
+    TinySquare_ItemFormat___init__,
+    "__init__", "boxColor,textColor,opacity"
+);
+
+class_def(TinySquare_ItemFormat){
+    __BEFORE_MOETHOD_DEF
+    method_def(TinySquare_ItemFormat___init__, 904762485),
+};
+class_inhert(TinySquare_ItemFormat, TinyObj);
+
+PikaObj *New_TinySquare_ItemFormat(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, TinySquare_ItemFormat);
+    return self;
+}
+
+Arg *TinySquare_ItemFormat(PikaObj *self){
+    return obj_newObjInPackage(New_TinySquare_ItemFormat);
 }
 #endif
 
@@ -2398,16 +2468,31 @@ Arg *TinySquare_LayerCell(PikaObj *self){
 
 #ifndef PIKA_MODULE_TINYSQUARE_DISABLE
 void TinySquare_LayerMenu___init__Method(PikaObj *self, Args *args){
-    TinySquare_LayerMenu___init__(self);
+    PikaObj* strTable = args_getPtr(args, "strTable");
+    int itemWidth = args_getInt(args, "itemWidth");
+    int itemHeight = args_getInt(args, "itemHeight");
+    PikaObj* itemNormal = args_getPtr(args, "itemNormal");
+    PikaObj* itemSelect = args_getPtr(args, "itemSelect");
+    TinySquare_LayerMenu___init__(self, strTable, itemWidth, itemHeight, itemNormal, itemSelect);
 }
 method_typedef(
     TinySquare_LayerMenu___init__,
-    "__init__", ""
+    "__init__", "strTable,itemWidth,itemHeight,itemNormal,itemSelect"
+);
+
+void TinySquare_LayerMenu_get_idxMethod(PikaObj *self, Args *args){
+    int res = TinySquare_LayerMenu_get_idx(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    TinySquare_LayerMenu_get_idx,
+    "get_idx", ""
 );
 
 class_def(TinySquare_LayerMenu){
     __BEFORE_MOETHOD_DEF
     method_def(TinySquare_LayerMenu___init__, 904762485),
+    method_def(TinySquare_LayerMenu_get_idx, 1886393609),
 };
 class_inhert(TinySquare_LayerMenu, TinyObj);
 
@@ -2424,16 +2509,29 @@ Arg *TinySquare_LayerMenu(PikaObj *self){
 
 #ifndef PIKA_MODULE_TINYSQUARE_DISABLE
 void TinySquare_LayerNum___init__Method(PikaObj *self, Args *args){
-    TinySquare_LayerNum___init__(self);
+    int number = args_getInt(args, "number");
+    int bgColor = args_getInt(args, "bgColor");
+    int textColor = args_getInt(args, "textColor");
+    TinySquare_LayerNum___init__(self, number, bgColor, textColor);
 }
 method_typedef(
     TinySquare_LayerNum___init__,
-    "__init__", ""
+    "__init__", "number,bgColor,textColor"
+);
+
+void TinySquare_LayerNum_get_idxMethod(PikaObj *self, Args *args){
+    int res = TinySquare_LayerNum_get_idx(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    TinySquare_LayerNum_get_idx,
+    "get_idx", ""
 );
 
 class_def(TinySquare_LayerNum){
     __BEFORE_MOETHOD_DEF
     method_def(TinySquare_LayerNum___init__, 904762485),
+    method_def(TinySquare_LayerNum_get_idx, 1886393609),
 };
 class_inhert(TinySquare_LayerNum, TinyObj);
 

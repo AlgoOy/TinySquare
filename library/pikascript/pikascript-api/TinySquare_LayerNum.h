@@ -17,6 +17,7 @@
 
 PikaObj *New_TinySquare_LayerNum(Args *args);
 
-void TinySquare_LayerNum___init__(PikaObj *self);
+void TinySquare_LayerNum___init__(PikaObj *self, int number, int bgColor, int textColor);
+int TinySquare_LayerNum_get_idx(PikaObj *self);
 
 #endif
