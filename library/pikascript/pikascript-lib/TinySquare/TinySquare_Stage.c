@@ -2,8 +2,15 @@
 #include "tnsq_gfx_stage.h"
 #include "arm_2d_disp_adapters.h"
 
+static uint8_t disp0_initialized = 0;
+
 void TinySquare_Stage___init__(PikaObj *self)
 {
+    if (!disp0_initialized)
+    {
+        disp_adapter0_init();
+        disp0_initialized = 1;
+    }
     tnsq_gfx_stage_cfg_t tCFG = {
         .ptDispAdapter.ptPlayer = &DISP0_ADAPTER,
         .ptDispAdapter.ptPlayerTask = disp_adapter0_task,

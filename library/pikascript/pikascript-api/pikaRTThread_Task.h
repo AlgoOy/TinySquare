@@ -9,16 +9,14 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __TinySquare_Engine__H
-#define __TinySquare_Engine__H
+#ifndef __pikaRTThread_Task__H
+#define __pikaRTThread_Task__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_TinySquare_Engine(Args *args);
+PikaObj *New_pikaRTThread_Task(Args *args);
 
-void TinySquare_Engine___init__(PikaObj *self);
-void TinySquare_Engine_init_evt(PikaObj *self, int priority, int stackSize, int timeSlice);
-void TinySquare_Engine_init_gfx(PikaObj *self, int priority, int stackSize, int timeSlice);
+void pikaRTThread_Task_platformGetTick(PikaObj *self);
 
 #endif

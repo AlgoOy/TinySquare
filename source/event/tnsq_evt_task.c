@@ -52,7 +52,6 @@ void tnsq_evt_task_entry(void *ptParam)
     
     while (1)
     {
-        printf("evt\n");
         tnsq_evt_itc_key_handler();
     }
 }

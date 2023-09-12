@@ -1,30 +1,11 @@
 #include "pikaScript.h"
 #include "tnsq_gfx_layer_text.h"
-#include "number_list.h"
+#include "TinySquare_Common.h"
 
 void TinySquare_LayerText___init__(PikaObj *self, int fontType, int color, int opacity, PikaObj* region)
 {
-    arm_2d_font_t *ptFont = (arm_2d_font_t *)&ARM_2D_FONT_6x8;
-    switch (fontType)
-    {
-    case 0:
-        ptFont = (arm_2d_font_t *)&ARM_2D_FONT_6x8;
-        break;
-    case 1:
-        ptFont = (arm_2d_font_t *)&ARM_2D_FONT_16x24;
-        break;
-    case 2:
-        ptFont = (arm_2d_font_t *)&ARM_2D_FONT_A2_DIGITS_ONLY;
-        break;
-    case 3:
-        ptFont = (arm_2d_font_t *)&ARM_2D_FONT_A4_DIGITS_ONLY;
-        break;
-    case 4:
-        ptFont = (arm_2d_font_t *)&ARM_2D_FONT_A8_DIGITS_ONLY;
-        break;
-    }
     tnsq_gfx_layer_text_cfg_t tCFG = {
-        .ptFont = ptFont,
+        .ptFont = get_font_ptr(fontType),
         .tColour.tForeground = color,
         .chOpacity = opacity,
         .tRegion = *(arm_2d_region_t *)obj_getStruct(region, "_self"),

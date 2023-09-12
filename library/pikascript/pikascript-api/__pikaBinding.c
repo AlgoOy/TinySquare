@@ -20,6 +20,7 @@
 #include "PikaStdLib_SysObj.h"
 #include "PikaStdLib.h"
 #include "TinySquare.h"
+#include "pikaRTThread.h"
 #include "PikaStdData.h"
 #include "TinyObj.h"
 #include "PikaStdData_ByteArray.h"
@@ -61,8 +62,6 @@
 #include "TinyObj.h"
 #include "TinySquare_CornerOpacity.h"
 #include "TinyObj.h"
-#include "TinySquare_Engine.h"
-#include "TinyObj.h"
 #include "TinySquare_EvtKey.h"
 #include "TinyObj.h"
 #include "TinySquare_Gfx.h"
@@ -88,6 +87,14 @@
 #include "TinySquare_Screen.h"
 #include "TinyObj.h"
 #include "TinySquare_Stage.h"
+#include "TinyObj.h"
+#include "pikaRTThread.h"
+#include "TinyObj.h"
+#include "pikaRTThread_Task.h"
+#include "PikaStdTask_Task.h"
+#include "pikaRTThread_Thread.h"
+#include "TinyObj.h"
+#include "pika_libc.h"
 #include "TinyObj.h"
 
 #ifndef PIKA_MODULE_PIKADEBUG_DISABLE
@@ -158,6 +165,7 @@ PikaObj *New_PikaMain(Args *args){
     PikaObj *self = New_PikaStdLib_SysObj(args);
     obj_newObj(self, "PikaStdLib", "PikaStdLib", New_PikaStdLib);
     obj_newObj(self, "TinySquare", "TinySquare", New_TinySquare);
+    obj_newObj(self, "pikaRTThread", "pikaRTThread", New_pikaRTThread);
     obj_setClass(self, PikaMain);
     return self;
 }
@@ -1978,15 +1986,6 @@ method_typedef(
     "CornerOpacity", ""
 );
 
-void TinySquare_EngineMethod(PikaObj *self, Args *args){
-    Arg* res = TinySquare_Engine(self);
-    method_returnArg(args, res);
-}
-method_typedef(
-    TinySquare_Engine,
-    "Engine", ""
-);
-
 void TinySquare_EvtKeyMethod(PikaObj *self, Args *args){
     Arg* res = TinySquare_EvtKey(self);
     method_returnArg(args, res);
@@ -2077,6 +2076,18 @@ method_typedef(
     "LayerUser", ""
 );
 
+void TinySquare_RGBMethod(PikaObj *self, Args *args){
+    int r = args_getInt(args, "r");
+    int g = args_getInt(args, "g");
+    int b = args_getInt(args, "b");
+    int res = TinySquare_RGB(self, r, g, b);
+    method_returnInt(args, res);
+}
+method_typedef(
+    TinySquare_RGB,
+    "RGB", "r,g,b"
+);
+
 void TinySquare_RegionMethod(PikaObj *self, Args *args){
     Arg* res = TinySquare_Region(self);
     method_returnArg(args, res);
@@ -2104,14 +2115,23 @@ method_typedef(
     "Stage", ""
 );
 
+void TinySquare___init__Method(PikaObj *self, Args *args){
+    TinySquare___init__(self);
+}
+method_typedef(
+    TinySquare___init__,
+    "__init__", ""
+);
+
 class_def(TinySquare){
     __BEFORE_MOETHOD_DEF
     constructor_def(TinySquare_CornerOpacity, 69904935),
     constructor_def(TinySquare_Gfx, 193457802),
+    method_def(TinySquare_RGB, 193468704),
     constructor_def(TinySquare_BorderOpacity, 207746396),
     constructor_def(TinySquare_Stage, 236861497),
-    constructor_def(TinySquare_Engine, 819185627),
     constructor_def(TinySquare_EvtKey, 829107229),
+    method_def(TinySquare___init__, 904762485),
     constructor_def(TinySquare_LayerBG, 1226109099),
     constructor_def(TinySquare_ItemFormat, 1291545821),
     constructor_def(TinySquare_Region, 1317272489),
@@ -2189,56 +2209,6 @@ PikaObj *New_TinySquare_CornerOpacity(Args *args){
 
 Arg *TinySquare_CornerOpacity(PikaObj *self){
     return obj_newObjInPackage(New_TinySquare_CornerOpacity);
-}
-#endif
-
-#ifndef PIKA_MODULE_TINYSQUARE_DISABLE
-void TinySquare_Engine___init__Method(PikaObj *self, Args *args){
-    TinySquare_Engine___init__(self);
-}
-method_typedef(
-    TinySquare_Engine___init__,
-    "__init__", ""
-);
-
-void TinySquare_Engine_init_evtMethod(PikaObj *self, Args *args){
-    int priority = args_getInt(args, "priority");
-    int stackSize = args_getInt(args, "stackSize");
-    int timeSlice = args_getInt(args, "timeSlice");
-    TinySquare_Engine_init_evt(self, priority, stackSize, timeSlice);
-}
-method_typedef(
-    TinySquare_Engine_init_evt,
-    "init_evt", "priority,stackSize,timeSlice"
-);
-
-void TinySquare_Engine_init_gfxMethod(PikaObj *self, Args *args){
-    int priority = args_getInt(args, "priority");
-    int stackSize = args_getInt(args, "stackSize");
-    int timeSlice = args_getInt(args, "timeSlice");
-    TinySquare_Engine_init_gfx(self, priority, stackSize, timeSlice);
-}
-method_typedef(
-    TinySquare_Engine_init_gfx,
-    "init_gfx", "priority,stackSize,timeSlice"
-);
-
-class_def(TinySquare_Engine){
-    __BEFORE_MOETHOD_DEF
-    method_def(TinySquare_Engine___init__, 904762485),
-    method_def(TinySquare_Engine_init_evt, 1938837255),
-    method_def(TinySquare_Engine_init_gfx, 1938838909),
-};
-class_inhert(TinySquare_Engine, TinyObj);
-
-PikaObj *New_TinySquare_Engine(Args *args){
-    PikaObj *self = New_TinyObj(args);
-    obj_setClass(self, TinySquare_Engine);
-    return self;
-}
-
-Arg *TinySquare_Engine(PikaObj *self){
-    return obj_newObjInPackage(New_TinySquare_Engine);
 }
 #endif
 
@@ -2397,15 +2367,14 @@ void TinySquare_LayerBGCL___init__Method(PikaObj *self, Args *args){
     int type = args_getInt(args, "type");
     int color = args_getInt(args, "color");
     int opacity = args_getInt(args, "opacity");
-    Arg* bgCLMask = args_getArg(args, "bgCLMask");
     PikaObj* region = args_getPtr(args, "region");
     PikaObj* borderOpacity = args_getPtr(args, "borderOpacity");
     PikaObj* cornerOpacity = args_getPtr(args, "cornerOpacity");
-    TinySquare_LayerBGCL___init__(self, type, color, opacity, bgCLMask, region, borderOpacity, cornerOpacity);
+    TinySquare_LayerBGCL___init__(self, type, color, opacity, region, borderOpacity, cornerOpacity);
 }
 method_typedef(
     TinySquare_LayerBGCL___init__,
-    "__init__", "type,color,opacity,bgCLMask,region,borderOpacity,cornerOpacity"
+    "__init__", "type,color,opacity,region,borderOpacity,cornerOpacity"
 );
 
 class_def(TinySquare_LayerBGCL){
@@ -2778,6 +2747,105 @@ PikaObj *New_TinySquare_Stage(Args *args){
 
 Arg *TinySquare_Stage(PikaObj *self){
     return obj_newObjInPackage(New_TinySquare_Stage);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKARTTHREAD_DISABLE
+void pikaRTThread_TaskMethod(PikaObj *self, Args *args){
+    Arg* res = pikaRTThread_Task(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pikaRTThread_Task,
+    "Task", ""
+);
+
+void pikaRTThread_ThreadMethod(PikaObj *self, Args *args){
+    Arg* res = pikaRTThread_Thread(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pikaRTThread_Thread,
+    "Thread", ""
+);
+
+class_def(pikaRTThread){
+    __BEFORE_MOETHOD_DEF
+    constructor_def(pikaRTThread_Thread, 1399491517),
+    constructor_def(pikaRTThread_Task, 2089601848),
+};
+class_inhert(pikaRTThread, TinyObj);
+
+PikaObj *New_pikaRTThread(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pikaRTThread);
+    return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKARTTHREAD_DISABLE
+void pikaRTThread_Task_platformGetTickMethod(PikaObj *self, Args *args){
+    pikaRTThread_Task_platformGetTick(self);
+}
+method_typedef(
+    pikaRTThread_Task_platformGetTick,
+    "platformGetTick", ""
+);
+
+class_def(pikaRTThread_Task){
+    __BEFORE_MOETHOD_DEF
+    method_def(pikaRTThread_Task_platformGetTick, 1897947957),
+};
+class_inhert(pikaRTThread_Task, PikaStdTask_Task);
+
+PikaObj *New_pikaRTThread_Task(Args *args){
+    PikaObj *self = New_PikaStdTask_Task(args);
+    obj_setClass(self, pikaRTThread_Task);
+    return self;
+}
+
+Arg *pikaRTThread_Task(PikaObj *self){
+    return obj_newObjInPackage(New_pikaRTThread_Task);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKARTTHREAD_DISABLE
+void pikaRTThread_Thread_mdelayMethod(PikaObj *self, Args *args){
+    int ms = args_getInt(args, "ms");
+    pikaRTThread_Thread_mdelay(self, ms);
+}
+method_typedef(
+    pikaRTThread_Thread_mdelay,
+    "mdelay", "ms"
+);
+
+class_def(pikaRTThread_Thread){
+    __BEFORE_MOETHOD_DEF
+    method_def(pikaRTThread_Thread_mdelay, 225189473),
+};
+class_inhert(pikaRTThread_Thread, TinyObj);
+
+PikaObj *New_pikaRTThread_Thread(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pikaRTThread_Thread);
+    return self;
+}
+
+Arg *pikaRTThread_Thread(PikaObj *self){
+    return obj_newObjInPackage(New_pikaRTThread_Thread);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LIBC_DISABLE
+class_def(pika_libc){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(pika_libc, TinyObj);
+
+PikaObj *New_pika_libc(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_libc);
+    return self;
 }
 #endif
 

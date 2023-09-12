@@ -11,6 +11,8 @@
 #ifndef ____TINYSQUARE_COMMON_H__
 #define ____TINYSQUARE_COMMON_H__
 
+#include "number_list.h"
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
@@ -29,7 +31,7 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tnsq_pika_task_entry(void *ptParam);
+arm_2d_font_t *get_font_ptr(int idx);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

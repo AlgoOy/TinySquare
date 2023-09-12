@@ -9,14 +9,15 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __TinySquare_LayerBGCL__H
-#define __TinySquare_LayerBGCL__H
+#ifndef __pikaRTThread__H
+#define __pikaRTThread__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_TinySquare_LayerBGCL(Args *args);
+PikaObj *New_pikaRTThread(Args *args);
 
-void TinySquare_LayerBGCL___init__(PikaObj *self, int type, int color, int opacity, PikaObj* region, PikaObj* borderOpacity, PikaObj* cornerOpacity);
+Arg* pikaRTThread_Task(PikaObj *self);
+Arg* pikaRTThread_Thread(PikaObj *self);
 
 #endif
