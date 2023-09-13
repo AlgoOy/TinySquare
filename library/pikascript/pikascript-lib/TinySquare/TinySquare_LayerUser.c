@@ -9,7 +9,7 @@ static void userFunc(uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t b
         switch (idx)
         {
         case 0:
-            draw_round_corner_box(ptTile, &__userFunc, GLCD_COLOR_WHITE, 255, bIsNewFrame);
+            draw_round_corner_box(ptTile, &__userFunc, GLCD_COLOR_WHITE, 0, bIsNewFrame);
             break;
         case 1:
             draw_round_corner_box(ptTile, &__userFunc, GLCD_COLOR_BLACK, 255, bIsNewFrame);

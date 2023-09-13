@@ -328,13 +328,13 @@ static int _tetris_evt_handler(void)
         {
             switch (tKey.tDirection) 
             {
-            case TNSQ_EVT_KEY_DERECTION_UP:
+            case TNSQ_EVT_KEY_DIRECTION_UP:
                 return 1;
-            case TNSQ_EVT_KEY_DERECTION_DOWN:
+            case TNSQ_EVT_KEY_DIRECTION_DOWN:
                 return 2;
-            case TNSQ_EVT_KEY_DERECTION_LEFT:
+            case TNSQ_EVT_KEY_DIRECTION_LEFT:
                 return 3;
-            case TNSQ_EVT_KEY_DERECTION_RIGHT:
+            case TNSQ_EVT_KEY_DIRECTION_RIGHT:
                 return 4;
             default:
                 return 0;

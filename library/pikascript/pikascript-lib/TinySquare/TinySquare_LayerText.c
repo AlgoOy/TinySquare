@@ -16,12 +16,20 @@ void TinySquare_LayerText___init__(PikaObj *self, int fontType, int color, int o
 
 void TinySquare_LayerText_print_str(PikaObj *self, char* format, char* string)
 {
+    if (!strcmp(format, ""))
+    {
+        format = "%s";
+    }
     tnsq_gfx_layer_text_t *_self = obj_getPtr(self, "_self");
     tnsq_gfx_layer_text_printf(_self, format, string);
 }
 
 void TinySquare_LayerText_print_num(PikaObj *self, char* format, int number)
 {
+    if (!strcmp(format, ""))
+    {
+        format = "%d";
+    }
     tnsq_gfx_layer_text_t *_self = obj_getPtr(self, "_self");
     tnsq_gfx_layer_text_printf(_self, format, number);
 }

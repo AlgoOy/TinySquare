@@ -1,30 +1,29 @@
 /*
- * This file is part of the PikaScript project.
- * http://github.com/pikastech/pikascript
+ * This file is part of the PikaPython project.
+ * http://github.com/pikastech/pikapython
  *
  * MIT License
  *
- * Copyright (c) 2021 lyon 李昂 liang6516@outlook.com
+ * Copyright (c) 2021 lyon liang6516@outlook.com
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  */
-
 #include "dataArgs.h"
 #include "PikaObj.h"
 #include "PikaPlatform.h"
@@ -78,13 +77,15 @@ PIKA_RES args_setPtr(Args* self, char* name, void* argPointer) {
 
 PIKA_RES args_setRef(Args* self, char* name, void* argPointer) {
     PIKA_RES errCode = PIKA_RES_OK;
-    Arg* argNew = New_arg(NULL);
-    argNew = arg_setRef(argNew, name, argPointer);
-    args_setArg(self, argNew);
+    Arg* aNewRef = New_arg(NULL);
+    aNewRef = arg_setRef(aNewRef, name, argPointer);
+    // pikaGC_enable(arg_getPtr(aNewRef));
+    args_setArg(self, aNewRef);
     return errCode;
 }
 
 PIKA_RES args_setStr(Args* self, char* name, char* strIn) {
+    pika_assert(NULL != self);
     PIKA_RES errCode = PIKA_RES_OK;
     Arg* argNew = New_arg(NULL);
     argNew = arg_setStr(argNew, name, strIn);
@@ -97,7 +98,7 @@ PIKA_RES args_setStr(Args* self, char* name, char* strIn) {
 
 PIKA_RES args_setNone(Args* self, char* name) {
     PIKA_RES errCode = PIKA_RES_OK;
-    Arg* argNew = arg_newNull();
+    Arg* argNew = arg_newNone();
     arg_setName(argNew, name);
     args_setArg(self, argNew);
     return errCode;
@@ -188,15 +189,25 @@ PIKA_RES args_setInt(Args* self, char* name, int64_t val) {
 int64_t args_getInt(Args* self, char* name) {
     Arg* arg = args_getArg(self, name);
     if (NULL == arg) {
-        return -999999999;
+        return _PIKA_INT_ERR;
     }
     ArgType arg_type = arg_getType(arg);
     if (arg_type == ARG_TYPE_INT) {
         return arg_getInt(arg);
     } else if (arg_type == ARG_TYPE_FLOAT) {
         return (int)arg_getFloat(arg);
+    } else if (arg_type == ARG_TYPE_BOOL) {
+        return arg_getBool(arg);
     }
-    return -999999999;
+    return _PIKA_INT_ERR;
+}
+
+pika_bool args_getBool(Args* self, char* name) {
+    Arg* arg = args_getArg(self, name);
+    if (NULL == arg) {
+        return _PIKA_BOOL_ERR;
+    }
+    return arg_getBool(arg);
 }
 
 int32_t args_getSize(Args* self) {
@@ -215,7 +226,7 @@ ArgType args_getType(Args* self, char* name) {
 pika_float args_getFloat(Args* self, char* name) {
     Arg* arg = args_getArg(self, name);
     if (NULL == arg) {
-        return -999999999.0;
+        return _PIKA_FLOAT_ERR;
     }
     ArgType arg_type = arg_getType(arg);
     if (arg_type == ARG_TYPE_FLOAT) {
@@ -223,7 +234,7 @@ pika_float args_getFloat(Args* self, char* name) {
     } else if (arg_type == ARG_TYPE_INT) {
         return (pika_float)arg_getInt(arg);
     }
-    return -999999999.0;
+    return _PIKA_FLOAT_ERR;
 }
 
 PIKA_RES args_copyArg(Args* self, Arg* argToBeCopy) {
@@ -259,6 +270,9 @@ void* args_getStruct(Args* self, char* name) {
 
 void* args_getHeapStruct(Args* self, char* name) {
     Arg* struct_arg = args_getArg(self, name);
+    if (NULL == struct_arg) {
+        return NULL;
+    }
     return arg_getHeapStruct(struct_arg);
 }
 
@@ -297,7 +311,9 @@ int32_t args_isArgExist(Args* self, char* name) {
     return 0;
 }
 
-PIKA_RES __updateArg(Args* self, Arg* argNew) {
+PIKA_RES _updateArg(Args* self, Arg* argNew) {
+    pika_assert(NULL != self);
+    pika_assert(NULL != argNew);
     LinkNode* nodeToUpdate = NULL;
     LinkNode* nodeNow = self->firstNode;
     LinkNode* priorNode = NULL;
@@ -320,23 +336,21 @@ PIKA_RES __updateArg(Args* self, Arg* argNew) {
     }
 
     arg_deinitHeap((Arg*)nodeToUpdate);
-
-    nodeToUpdate = (LinkNode*)arg_setContent(
-        (Arg*)nodeToUpdate, arg_getContent(argNew), arg_getSize(argNew));
-
     pika_assert(NULL != nodeToUpdate);
-    arg_setType((Arg*)nodeToUpdate, arg_getType(argNew));
+
+    nodeToUpdate = (LinkNode*)arg_copy_content((Arg*)nodeToUpdate, argNew);
+
     // update privior link, because arg_getContent would free origin pointer
     if (NULL == priorNode) {
         self->firstNode = nodeToUpdate;
         res = PIKA_RES_OK;
-        goto exit;
+        goto __exit;
     }
 
     arg_setNext((Arg*)priorNode, (Arg*)nodeToUpdate);
     res = PIKA_RES_OK;
-    goto exit;
-exit:
+    goto __exit;
+__exit:
     if (!arg_isSerialized(argNew)) {
         return res;
     }
@@ -345,7 +359,9 @@ exit:
 }
 
 PIKA_RES args_setArg(Args* self, Arg* arg) {
-    if (PIKA_RES_OK == __updateArg(self, arg)) {
+    pika_assert(NULL != self);
+    pika_assert(NULL != arg);
+    if (PIKA_RES_OK == _updateArg(self, arg)) {
         return PIKA_RES_OK;
     }
     args_pushArg(self, arg);
@@ -424,8 +440,8 @@ Arg* args_getArgByIndex(Args* self, int index) {
 }
 
 PIKA_RES args_foreach(Args* self,
-                      int32_t (*eachHandle)(Arg* argEach, Args* context),
-                      Args* context) {
+                      int32_t (*eachHandle)(Arg* argEach, void* context),
+                      void* context) {
     if (NULL == self->firstNode) {
         return PIKA_RES_OK;
     }
@@ -476,153 +492,6 @@ Args* New_args(Args* args) {
     return self;
 }
 
-PikaDict* New_pikaDict(void) {
-    PikaDict* self = (PikaDict*)New_args(NULL);
-    return self;
-}
-
-PikaList* New_pikaList(void) {
-    PikaList* self = (PikaList*)New_args(NULL);
-    /* set top index for append */
-    args_pushArg_name(&self->super, "top", arg_newInt(0));
-    return self;
-}
-
-PIKA_RES pikaList_setArg(PikaList* self, int index, Arg* arg) {
-    char buff[11];
-    char* i_str = fast_itoa(buff, index);
-    int top = args_getInt(&self->super, "top");
-    if (index > top) {
-        return PIKA_RES_ERR_OUT_OF_RANGE;
-    }
-    Arg* new_arg = arg_copy(arg);
-    new_arg = arg_setName(new_arg, i_str);
-    args_setArg(&self->super, new_arg);
-    return PIKA_RES_OK;
-}
-
-Arg* pikaList_getArg(PikaList* self, int index) {
-    pika_assert(NULL != self);
-    char buff[11];
-    char* i_str = fast_itoa(buff, index);
-    return args_getArg(&self->super, i_str);
-}
-
-int pikaList_getInt(PikaList* self, int index) {
-    Arg* arg = pikaList_getArg(self, index);
-    return arg_getInt(arg);
-}
-
-pika_float pikaList_getFloat(PikaList* self, int index) {
-    Arg* arg = pikaList_getArg(self, index);
-    return arg_getFloat(arg);
-}
-
-char* pikaList_getStr(PikaList* self, int index) {
-    Arg* arg = pikaList_getArg(self, index);
-    return arg_getStr(arg);
-}
-
-void* pikaList_getPtr(PikaList* self, int index) {
-    Arg* arg = pikaList_getArg(self, index);
-    return arg_getPtr(arg);
-}
-
-PIKA_RES pikaList_append(PikaList* self, Arg* arg) {
-    if (NULL == arg) {
-        return PIKA_RES_ERR_ARG_NO_FOUND;
-    }
-    int top = args_getInt(&self->super, "top");
-    char buff[11];
-    char* topStr = fast_itoa(buff, top);
-    Arg* arg_to_push = arg_copy(arg);
-    arg_setName(arg_to_push, topStr);
-    args_setArg(&self->super, arg_to_push);
-    /* top++ */
-    return args_setInt(&self->super, "top", top + 1);
-}
-
-Arg* pikaList_pop(PikaList* list) {
-    int top = args_getInt(&list->super, "top");
-    if (top <= 0) {
-        return NULL;
-    }
-    Arg* arg = pikaList_getArg(list, top - 1);
-    Arg* res = arg_copy(arg);
-    args_removeArg(&list->super, arg);
-    args_setInt(&list->super, "top", top - 1);
-    return res;
-}
-
-PIKA_RES pikaList_remove(PikaList* list, Arg* arg) {
-    int top = args_getInt(&list->super, "top");
-    int i_remove = 0;
-    if (top <= 0) {
-        return PIKA_RES_ERR_OUT_OF_RANGE;
-    }
-    for (int i = 0; i < top; i++) {
-        Arg* arg_now = pikaList_getArg(list, i);
-        if (arg_isEqual(arg_now, arg)) {
-            i_remove = i;
-            args_removeArg(&list->super, arg_now);
-            break;
-        }
-    }
-    /* move args */
-    for (int i = i_remove + 1; i < top; i++) {
-        char buff[11];
-        char* i_str = fast_itoa(buff, i - 1);
-        Arg* arg_now = pikaList_getArg(list, i);
-        arg_setName(arg_now, i_str);
-    }
-    args_setInt(&list->super, "top", top - 1);
-    return PIKA_RES_OK;
-}
-
-PIKA_RES pikaList_insert(PikaList* self, int index, Arg* arg) {
-    int top = args_getInt(&self->super, "top");
-    if (index > top) {
-        return PIKA_RES_ERR_OUT_OF_RANGE;
-    }
-    /* move args */
-    for (int i = top - 1; i >= index; i--) {
-        char buff[11];
-        char* i_str = fast_itoa(buff, i + 1);
-        Arg* arg_now = pikaList_getArg(self, i);
-        arg_setName(arg_now, i_str);
-    }
-    char buff[11];
-    char* i_str = fast_itoa(buff, index);
-    Arg* arg_to_push = arg_copy(arg);
-    arg_setName(arg_to_push, i_str);
-    args_setArg(&self->super, arg_to_push);
-    args_setInt(&self->super, "top", top + 1);
-    return PIKA_RES_OK;
-}
-
-size_t pikaList_getSize(PikaList* self) {
-    pika_assert(NULL != self);
-    return args_getInt(&self->super, "top");
-}
-
-void pikaList_reverse(PikaList* self) {
-    pika_assert(NULL != self);
-    int top = pikaList_getSize(self);
-    for (int i = 0; i < top / 2; i++) {
-        Arg* arg_i = arg_copy(pikaList_getArg(self, i));
-        Arg* arg_top = arg_copy(pikaList_getArg(self, top - i - 1));
-        pikaList_setArg(self, i, arg_top);
-        pikaList_setArg(self, top - i - 1, arg_i);
-        arg_deinit(arg_i);
-        arg_deinit(arg_top);
-    }
-}
-
-PikaTuple* New_pikaTuple(void) {
-    PikaTuple* self = (PikaTuple*)New_pikaList();
-    return self;
-}
-
 char* strsFormatArg(Args* out_buffs, char* fmt, Arg* arg) {
     Args buffs = {0};
     char* res = NULL;
@@ -652,23 +521,23 @@ char* strsFormatArg(Args* out_buffs, char* fmt, Arg* arg) {
     if (ARG_TYPE_INT == type) {
         int val = arg_getInt(arg);
         res = strsFormat(&buffs, PIKA_SPRINTF_BUFF_SIZE, fmt, val);
-        goto exit;
+        goto __exit;
     }
     if (ARG_TYPE_FLOAT == type) {
         pika_float val = arg_getFloat(arg);
         res = strsFormat(&buffs, PIKA_SPRINTF_BUFF_SIZE, fmt, val);
-        goto exit;
+        goto __exit;
     }
     if (ARG_TYPE_STRING == type) {
         char* val = arg_getStr(arg);
         res = strsFormat(&buffs, PIKA_SPRINTF_BUFF_SIZE, fmt, val);
-        goto exit;
+        goto __exit;
     }
     if (ARG_TYPE_NONE == type) {
         res = strsFormat(&buffs, PIKA_SPRINTF_BUFF_SIZE, fmt, "None");
-        goto exit;
+        goto __exit;
     }
-exit:
+__exit:
     if (NULL != res) {
         res = strsCopy(out_buffs, res);
     }
@@ -685,20 +554,20 @@ char* strsFormatList(Args* out_buffs, char* fmt, PikaList* list) {
 
     for (size_t i = 0; i < pikaList_getSize(list); i++) {
         Args buffs_item = {0};
-        Arg* arg = pikaList_getArg(list, i);
+        Arg* arg = pikaList_get(list, i);
         char* fmt_item = strsPopToken(&buffs_item, &fmt_buff, '%');
         fmt_item = strsAppend(&buffs_item, "%", fmt_item);
         char* str_format = strsFormatArg(&buffs_item, fmt_item, arg);
         if (NULL == str_format) {
             strsDeinit(&buffs_item);
-            goto exit;
+            goto __exit;
         }
         res_buff = arg_strAppend(res_buff, str_format);
         strsDeinit(&buffs_item);
     }
-    goto exit;
+    goto __exit;
 
-exit:
+__exit:
     res = strsCopy(out_buffs, arg_getStr(res_buff));
     strsDeinit(&buffs);
     arg_deinit(res_buff);
@@ -711,7 +580,7 @@ PikaTuple* args_getTuple(Args* self, char* name) {
         return NULL;
     }
     PikaObj* tuple_obj = args_getPtr(self, name);
-    return obj_getPtr(tuple_obj, "list");
+    return tuple_obj;
 }
 
 /* dict */
@@ -719,8 +588,8 @@ PikaDict* args_getDict(Args* self, char* name) {
     if (NULL == self) {
         return NULL;
     }
-    PikaObj* tuple_obj = args_getPtr(self, name);
-    return obj_getPtr(tuple_obj, "dict");
+    PikaObj* dict_obj = args_getPtr(self, name);
+    return dict_obj;
 }
 
 char* args_cacheStr(Args* self, char* str) {

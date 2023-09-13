@@ -15,14 +15,14 @@
 #error "Please enable heap in the RT-Thread configuration"
 #endif
 
-int __platform_sprintf(char* buff, char* fmt, ...) {
-    va_list args;
-    int res;
-    va_start(args, fmt);
-    res = rt_vsprintf(buff, fmt, args);
-    va_end(args);
-    return res;
-}
+//int __platform_sprintf(char* buff, char* fmt, ...) {
+//    va_list args;
+//    int res;
+//    va_start(args, fmt);
+//    res = rt_vsprintf(buff, fmt, args);
+//    va_end(args);
+//    return res;
+//}
 int __platform_vsprintf(char* buff, char* fmt, va_list args){
     return rt_vsprintf(buff, fmt, args);
 }

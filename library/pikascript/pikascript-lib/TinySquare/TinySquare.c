@@ -11,6 +11,14 @@ void TinySquare___init__(PikaObj *self)
     obj_setInt(self, "TEXT_FONT_A2_DIGITS_ONLY", 2);
     obj_setInt(self, "TEXT_FONT_A4_DIGITS_ONLY", 3);
     obj_setInt(self, "TEXT_FONT_A8_DIGITS_ONLY", 4);
+    obj_setInt(self, "KEY_DIRECTION_UP", 1);
+    obj_setInt(self, "KEY_DIRECTION_DOWN", 2);
+    obj_setInt(self, "KEY_DIRECTION_LEFT", 3);
+    obj_setInt(self, "KEY_DIRECTION_RIGHT", 4);
+    obj_setInt(self, "KEY_EVENT_UP", 1);
+    obj_setInt(self, "KEY_EVENT_DOWN", 2);
+    obj_setInt(self, "KEY_EVENT_PRESSED", 3);
+    obj_setInt(self, "KEY_EVENT_LONG_PRESSED", 4);
 }
 
 int TinySquare_RGB(PikaObj *self, int r, int g, int b)

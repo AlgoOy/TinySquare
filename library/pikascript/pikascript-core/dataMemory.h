@@ -1,37 +1,39 @@
 /*
- * This file is part of the PikaScript project.
- * http://github.com/pikastech/pikascript
+ * This file is part of the PikaPython project.
+ * http://github.com/pikastech/pikapython
  *
  * MIT License
  *
- * Copyright (c) 2021 lyon 李昂 liang6516@outlook.com
+ * Copyright (c) 2021 lyon liang6516@outlook.com
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  */
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 #ifndef __MEMORY_H__
 #define __MEMORY_H__
 
 #include "PikaPlatform.h"
 #include "PikaVersion.h"
 
-/*! \NOTE: Make sure #include "plooc_class.h" is close to the class definition
+/*! \NOTE: Make sure #include "__pika_ooc.h" is close to the class definition
  */
 #if defined(__DATA_MEMORY_CLASS_IMPLEMENT__)
 #define __PLOOC_CLASS_IMPLEMENT__
@@ -61,12 +63,12 @@ struct Pool{
         uint32_t size;
         uint32_t first_free_block;
         uint32_t purl_free_block_start;
-        PIKA_BOOL inited;
+        pika_bool inited;
     )
 };
 /* clang-format on */
 
-#define aline_by(size, aline) \
+#define align_by(size, aline) \
     (((size) == 0) ? 0 : (((size)-1) / (aline) + 1) * (aline))
 
 void pikaFree(void* mem, uint32_t size);
@@ -87,4 +89,7 @@ void mem_pool_init(void);
 #define mem_align(_size) ((((_size) + 4 - 1) & ~(4 - 1)))
 
 #undef __DATA_MEMORY_CLASS_IMPLEMENT__
+#endif
+#ifdef __cplusplus
+}
 #endif

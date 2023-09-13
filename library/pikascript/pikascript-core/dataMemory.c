@@ -1,35 +1,35 @@
 /*
- * This file is part of the PikaScript project.
- * http://github.com/pikastech/pikascript
+ * This file is part of the PikaPython project.
+ * http://github.com/pikastech/pikapython
  *
  * MIT License
  *
- * Copyright (c) 2021 lyon 李昂 liang6516@outlook.com
+ * Copyright (c) 2021 lyon liang6516@outlook.com
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  */
 
 #define __DATA_MEMORY_CLASS_IMPLEMENT__
 #include "dataMemory.h"
 #include "PikaPlatform.h"
 
-volatile PikaMemInfo pikaMemInfo = {0};
+volatile PikaMemInfo g_PikaMemInfo = {0};
 
 void* pikaMalloc(uint32_t size) {
     /* pika memory lock */
@@ -43,15 +43,16 @@ void* pikaMalloc(uint32_t size) {
     size = mem_align(size);
 #endif
 
-    pikaMemInfo.heapUsed += size;
-    if (pikaMemInfo.heapUsedMax < pikaMemInfo.heapUsed) {
-        pikaMemInfo.heapUsedMax = pikaMemInfo.heapUsed;
+    g_PikaMemInfo.heapUsed += size;
+    if (g_PikaMemInfo.heapUsedMax < g_PikaMemInfo.heapUsed) {
+        g_PikaMemInfo.heapUsedMax = g_PikaMemInfo.heapUsed;
     }
     pika_platform_disable_irq_handle();
     void* mem = pika_user_malloc(size);
     pika_platform_enable_irq_handle();
     if (NULL == mem) {
-        pika_platform_printf("Error: No heap space! Please reset the device.\r\n");
+        pika_platform_printf(
+            "Error: No heap space! Please reset the device.\r\n");
         while (1) {
         }
     }
@@ -72,22 +73,23 @@ void pikaFree(void* mem, uint32_t size) {
     pika_platform_disable_irq_handle();
     pika_user_free(mem, size);
     pika_platform_enable_irq_handle();
-    pikaMemInfo.heapUsed -= size;
+    g_PikaMemInfo.heapUsed -= size;
 }
 
 uint32_t pikaMemNow(void) {
-    return pikaMemInfo.heapUsed;
+    return g_PikaMemInfo.heapUsed;
     // return 0;
 }
 
 uint32_t pikaMemMax(void) {
-    return pikaMemInfo.heapUsedMax;
+    return g_PikaMemInfo.heapUsedMax;
 }
 
 void pikaMemMaxReset(void) {
-    pikaMemInfo.heapUsedMax = 0;
+    g_PikaMemInfo.heapUsedMax = 0;
 }
 
+#if PIKA_POOL_ENABLE
 uint32_t pool_getBlockIndex_byMemSize(Pool* pool, uint32_t size) {
     if (0 == size) {
         return 0;
@@ -108,7 +110,7 @@ Pool pool_init(uint32_t size, uint8_t aline) {
     pool.mem = pika_platform_malloc(pool_aline(&pool, pool.size));
     pool.first_free_block = 0;
     pool.purl_free_block_start = 0;
-    pool.inited = PIKA_TRUE;
+    pool.inited = pika_true;
     return pool;
 }
 
@@ -137,7 +139,7 @@ void pool_printBlocks(Pool* pool, uint32_t size_min, uint32_t size_max) {
             break;
         }
         pika_platform_printf("0x%x\t: 0x%d", i * pool->aline,
-                          (i + 15) * pool->aline);
+                             (i + 15) * pool->aline);
         for (uint32_t j = i; j < i + 16; j += 4) {
             if (is_end) {
                 break;
@@ -287,7 +289,6 @@ void bitmap_deinit(BitMap bitmap) {
     pika_platform_free(bitmap);
 }
 
-#if PIKA_POOL_ENABLE
 Pool pikaPool = {0};
 void* pika_user_malloc(size_t size) {
     return pool_malloc(&pikaPool, size);
@@ -307,9 +308,10 @@ void mem_pool_init(void) {
 
 void _mem_cache_deinit(void) {
 #if PIKA_ARG_CACHE_ENABLE
-    while (pikaMemInfo.cache_pool_top) {
-        pika_user_free(pikaMemInfo.cache_pool[pikaMemInfo.cache_pool_top - 1], 0);
-        pikaMemInfo.cache_pool_top--;
+    while (g_PikaMemInfo.cache_pool_top) {
+        pika_user_free(
+            g_PikaMemInfo.cache_pool[g_PikaMemInfo.cache_pool_top - 1], 0);
+        g_PikaMemInfo.cache_pool_top--;
     }
 #endif
 }

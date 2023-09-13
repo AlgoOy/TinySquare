@@ -104,13 +104,13 @@ void tnsq_gfx_layer_num_evt_handle(tnsq_gfx_layer_num_t *ptThis)
         {
             switch (tKey.tDirection) 
             {
-            case TNSQ_EVT_KEY_DERECTION_UP:
+            case TNSQ_EVT_KEY_DIRECTION_UP:
                 numer_list_move_selection(&this.tNumber, -1, this.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DERECTION_DOWN:
+            case TNSQ_EVT_KEY_DIRECTION_DOWN:
                 numer_list_move_selection(&this.tNumber, 1, this.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DERECTION_RIGHT:
+            case TNSQ_EVT_KEY_DIRECTION_RIGHT:
                 this.chSelectedNum = this.tNumber.use_as____arm_2d_list_core_t.Runtime.hwSelection;
                 return;
             default:

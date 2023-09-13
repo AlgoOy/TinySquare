@@ -1,32 +1,32 @@
 /*
- * This file is part of the PikaScript project.
- * http://github.com/pikastech/pikascript
+ * This file is part of the PikaPython project.
+ * http://github.com/pikastech/pikapython
  *
  * MIT License
  *
- * Copyright (c) 2021 lyon 李昂 liang6516@outlook.com
+ * Copyright (c) 2021 lyon liang6516@outlook.com
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  */
-
 #include "dataString.h"
 #include "PikaPlatform.h"
+#include "dataMemory.h"
 
 char* strCut(char* strOut, char* strIn, char startSign, char endSign) {
     int32_t Size = strGetSize(strIn);
@@ -89,17 +89,49 @@ char* strAppendWithSize(char* strOut, char* pData, int32_t Size) {
 
     return strOut;
 }
+const char bracketStart[] = {'(', '[', '{', '\'', '\"'};
+const char bracketEnd[] = {')', ']', '}', '\'', '\"'};
+#define BRACKET_TYPE_NUM (sizeof(bracketStart) / sizeof(char))
+
+int _strCountSign(char* strIn, char sign, pika_bool bracketDepth0) {
+    int32_t iCount = 0;
+    int32_t iTotalDepth = 0;
+    pika_bool bEscaped = pika_false;
+    for (size_t i = 0; strIn[i] != '\0'; i++) {
+        if (!bracketDepth0) {
+            if (strIn[i] == sign) {
+                iCount++;
+            }
+            continue;
+        }
+        char cCurrentChar = strIn[i];
+        if (cCurrentChar == '\\') {
+            bEscaped = !bEscaped;
+            continue;
+        }
+        if (!bEscaped) {
+            for (int j = 0; j < BRACKET_TYPE_NUM; j++) {
+                if (cCurrentChar == bracketStart[j]) {
+                    iTotalDepth++;
+                } else if (cCurrentChar == bracketEnd[j]) {
+                    iTotalDepth--;
+                }
+            }
+        }
+        if (cCurrentChar == sign && iTotalDepth == 0) {
+            iCount++;
+        }
+        bEscaped = pika_false;
+    }
+    return iCount;
+}
 
 int32_t strCountSign(char* strIn, char sign) {
-    pika_assert(NULL != strIn);
-    int count = 0;
-    while (*strIn) {
-        if (*strIn == sign) {
-            count++;
-        }
-        strIn++;
-    }
-    return count;
+    return _strCountSign(strIn, sign, 0);
+}
+
+int32_t strGetLineNum(char* strIn) {
+    return strCountSign(strIn, '\n') + 1;
 }
 
 char* strReplaceChar(char* strIn, char src, char dst) {
@@ -122,6 +154,7 @@ size_t strGetSize(char* pData) {
 }
 
 char* strPointToLastToken(char* strIn, char sign) {
+    pika_assert(NULL != strIn);
     if (!strIsContain(strIn, sign)) {
         return strIn;
     }
@@ -217,6 +250,10 @@ int32_t strEqu(char* str1, char* str2) {
     if (NULL == str1 || NULL == str2) {
         return 0;
     }
+    if (str1[0] != str2[0]) {
+        /* fast return */
+        return 0;
+    }
     return !strcmp(str1, str2);
 }
 
@@ -232,6 +269,7 @@ char* strRemovePrefix(char* inputStr, char* prefix, char* outputStr) {
 }
 
 int32_t strIsContain(char* str, char ch) {
+    pika_assert(NULL != str);
     while (*str) {
         if (*str == ch) {
             return 1;
@@ -242,6 +280,9 @@ int32_t strIsContain(char* str, char ch) {
 }
 
 char* strCopy(char* strBuff, char* strIn) {
+    if ('\0' == strIn[0]) {
+        return strBuff;
+    }
     pika_platform_memcpy(strBuff, strIn, strGetSize(strIn) + 1);
     return strBuff;
 }
@@ -279,4 +320,139 @@ char* strGetLastLine(char* strOut, char* strIn) {
     pika_platform_memcpy(strOut, strIn + beginIndex, size - beginIndex);
     strOut[size - beginIndex + 1] = 0;
     return strOut;
+}
+
+int strPathFormat(char* input, char* output) {
+    int len = strlen(input);
+    int i = 0;
+    int j = 0;
+    for (i = 0; i < len; i++) {
+        if (input[i] == '\\') {
+            output[j++] = '/';
+        } else {
+            output[j++] = input[i];
+        }
+    }
+    output[j] = '\0';
+    return j;
+}
+
+int strPathJoin(char* input1, char* input2, char* output) {
+    /* format */
+    size_t input1_len = strlen(input1);
+    size_t input2_len = strlen(input2);
+    /* if input1 is all space */
+    if (input1_len == 0) {
+        strPathFormat(input2, output);
+        return 0;
+    }
+    char* input1_format = (char*)pikaMalloc(input1_len + 1);
+    char* input2_format = (char*)pikaMalloc(input2_len + 1);
+    strPathFormat(input1, input1_format);
+    strPathFormat(input2, input2_format);
+    /* join */
+    int len1 = strlen(input1_format);
+    int len2 = strlen(input2_format);
+    int i = 0;
+    int j = 0;
+    for (i = 0; i < len1; i++) {
+        output[j++] = input1_format[i];
+    }
+    if (input1_format[len1 - 1] != '/') {
+        output[j++] = '/';
+    }
+    if (input2_format[0] == '/') {
+        i = 1;
+    } else {
+        i = 0;
+    }
+    for (; i < len2; i++) {
+        output[j++] = input2_format[i];
+    }
+    output[j] = '\0';
+    /* free */
+    pikaFree(input1_format, input1_len + 1);
+    pikaFree(input2_format, input2_len + 1);
+    return j;
+}
+
+int strPathGetFolder(char* input, char* output) {
+    size_t input_len = strlen(input);
+    char* input_format = (char*)pikaMalloc(input_len + 1);
+    strPathFormat(input, input_format);
+    int len = strlen(input_format);
+    int i = 0;
+    int j = 0;
+    for (i = 0; i < len; i++) {
+        if (input_format[i] == '/') {
+            j = i;
+        }
+    }
+    for (i = 0; i < j; i++) {
+        output[i] = input_format[i];
+    }
+    output[i] = '\0';
+    pikaFree(input_format, input_len + 1);
+    return i;
+}
+
+int strPathGetFileName(char* input, char* output) {
+    if (!strIsContain(input, '/') && !strIsContain(input, '\\')) {
+        strCopy(output, input);
+        return 0;
+    };
+    size_t input_len = strlen(input);
+    char* input_format = (char*)pikaMalloc(input_len + 1);
+    strPathFormat(input, input_format);
+    int len = strlen(input_format);
+    int i = 0;
+    int j = 0;
+    for (i = 0; i < len; i++) {
+        if (input_format[i] == '/') {
+            j = i;
+        }
+    }
+    for (i = j + 1; i < len; i++) {
+        output[i - j - 1] = input_format[i];
+    }
+    output[i - j - 1] = '\0';
+    pikaFree(input_format, input_len + 1);
+    return i - j - 1;
+}
+
+int strGetIndent(char* string) {
+    int indent = 0;
+    int len = strGetSize(string);
+    for (int j = 0; j < len; j++) {
+        if (string[j] == ' ') {
+            indent++;
+        } else {
+            return indent;
+        }
+    }
+    return indent;
+}
+
+int strIsBlank(char* string) {
+    int len = strGetSize(string);
+    for (int j = 0; j < len; j++) {
+        if (string[j] != ' ' && string[j] != '\t' && string[j] != '\r' &&
+            string[j] != '\n') {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int strOnly(char* string, char ch) {
+    int len = strGetSize(string);
+    if (len == 0) {
+        return 0;
+    }
+    for (int j = 0; j < len; j++) {
+        if (string[j] != ch) {
+            return 0;
+        }
+    }
+    return 1;
 }

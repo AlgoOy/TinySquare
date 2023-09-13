@@ -4,9 +4,9 @@
  * The source code is *.pyi file.
  * More details: 
  * English Doc:
- * https://pikadoc.readthedocs.io/en/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
+ * https://pikadoc-en.readthedocs.io/en/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  * Chinese Doc:
- * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
+ * http://pikapython.com/doc/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
 #ifndef __PikaStdData_ByteArray__H
@@ -17,12 +17,5 @@
 
 PikaObj *New_PikaStdData_ByteArray(Args *args);
 
-int PikaStdData_ByteArray___getitem__(PikaObj *self, int __key);
-void PikaStdData_ByteArray___init__(PikaObj *self, Arg* bytes);
-Arg* PikaStdData_ByteArray___iter__(PikaObj *self);
-Arg* PikaStdData_ByteArray___next__(PikaObj *self);
-void PikaStdData_ByteArray___setitem__(PikaObj *self, int __key, int __val);
-char* PikaStdData_ByteArray___str__(PikaObj *self);
-char* PikaStdData_ByteArray_decode(PikaObj *self);
 
 #endif

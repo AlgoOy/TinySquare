@@ -4,9 +4,9 @@
  * The source code is *.pyi file.
  * More details: 
  * English Doc:
- * https://pikadoc.readthedocs.io/en/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
+ * https://pikadoc-en.readthedocs.io/en/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  * Chinese Doc:
- * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
+ * http://pikapython.com/doc/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
 #ifndef __TinySquare_Gfx__H
@@ -19,5 +19,6 @@ PikaObj *New_TinySquare_Gfx(Args *args);
 
 void TinySquare_Gfx___init__(PikaObj *self);
 void TinySquare_Gfx_refresh(PikaObj *self);
+void TinySquare_Gfx_switch_stage(PikaObj *self);
 
 #endif

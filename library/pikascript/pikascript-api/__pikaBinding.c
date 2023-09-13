@@ -4,9 +4,9 @@
  * The source code is *.pyi file.
  * More details: 
  * English Doc:
- * https://pikadoc.readthedocs.io/en/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
+ * https://pikadoc-en.readthedocs.io/en/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  * Chinese Doc:
- * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
+ * http://pikapython.com/doc/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
 #include <stdio.h>
@@ -14,88 +14,114 @@
 #include "BaseObj.h"
 #include "PikaDebug.h"
 #include "TinyObj.h"
+
 #include "PikaDebug_Debuger.h"
-#include "TinyObj.h"
 #include "PikaMain.h"
 #include "PikaStdLib_SysObj.h"
 #include "PikaStdLib.h"
 #include "TinySquare.h"
 #include "pikaRTThread.h"
 #include "PikaStdData.h"
-#include "TinyObj.h"
 #include "PikaStdData_ByteArray.h"
-#include "TinyObj.h"
+#include "builtins_bytearray.h"
 #include "PikaStdData_Dict.h"
-#include "TinyObj.h"
 #include "PikaStdData_FILEIO.h"
-#include "TinyObj.h"
 #include "PikaStdData_List.h"
 #include "PikaStdData_Tuple.h"
 #include "PikaStdData_String.h"
-#include "TinyObj.h"
-#include "PikaStdData_Tuple.h"
-#include "TinyObj.h"
 #include "PikaStdData_Utils.h"
-#include "TinyObj.h"
 #include "PikaStdData_dict_items.h"
-#include "TinyObj.h"
 #include "PikaStdData_dict_keys.h"
-#include "TinyObj.h"
-#include "PikaStdLib.h"
-#include "TinyObj.h"
 #include "PikaStdLib_MemChecker.h"
-#include "TinyObj.h"
-#include "PikaStdLib_RangeObj.h"
-#include "TinyObj.h"
-#include "PikaStdLib_StringObj.h"
-#include "TinyObj.h"
-#include "PikaStdLib_SysObj.h"
-#include "TinyObj.h"
+#include "PikaStdLib_REPL.h"
 #include "PikaStdTask.h"
-#include "TinyObj.h"
 #include "PikaStdTask_Task.h"
-#include "PikaStdLib_SysObj.h"
-#include "PikaStdData_List.h"
-#include "TinySquare.h"
-#include "TinyObj.h"
 #include "TinySquare_BorderOpacity.h"
-#include "TinyObj.h"
 #include "TinySquare_CornerOpacity.h"
-#include "TinyObj.h"
 #include "TinySquare_EvtKey.h"
-#include "TinyObj.h"
 #include "TinySquare_Gfx.h"
-#include "TinyObj.h"
 #include "TinySquare_ItemFormat.h"
-#include "TinyObj.h"
 #include "TinySquare_LayerBG.h"
-#include "TinyObj.h"
 #include "TinySquare_LayerBGCL.h"
-#include "TinyObj.h"
 #include "TinySquare_LayerCell.h"
-#include "TinyObj.h"
 #include "TinySquare_LayerMenu.h"
-#include "TinyObj.h"
 #include "TinySquare_LayerNum.h"
-#include "TinyObj.h"
 #include "TinySquare_LayerText.h"
-#include "TinyObj.h"
 #include "TinySquare_LayerUser.h"
-#include "TinyObj.h"
 #include "TinySquare_Region.h"
-#include "TinyObj.h"
 #include "TinySquare_Screen.h"
-#include "TinyObj.h"
 #include "TinySquare_Stage.h"
-#include "TinyObj.h"
-#include "pikaRTThread.h"
-#include "TinyObj.h"
+#include "builtins.h"
+#include "builtins_ArithmeticError.h"
+#include "builtins_Exception.h"
+#include "builtins_AssertionError.h"
+#include "builtins_AttributeError.h"
+#include "builtins_BaseException.h"
+#include "builtins_BlockingIOError.h"
+#include "builtins_OSError.h"
+#include "builtins_BrokenPipeError.h"
+#include "builtins_ConnectionError.h"
+#include "builtins_BufferError.h"
+#include "builtins_BytesWarning.h"
+#include "builtins_Warning.h"
+#include "builtins_ChildProcessError.h"
+#include "builtins_ConnectionAbortedError.h"
+#include "builtins_ConnectionRefusedError.h"
+#include "builtins_ConnectionResetError.h"
+#include "builtins_DeprecationWarning.h"
+#include "builtins_EOFError.h"
+#include "builtins_FileExistsError.h"
+#include "builtins_FileNotFoundError.h"
+#include "builtins_FloatingPointError.h"
+#include "builtins_FutureWarning.h"
+#include "builtins_GeneratorExit.h"
+#include "builtins_ImportError.h"
+#include "builtins_ImportWarning.h"
+#include "builtins_IndentationError.h"
+#include "builtins_SyntaxError.h"
+#include "builtins_IndexError.h"
+#include "builtins_LookupError.h"
+#include "builtins_InterruptedError.h"
+#include "builtins_IsADirectoryError.h"
+#include "builtins_KeyError.h"
+#include "builtins_KeyboardInterrupt.h"
+#include "builtins_MemoryError.h"
+#include "builtins_ModuleNotFoundError.h"
+#include "builtins_NameError.h"
+#include "builtins_NotADirectoryError.h"
+#include "builtins_NotImplementedError.h"
+#include "builtins_RuntimeError.h"
+#include "builtins_OverflowError.h"
+#include "builtins_PendingDeprecationWarning.h"
+#include "builtins_PermissionError.h"
+#include "builtins_ProcessLookupError.h"
+#include "builtins_RangeObj.h"
+#include "builtins_RecursionError.h"
+#include "builtins_ReferenceError.h"
+#include "builtins_ResourceWarning.h"
+#include "builtins_RuntimeWarning.h"
+#include "builtins_StopAsyncIteration.h"
+#include "builtins_StopIteration.h"
+#include "builtins_StringObj.h"
+#include "builtins_SyntaxWarning.h"
+#include "builtins_SystemError.h"
+#include "builtins_SystemExit.h"
+#include "builtins_TabError.h"
+#include "builtins_TimeoutError.h"
+#include "builtins_TypeError.h"
+#include "builtins_UnboundLocalError.h"
+#include "builtins_UnicodeDecodeError.h"
+#include "builtins_UnicodeError.h"
+#include "builtins_UnicodeEncodeError.h"
+#include "builtins_ValueError.h"
+#include "builtins_UnicodeTranslateError.h"
+#include "builtins_UnicodeWarning.h"
+#include "builtins_UserWarning.h"
+#include "builtins_ZeroDivisionError.h"
+#include "builtins_object.h"
 #include "pikaRTThread_Task.h"
-#include "PikaStdTask_Task.h"
 #include "pikaRTThread_Thread.h"
-#include "TinyObj.h"
 #include "pika_libc.h"
-#include "TinyObj.h"
 
 #ifndef PIKA_MODULE_PIKADEBUG_DISABLE
 void PikaDebug_DebugerMethod(PikaObj *self, Args *args){
@@ -279,85 +305,13 @@ PikaObj *New_PikaStdData(Args *args){
 #endif
 
 #ifndef PIKA_MODULE_PIKASTDDATA_DISABLE
-void PikaStdData_ByteArray___getitem__Method(PikaObj *self, Args *args){
-    int __key = args_getInt(args, "__key");
-    int res = PikaStdData_ByteArray___getitem__(self, __key);
-    method_returnInt(args, res);
-}
-method_typedef(
-    PikaStdData_ByteArray___getitem__,
-    "__getitem__", "__key"
-);
-
-void PikaStdData_ByteArray___init__Method(PikaObj *self, Args *args){
-    Arg* bytes = args_getArg(args, "bytes");
-    PikaStdData_ByteArray___init__(self, bytes);
-}
-method_typedef(
-    PikaStdData_ByteArray___init__,
-    "__init__", "bytes"
-);
-
-void PikaStdData_ByteArray___iter__Method(PikaObj *self, Args *args){
-    Arg* res = PikaStdData_ByteArray___iter__(self);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdData_ByteArray___iter__,
-    "__iter__", ""
-);
-
-void PikaStdData_ByteArray___next__Method(PikaObj *self, Args *args){
-    Arg* res = PikaStdData_ByteArray___next__(self);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdData_ByteArray___next__,
-    "__next__", ""
-);
-
-void PikaStdData_ByteArray___setitem__Method(PikaObj *self, Args *args){
-    int __key = args_getInt(args, "__key");
-    int __val = args_getInt(args, "__val");
-    PikaStdData_ByteArray___setitem__(self, __key, __val);
-}
-method_typedef(
-    PikaStdData_ByteArray___setitem__,
-    "__setitem__", "__key,__val"
-);
-
-void PikaStdData_ByteArray___str__Method(PikaObj *self, Args *args){
-    char* res = PikaStdData_ByteArray___str__(self);
-    method_returnStr(args, res);
-}
-method_typedef(
-    PikaStdData_ByteArray___str__,
-    "__str__", ""
-);
-
-void PikaStdData_ByteArray_decodeMethod(PikaObj *self, Args *args){
-    char* res = PikaStdData_ByteArray_decode(self);
-    method_returnStr(args, res);
-}
-method_typedef(
-    PikaStdData_ByteArray_decode,
-    "decode", ""
-);
-
 class_def(PikaStdData_ByteArray){
     __BEFORE_MOETHOD_DEF
-    method_def(PikaStdData_ByteArray___init__, 904762485),
-    method_def(PikaStdData_ByteArray___iter__, 911732085),
-    method_def(PikaStdData_ByteArray___next__, 1090305216),
-    method_def(PikaStdData_ByteArray___setitem__, 1364865276),
-    method_def(PikaStdData_ByteArray___getitem__, 1535436016),
-    method_def(PikaStdData_ByteArray_decode, 2021571977),
-    method_def(PikaStdData_ByteArray___str__, 2056834106),
 };
-class_inhert(PikaStdData_ByteArray, TinyObj);
+class_inhert(PikaStdData_ByteArray, builtins_bytearray);
 
 PikaObj *New_PikaStdData_ByteArray(Args *args){
-    PikaObj *self = New_TinyObj(args);
+    PikaObj *self = New_builtins_bytearray(args);
     obj_setClass(self, PikaStdData_ByteArray);
     return self;
 }
@@ -384,6 +338,16 @@ void PikaStdData_Dict___del__Method(PikaObj *self, Args *args){
 method_typedef(
     PikaStdData_Dict___del__,
     "__del__", ""
+);
+
+void PikaStdData_Dict___eq__Method(PikaObj *self, Args *args){
+    Arg* other = args_getArg(args, "other");
+    int res = PikaStdData_Dict___eq__(self, other);
+    method_returnInt(args, res);
+}
+method_typedef(
+    PikaStdData_Dict___eq__,
+    "__eq__", "other"
 );
 
 void PikaStdData_Dict___getitem__Method(PikaObj *self, Args *args){
@@ -519,6 +483,7 @@ class_def(PikaStdData_Dict){
     method_def(PikaStdData_Dict___setitem__, 1364865276),
     method_def(PikaStdData_Dict___getitem__, 1535436016),
     method_def(PikaStdData_Dict___contains__, 1644201824),
+    method_def(PikaStdData_Dict___eq__, 1818853367),
     method_def(PikaStdData_Dict___del__, 2038499702),
     method_def(PikaStdData_Dict___len__, 2047989248),
     method_def(PikaStdData_Dict___str__, 2056834106),
@@ -707,12 +672,13 @@ method_typedef(
 );
 
 void PikaStdData_List_popMethod(PikaObj *self, Args *args){
-    Arg* res = PikaStdData_List_pop(self);
+    PikaTuple* index = args_getTuple(args, "index");
+    Arg* res = PikaStdData_List_pop(self, index);
     method_returnArg(args, res);
 }
 method_typedef(
     PikaStdData_List_pop,
-    "pop", ""
+    "pop", "*index"
 );
 
 void PikaStdData_List_removeMethod(PikaObj *self, Args *args){
@@ -854,6 +820,16 @@ method_typedef(
     "endswith", "suffix"
 );
 
+void PikaStdData_String_findMethod(PikaObj *self, Args *args){
+    char* sub = args_getStr(args, "sub");
+    int res = PikaStdData_String_find(self, sub);
+    method_returnInt(args, res);
+}
+method_typedef(
+    PikaStdData_String_find,
+    "find", "sub"
+);
+
 void PikaStdData_String_formatMethod(PikaObj *self, Args *args){
     PikaTuple* vars = args_getTuple(args, "vars");
     char* res = PikaStdData_String_format(self, vars);
@@ -918,6 +894,16 @@ method_typedef(
     "isspace", ""
 );
 
+void PikaStdData_String_joinMethod(PikaObj *self, Args *args){
+    Arg* val = args_getArg(args, "val");
+    char* res = PikaStdData_String_join(self, val);
+    method_returnStr(args, res);
+}
+method_typedef(
+    PikaStdData_String_join,
+    "join", "val"
+);
+
 void PikaStdData_String_replaceMethod(PikaObj *self, Args *args){
     char* old = args_getStr(args, "old");
     char* new = args_getStr(args, "new");
@@ -939,13 +925,13 @@ method_typedef(
 );
 
 void PikaStdData_String_splitMethod(PikaObj *self, Args *args){
-    char* s = args_getStr(args, "s");
+    PikaTuple* s = args_getTuple(args, "s");
     PikaObj* res = PikaStdData_String_split(self, s);
     method_returnObj(args, res);
 }
 method_typedef(
     PikaStdData_String_split,
-    "split", "s"
+    "split", "*s"
 );
 
 void PikaStdData_String_startswithMethod(PikaObj *self, Args *args){
@@ -990,6 +976,8 @@ class_def(PikaStdData_String){
     method_def(PikaStdData_String___len__, 2047989248),
     method_def(PikaStdData_String___str__, 2056834106),
     method_def(PikaStdData_String_encode, 2071380659),
+    method_def(PikaStdData_String_find, 2090257254),
+    method_def(PikaStdData_String_join, 2090407381),
     method_def(PikaStdData_String_format, 2112238766),
 };
 class_inhert(PikaStdData_String, TinyObj);
@@ -1022,6 +1010,16 @@ void PikaStdData_Tuple___del__Method(PikaObj *self, Args *args){
 method_typedef(
     PikaStdData_Tuple___del__,
     "__del__", ""
+);
+
+void PikaStdData_Tuple___eq__Method(PikaObj *self, Args *args){
+    Arg* other = args_getArg(args, "other");
+    int res = PikaStdData_Tuple___eq__(self, other);
+    method_returnInt(args, res);
+}
+method_typedef(
+    PikaStdData_Tuple___eq__,
+    "__eq__", "other"
 );
 
 void PikaStdData_Tuple___getitem__Method(PikaObj *self, Args *args){
@@ -1106,6 +1104,7 @@ class_def(PikaStdData_Tuple){
     method_def(PikaStdData_Tuple___next__, 1090305216),
     method_def(PikaStdData_Tuple___getitem__, 1535436016),
     method_def(PikaStdData_Tuple___contains__, 1644201824),
+    method_def(PikaStdData_Tuple___eq__, 1818853367),
     method_def(PikaStdData_Tuple___del__, 2038499702),
     method_def(PikaStdData_Tuple___len__, 2047989248),
     method_def(PikaStdData_Tuple___str__, 2056834106),
@@ -1275,22 +1274,13 @@ method_typedef(
     "MemChecker", ""
 );
 
-void PikaStdLib_RangeObjMethod(PikaObj *self, Args *args){
-    Arg* res = PikaStdLib_RangeObj(self);
+void PikaStdLib_REPLMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdLib_REPL(self);
     method_returnArg(args, res);
 }
 method_typedef(
-    PikaStdLib_RangeObj,
-    "RangeObj", ""
-);
-
-void PikaStdLib_StringObjMethod(PikaObj *self, Args *args){
-    Arg* res = PikaStdLib_StringObj(self);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_StringObj,
-    "StringObj", ""
+    PikaStdLib_REPL,
+    "REPL", ""
 );
 
 void PikaStdLib_SysObjMethod(PikaObj *self, Args *args){
@@ -1304,14 +1294,9 @@ method_typedef(
 
 class_def(PikaStdLib){
     __BEFORE_MOETHOD_DEF
-#if 0
-    constructor_def(PikaStdLib_StringObj, 145144695),
-#endif
     constructor_def(PikaStdLib_MemChecker, 426635353),
     constructor_def(PikaStdLib_SysObj, 1380528799),
-#if 0
-    constructor_def(PikaStdLib_RangeObj, 1538428845),
-#endif
+    constructor_def(PikaStdLib_REPL, 2089498296),
 };
 class_inhert(PikaStdLib, TinyObj);
 
@@ -1393,447 +1378,35 @@ Arg *PikaStdLib_MemChecker(PikaObj *self){
 #endif
 
 #ifndef PIKA_MODULE_PIKASTDLIB_DISABLE
-void PikaStdLib_RangeObj___next__Method(PikaObj *self, Args *args){
-    Arg* res = PikaStdLib_RangeObj___next__(self);
-    method_returnArg(args, res);
+void PikaStdLib_REPL_setEchoMethod(PikaObj *self, Args *args){
+    pika_bool echo = args_getBool(args, "echo");
+    PikaStdLib_REPL_setEcho(self, echo);
 }
 method_typedef(
-    PikaStdLib_RangeObj___next__,
-    "__next__", ""
+    PikaStdLib_REPL_setEcho,
+    "setEcho", "echo"
 );
 
-class_def(PikaStdLib_RangeObj){
+class_def(PikaStdLib_REPL){
     __BEFORE_MOETHOD_DEF
-    method_def(PikaStdLib_RangeObj___next__, 1090305216),
+    method_def(PikaStdLib_REPL_setEcho, 203199280),
 };
-class_inhert(PikaStdLib_RangeObj, TinyObj);
+class_inhert(PikaStdLib_REPL, TinyObj);
 
-PikaObj *New_PikaStdLib_RangeObj(Args *args){
+PikaObj *New_PikaStdLib_REPL(Args *args){
     PikaObj *self = New_TinyObj(args);
-    obj_setClass(self, PikaStdLib_RangeObj);
+    obj_setClass(self, PikaStdLib_REPL);
     return self;
 }
 
-Arg *PikaStdLib_RangeObj(PikaObj *self){
-    return obj_newObjInPackage(New_PikaStdLib_RangeObj);
+Arg *PikaStdLib_REPL(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdLib_REPL);
 }
 #endif
 
 #ifndef PIKA_MODULE_PIKASTDLIB_DISABLE
-void PikaStdLib_StringObj___next__Method(PikaObj *self, Args *args){
-    Arg* res = PikaStdLib_StringObj___next__(self);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_StringObj___next__,
-    "__next__", ""
-);
-
-class_def(PikaStdLib_StringObj){
-    __BEFORE_MOETHOD_DEF
-    method_def(PikaStdLib_StringObj___next__, 1090305216),
-};
-class_inhert(PikaStdLib_StringObj, TinyObj);
-
-PikaObj *New_PikaStdLib_StringObj(Args *args){
-    PikaObj *self = New_TinyObj(args);
-    obj_setClass(self, PikaStdLib_StringObj);
-    return self;
-}
-
-Arg *PikaStdLib_StringObj(PikaObj *self){
-    return obj_newObjInPackage(New_PikaStdLib_StringObj);
-}
-#endif
-
-#ifndef PIKA_MODULE_PIKASTDLIB_DISABLE
-void PikaStdLib_SysObj___getitem__Method(PikaObj *self, Args *args){
-    Arg* obj = args_getArg(args, "obj");
-    Arg* key = args_getArg(args, "key");
-    Arg* res = PikaStdLib_SysObj___getitem__(self, obj, key);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj___getitem__,
-    "__getitem__", "obj,key"
-);
-
-void PikaStdLib_SysObj___setitem__Method(PikaObj *self, Args *args){
-    Arg* obj = args_getArg(args, "obj");
-    Arg* key = args_getArg(args, "key");
-    Arg* val = args_getArg(args, "val");
-    Arg* res = PikaStdLib_SysObj___setitem__(self, obj, key, val);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj___setitem__,
-    "__setitem__", "obj,key,val"
-);
-
-void PikaStdLib_SysObj_boolMethod(PikaObj *self, Args *args){
-    Arg* arg = args_getArg(args, "arg");
-    int res = PikaStdLib_SysObj_bool(self, arg);
-    method_returnInt(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_bool,
-    "bool", "arg"
-);
-
-void PikaStdLib_SysObj_bytesMethod(PikaObj *self, Args *args){
-    Arg* val = args_getArg(args, "val");
-    Arg* res = PikaStdLib_SysObj_bytes(self, val);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_bytes,
-    "bytes", "val"
-);
-
-void PikaStdLib_SysObj_cformatMethod(PikaObj *self, Args *args){
-    char* fmt = args_getStr(args, "fmt");
-    PikaTuple* var = args_getTuple(args, "var");
-    char* res = PikaStdLib_SysObj_cformat(self, fmt, var);
-    method_returnStr(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_cformat,
-    "cformat", "fmt,*var"
-);
-
-void PikaStdLib_SysObj_chrMethod(PikaObj *self, Args *args){
-    int val = args_getInt(args, "val");
-    char* res = PikaStdLib_SysObj_chr(self, val);
-    method_returnStr(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_chr,
-    "chr", "val"
-);
-
-void PikaStdLib_SysObj_dictMethod(PikaObj *self, Args *args){
-    PikaTuple* val = args_getTuple(args, "val");
-    Arg* res = PikaStdLib_SysObj_dict(self, val);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_dict,
-    "dict", "*val"
-);
-
-void PikaStdLib_SysObj_dirMethod(PikaObj *self, Args *args){
-    Arg* obj = args_getArg(args, "obj");
-    PikaObj* res = PikaStdLib_SysObj_dir(self, obj);
-    method_returnObj(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_dir,
-    "dir", "obj"
-);
-
-void PikaStdLib_SysObj_evalMethod(PikaObj *self, Args *args){
-    char* code = args_getStr(args, "code");
-    Arg* res = PikaStdLib_SysObj_eval(self, code);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_eval,
-    "eval", "code"
-);
-
-void PikaStdLib_SysObj_execMethod(PikaObj *self, Args *args){
-    char* code = args_getStr(args, "code");
-    PikaStdLib_SysObj_exec(self, code);
-}
-method_typedef(
-    PikaStdLib_SysObj_exec,
-    "exec", "code"
-);
-
-void PikaStdLib_SysObj_exitMethod(PikaObj *self, Args *args){
-    PikaStdLib_SysObj_exit(self);
-}
-method_typedef(
-    PikaStdLib_SysObj_exit,
-    "exit", ""
-);
-
-void PikaStdLib_SysObj_floatMethod(PikaObj *self, Args *args){
-    Arg* arg = args_getArg(args, "arg");
-    pika_float res = PikaStdLib_SysObj_float(self, arg);
-    method_returnFloat(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_float,
-    "float", "arg"
-);
-
-void PikaStdLib_SysObj_getattrMethod(PikaObj *self, Args *args){
-    PikaObj* obj = args_getPtr(args, "obj");
-    char* name = args_getStr(args, "name");
-    Arg* res = PikaStdLib_SysObj_getattr(self, obj, name);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_getattr,
-    "getattr", "obj,name"
-);
-
-void PikaStdLib_SysObj_hasattrMethod(PikaObj *self, Args *args){
-    PikaObj* obj = args_getPtr(args, "obj");
-    char* name = args_getStr(args, "name");
-    int res = PikaStdLib_SysObj_hasattr(self, obj, name);
-    method_returnInt(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_hasattr,
-    "hasattr", "obj,name"
-);
-
-void PikaStdLib_SysObj_helpMethod(PikaObj *self, Args *args){
-    char* name = args_getStr(args, "name");
-    PikaStdLib_SysObj_help(self, name);
-}
-method_typedef(
-    PikaStdLib_SysObj_help,
-    "help", "name"
-);
-
-void PikaStdLib_SysObj_hexMethod(PikaObj *self, Args *args){
-    int val = args_getInt(args, "val");
-    char* res = PikaStdLib_SysObj_hex(self, val);
-    method_returnStr(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_hex,
-    "hex", "val"
-);
-
-void PikaStdLib_SysObj_idMethod(PikaObj *self, Args *args){
-    Arg* obj = args_getArg(args, "obj");
-    int res = PikaStdLib_SysObj_id(self, obj);
-    method_returnInt(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_id,
-    "id", "obj"
-);
-
-void PikaStdLib_SysObj_inputMethod(PikaObj *self, Args *args){
-    PikaTuple* info = args_getTuple(args, "info");
-    char* res = PikaStdLib_SysObj_input(self, info);
-    method_returnStr(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_input,
-    "input", "*info"
-);
-
-void PikaStdLib_SysObj_intMethod(PikaObj *self, Args *args){
-    Arg* arg = args_getArg(args, "arg");
-    int res = PikaStdLib_SysObj_int(self, arg);
-    method_returnInt(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_int,
-    "int", "arg"
-);
-
-void PikaStdLib_SysObj_iterMethod(PikaObj *self, Args *args){
-    Arg* arg = args_getArg(args, "arg");
-    Arg* res = PikaStdLib_SysObj_iter(self, arg);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_iter,
-    "iter", "arg"
-);
-
-void PikaStdLib_SysObj_lenMethod(PikaObj *self, Args *args){
-    Arg* arg = args_getArg(args, "arg");
-    int res = PikaStdLib_SysObj_len(self, arg);
-    method_returnInt(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_len,
-    "len", "arg"
-);
-
-void PikaStdLib_SysObj_listMethod(PikaObj *self, Args *args){
-    PikaTuple* val = args_getTuple(args, "val");
-    Arg* res = PikaStdLib_SysObj_list(self, val);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_list,
-    "list", "*val"
-);
-
-void PikaStdLib_SysObj_openMethod(PikaObj *self, Args *args){
-    char* path = args_getStr(args, "path");
-    char* mode = args_getStr(args, "mode");
-    PikaObj* res = PikaStdLib_SysObj_open(self, path, mode);
-    method_returnObj(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_open,
-    "open", "path,mode"
-);
-
-void PikaStdLib_SysObj_ordMethod(PikaObj *self, Args *args){
-    char* val = args_getStr(args, "val");
-    int res = PikaStdLib_SysObj_ord(self, val);
-    method_returnInt(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_ord,
-    "ord", "val"
-);
-
-void PikaStdLib_SysObj_printMethod(PikaObj *self, Args *args){
-    PikaTuple* val = args_getTuple(args, "val");
-    PikaDict* ops = args_getDict(args, "ops");
-    PikaStdLib_SysObj_print(self, val, ops);
-}
-method_typedef(
-    PikaStdLib_SysObj_print,
-    "print", "*val,**ops"
-);
-
-void PikaStdLib_SysObj_rangeMethod(PikaObj *self, Args *args){
-    PikaTuple* ax = args_getTuple(args, "ax");
-    Arg* res = PikaStdLib_SysObj_range(self, ax);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_range,
-    "range", "*ax"
-);
-
-void PikaStdLib_SysObj_rebootMethod(PikaObj *self, Args *args){
-    PikaStdLib_SysObj_reboot(self);
-}
-method_typedef(
-    PikaStdLib_SysObj_reboot,
-    "reboot", ""
-);
-
-void PikaStdLib_SysObj_setattrMethod(PikaObj *self, Args *args){
-    PikaObj* obj = args_getPtr(args, "obj");
-    char* name = args_getStr(args, "name");
-    Arg* val = args_getArg(args, "val");
-    PikaStdLib_SysObj_setattr(self, obj, name, val);
-}
-method_typedef(
-    PikaStdLib_SysObj_setattr,
-    "setattr", "obj,name,val"
-);
-
-void PikaStdLib_SysObj_strMethod(PikaObj *self, Args *args){
-    Arg* arg = args_getArg(args, "arg");
-    char* res = PikaStdLib_SysObj_str(self, arg);
-    method_returnStr(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_str,
-    "str", "arg"
-);
-
-void PikaStdLib_SysObj_tupleMethod(PikaObj *self, Args *args){
-    Arg* arg = args_getArg(args, "arg");
-    Arg* res = PikaStdLib_SysObj_tuple(self, arg);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_tuple,
-    "tuple", "arg"
-);
-
-void PikaStdLib_SysObj_typeMethod(PikaObj *self, Args *args){
-    Arg* arg = args_getArg(args, "arg");
-    Arg* res = PikaStdLib_SysObj_type(self, arg);
-    method_returnArg(args, res);
-}
-method_typedef(
-    PikaStdLib_SysObj_type,
-    "type", "arg"
-);
-
 class_def(PikaStdLib_SysObj){
     __BEFORE_MOETHOD_DEF
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_id, 5863474),
-#endif
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_chr, 193488354),
-#endif
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_dir, 193489476),
-#endif
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_hex, 193493706),
-#endif
-    method_def(PikaStdLib_SysObj_int, 193495088),
-    method_def(PikaStdLib_SysObj_len, 193498052),
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_ord, 193501738),
-#endif
-    method_def(PikaStdLib_SysObj_str, 193506174),
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_setattr, 204224428),
-#endif
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_bytes, 254850636),
-#endif
-    method_def(PikaStdLib_SysObj_float, 259121563),
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_input, 262752949),
-#endif
-    method_def(PikaStdLib_SysObj_print, 271190290),
-    method_def(PikaStdLib_SysObj_range, 272956402),
-#if PIKA_BUILTIN_STRUCT_ENABLE
-    method_def(PikaStdLib_SysObj_tuple, 276049327),
-#endif
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_reboot, 421948272),
-#endif
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_hasattr, 872734812),
-#endif
-#if PIKA_SYNTAX_FORMAT_ENABLE
-    method_def(PikaStdLib_SysObj_cformat, 1049381873),
-#endif
-    method_def(PikaStdLib_SysObj___setitem__, 1364865276),
-    method_def(PikaStdLib_SysObj___getitem__, 1535436016),
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_getattr, 1886477984),
-#endif
-    method_def(PikaStdLib_SysObj_bool, 2090120081),
-#if PIKA_BUILTIN_STRUCT_ENABLE
-    method_def(PikaStdLib_SysObj_dict, 2090185033),
-#endif
-#if PIKA_EXEC_ENABLE
-    method_def(PikaStdLib_SysObj_eval, 2090235053),
-#endif
-#if PIKA_EXEC_ENABLE
-    method_def(PikaStdLib_SysObj_exec, 2090237354),
-#endif
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_exit, 2090237503),
-#endif
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_help, 2090324718),
-#endif
-    method_def(PikaStdLib_SysObj_iter, 2090376761),
-#if PIKA_BUILTIN_STRUCT_ENABLE
-    method_def(PikaStdLib_SysObj_list, 2090473057),
-#endif
-#if PIKA_FILEIO_ENABLE
-    method_def(PikaStdLib_SysObj_open, 2090588023),
-#endif
-#if !PIKA_NANO_ENABLE
-    method_def(PikaStdLib_SysObj_type, 2090777863),
-#endif
 };
 class_inhert(PikaStdLib_SysObj, TinyObj);
 
@@ -2286,10 +1859,19 @@ method_typedef(
     "refresh", ""
 );
 
+void TinySquare_Gfx_switch_stageMethod(PikaObj *self, Args *args){
+    TinySquare_Gfx_switch_stage(self);
+}
+method_typedef(
+    TinySquare_Gfx_switch_stage,
+    "switch_stage", ""
+);
+
 class_def(TinySquare_Gfx){
     __BEFORE_MOETHOD_DEF
     method_def(TinySquare_Gfx___init__, 904762485),
     method_def(TinySquare_Gfx_refresh, 1044231764),
+    method_def(TinySquare_Gfx_switch_stage, 1306595498),
 };
 class_inhert(TinySquare_Gfx, TinyObj);
 
@@ -2438,15 +2020,16 @@ Arg *TinySquare_LayerCell(PikaObj *self){
 #ifndef PIKA_MODULE_TINYSQUARE_DISABLE
 void TinySquare_LayerMenu___init__Method(PikaObj *self, Args *args){
     PikaObj* strTable = args_getPtr(args, "strTable");
+    int fontType = args_getInt(args, "fontType");
     int itemWidth = args_getInt(args, "itemWidth");
     int itemHeight = args_getInt(args, "itemHeight");
     PikaObj* itemNormal = args_getPtr(args, "itemNormal");
     PikaObj* itemSelect = args_getPtr(args, "itemSelect");
-    TinySquare_LayerMenu___init__(self, strTable, itemWidth, itemHeight, itemNormal, itemSelect);
+    TinySquare_LayerMenu___init__(self, strTable, fontType, itemWidth, itemHeight, itemNormal, itemSelect);
 }
 method_typedef(
     TinySquare_LayerMenu___init__,
-    "__init__", "strTable,itemWidth,itemHeight,itemNormal,itemSelect"
+    "__init__", "strTable,fontType,itemWidth,itemHeight,itemNormal,itemSelect"
 );
 
 void TinySquare_LayerMenu_get_idxMethod(PikaObj *self, Args *args){
@@ -2750,6 +2333,2364 @@ Arg *TinySquare_Stage(PikaObj *self){
 }
 #endif
 
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+void builtins_ArithmeticErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ArithmeticError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ArithmeticError,
+    "ArithmeticError", ""
+);
+
+void builtins_AssertionErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_AssertionError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_AssertionError,
+    "AssertionError", ""
+);
+
+void builtins_AttributeErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_AttributeError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_AttributeError,
+    "AttributeError", ""
+);
+
+void builtins_BaseExceptionMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_BaseException(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_BaseException,
+    "BaseException", ""
+);
+
+void builtins_BlockingIOErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_BlockingIOError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_BlockingIOError,
+    "BlockingIOError", ""
+);
+
+void builtins_BrokenPipeErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_BrokenPipeError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_BrokenPipeError,
+    "BrokenPipeError", ""
+);
+
+void builtins_BufferErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_BufferError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_BufferError,
+    "BufferError", ""
+);
+
+void builtins_BytesWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_BytesWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_BytesWarning,
+    "BytesWarning", ""
+);
+
+void builtins_ChildProcessErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ChildProcessError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ChildProcessError,
+    "ChildProcessError", ""
+);
+
+void builtins_ConnectionAbortedErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ConnectionAbortedError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ConnectionAbortedError,
+    "ConnectionAbortedError", ""
+);
+
+void builtins_ConnectionErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ConnectionError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ConnectionError,
+    "ConnectionError", ""
+);
+
+void builtins_ConnectionRefusedErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ConnectionRefusedError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ConnectionRefusedError,
+    "ConnectionRefusedError", ""
+);
+
+void builtins_ConnectionResetErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ConnectionResetError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ConnectionResetError,
+    "ConnectionResetError", ""
+);
+
+void builtins_DeprecationWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_DeprecationWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_DeprecationWarning,
+    "DeprecationWarning", ""
+);
+
+void builtins_EOFErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_EOFError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_EOFError,
+    "EOFError", ""
+);
+
+void builtins_ExceptionMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_Exception(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_Exception,
+    "Exception", ""
+);
+
+void builtins_FileExistsErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_FileExistsError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_FileExistsError,
+    "FileExistsError", ""
+);
+
+void builtins_FileNotFoundErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_FileNotFoundError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_FileNotFoundError,
+    "FileNotFoundError", ""
+);
+
+void builtins_FloatingPointErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_FloatingPointError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_FloatingPointError,
+    "FloatingPointError", ""
+);
+
+void builtins_FutureWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_FutureWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_FutureWarning,
+    "FutureWarning", ""
+);
+
+void builtins_GeneratorExitMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_GeneratorExit(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_GeneratorExit,
+    "GeneratorExit", ""
+);
+
+void builtins_ImportErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ImportError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ImportError,
+    "ImportError", ""
+);
+
+void builtins_ImportWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ImportWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ImportWarning,
+    "ImportWarning", ""
+);
+
+void builtins_IndentationErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_IndentationError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_IndentationError,
+    "IndentationError", ""
+);
+
+void builtins_IndexErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_IndexError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_IndexError,
+    "IndexError", ""
+);
+
+void builtins_InterruptedErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_InterruptedError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_InterruptedError,
+    "InterruptedError", ""
+);
+
+void builtins_IsADirectoryErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_IsADirectoryError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_IsADirectoryError,
+    "IsADirectoryError", ""
+);
+
+void builtins_KeyErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_KeyError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_KeyError,
+    "KeyError", ""
+);
+
+void builtins_KeyboardInterruptMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_KeyboardInterrupt(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_KeyboardInterrupt,
+    "KeyboardInterrupt", ""
+);
+
+void builtins_LookupErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_LookupError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_LookupError,
+    "LookupError", ""
+);
+
+void builtins_MemoryErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_MemoryError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_MemoryError,
+    "MemoryError", ""
+);
+
+void builtins_ModuleNotFoundErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ModuleNotFoundError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ModuleNotFoundError,
+    "ModuleNotFoundError", ""
+);
+
+void builtins_NameErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_NameError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_NameError,
+    "NameError", ""
+);
+
+void builtins_NotADirectoryErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_NotADirectoryError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_NotADirectoryError,
+    "NotADirectoryError", ""
+);
+
+void builtins_NotImplementedErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_NotImplementedError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_NotImplementedError,
+    "NotImplementedError", ""
+);
+
+void builtins_OSErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_OSError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_OSError,
+    "OSError", ""
+);
+
+void builtins_OverflowErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_OverflowError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_OverflowError,
+    "OverflowError", ""
+);
+
+void builtins_PendingDeprecationWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_PendingDeprecationWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_PendingDeprecationWarning,
+    "PendingDeprecationWarning", ""
+);
+
+void builtins_PermissionErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_PermissionError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_PermissionError,
+    "PermissionError", ""
+);
+
+void builtins_ProcessLookupErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ProcessLookupError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ProcessLookupError,
+    "ProcessLookupError", ""
+);
+
+void builtins_RangeObjMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_RangeObj(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_RangeObj,
+    "RangeObj", ""
+);
+
+void builtins_RecursionErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_RecursionError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_RecursionError,
+    "RecursionError", ""
+);
+
+void builtins_ReferenceErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ReferenceError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ReferenceError,
+    "ReferenceError", ""
+);
+
+void builtins_ResourceWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ResourceWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ResourceWarning,
+    "ResourceWarning", ""
+);
+
+void builtins_RuntimeErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_RuntimeError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_RuntimeError,
+    "RuntimeError", ""
+);
+
+void builtins_RuntimeWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_RuntimeWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_RuntimeWarning,
+    "RuntimeWarning", ""
+);
+
+void builtins_StopAsyncIterationMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_StopAsyncIteration(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_StopAsyncIteration,
+    "StopAsyncIteration", ""
+);
+
+void builtins_StopIterationMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_StopIteration(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_StopIteration,
+    "StopIteration", ""
+);
+
+void builtins_StringObjMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_StringObj(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_StringObj,
+    "StringObj", ""
+);
+
+void builtins_SyntaxErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_SyntaxError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_SyntaxError,
+    "SyntaxError", ""
+);
+
+void builtins_SyntaxWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_SyntaxWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_SyntaxWarning,
+    "SyntaxWarning", ""
+);
+
+void builtins_SystemErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_SystemError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_SystemError,
+    "SystemError", ""
+);
+
+void builtins_SystemExitMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_SystemExit(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_SystemExit,
+    "SystemExit", ""
+);
+
+void builtins_TabErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_TabError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_TabError,
+    "TabError", ""
+);
+
+void builtins_TimeoutErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_TimeoutError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_TimeoutError,
+    "TimeoutError", ""
+);
+
+void builtins_TypeErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_TypeError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_TypeError,
+    "TypeError", ""
+);
+
+void builtins_UnboundLocalErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_UnboundLocalError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_UnboundLocalError,
+    "UnboundLocalError", ""
+);
+
+void builtins_UnicodeDecodeErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_UnicodeDecodeError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_UnicodeDecodeError,
+    "UnicodeDecodeError", ""
+);
+
+void builtins_UnicodeEncodeErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_UnicodeEncodeError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_UnicodeEncodeError,
+    "UnicodeEncodeError", ""
+);
+
+void builtins_UnicodeErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_UnicodeError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_UnicodeError,
+    "UnicodeError", ""
+);
+
+void builtins_UnicodeTranslateErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_UnicodeTranslateError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_UnicodeTranslateError,
+    "UnicodeTranslateError", ""
+);
+
+void builtins_UnicodeWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_UnicodeWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_UnicodeWarning,
+    "UnicodeWarning", ""
+);
+
+void builtins_UserWarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_UserWarning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_UserWarning,
+    "UserWarning", ""
+);
+
+void builtins_ValueErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ValueError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ValueError,
+    "ValueError", ""
+);
+
+void builtins_WarningMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_Warning(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_Warning,
+    "Warning", ""
+);
+
+void builtins_ZeroDivisionErrorMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_ZeroDivisionError(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_ZeroDivisionError,
+    "ZeroDivisionError", ""
+);
+
+void builtins___getitem__Method(PikaObj *self, Args *args){
+    Arg* obj = args_getArg(args, "obj");
+    Arg* key = args_getArg(args, "key");
+    Arg* res = builtins___getitem__(self, obj, key);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins___getitem__,
+    "__getitem__", "obj,key"
+);
+
+void builtins___setitem__Method(PikaObj *self, Args *args){
+    Arg* obj = args_getArg(args, "obj");
+    Arg* key = args_getArg(args, "key");
+    Arg* val = args_getArg(args, "val");
+    Arg* res = builtins___setitem__(self, obj, key, val);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins___setitem__,
+    "__setitem__", "obj,key,val"
+);
+
+void builtins_absMethod(PikaObj *self, Args *args){
+    Arg* val = args_getArg(args, "val");
+    Arg* res = builtins_abs(self, val);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_abs,
+    "abs", "val"
+);
+
+void builtins_boolMethod(PikaObj *self, Args *args){
+    Arg* arg = args_getArg(args, "arg");
+    pika_bool res = builtins_bool(self, arg);
+    method_returnBool(args, res);
+}
+method_typedef(
+    builtins_bool,
+    "bool", "arg"
+);
+
+void builtins_bytearrayMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_bytearray(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_bytearray,
+    "bytearray", ""
+);
+
+void builtins_bytesMethod(PikaObj *self, Args *args){
+    Arg* val = args_getArg(args, "val");
+    Arg* res = builtins_bytes(self, val);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_bytes,
+    "bytes", "val"
+);
+
+void builtins_cformatMethod(PikaObj *self, Args *args){
+    char* fmt = args_getStr(args, "fmt");
+    PikaTuple* var = args_getTuple(args, "var");
+    char* res = builtins_cformat(self, fmt, var);
+    method_returnStr(args, res);
+}
+method_typedef(
+    builtins_cformat,
+    "cformat", "fmt,*var"
+);
+
+void builtins_chrMethod(PikaObj *self, Args *args){
+    int val = args_getInt(args, "val");
+    char* res = builtins_chr(self, val);
+    method_returnStr(args, res);
+}
+method_typedef(
+    builtins_chr,
+    "chr", "val"
+);
+
+void builtins_clearMethod(PikaObj *self, Args *args){
+    builtins_clear(self);
+}
+method_typedef(
+    builtins_clear,
+    "clear", ""
+);
+
+void builtins_dictMethod(PikaObj *self, Args *args){
+    PikaTuple* val = args_getTuple(args, "val");
+    Arg* res = builtins_dict(self, val);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_dict,
+    "dict", "*val"
+);
+
+void builtins_dirMethod(PikaObj *self, Args *args){
+    Arg* obj = args_getArg(args, "obj");
+    PikaObj* res = builtins_dir(self, obj);
+    method_returnObj(args, res);
+}
+method_typedef(
+    builtins_dir,
+    "dir", "obj"
+);
+
+void builtins_evalMethod(PikaObj *self, Args *args){
+    char* code = args_getStr(args, "code");
+    Arg* res = builtins_eval(self, code);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_eval,
+    "eval", "code"
+);
+
+void builtins_execMethod(PikaObj *self, Args *args){
+    char* code = args_getStr(args, "code");
+    builtins_exec(self, code);
+}
+method_typedef(
+    builtins_exec,
+    "exec", "code"
+);
+
+void builtins_exitMethod(PikaObj *self, Args *args){
+    builtins_exit(self);
+}
+method_typedef(
+    builtins_exit,
+    "exit", ""
+);
+
+void builtins_floatMethod(PikaObj *self, Args *args){
+    Arg* arg = args_getArg(args, "arg");
+    pika_float res = builtins_float(self, arg);
+    method_returnFloat(args, res);
+}
+method_typedef(
+    builtins_float,
+    "float", "arg"
+);
+
+void builtins_gcdumpMethod(PikaObj *self, Args *args){
+    builtins_gcdump(self);
+}
+method_typedef(
+    builtins_gcdump,
+    "gcdump", ""
+);
+
+void builtins_getattrMethod(PikaObj *self, Args *args){
+    PikaObj* obj = args_getPtr(args, "obj");
+    char* name = args_getStr(args, "name");
+    Arg* res = builtins_getattr(self, obj, name);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_getattr,
+    "getattr", "obj,name"
+);
+
+void builtins_hasattrMethod(PikaObj *self, Args *args){
+    PikaObj* obj = args_getPtr(args, "obj");
+    char* name = args_getStr(args, "name");
+    int res = builtins_hasattr(self, obj, name);
+    method_returnInt(args, res);
+}
+method_typedef(
+    builtins_hasattr,
+    "hasattr", "obj,name"
+);
+
+void builtins_helpMethod(PikaObj *self, Args *args){
+    char* name = args_getStr(args, "name");
+    builtins_help(self, name);
+}
+method_typedef(
+    builtins_help,
+    "help", "name"
+);
+
+void builtins_hexMethod(PikaObj *self, Args *args){
+    int val = args_getInt(args, "val");
+    char* res = builtins_hex(self, val);
+    method_returnStr(args, res);
+}
+method_typedef(
+    builtins_hex,
+    "hex", "val"
+);
+
+void builtins_idMethod(PikaObj *self, Args *args){
+    Arg* obj = args_getArg(args, "obj");
+    int res = builtins_id(self, obj);
+    method_returnInt(args, res);
+}
+method_typedef(
+    builtins_id,
+    "id", "obj"
+);
+
+void builtins_inputMethod(PikaObj *self, Args *args){
+    PikaTuple* info = args_getTuple(args, "info");
+    char* res = builtins_input(self, info);
+    method_returnStr(args, res);
+}
+method_typedef(
+    builtins_input,
+    "input", "*info"
+);
+
+void builtins_intMethod(PikaObj *self, Args *args){
+    Arg* arg = args_getArg(args, "arg");
+    PikaTuple* base = args_getTuple(args, "base");
+    Arg* res = builtins_int(self, arg, base);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_int,
+    "int", "arg,*base"
+);
+
+void builtins_isinstanceMethod(PikaObj *self, Args *args){
+    Arg* object = args_getArg(args, "object");
+    Arg* classinfo = args_getArg(args, "classinfo");
+    pika_bool res = builtins_isinstance(self, object, classinfo);
+    method_returnBool(args, res);
+}
+method_typedef(
+    builtins_isinstance,
+    "isinstance", "object,classinfo"
+);
+
+void builtins_iterMethod(PikaObj *self, Args *args){
+    Arg* arg = args_getArg(args, "arg");
+    Arg* res = builtins_iter(self, arg);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_iter,
+    "iter", "arg"
+);
+
+void builtins_lenMethod(PikaObj *self, Args *args){
+    Arg* arg = args_getArg(args, "arg");
+    int res = builtins_len(self, arg);
+    method_returnInt(args, res);
+}
+method_typedef(
+    builtins_len,
+    "len", "arg"
+);
+
+void builtins_listMethod(PikaObj *self, Args *args){
+    PikaTuple* val = args_getTuple(args, "val");
+    Arg* res = builtins_list(self, val);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_list,
+    "list", "*val"
+);
+
+void builtins_maxMethod(PikaObj *self, Args *args){
+    PikaTuple* val = args_getTuple(args, "val");
+    Arg* res = builtins_max(self, val);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_max,
+    "max", "*val"
+);
+
+void builtins_minMethod(PikaObj *self, Args *args){
+    PikaTuple* val = args_getTuple(args, "val");
+    Arg* res = builtins_min(self, val);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_min,
+    "min", "*val"
+);
+
+void builtins_objectMethod(PikaObj *self, Args *args){
+    Arg* res = builtins_object(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_object,
+    "object", ""
+);
+
+void builtins_openMethod(PikaObj *self, Args *args){
+    char* path = args_getStr(args, "path");
+    char* mode = args_getStr(args, "mode");
+    PikaObj* res = builtins_open(self, path, mode);
+    method_returnObj(args, res);
+}
+method_typedef(
+    builtins_open,
+    "open", "path,mode"
+);
+
+void builtins_ordMethod(PikaObj *self, Args *args){
+    char* val = args_getStr(args, "val");
+    int res = builtins_ord(self, val);
+    method_returnInt(args, res);
+}
+method_typedef(
+    builtins_ord,
+    "ord", "val"
+);
+
+void builtins_printMethod(PikaObj *self, Args *args){
+    PikaTuple* val = args_getTuple(args, "val");
+    PikaDict* ops = args_getDict(args, "ops");
+    builtins_print(self, val, ops);
+}
+method_typedef(
+    builtins_print,
+    "print", "*val,**ops"
+);
+
+void builtins_rangeMethod(PikaObj *self, Args *args){
+    PikaTuple* ax = args_getTuple(args, "ax");
+    Arg* res = builtins_range(self, ax);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_range,
+    "range", "*ax"
+);
+
+void builtins_rebootMethod(PikaObj *self, Args *args){
+    builtins_reboot(self);
+}
+method_typedef(
+    builtins_reboot,
+    "reboot", ""
+);
+
+void builtins_setattrMethod(PikaObj *self, Args *args){
+    PikaObj* obj = args_getPtr(args, "obj");
+    char* name = args_getStr(args, "name");
+    Arg* val = args_getArg(args, "val");
+    builtins_setattr(self, obj, name, val);
+}
+method_typedef(
+    builtins_setattr,
+    "setattr", "obj,name,val"
+);
+
+void builtins_strMethod(PikaObj *self, Args *args){
+    Arg* arg = args_getArg(args, "arg");
+    char* res = builtins_str(self, arg);
+    method_returnStr(args, res);
+}
+method_typedef(
+    builtins_str,
+    "str", "arg"
+);
+
+void builtins_tupleMethod(PikaObj *self, Args *args){
+    PikaTuple* val = args_getTuple(args, "val");
+    Arg* res = builtins_tuple(self, val);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_tuple,
+    "tuple", "*val"
+);
+
+void builtins_typeMethod(PikaObj *self, Args *args){
+    Arg* arg = args_getArg(args, "arg");
+    Arg* res = builtins_type(self, arg);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_type,
+    "type", "arg"
+);
+
+class_def(builtins){
+    __BEFORE_MOETHOD_DEF
+    method_def(builtins_id, 5863474),
+    constructor_def(builtins_ImportWarning, 11723350),
+    constructor_def(builtins_FloatingPointError, 19944365),
+    constructor_def(builtins_UnicodeWarning, 83933186),
+    constructor_def(builtins_StringObj, 145144695),
+    constructor_def(builtins_bytearray, 150321240),
+    constructor_def(builtins_SystemExit, 173529092),
+    constructor_def(builtins_FileExistsError, 175400911),
+    method_def(builtins_abs, 193485979),
+    method_def(builtins_chr, 193488354),
+    method_def(builtins_dir, 193489476),
+    method_def(builtins_hex, 193493706),
+    method_def(builtins_int, 193495088),
+    method_def(builtins_len, 193498052),
+    method_def(builtins_max, 193499019),
+    method_def(builtins_min, 193499273),
+    method_def(builtins_ord, 193501738),
+    method_def(builtins_str, 193506174),
+    constructor_def(builtins_OSError, 196451025),
+    method_def(builtins_setattr, 204224428),
+    constructor_def(builtins_UnicodeError, 247530422),
+    method_def(builtins_bytes, 254850636),
+    method_def(builtins_clear, 255552908),
+    method_def(builtins_float, 259121563),
+    method_def(builtins_input, 262752949),
+    method_def(builtins_print, 271190290),
+    method_def(builtins_range, 272956402),
+    method_def(builtins_tuple, 276049327),
+    constructor_def(builtins_MemoryError, 282021160),
+    constructor_def(builtins_object, 301260540),
+    constructor_def(builtins_EOFError, 320116713),
+    constructor_def(builtins_ArithmeticError, 351017945),
+    constructor_def(builtins_TabError, 366528582),
+    constructor_def(builtins_Warning, 391884891),
+    method_def(builtins_reboot, 421948272),
+    constructor_def(builtins_RuntimeError, 489249939),
+    constructor_def(builtins_BufferError, 532402249),
+    constructor_def(builtins_StopIteration, 603406554),
+    constructor_def(builtins_RecursionError, 650622313),
+    constructor_def(builtins_KeyboardInterrupt, 675810883),
+    constructor_def(builtins_ConnectionAbortedError, 683722528),
+    constructor_def(builtins_PendingDeprecationWarning, 685434382),
+    constructor_def(builtins_ChildProcessError, 741086002),
+    constructor_def(builtins_NameError, 742300048),
+    constructor_def(builtins_AttributeError, 746628451),
+    constructor_def(builtins_IsADirectoryError, 758248961),
+    constructor_def(builtins_IndexError, 799477063),
+    constructor_def(builtins_KeyError, 823649752),
+    constructor_def(builtins_UnicodeDecodeError, 838371290),
+    method_def(builtins_hasattr, 872734812),
+    constructor_def(builtins_BrokenPipeError, 978090846),
+    constructor_def(builtins_ZeroDivisionError, 984971860),
+    constructor_def(builtins_BlockingIOError, 1002993040),
+    constructor_def(builtins_AssertionError, 1016945095),
+    constructor_def(builtins_ResourceWarning, 1029444419),
+    constructor_def(builtins_LookupError, 1035868745),
+    constructor_def(builtins_StopAsyncIteration, 1038138136),
+    method_def(builtins_cformat, 1049381873),
+    method_def(builtins_isinstance, 1092354326),
+    constructor_def(builtins_UserWarning, 1106681050),
+    constructor_def(builtins_ModuleNotFoundError, 1142003074),
+    constructor_def(builtins_ConnectionRefusedError, 1171553869),
+    constructor_def(builtins_BaseException, 1299431183),
+    constructor_def(builtins_RuntimeWarning, 1323482143),
+    constructor_def(builtins_Exception, 1326281044),
+    constructor_def(builtins_UnboundLocalError, 1346345301),
+    method_def(builtins___setitem__, 1364865276),
+    constructor_def(builtins_FileNotFoundError, 1382762428),
+    constructor_def(builtins_PermissionError, 1420080312),
+    constructor_def(builtins_SystemError, 1431286868),
+    method_def(builtins___getitem__, 1535436016),
+    constructor_def(builtins_RangeObj, 1538428845),
+    constructor_def(builtins_UnicodeEncodeError, 1538545476),
+    constructor_def(builtins_NotImplementedError, 1581723060),
+    constructor_def(builtins_ConnectionResetError, 1651090626),
+    constructor_def(builtins_SyntaxWarning, 1678827394),
+    constructor_def(builtins_InterruptedError, 1696514373),
+    constructor_def(builtins_DeprecationWarning, 1745747977),
+    constructor_def(builtins_UnicodeTranslateError, 1777242020),
+    constructor_def(builtins_IndentationError, 1802197452),
+    constructor_def(builtins_ConnectionError, 1818108799),
+    constructor_def(builtins_ImportError, 1836878090),
+    constructor_def(builtins_FutureWarning, 1879536502),
+    method_def(builtins_getattr, 1886477984),
+    constructor_def(builtins_ReferenceError, 1905798430),
+    constructor_def(builtins_ProcessLookupError, 1911736232),
+    constructor_def(builtins_TypeError, 1950608113),
+    constructor_def(builtins_SyntaxError, 1956727606),
+    constructor_def(builtins_OverflowError, 1985385347),
+    constructor_def(builtins_GeneratorExit, 2000609318),
+    constructor_def(builtins_NotADirectoryError, 2011759286),
+    constructor_def(builtins_TimeoutError, 2075962582),
+    method_def(builtins_bool, 2090120081),
+    method_def(builtins_dict, 2090185033),
+    method_def(builtins_eval, 2090235053),
+    method_def(builtins_exec, 2090237354),
+    method_def(builtins_exit, 2090237503),
+    method_def(builtins_help, 2090324718),
+    method_def(builtins_iter, 2090376761),
+    method_def(builtins_list, 2090473057),
+    method_def(builtins_open, 2090588023),
+    method_def(builtins_type, 2090777863),
+    constructor_def(builtins_ValueError, 2134842892),
+    constructor_def(builtins_BytesWarning, 2135134114),
+    method_def(builtins_gcdump, 2136649093),
+};
+class_inhert(builtins, TinyObj);
+
+PikaObj *New_builtins(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, builtins);
+    return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ArithmeticError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ArithmeticError, builtins_Exception);
+
+PikaObj *New_builtins_ArithmeticError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_ArithmeticError);
+    return self;
+}
+
+Arg *builtins_ArithmeticError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ArithmeticError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_AssertionError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_AssertionError, builtins_Exception);
+
+PikaObj *New_builtins_AssertionError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_AssertionError);
+    return self;
+}
+
+Arg *builtins_AssertionError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_AssertionError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_AttributeError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_AttributeError, builtins_Exception);
+
+PikaObj *New_builtins_AttributeError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_AttributeError);
+    return self;
+}
+
+Arg *builtins_AttributeError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_AttributeError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_BaseException){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_BaseException, TinyObj);
+
+PikaObj *New_builtins_BaseException(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, builtins_BaseException);
+    return self;
+}
+
+Arg *builtins_BaseException(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_BaseException);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_BlockingIOError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_BlockingIOError, builtins_OSError);
+
+PikaObj *New_builtins_BlockingIOError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_BlockingIOError);
+    return self;
+}
+
+Arg *builtins_BlockingIOError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_BlockingIOError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_BrokenPipeError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_BrokenPipeError, builtins_ConnectionError);
+
+PikaObj *New_builtins_BrokenPipeError(Args *args){
+    PikaObj *self = New_builtins_ConnectionError(args);
+    obj_setClass(self, builtins_BrokenPipeError);
+    return self;
+}
+
+Arg *builtins_BrokenPipeError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_BrokenPipeError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_BufferError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_BufferError, builtins_Exception);
+
+PikaObj *New_builtins_BufferError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_BufferError);
+    return self;
+}
+
+Arg *builtins_BufferError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_BufferError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_BytesWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_BytesWarning, builtins_Warning);
+
+PikaObj *New_builtins_BytesWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_BytesWarning);
+    return self;
+}
+
+Arg *builtins_BytesWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_BytesWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ChildProcessError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ChildProcessError, builtins_OSError);
+
+PikaObj *New_builtins_ChildProcessError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_ChildProcessError);
+    return self;
+}
+
+Arg *builtins_ChildProcessError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ChildProcessError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ConnectionAbortedError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ConnectionAbortedError, builtins_ConnectionError);
+
+PikaObj *New_builtins_ConnectionAbortedError(Args *args){
+    PikaObj *self = New_builtins_ConnectionError(args);
+    obj_setClass(self, builtins_ConnectionAbortedError);
+    return self;
+}
+
+Arg *builtins_ConnectionAbortedError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ConnectionAbortedError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ConnectionError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ConnectionError, builtins_OSError);
+
+PikaObj *New_builtins_ConnectionError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_ConnectionError);
+    return self;
+}
+
+Arg *builtins_ConnectionError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ConnectionError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ConnectionRefusedError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ConnectionRefusedError, builtins_ConnectionError);
+
+PikaObj *New_builtins_ConnectionRefusedError(Args *args){
+    PikaObj *self = New_builtins_ConnectionError(args);
+    obj_setClass(self, builtins_ConnectionRefusedError);
+    return self;
+}
+
+Arg *builtins_ConnectionRefusedError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ConnectionRefusedError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ConnectionResetError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ConnectionResetError, builtins_ConnectionError);
+
+PikaObj *New_builtins_ConnectionResetError(Args *args){
+    PikaObj *self = New_builtins_ConnectionError(args);
+    obj_setClass(self, builtins_ConnectionResetError);
+    return self;
+}
+
+Arg *builtins_ConnectionResetError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ConnectionResetError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_DeprecationWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_DeprecationWarning, builtins_Warning);
+
+PikaObj *New_builtins_DeprecationWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_DeprecationWarning);
+    return self;
+}
+
+Arg *builtins_DeprecationWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_DeprecationWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_EOFError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_EOFError, builtins_Exception);
+
+PikaObj *New_builtins_EOFError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_EOFError);
+    return self;
+}
+
+Arg *builtins_EOFError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_EOFError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_Exception){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_Exception, builtins_BaseException);
+
+PikaObj *New_builtins_Exception(Args *args){
+    PikaObj *self = New_builtins_BaseException(args);
+    obj_setClass(self, builtins_Exception);
+    return self;
+}
+
+Arg *builtins_Exception(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_Exception);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_FileExistsError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_FileExistsError, builtins_OSError);
+
+PikaObj *New_builtins_FileExistsError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_FileExistsError);
+    return self;
+}
+
+Arg *builtins_FileExistsError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_FileExistsError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_FileNotFoundError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_FileNotFoundError, builtins_OSError);
+
+PikaObj *New_builtins_FileNotFoundError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_FileNotFoundError);
+    return self;
+}
+
+Arg *builtins_FileNotFoundError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_FileNotFoundError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_FloatingPointError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_FloatingPointError, builtins_ArithmeticError);
+
+PikaObj *New_builtins_FloatingPointError(Args *args){
+    PikaObj *self = New_builtins_ArithmeticError(args);
+    obj_setClass(self, builtins_FloatingPointError);
+    return self;
+}
+
+Arg *builtins_FloatingPointError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_FloatingPointError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_FutureWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_FutureWarning, builtins_Warning);
+
+PikaObj *New_builtins_FutureWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_FutureWarning);
+    return self;
+}
+
+Arg *builtins_FutureWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_FutureWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_GeneratorExit){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_GeneratorExit, builtins_BaseException);
+
+PikaObj *New_builtins_GeneratorExit(Args *args){
+    PikaObj *self = New_builtins_BaseException(args);
+    obj_setClass(self, builtins_GeneratorExit);
+    return self;
+}
+
+Arg *builtins_GeneratorExit(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_GeneratorExit);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ImportError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ImportError, builtins_Exception);
+
+PikaObj *New_builtins_ImportError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_ImportError);
+    return self;
+}
+
+Arg *builtins_ImportError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ImportError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ImportWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ImportWarning, builtins_Warning);
+
+PikaObj *New_builtins_ImportWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_ImportWarning);
+    return self;
+}
+
+Arg *builtins_ImportWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ImportWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_IndentationError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_IndentationError, builtins_SyntaxError);
+
+PikaObj *New_builtins_IndentationError(Args *args){
+    PikaObj *self = New_builtins_SyntaxError(args);
+    obj_setClass(self, builtins_IndentationError);
+    return self;
+}
+
+Arg *builtins_IndentationError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_IndentationError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_IndexError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_IndexError, builtins_LookupError);
+
+PikaObj *New_builtins_IndexError(Args *args){
+    PikaObj *self = New_builtins_LookupError(args);
+    obj_setClass(self, builtins_IndexError);
+    return self;
+}
+
+Arg *builtins_IndexError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_IndexError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_InterruptedError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_InterruptedError, builtins_OSError);
+
+PikaObj *New_builtins_InterruptedError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_InterruptedError);
+    return self;
+}
+
+Arg *builtins_InterruptedError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_InterruptedError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_IsADirectoryError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_IsADirectoryError, builtins_OSError);
+
+PikaObj *New_builtins_IsADirectoryError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_IsADirectoryError);
+    return self;
+}
+
+Arg *builtins_IsADirectoryError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_IsADirectoryError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_KeyError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_KeyError, builtins_LookupError);
+
+PikaObj *New_builtins_KeyError(Args *args){
+    PikaObj *self = New_builtins_LookupError(args);
+    obj_setClass(self, builtins_KeyError);
+    return self;
+}
+
+Arg *builtins_KeyError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_KeyError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_KeyboardInterrupt){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_KeyboardInterrupt, builtins_BaseException);
+
+PikaObj *New_builtins_KeyboardInterrupt(Args *args){
+    PikaObj *self = New_builtins_BaseException(args);
+    obj_setClass(self, builtins_KeyboardInterrupt);
+    return self;
+}
+
+Arg *builtins_KeyboardInterrupt(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_KeyboardInterrupt);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_LookupError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_LookupError, builtins_Exception);
+
+PikaObj *New_builtins_LookupError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_LookupError);
+    return self;
+}
+
+Arg *builtins_LookupError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_LookupError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_MemoryError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_MemoryError, builtins_Exception);
+
+PikaObj *New_builtins_MemoryError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_MemoryError);
+    return self;
+}
+
+Arg *builtins_MemoryError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_MemoryError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ModuleNotFoundError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ModuleNotFoundError, builtins_ImportError);
+
+PikaObj *New_builtins_ModuleNotFoundError(Args *args){
+    PikaObj *self = New_builtins_ImportError(args);
+    obj_setClass(self, builtins_ModuleNotFoundError);
+    return self;
+}
+
+Arg *builtins_ModuleNotFoundError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ModuleNotFoundError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_NameError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_NameError, builtins_Exception);
+
+PikaObj *New_builtins_NameError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_NameError);
+    return self;
+}
+
+Arg *builtins_NameError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_NameError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_NotADirectoryError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_NotADirectoryError, builtins_OSError);
+
+PikaObj *New_builtins_NotADirectoryError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_NotADirectoryError);
+    return self;
+}
+
+Arg *builtins_NotADirectoryError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_NotADirectoryError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_NotImplementedError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_NotImplementedError, builtins_RuntimeError);
+
+PikaObj *New_builtins_NotImplementedError(Args *args){
+    PikaObj *self = New_builtins_RuntimeError(args);
+    obj_setClass(self, builtins_NotImplementedError);
+    return self;
+}
+
+Arg *builtins_NotImplementedError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_NotImplementedError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_OSError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_OSError, builtins_Exception);
+
+PikaObj *New_builtins_OSError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_OSError);
+    return self;
+}
+
+Arg *builtins_OSError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_OSError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_OverflowError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_OverflowError, builtins_ArithmeticError);
+
+PikaObj *New_builtins_OverflowError(Args *args){
+    PikaObj *self = New_builtins_ArithmeticError(args);
+    obj_setClass(self, builtins_OverflowError);
+    return self;
+}
+
+Arg *builtins_OverflowError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_OverflowError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_PendingDeprecationWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_PendingDeprecationWarning, builtins_Warning);
+
+PikaObj *New_builtins_PendingDeprecationWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_PendingDeprecationWarning);
+    return self;
+}
+
+Arg *builtins_PendingDeprecationWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_PendingDeprecationWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_PermissionError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_PermissionError, builtins_OSError);
+
+PikaObj *New_builtins_PermissionError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_PermissionError);
+    return self;
+}
+
+Arg *builtins_PermissionError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_PermissionError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ProcessLookupError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ProcessLookupError, builtins_OSError);
+
+PikaObj *New_builtins_ProcessLookupError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_ProcessLookupError);
+    return self;
+}
+
+Arg *builtins_ProcessLookupError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ProcessLookupError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+void builtins_RangeObj___next__Method(PikaObj *self, Args *args){
+    Arg* res = builtins_RangeObj___next__(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_RangeObj___next__,
+    "__next__", ""
+);
+
+class_def(builtins_RangeObj){
+    __BEFORE_MOETHOD_DEF
+    method_def(builtins_RangeObj___next__, 1090305216),
+};
+class_inhert(builtins_RangeObj, TinyObj);
+
+PikaObj *New_builtins_RangeObj(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, builtins_RangeObj);
+    return self;
+}
+
+Arg *builtins_RangeObj(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_RangeObj);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_RecursionError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_RecursionError, builtins_RuntimeError);
+
+PikaObj *New_builtins_RecursionError(Args *args){
+    PikaObj *self = New_builtins_RuntimeError(args);
+    obj_setClass(self, builtins_RecursionError);
+    return self;
+}
+
+Arg *builtins_RecursionError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_RecursionError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ReferenceError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ReferenceError, builtins_Exception);
+
+PikaObj *New_builtins_ReferenceError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_ReferenceError);
+    return self;
+}
+
+Arg *builtins_ReferenceError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ReferenceError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ResourceWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ResourceWarning, builtins_Warning);
+
+PikaObj *New_builtins_ResourceWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_ResourceWarning);
+    return self;
+}
+
+Arg *builtins_ResourceWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ResourceWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_RuntimeError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_RuntimeError, builtins_Exception);
+
+PikaObj *New_builtins_RuntimeError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_RuntimeError);
+    return self;
+}
+
+Arg *builtins_RuntimeError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_RuntimeError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_RuntimeWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_RuntimeWarning, builtins_Warning);
+
+PikaObj *New_builtins_RuntimeWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_RuntimeWarning);
+    return self;
+}
+
+Arg *builtins_RuntimeWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_RuntimeWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_StopAsyncIteration){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_StopAsyncIteration, builtins_Exception);
+
+PikaObj *New_builtins_StopAsyncIteration(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_StopAsyncIteration);
+    return self;
+}
+
+Arg *builtins_StopAsyncIteration(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_StopAsyncIteration);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_StopIteration){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_StopIteration, builtins_Exception);
+
+PikaObj *New_builtins_StopIteration(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_StopIteration);
+    return self;
+}
+
+Arg *builtins_StopIteration(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_StopIteration);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+void builtins_StringObj___next__Method(PikaObj *self, Args *args){
+    Arg* res = builtins_StringObj___next__(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_StringObj___next__,
+    "__next__", ""
+);
+
+class_def(builtins_StringObj){
+    __BEFORE_MOETHOD_DEF
+    method_def(builtins_StringObj___next__, 1090305216),
+};
+class_inhert(builtins_StringObj, TinyObj);
+
+PikaObj *New_builtins_StringObj(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, builtins_StringObj);
+    return self;
+}
+
+Arg *builtins_StringObj(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_StringObj);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_SyntaxError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_SyntaxError, builtins_Exception);
+
+PikaObj *New_builtins_SyntaxError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_SyntaxError);
+    return self;
+}
+
+Arg *builtins_SyntaxError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_SyntaxError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_SyntaxWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_SyntaxWarning, builtins_Warning);
+
+PikaObj *New_builtins_SyntaxWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_SyntaxWarning);
+    return self;
+}
+
+Arg *builtins_SyntaxWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_SyntaxWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_SystemError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_SystemError, builtins_Exception);
+
+PikaObj *New_builtins_SystemError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_SystemError);
+    return self;
+}
+
+Arg *builtins_SystemError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_SystemError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_SystemExit){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_SystemExit, builtins_BaseException);
+
+PikaObj *New_builtins_SystemExit(Args *args){
+    PikaObj *self = New_builtins_BaseException(args);
+    obj_setClass(self, builtins_SystemExit);
+    return self;
+}
+
+Arg *builtins_SystemExit(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_SystemExit);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_TabError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_TabError, builtins_IndentationError);
+
+PikaObj *New_builtins_TabError(Args *args){
+    PikaObj *self = New_builtins_IndentationError(args);
+    obj_setClass(self, builtins_TabError);
+    return self;
+}
+
+Arg *builtins_TabError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_TabError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_TimeoutError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_TimeoutError, builtins_OSError);
+
+PikaObj *New_builtins_TimeoutError(Args *args){
+    PikaObj *self = New_builtins_OSError(args);
+    obj_setClass(self, builtins_TimeoutError);
+    return self;
+}
+
+Arg *builtins_TimeoutError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_TimeoutError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_TypeError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_TypeError, builtins_Exception);
+
+PikaObj *New_builtins_TypeError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_TypeError);
+    return self;
+}
+
+Arg *builtins_TypeError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_TypeError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_UnboundLocalError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_UnboundLocalError, builtins_NameError);
+
+PikaObj *New_builtins_UnboundLocalError(Args *args){
+    PikaObj *self = New_builtins_NameError(args);
+    obj_setClass(self, builtins_UnboundLocalError);
+    return self;
+}
+
+Arg *builtins_UnboundLocalError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_UnboundLocalError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_UnicodeDecodeError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_UnicodeDecodeError, builtins_UnicodeError);
+
+PikaObj *New_builtins_UnicodeDecodeError(Args *args){
+    PikaObj *self = New_builtins_UnicodeError(args);
+    obj_setClass(self, builtins_UnicodeDecodeError);
+    return self;
+}
+
+Arg *builtins_UnicodeDecodeError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_UnicodeDecodeError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_UnicodeEncodeError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_UnicodeEncodeError, builtins_UnicodeError);
+
+PikaObj *New_builtins_UnicodeEncodeError(Args *args){
+    PikaObj *self = New_builtins_UnicodeError(args);
+    obj_setClass(self, builtins_UnicodeEncodeError);
+    return self;
+}
+
+Arg *builtins_UnicodeEncodeError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_UnicodeEncodeError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_UnicodeError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_UnicodeError, builtins_ValueError);
+
+PikaObj *New_builtins_UnicodeError(Args *args){
+    PikaObj *self = New_builtins_ValueError(args);
+    obj_setClass(self, builtins_UnicodeError);
+    return self;
+}
+
+Arg *builtins_UnicodeError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_UnicodeError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_UnicodeTranslateError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_UnicodeTranslateError, builtins_UnicodeError);
+
+PikaObj *New_builtins_UnicodeTranslateError(Args *args){
+    PikaObj *self = New_builtins_UnicodeError(args);
+    obj_setClass(self, builtins_UnicodeTranslateError);
+    return self;
+}
+
+Arg *builtins_UnicodeTranslateError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_UnicodeTranslateError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_UnicodeWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_UnicodeWarning, builtins_Warning);
+
+PikaObj *New_builtins_UnicodeWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_UnicodeWarning);
+    return self;
+}
+
+Arg *builtins_UnicodeWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_UnicodeWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_UserWarning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_UserWarning, builtins_Warning);
+
+PikaObj *New_builtins_UserWarning(Args *args){
+    PikaObj *self = New_builtins_Warning(args);
+    obj_setClass(self, builtins_UserWarning);
+    return self;
+}
+
+Arg *builtins_UserWarning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_UserWarning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ValueError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ValueError, builtins_Exception);
+
+PikaObj *New_builtins_ValueError(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_ValueError);
+    return self;
+}
+
+Arg *builtins_ValueError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ValueError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_Warning){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_Warning, builtins_Exception);
+
+PikaObj *New_builtins_Warning(Args *args){
+    PikaObj *self = New_builtins_Exception(args);
+    obj_setClass(self, builtins_Warning);
+    return self;
+}
+
+Arg *builtins_Warning(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_Warning);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_ZeroDivisionError){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_ZeroDivisionError, builtins_ArithmeticError);
+
+PikaObj *New_builtins_ZeroDivisionError(Args *args){
+    PikaObj *self = New_builtins_ArithmeticError(args);
+    obj_setClass(self, builtins_ZeroDivisionError);
+    return self;
+}
+
+Arg *builtins_ZeroDivisionError(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_ZeroDivisionError);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+void builtins_bytearray___getitem__Method(PikaObj *self, Args *args){
+    int __key = args_getInt(args, "__key");
+    int res = builtins_bytearray___getitem__(self, __key);
+    method_returnInt(args, res);
+}
+method_typedef(
+    builtins_bytearray___getitem__,
+    "__getitem__", "__key"
+);
+
+void builtins_bytearray___init__Method(PikaObj *self, Args *args){
+    Arg* bytes = args_getArg(args, "bytes");
+    builtins_bytearray___init__(self, bytes);
+}
+method_typedef(
+    builtins_bytearray___init__,
+    "__init__", "bytes"
+);
+
+void builtins_bytearray___iter__Method(PikaObj *self, Args *args){
+    Arg* res = builtins_bytearray___iter__(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_bytearray___iter__,
+    "__iter__", ""
+);
+
+void builtins_bytearray___len__Method(PikaObj *self, Args *args){
+    int res = builtins_bytearray___len__(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    builtins_bytearray___len__,
+    "__len__", ""
+);
+
+void builtins_bytearray___next__Method(PikaObj *self, Args *args){
+    Arg* res = builtins_bytearray___next__(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    builtins_bytearray___next__,
+    "__next__", ""
+);
+
+void builtins_bytearray___setitem__Method(PikaObj *self, Args *args){
+    int __key = args_getInt(args, "__key");
+    int __val = args_getInt(args, "__val");
+    builtins_bytearray___setitem__(self, __key, __val);
+}
+method_typedef(
+    builtins_bytearray___setitem__,
+    "__setitem__", "__key,__val"
+);
+
+void builtins_bytearray___str__Method(PikaObj *self, Args *args){
+    char* res = builtins_bytearray___str__(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    builtins_bytearray___str__,
+    "__str__", ""
+);
+
+void builtins_bytearray_decodeMethod(PikaObj *self, Args *args){
+    char* res = builtins_bytearray_decode(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    builtins_bytearray_decode,
+    "decode", ""
+);
+
+class_def(builtins_bytearray){
+    __BEFORE_MOETHOD_DEF
+    method_def(builtins_bytearray___init__, 904762485),
+    method_def(builtins_bytearray___iter__, 911732085),
+    method_def(builtins_bytearray___next__, 1090305216),
+    method_def(builtins_bytearray___setitem__, 1364865276),
+    method_def(builtins_bytearray___getitem__, 1535436016),
+    method_def(builtins_bytearray_decode, 2021571977),
+    method_def(builtins_bytearray___len__, 2047989248),
+    method_def(builtins_bytearray___str__, 2056834106),
+};
+class_inhert(builtins_bytearray, TinyObj);
+
+PikaObj *New_builtins_bytearray(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, builtins_bytearray);
+    return self;
+}
+
+Arg *builtins_bytearray(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_bytearray);
+}
+#endif
+
+#ifndef PIKA_MODULE_BUILTINS_DISABLE
+class_def(builtins_object){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(builtins_object, TinyObj);
+
+PikaObj *New_builtins_object(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, builtins_object);
+    return self;
+}
+
+Arg *builtins_object(PikaObj *self){
+    return obj_newObjInPackage(New_builtins_object);
+}
+#endif
+
 #ifndef PIKA_MODULE_PIKARTTHREAD_DISABLE
 void pikaRTThread_TaskMethod(PikaObj *self, Args *args){
     Arg* res = pikaRTThread_Task(self);
@@ -2833,19 +4774,6 @@ PikaObj *New_pikaRTThread_Thread(Args *args){
 
 Arg *pikaRTThread_Thread(PikaObj *self){
     return obj_newObjInPackage(New_pikaRTThread_Thread);
-}
-#endif
-
-#ifndef PIKA_MODULE_PIKA_LIBC_DISABLE
-class_def(pika_libc){
-    __BEFORE_MOETHOD_DEF
-};
-class_inhert(pika_libc, TinyObj);
-
-PikaObj *New_pika_libc(Args *args){
-    PikaObj *self = New_TinyObj(args);
-    obj_setClass(self, pika_libc);
-    return self;
 }
 #endif
 

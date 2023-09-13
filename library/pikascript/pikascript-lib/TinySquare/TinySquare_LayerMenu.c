@@ -1,8 +1,10 @@
 #include "pikaScript.h"
 #include "PikaStdData_Tuple.h"
 #include "tnsq_gfx_layer_menu.h"
+#include "TinySquare_Common.h"
+#include "tnsq_gfx.h"
 
-void TinySquare_LayerMenu___init__(PikaObj *self, PikaObj* strTable, int itemWidth, int itemHeight, PikaObj* itemNormal, PikaObj* itemSelect)
+void TinySquare_LayerMenu___init__(PikaObj *self, PikaObj* strTable, int fontType, int itemWidth, int itemHeight, PikaObj* itemNormal, PikaObj* itemSelect)
 {
     int strCount = PikaStdData_Tuple_len(strTable);
     char** ptStrTable = (char**)malloc(sizeof(char*) * strCount);
@@ -23,7 +25,7 @@ void TinySquare_LayerMenu___init__(PikaObj *self, PikaObj* strTable, int itemWid
             .tItemPadding = {0},
             .chShowItemNum = 3,
             .nFinishInMs = 150,
-            .ptFont = NULL,
+            .ptFont = get_font_ptr(fontType),
         },
         .tItemNormal = *(struct tItemFormat *)obj_getStruct(itemNormal, "_self"),
         .tItemSelected = *(struct tItemFormat *)obj_getStruct(itemSelect, "_self"),
@@ -35,5 +37,14 @@ void TinySquare_LayerMenu___init__(PikaObj *self, PikaObj* strTable, int itemWid
 int TinySquare_LayerMenu_get_idx(PikaObj *self)
 {
     tnsq_gfx_layer_menu_t *_self = obj_getPtr(self, "_self");
-    return tnsq_gfx_layer_menu_get_item_idx(_self);
+    int idx = tnsq_gfx_layer_menu_get_item_idx(_self);
+    if (idx == -1)
+    {
+        tnsq_gfx_apply_for_refresh();
+        return idx;
+    }
+    else
+    {
+        return idx;
+    }
 }

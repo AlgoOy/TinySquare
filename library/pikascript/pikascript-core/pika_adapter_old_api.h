@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef __PIKA_ADAPTER_OLD_API_H__
 #define __PIKA_ADAPTER_OLD_API_H__
 
@@ -13,10 +17,9 @@
 #define __platform_enable_irq_handle pika_platform_enable_irq_handle
 #define __platform_disable_irq_handle pika_platform_disable_irq_handle
 #define __platform_printf pika_platform_printf
-#define __platform_sprintf pika_platform_sprintf
-#define __platform_vsprintf pika_platform_vsprintf
 #define __platform_vsnprintf pika_platform_vsnprintf
-#define __platform_snprintf pika_platform_snprintf
+#define __platform_sprintf pika_sprintf
+#define pika_platform_sprintf pika_sprintf
 #define __platform_strdup pika_platform_strdup
 #define __platform_tick_from_millisecond pika_platform_tick_from_millisecond
 #define __platform_malloc pika_platform_malloc
@@ -39,7 +42,9 @@
 #define __platform_error_handle pika_platform_error_handle
 #define __platform_panic_handle pika_platform_panic_handle
 #define __platform_thread_delay pika_platform_thread_delay
-#define __platform_getTick pika_platform_getTick
+#define pika_platform_thread_delay pika_platform_thread_yield
+#define __platform_getTick pika_platform_get_tick
+#define pika_platform_getTick pika_platform_get_tick
 #define __platform_sleep_ms pika_platform_sleep_ms
 #define __platform_sleep_s pika_platform_sleep_s
 
@@ -71,7 +76,53 @@
 #define pks_eventLisener_sendSignal pks_eventListener_sendSignal
 #define pks_eventLisener_deinit pks_eventListener_deinit
 #define pks_eventLicener_removeEvent pks_eventListener_removeEvent
+#define pks_eventListener_registEvent pika_eventListener_registEvent
+#define pika_eventListener_registEvent pika_eventListener_registEventHandler
+#define pks_eventListener_removeEvent pika_eventListener_removeEvent
+#define _do_pks_eventListener_send _do_pika_eventListener_send
+#define pks_eventListener_sendSignal pika_eventListener_sendSignal
+#define pks_eventListener_send pika_eventListener_send
+#define pks_eventListener_getEventHandleObj pika_eventListener_getEventHandleObj
+#define pks_eventListener_init pika_eventListener_init
+#define pks_eventListener_deinit pika_eventListener_deinit
+#define pks_eventListener_sendSignalAwaitResult \
+    pika_eventListener_sendSignalAwaitResult
+#define pks_printVersion pika_printVersion
+#define pks_getVersion pika_getVersion
+#define pks_vm_exit pika_vm_exit
+#define obj_setEventCallBack obj_setEventCallback
+
+#define pika_platform_timer_init pika_platform_thread_timer_init
+#define pika_platform_timer_cutdown pika_platform_thread_timer_cutdown
+#define pika_platform_timer_is_expired pika_platform_thread_timer_is_expired
+#define pika_platform_timer_remain pika_platform_thread_timer_remain
+#define pika_platform_timer_now pika_platform_thread_timer_now
+#define pika_platform_timer_usleep pika_platform_thread_timer_usleep
+#define arg_newNull arg_newNone
+#define arg_setNull arg_setNone
+
+#define PIKA_BOOL pika_bool
+#define PIKA_TRUE pika_true
+#define PIKA_FALSE pika_false
+#define pikaScriptInit pikaPythonInit
+#define pikaScriptShell pikaPythonShell
+
+#define New_pikaList New_PikaList
+#define New_pikaDict New_PikaDict
+#define New_pikaTuple New_PikaTuple
+
+#define New_pikaTupleFrom New_PikaTupleFrom
+#define New_pikaListFrom New_PikaListFrom
+#define New_pikaDictFrom New_PikaDictFrom
+
+#define New_pikaTupleFromVarArgs New_PikaTupleFromVarArgs
+#define New_pikaListFromVarArgs New_PikaListFromVarArgs
+#define New_pikaDictFromVarArgs New_PikaDictFromVarArgs
 
 #endif
 
+#endif
+
+#ifdef __cplusplus
+}
 #endif

@@ -1,0 +1,1 @@
+#define PIKA_ASSERT_ENABLE 1
