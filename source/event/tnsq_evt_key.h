@@ -55,8 +55,8 @@ struct tnsq_evt_key_t
     } tEvent;
 };
 
-rt_err_t tnsq_evt_itc_get(tnsq_evt_key_t *ptThis, rt_int32_t timeout);
-rt_err_t tnsq_evt_itc_put(tnsq_evt_key_t *ptThis);
+rt_err_t tnsq_evt_itc_get(tnsq_evt_key_t *ptKey, rt_int32_t timeout);
+rt_err_t tnsq_evt_itc_put(tnsq_evt_key_t *ptKey);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
