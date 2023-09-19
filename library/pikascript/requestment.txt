@@ -1,4 +1,4 @@
-pikascript-core==v1.12.6
-PikaStdLib==v1.12.6
+pikascript-core==942c6c8e40680c720c8ac747473987a7fd7cd6f9
+PikaStdLib==942c6c8e40680c720c8ac747473987a7fd7cd6f9
 pikaRTThread==v1.3.2
 pika_libc==v1.0.2

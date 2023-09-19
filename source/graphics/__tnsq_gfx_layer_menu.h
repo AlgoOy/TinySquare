@@ -10,12 +10,12 @@
  
 #ifndef ____TNSQ_GFX_LAYER_MENU_H__
 #define ____TNSQ_GFX_LAYER_MENU_H__
+
+#include "tnsq_gfx_layer_menu.h"
  
 #ifdef   __cplusplus
 extern "C" {
 #endif
-
-#include "tnsq_gfx_layer_menu.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

@@ -10,14 +10,14 @@
  
 #ifndef __TNSQ_GFX_LAYER_NUM_H__
 #define __TNSQ_GFX_LAYER_NUM_H__
- 
-#ifdef   __cplusplus
-extern "C" {
-#endif
 
 #include "__tnsq_gfx_layer.h"
 
 #include "number_list.h"
+ 
+#ifdef   __cplusplus
+extern "C" {
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

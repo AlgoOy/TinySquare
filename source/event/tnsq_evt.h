@@ -11,12 +11,12 @@
 #ifndef __TNSQ_EVT_H__
 #define __TNSQ_EVT_H__
 
+#include "tnsq_evt_key.h"
+#include "tiny_square_cfg.h"
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
-
-#include "tnsq_evt_key.h"
-#include "tiny_square_cfg.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

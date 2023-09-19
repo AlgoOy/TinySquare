@@ -331,6 +331,7 @@ ByteCodeFrame* methodArg_getBytecodeFrame(Arg* method_arg);
 Method methodArg_getPtr(Arg* method_arg);
 
 VMParameters* obj_run(PikaObj* self, char* cmd);
+Arg* pika_runFunction1(Arg* methodArg, Arg* arg1);
 PikaObj* New_PikaObj(void);
 PikaObj* New_PikaObj_noGC(void);
 
@@ -759,6 +760,8 @@ typedef PikaObj PikaDict;
 pika_bool pika_GIL_isInit(void);
 int pika_GIL_deinit(void);
 
+pika_bool _bytes_contains(Arg* self, Arg* others);
+
 /* builtins */
 PikaObj* New_builtins(Args* args);
 
@@ -821,6 +824,7 @@ PIKA_RES pikaDict_setPtr(PikaDict* self, char* name, void* val);
 PIKA_RES pikaDict_set(PikaDict* self, char* name, Arg* val);
 #define pikaDict_setArg pikaDict_set
 PIKA_RES pikaDict_removeArg(PikaDict* self, Arg* val);
+PIKA_RES pikaDict_reverse(PikaDict* self);
 PIKA_RES pikaDict_setBytes(PikaDict* self,
                            char* name,
                            uint8_t* val,

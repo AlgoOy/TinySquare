@@ -2767,6 +2767,30 @@ void pika_eventListener_deinit(PikaEventListener** p_self) {
     }
 }
 
+Arg* pika_runFunction1(Arg* functionArg, Arg* arg1) {
+    PikaObj* locals = New_TinyObj(NULL);
+    obj_setArg(locals, "@d", arg1);
+    obj_setArg(locals, "@f", functionArg);
+    /* clang-format off */
+    PIKA_PYTHON(
+    @r = @f(@d)
+    )
+    /* clang-format on */
+    const uint8_t bytes[] = {
+        0x0c, 0x00, 0x00, 0x00, /* instruct array size */
+        0x10, 0x81, 0x01, 0x00, 0x00, 0x02, 0x04, 0x00, 0x00, 0x04, 0x07, 0x00,
+        /* instruct array */
+        0x0a, 0x00, 0x00, 0x00, /* const pool size */
+        0x00, 0x40, 0x64, 0x00, 0x40, 0x66, 0x00, 0x40, 0x72,
+        0x00, /* const pool */
+    };
+    pikaVM_runByteCode(locals, (uint8_t*)bytes);
+    Arg* res = obj_getArg(locals, "@r");
+    res = arg_copy(res);
+    obj_deinit(locals);
+    return res;
+}
+
 Arg* __eventListener_runEvent(PikaEventListener* lisener,
                               uint32_t eventId,
                               Arg* eventData) {
@@ -2777,26 +2801,9 @@ Arg* __eventListener_runEvent(PikaEventListener* lisener,
             "Error: can not find event handler by id: [0x%02x]\r\n", eventId);
         return NULL;
     }
-    obj_setArg(handler, "eventData", eventData);
-    /* clang-format off */
-    PIKA_PYTHON(
-    _res = eventCallBack(eventData)
-    )
-    /* clang-format on */
-    const uint8_t bytes[] = {
-        0x0c, 0x00, 0x00, 0x00, /* instruct array size */
-        0x10, 0x81, 0x01, 0x00, 0x00, 0x02, 0x0b, 0x00, 0x00, 0x04, 0x19, 0x00,
-        /* instruct array */
-        0x1e, 0x00, 0x00, 0x00, /* const pool size */
-        0x00, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x44, 0x61, 0x74, 0x61, 0x00, 0x65,
-        0x76, 0x65, 0x6e, 0x74, 0x43, 0x61, 0x6c, 0x6c, 0x42, 0x61, 0x63, 0x6b,
-        0x00, 0x5f, 0x72, 0x65, 0x73, 0x00, /* const pool */
-    };
+    Arg* eventCallBack = obj_getArg(handler, "eventCallBack");
     pika_debug("run event handler: %p", handler);
-    pikaVM_runByteCode(handler, (uint8_t*)bytes);
-    Arg* res = obj_getArg(handler, "_res");
-    res = arg_copy(res);
-    obj_removeArg(handler, "_res");
+    Arg* res = pika_runFunction1(eventCallBack, eventData);
     return res;
 }
 
@@ -3116,6 +3123,7 @@ Arg* builtins_iter(PikaObj* self, Arg* arg) {
     /* object */
     pika_bool bIsTemp = pika_false;
     PikaObj* oArg = _arg_to_obj(arg, &bIsTemp);
+    pika_assert(NULL != oArg);
     NewFun _clsptr = (NewFun)oArg->constructor;
     if (_clsptr == New_builtins_RangeObj) {
         /* found RangeObj, return directly */
@@ -3969,6 +3977,42 @@ int builtins_bytearray___getitem__(PikaObj* self, int __key) {
     }
 }
 
+pika_bool _bytes_contains(Arg* self, Arg* others) {
+    ArgType type = arg_getType(others);
+    if (type == ARG_TYPE_BYTES) {
+        if (arg_getBytesSize(self) > arg_getBytesSize(others)) {
+            return pika_false;
+        }
+        uint8_t* bytes1 = arg_getBytes(self);
+        uint8_t* bytes2 = arg_getBytes(others);
+        size_t size1 = arg_getBytesSize(self);
+        size_t size2 = arg_getBytesSize(others);
+        size_t i = 0;
+        size_t j = 0;
+        while (i < size1 && j < size2) {
+            if (bytes1[i] == bytes2[j]) {
+                i++;
+                j++;
+            } else {
+                j++;
+            }
+        }
+        if (i == size1) {
+            return pika_true;
+        } else {
+            return pika_false;
+        }
+    }
+    return pika_false;
+}
+
+int builtins_bytearray___contains__(PikaObj* self, Arg* others) {
+    if (arg_isObject(others)) {
+        others = obj_getArg(arg_getObj(others), "raw");
+    }
+    return _bytes_contains(others, obj_getArg(self, "raw"));
+}
+
 void builtins_bytearray___setitem__(PikaObj* self, int __key, int __val) {
     uint8_t* data = obj_getBytes(self, "raw");
     uint16_t len = obj_getBytesSize(self, "raw");
@@ -4014,19 +4058,15 @@ int32_t pikaDict_forEach(PikaObj* self,
     Args* dict = _OBJ2DICT(self);
     pika_assert(NULL != dict);
     pika_assert(NULL != keys);
-    int i = 0;
-    while (1) {
+    size_t size = args_getSize(keys);
+    for (int i = size - 1; i >= 0; i--) {
         Arg* item_key = args_getArgByIndex(keys, i);
         Arg* item_val = args_getArgByIndex(dict, i);
-        if (NULL == item_val) {
-            break;
-        }
         pika_assert(NULL != item_key);
         // Call the handle function on each key-value pair
         if (eachHandle(self, item_key, item_val, context) != 0) {
             return -1;
         }
-        i++;
     }
     return 0;
 }
@@ -4324,6 +4364,12 @@ PIKA_RES pikaDict_set(PikaDict* self, char* name, Arg* val) {
 PIKA_RES pikaDict_removeArg(PikaDict* self, Arg* val) {
     // args_removeArg(_OBJ2KEYS(self), (val));
     return args_removeArg(_OBJ2DICT(self), (val));
+}
+
+PIKA_RES pikaDict_reverse(PikaDict* self) {
+    args_reverse(_OBJ2KEYS(self));
+    args_reverse(_OBJ2DICT(self));
+    return PIKA_RES_OK;
 }
 
 PIKA_RES pikaDict_setBytes(PikaDict* self,

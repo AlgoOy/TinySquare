@@ -11,11 +11,11 @@
 #ifndef ____TNSQ_GFX_LAYER_H__
 #define ____TNSQ_GFX_LAYER_H__
 
+#include "rtdef.h"
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
-
-#include "rtdef.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

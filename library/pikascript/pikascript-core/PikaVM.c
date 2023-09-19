@@ -1300,6 +1300,7 @@ static void _kw_push(FunctionArgsInfo* f, Arg* call_arg, int i) {
     _pikaDict_setVal(f->kw, call_arg);
     char* sHash = fast_itoa(buff, kw_hash);
     args_setStr(_OBJ2KEYS(f->kw), sHash, sHash);
+    pikaDict_reverse(f->kw);
 }
 
 static void _load_call_arg(VMState* vm,
@@ -1408,16 +1409,16 @@ static uint32_t _get_n_input_with_unpack(VMState* vm, int n_used) {
             PikaObj* obj = arg_getPtr(call_arg);
             pika_assert(obj->constructor == New_PikaStdData_Dict);
             Args* dict = _OBJ2DICT(obj);
-            int i_item = 0;
+            int i_item = args_getSize(dict);
             while (pika_true) {
-                Arg* item_val = args_getArgByIndex(dict, i_item);
-                if (NULL == item_val) {
+                i_item--;
+                if (i_item < 0) {
                     break;
                 }
+                Arg* item_val = args_getArgByIndex(dict, i_item);
                 /* unpack as keyword arg */
                 arg_setIsKeyword(item_val, pika_true);
                 stack_pushArg(&stack_tmp, arg_copy(item_val));
-                i_item++;
             }
             goto __continue;
         }
@@ -2920,6 +2921,10 @@ static Arg* VM_instruction_handler_OPT(PikaObj* self,
             }
             goto __exit;
         }
+        if (op.t1 == ARG_TYPE_BYTES) {
+            op.res = arg_setBool(op.res, "", _bytes_contains(op.a1, op.a2));
+            goto __exit;
+        }
 #if !PIKA_NANO_ENABLE
         if (argType_isObject(op.t2)) {
             PikaObj* obj2 = arg_getPtr(op.a2);
@@ -2950,6 +2955,43 @@ static Arg* VM_instruction_handler_OPT(PikaObj* self,
                     arg_setBool(op.res, "", obj_getInt(obj2, "@res_contains"));
                 goto __exit;
             }
+            PikaObj* local = New_TinyObj(NULL);
+            obj_setArg(local, "@list", op.a2);
+            obj_setArg(local, "@val", op.a1);
+            /* clang-format off */
+            PIKA_PYTHON(
+            @res_contains = 0
+            for @item in @list:
+                if @item == @val:
+                    @res_contains = 1
+                    break
+            )
+            /* clang-format on */
+            const uint8_t bytes[] = {
+                0x48, 0x00, 0x00, 0x00, /* instruct array size */
+                0x00, 0x85, 0x01, 0x00, 0x00, 0x04, 0x03, 0x00, 0x10, 0x81,
+                0x11, 0x00, 0x00, 0x02, 0x17, 0x00, 0x00, 0x04, 0x1c, 0x00,
+                0x00, 0x82, 0x20, 0x00, 0x00, 0x04, 0x2d, 0x00, 0x00, 0x0d,
+                0x2d, 0x00, 0x00, 0x07, 0x33, 0x00, 0x11, 0x81, 0x2d, 0x00,
+                0x11, 0x01, 0x35, 0x00, 0x01, 0x08, 0x3a, 0x00, 0x01, 0x07,
+                0x3d, 0x00, 0x02, 0x85, 0x3d, 0x00, 0x02, 0x04, 0x03, 0x00,
+                0x02, 0x8e, 0x00, 0x00, 0x00, 0x86, 0x3f, 0x00, 0x00, 0x8c,
+                0x1c, 0x00,
+                /* instruct array */
+                0x42, 0x00, 0x00, 0x00, /* const pool size */
+                0x00, 0x30, 0x00, 0x40, 0x72, 0x65, 0x73, 0x5f, 0x63, 0x6f,
+                0x6e, 0x74, 0x61, 0x69, 0x6e, 0x73, 0x00, 0x40, 0x6c, 0x69,
+                0x73, 0x74, 0x00, 0x69, 0x74, 0x65, 0x72, 0x00, 0x24, 0x6c,
+                0x30, 0x00, 0x24, 0x6c, 0x30, 0x2e, 0x5f, 0x5f, 0x6e, 0x65,
+                0x78, 0x74, 0x5f, 0x5f, 0x00, 0x40, 0x69, 0x74, 0x65, 0x6d,
+                0x00, 0x32, 0x00, 0x40, 0x76, 0x61, 0x6c, 0x00, 0x3d, 0x3d,
+                0x00, 0x31, 0x00, 0x2d, 0x31, 0x00, /* const pool */
+            };
+            pikaVM_runByteCode(local, (uint8_t*)bytes);
+            op.res =
+                arg_setBool(op.res, "", obj_getInt(local, "@res_contains"));
+            obj_deinit(local);
+            goto __exit;
         }
 #endif
 

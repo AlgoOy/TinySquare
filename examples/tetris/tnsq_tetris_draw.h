@@ -11,11 +11,11 @@
 #ifndef __TNSQ_TETRIS_DRAW_H__
 #define __TNSQ_TETRIS_DRAW_H__
 
+#include "tiny_square.h"
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
-
-#include "tiny_square.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
