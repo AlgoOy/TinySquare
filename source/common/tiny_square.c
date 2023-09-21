@@ -56,6 +56,31 @@ rt_err_t tnsq_init(void)
     {
         return RT_ERROR;
     }
+	
+	
+	rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL;
+	
+    /* todo: put task create into tnsq init */
+	engineTid = rt_thread_create("tnsq_gfx", tnsq_gfx_task_entry, RT_NULL, TNSQ_GFX_THREAD_STACK_SIZE, TNSQ_GFX_THREAD_PRIORITY, TNSQ_GFX_THREAD_TIMESLICE);
+	if (engineTid != RT_NULL)
+    {
+		rt_thread_startup(engineTid);
+	}
+    else
+    {
+        return RT_ERROR;
+    }    
+
+	
+	eventTid = rt_thread_create("tnsq_evt", tnsq_evt_task_entry, RT_NULL, TNSQ_EVT_THREAD_STACK_SIZE, TNSQ_EVT_THREAD_PRIORITY, TNSQ_EVT_THREAD_TIMESLICE);
+	if (eventTid != RT_NULL)
+    {
+		rt_thread_startup(eventTid);
+	}
+    else
+    {
+        return RT_ERROR;
+    }
     
     return RT_EOK;
 }

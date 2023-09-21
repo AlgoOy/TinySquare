@@ -70,7 +70,7 @@ struct tnsq_gfx_layer_text_t
 
 ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_text_cfg_t *ptLayerCFG, tnsq_gfx_layer_text_t *ptLayer);
 
-int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptLayer, const char *format, ...);
+rt_int32_t tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptLayer, const char *format, ...);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

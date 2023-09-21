@@ -5,22 +5,11 @@
  *
  * Change Logs:
  * Date           Author     Notes
- * 2023-07-08     AlgoOy     the first version
+ * 2023-09-21     AlgoOy     the first version
  */
 
-#ifndef ____TNSQ_GFX_COMMON_H__
-#define ____TNSQ_GFX_COMMON_H__
-
-#include "tnsq_gfx.h"
-#include "__tnsq_gfx_ctrl.h"
-#include "__tnsq_gfx_layer.h"
-#include "__tnsq_gfx_layer_cell.h"
-#include "__tnsq_gfx_layer_user.h"
-#include "__tnsq_gfx_layer_bg.h"
-#include "__tnsq_gfx_layer_bg_cl.h"
-#include "__tnsq_gfx_layer_text.h"
-#include "__tnsq_gfx_layer_menu.h"
-#include "__tnsq_gfx_layer_num.h"
+#ifndef __TINY_SQUARE_USER_CFG_H__
+#define __TINY_SQUARE_USER_CFG_H__
 
 #ifdef   __cplusplus
 extern "C" {
@@ -40,7 +29,7 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tnsq_gfx_task_entry(void *ptParam);
+#define TNSQ_EVT_ITC_NUM            64
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
@@ -51,5 +40,5 @@ void tnsq_gfx_task_entry(void *ptParam);
 #ifdef   __cplusplus
 }
 #endif
-
+ 
 #endif

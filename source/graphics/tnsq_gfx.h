@@ -39,7 +39,6 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tnsq_gfx_task_entry(void *ptParam);
 void tnsq_gfx_apply_for_refresh(void);
 
 #if defined(__clang__)

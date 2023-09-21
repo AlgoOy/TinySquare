@@ -87,7 +87,7 @@ void tnsq_gfx_clear_layer_text_dirty_region(tnsq_gfx_layer_text_t *ptThis)
     __idx = RT_TRUE;
 }
     
-int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format, ...)
+rt_int32_t tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format, ...)
 {
     if (ptThis == NULL)
     {

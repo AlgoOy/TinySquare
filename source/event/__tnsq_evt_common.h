@@ -71,6 +71,8 @@ void tnsq_evt_get_unlock(tnsq_evt_ctrl_t *ptThis);
 void tnsq_evt_put_lock(tnsq_evt_ctrl_t *ptThis);
 void tnsq_evt_put_unlock(tnsq_evt_ctrl_t *ptThis);
 
+void tnsq_evt_task_entry(void *ptParam);
+
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #elif __IS_COMPILER_GCC__
