@@ -52,9 +52,6 @@ class BorderOpacity:
 class CornerOpacity:
     def __init__(self, leftTop: int, rightTop: int, rightBottom: int, leftBottom: int): ...
 
-class LayerBG:
-    def __init__(self, bg: any, bgMask: any, region: Region): ...
-
 class LayerBGCL:
     def __init__(self, type: int, color: int, opacity: int, region: Region, borderOpacity: BorderOpacity, cornerOpacity: CornerOpacity): ...
 

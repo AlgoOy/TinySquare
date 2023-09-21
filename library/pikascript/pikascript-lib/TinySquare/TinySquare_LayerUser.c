@@ -2,7 +2,7 @@
 #include "tnsq_gfx_layer_user.h"
 #include "arm_extra_controls.h"
 
-static void userFunc(uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
+__attribute__((weak)) void userFunc(uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
 {
     arm_2d_canvas(ptTile, __userFunc)
     {

@@ -1,6 +1,83 @@
 # TinySquare API 文档
 
-[toc]
+- [TinySquare API 文档](#tinysquare-api-文档)
+  - [C](#c)
+    - [common](#common)
+      - [运行环境初始化](#运行环境初始化)
+    - [event](#event)
+      - [按键事件获取](#按键事件获取)
+      - [按键事件记录](#按键事件记录)
+    - [graphics](#graphics)
+      - [刷新图层](#刷新图层)
+      - [获取屏幕大小](#获取屏幕大小)
+      - [stage 初始化](#stage-初始化)
+      - [注册 layer](#注册-layer)
+      - [移除 layer](#移除-layer)
+      - [使 layer 可见](#使-layer-可见)
+      - [使 layer 不可见](#使-layer-不可见)
+      - [获取 layer 对象指针](#获取-layer-对象指针)
+      - [背景颜色 layer 初始化](#背景颜色-layer-初始化)
+      - [背景 layer 初始化](#背景-layer-初始化)
+      - [基本单元 layer 初始化](#基本单元-layer-初始化)
+      - [绘制基本单元](#绘制基本单元)
+      - [用户单元 layer 初始化](#用户单元-layer-初始化)
+      - [绘制用户单元](#绘制用户单元)
+      - [文本 layer 初始化](#文本-layer-初始化)
+      - [绘制文本](#绘制文本)
+      - [数字列表 layer 初始化](#数字列表-layer-初始化)
+      - [获取选中数字索引](#获取选中数字索引)
+      - [菜单 layer 初始化](#菜单-layer-初始化)
+      - [获取选中菜单项名称](#获取选中菜单项名称)
+      - [获取选中菜单项索引](#获取选中菜单项索引)
+  - [PikaPython](#pikapython)
+    - [common](#common-1)
+      - [引擎初始化](#引擎初始化)
+      - [颜色转换](#颜色转换)
+    - [按键事件类](#按键事件类)
+      - [按键事件类初始化](#按键事件类初始化)
+      - [更新按键状态](#更新按键状态)
+      - [获取按键方向](#获取按键方向)
+      - [获取按键事件](#获取按键事件)
+    - [graphics 类](#graphics-类)
+      - [graphics 类初始化](#graphics-类初始化)
+      - [申请刷新](#申请刷新)
+      - [切换 stage](#切换-stage)
+    - [stage 类](#stage-类)
+      - [stage 类初始化](#stage-类初始化)
+      - [注册 layer](#注册-layer-1)
+      - [移除 layer](#移除-layer-1)
+      - [使 layer 可见](#使-layer-可见-1)
+      - [使 layer 不可见](#使-layer-不可见-1)
+    - [screen 类](#screen-类)
+      - [screen 类初始化](#screen-类初始化)
+      - [获取 screen 宽度](#获取-screen-宽度)
+      - [获取 screen 高度](#获取-screen-高度)
+    - [region 类](#region-类)
+      - [region 类初始化](#region-类初始化)
+    - [border opacity 类](#border-opacity-类)
+      - [border opacity 类初始化](#border-opacity-类初始化)
+    - [corner opacity 类](#corner-opacity-类)
+      - [corner opacity 类初始化](#corner-opacity-类初始化)
+    - [背景颜色 layer 类](#背景颜色-layer-类)
+      - [背景颜色 layer 类初始化](#背景颜色-layer-类初始化)
+    - [基础单元 layer 类](#基础单元-layer-类)
+      - [基础单元 layer 类初始化](#基础单元-layer-类初始化)
+      - [基础单元绘制](#基础单元绘制)
+    - [用户单元 layer 类](#用户单元-layer-类)
+      - [用户单元 layer 类初始化](#用户单元-layer-类初始化)
+      - [用户单元绘制](#用户单元绘制)
+    - [文本 layer 类](#文本-layer-类)
+      - [文本 layer 类初始化](#文本-layer-类初始化)
+      - [绘制字符串](#绘制字符串)
+      - [绘制数字](#绘制数字)
+    - [数字列表 layer 类](#数字列表-layer-类)
+      - [数字列表 layer 类初始化](#数字列表-layer-类初始化)
+      - [选中列表项索引获取](#选中列表项索引获取)
+    - [item format 类](#item-format-类)
+      - [item format 类初始化](#item-format-类初始化)
+    - [菜单 layer 类](#菜单-layer-类)
+      - [菜单 layer 类初始化](#菜单-layer-类初始化)
+      - [选中列表项索引获取](#选中列表项索引获取-1)
 
 ## C
 
@@ -342,3 +419,495 @@
 | `-1` | 错误执行 |
 
 ## PikaPython
+
+### common
+
+#### 引擎初始化
+
+`def __init__(self): ...`
+
+> 初始化引擎中的一些常量。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 颜色转换
+
+`def RGB(r: int, g: int, b: int) -> int: ...`
+
+> 将 RGB 颜色转换为引擎使用的颜色类型。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `r` | 整数值，表示红色通道的值（0-255） |
+| `g` | 整数值，表示绿色通道的值（0-255） |
+| `b` | 整数值，表示蓝色通道的值（0-255） |
+| **返回** | **描述** |
+| `int` | 对应引擎使用的颜色表示 |
+
+### 按键事件类
+
+#### 按键事件类初始化
+
+`def __init__(self): ...`
+
+> 初始化按键事件对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 更新按键状态
+
+`def update_key(self, timeout:int) -> int: ...`
+
+> 根据超时时间，更新按键的状态。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `timeout` | 整数值，表示超时时间，以毫秒为单位 |
+| **返回** | **描述** |
+| `0` | 正确执行 |
+| `-1` | 错误执行 |
+| `-2` | 超时执行 |
+
+#### 获取按键方向
+
+`def get_direction(self) -> int: ...`
+
+> 获取按键方向信息。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `KEY_DIRECTION_UP` | 向上 |
+| `KEY_DIRECTION_DOWN` | 向下 |
+| `KEY_DIRECTION_LEFT` | 向左 |
+| `KEY_DIRECTION_RIGHT` | 向右 |
+
+#### 获取按键事件
+
+`def get_event(self) -> int: ...`
+
+> 获取按键事件信息。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `KEY_EVENT_UP` | 按键抬起 |
+| `KEY_EVENT_DOWN` | 按键按下 |
+| `KEY_EVENT_PRESSED` | 短按 |
+| `KEY_EVENT_LONG_PRESSED` | 长按 |
+
+### graphics 类
+
+#### graphics 类初始化
+
+`def __init__(self): ...`
+
+> 初始化 graphics 对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 申请刷新
+
+`def refresh(self): ...`
+
+> 申请刷新屏幕。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 切换 stage
+
+`def switch_stage(self): ...`
+
+> 切换到下一个 stage。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### stage 类
+
+#### stage 类初始化
+
+`def __init__(self): ...`
+
+> 初始化 stage 对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 注册 layer
+
+`def register_layer(self, layer: object) -> int: ...`
+
+> 将指定的 layer 对象注册到 stage 中。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `layer` | 欲注册到 stage 中的 layer 对象 |
+| **返回** | **描述** |
+| `int` | 唯一表示 layer 的 ID |
+
+#### 移除 layer
+
+`def remove_layer(self, layerID: int): ...`
+
+> 移除 stage 中，唯一 ID 标识的 layer。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `layerID` | 标识待移除 layer 的唯一 ID |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 使 layer 可见
+
+`def visible_layer(self, layerID: int): ...`
+
+> 使 stage 中，唯一 ID 标识的 layer 可见。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `layerID` | 标识待操作 layer 的唯一 ID |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 使 layer 不可见
+
+`def invisible_layer(self, layerID: int): ...`
+
+> 使 stage 中，唯一 ID 标识的 layer 不可见。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `layerID` | 标识待操作 layer 的唯一 ID |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### screen 类
+
+#### screen 类初始化
+
+`def __init__(self): ...`
+
+> 初始化 screen 对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 获取 screen 宽度
+
+`def width(self) -> int: ...`
+
+> 获取 screen 的宽度。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `int` | screen 的宽度 |
+
+#### 获取 screen 高度
+
+`def height(self) -> int: ...`
+
+> 获取 screen 的高度。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `int` | screen 的高度 |
+
+### region 类
+
+#### region 类初始化
+
+`def __init__(self, hwX: int, hwY: int, hwWidth: int, hwHeight: int): ...`
+
+> 初始化 screen 对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `hwX` | region 的 x 起始坐标 |
+| `hwY` | region 的 y 起始坐标 |
+| `hwWidth` | region 的宽度 |
+| `hwHeight` | region 的高度 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### border opacity 类
+
+#### border opacity 类初始化
+
+`def __init__(self, left: int, right: int, top: int, bottom: int): ...`
+
+> 初始化 border opacity 对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `left` | 左边的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| `right` | 右边的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| `top` | 上边的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| `bottom` | 下边的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### corner opacity 类
+
+#### corner opacity 类初始化
+
+`def __init__(self, leftTop: int, rightTop: int, rightBottom: int, leftBottom: int): ...`
+
+> 初始化 corner opacity 对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `leftTop` | 左上角的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| `rightTop` | 右上角的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| `rightBottom` | 右下角的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| `leftBottom` | 左下角的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### 背景颜色 layer 类
+
+#### 背景颜色 layer 类初始化
+
+`def __init__(self, type: int, color: int, opacity: int, region: Region, borderOpacity: BorderOpacity, cornerOpacity: CornerOpacity): ...`
+
+> 初始化 corner opacity 对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `type` | 背景颜色 layer 的类型，可选项为：`BG_CL_NORMAL`、`BG_CL_BOX`、`BG_CL_BORDER` |
+| `color` | 背景颜色 |
+| `opacity` | 背景颜色的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| `region` | 背景颜色 layer 的位置和大小 |
+| `borderOpacity` | 当 `type` 为 `BG_CL_BORDER` 时，指定 border opacity |
+| `cornerOpacity` | 当 `type` 为 `BG_CL_BORDER` 时，指定 corner opacity |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### 基础单元 layer 类
+
+#### 基础单元 layer 类初始化
+
+`def __init__(self, hwXCount: int, hwYCount: int): ...`
+
+> 初始化基础单元 layer 类对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `hwXCount` | x 方向单元个数 |
+| `hwYCount` | y 方向单元个数 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 基础单元绘制
+
+`def draw_cell(self, hwX: int, hwY: int, color: int, opacity: int): ...`
+
+> 绘制基础单元 layer 中的指定单元。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `hwX` | 绘制的单元横坐标位置 |
+| `hwY` | 绘制的单元纵坐标位置 |
+| `color` | 绘制使用的颜色 |
+| `opacity` | 不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### 用户单元 layer 类
+
+#### 用户单元 layer 类初始化
+
+`def __init__(self, hwXCount: int, hwYCount: int): ...`
+
+> 初始化用户单元 layer 类对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `hwXCount` | x 方向单元个数 |
+| `hwYCount` | y 方向单元个数 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 用户单元绘制
+
+`def draw_userMap(self, hwX: int, hwY: int, idx: int): ...`
+
+> 绘制用户单元 layer 中的指定单元。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `hwX` | 绘制的单元横坐标位置 |
+| `hwY` | 绘制的单元纵坐标位置 |
+| `idx` | 系统自定义绘制操作的索引，用于区分不同的绘制操作（具体绘制函数是弱定义的，用户若希望自定义绘制操作，可重定义绘制函数） |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### 文本 layer 类
+
+#### 文本 layer 类初始化
+
+`def __init__(self, fontType: int, color: int, opacity: int, region: Region): ...`
+
+> 初始化文本 layer 类对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `fontType` | 字体的类型，可选项有：`TEXT_FONT_6X8`、`TEXT_FONT_16X24`、`TEXT_FONT_A2_DIGITS_ONLY`、`TEXT_FONT_A4_DIGITS_ONLY`、`TEXT_FONT_A8_DIGITS_ONLY` |
+| `color` | 文本的颜色 |
+| `opacity` | 文本的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| `region` | 文本 layer 的位置和大小 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 绘制字符串
+
+`def print_str(self, format: str, string: str): ...`
+
+> 向文本 layer 中绘制字符串。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `format` | 一个格式化字符串，用于指定要输出的文本格式。支持与 `printf` 函数相似的格式说明符 |
+| `string` | 字符串参数 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 绘制数字
+
+`def print_num(self, format: str, number: int): ...`
+
+> 向文本 layer 中绘制数字。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `format` | 一个格式化字符串，用于指定要输出的文本格式。支持与 `printf` 函数相似的格式说明符 |
+| `number` | 数字参数 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### 数字列表 layer 类
+
+#### 数字列表 layer 类初始化
+
+`def __init__(self, number:int, bgColor: int, textColor: int): ...`
+
+> 初始化数字列表 layer 类对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `number` | 数字列表的列表项个数 |
+| `bgColor` | 列表项的背景颜色 |
+| `textColor` | 列表项的文本颜色 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 选中列表项索引获取
+
+`def get_idx(self) -> int: ...`
+
+> 获取数字列表 layer 类对象中，被选中的列表项索引。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `int` | 正确执行，返回被选中的索引项 |
+| `-1` | 错误执行 |
+
+### item format 类
+
+#### item format 类初始化
+
+`def __init__(self, boxColor: int, textColor: int, opacity: int): ...`
+
+> 初始化 item format 类对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `boxColor` | item 的背景颜色 |
+| `textColor` | item 的文本颜色 |
+| `opacity` | 文本的不透明度，范围为 0 到 255，0 表示完全透明，255 表示不透明 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+### 菜单 layer 类
+
+#### 菜单 layer 类初始化
+
+`def __init__(self, strTable: tuple, fontType: int, itemWidth: int, itemHeight: int, itemNormal: ItemFormat, itemSelect: ItemFormat): ...`
+
+> 初始化菜单 layer 类对象。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| `strTable` | 以 `tuple` 形式存储的菜单项名称表 |
+| `fontType` | 字体的类型，可选项有：`TEXT_FONT_6X8`、`TEXT_FONT_16X24`、`TEXT_FONT_A2_DIGITS_ONLY`、`TEXT_FONT_A4_DIGITS_ONLY`、`TEXT_FONT_A8_DIGITS_ONLY` |
+| `itemWidth` | 菜单项的宽度 |
+| `itemHeight` | 菜单项的高度 |
+| `itemNormal` | 未被选中时菜单项的外观 |
+| `itemSelect` | 被选中时菜单项的外观 |
+| **返回** | **描述** |
+| `无` | 无返回值 |
+
+#### 选中列表项索引获取
+
+`def get_idx(self) -> int: ...`
+
+> 获取菜单 layer 类对象中，被选中的列表项索引。
+
+| 参数 | 描述 |
+|:-----|:-----|
+| `self` | 对象自身的引用 |
+| **返回** | **描述** |
+| `int` | 正确执行，返回被选中的索引项 |
+| `-1` | 错误执行 |
