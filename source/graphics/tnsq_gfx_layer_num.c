@@ -53,6 +53,14 @@
 
 static rt_bool_t __idx = RT_TRUE;
 
+/**
+ * @brief The function will refresh the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @param ptTile is a pointer to the tile.
+ * @param ptDirtyRegion is a pointer to the dirty region.
+ * @param bIsNewFrame is a bool value to indicate whether it is a new frame.
+ * @return none
+*/
 void tnsq_gfx_refresh_layer_num(tnsq_gfx_layer_num_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame)
 {
     arm_2d_canvas(ptTile, __layer_num_canvas)
@@ -70,11 +78,22 @@ void tnsq_gfx_refresh_layer_num(tnsq_gfx_layer_num_t *ptThis, const arm_2d_tile_
     }
 }
 
+/**
+ * @brief The function will clear the dirty region of the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @return none
+*/
 void tnsq_gfx_clear_layer_num_dirty_region(tnsq_gfx_layer_num_t *ptThis)
 {
     __idx = RT_TRUE;
 }
 
+/**
+ * @brief The function will get the dirty region of the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @param ptDispAdapter is a pointer to the display adapter.
+ * @return none
+*/
 void tnsq_gfx_layer_num_get_dirty_region(tnsq_gfx_layer_num_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {
     arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
@@ -89,6 +108,11 @@ void tnsq_gfx_layer_num_get_dirty_region(tnsq_gfx_layer_num_t *ptThis, arm_2d_sc
     };
 }
 
+/**
+ * @brief The function will handle the event of the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @return none
+*/
 void tnsq_gfx_layer_num_evt_handle(tnsq_gfx_layer_num_t *ptThis)
 {
     tnsq_evt_key_t tKey = {0};
@@ -120,6 +144,11 @@ void tnsq_gfx_layer_num_evt_handle(tnsq_gfx_layer_num_t *ptThis)
     }
 }
 
+/**
+ * @brief The function will get the selected item index of the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @return Return the selected item index.
+*/
 rt_int8_t tnsq_gfx_layer_num_get_item_idx(tnsq_gfx_layer_num_t *ptThis)
 {
     rt_int8_t chSelectedNum = this.chSelectedNum;
@@ -130,6 +159,13 @@ rt_int8_t tnsq_gfx_layer_num_get_item_idx(tnsq_gfx_layer_num_t *ptThis)
 extern 
 const arm_2d_tile_t c_tileListCoverMask;
 
+/**
+ * @brief The function will draw the cover of the number list.
+ * @param pTarget is a pointer to the number list.
+ * @param ptTile is a pointer to the tile.
+ * @param bIsNewFrame is a bool value to indicate whether it is a new frame.
+ * @return Return the state of the draw function.
+*/
 static 
 IMPL_PFB_ON_DRAW(__arm_2d_number_list_draw_cover)
 {
@@ -153,6 +189,12 @@ IMPL_PFB_ON_DRAW(__arm_2d_number_list_draw_cover)
     return arm_fsm_rt_cpl;
 }
 
+/**
+ * @brief The function will initialize the number list.
+ * @param ptCFG is a pointer to the number list configuration.
+ * @param ptThis is a pointer to the number list.
+ * @return Return a pointer to the number list.
+*/
 ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_num_cfg_t *ptCFG, tnsq_gfx_layer_num_t *ptThis)
 {
     assert(ptCFG != NULL);

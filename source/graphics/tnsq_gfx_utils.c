@@ -41,6 +41,11 @@
 #undef this
 #define this (*ptThis)
 
+/**
+ * @brief The function will get the screen size.
+ * @param ptDispAdapter is a pointer to the display adapter.
+ * @return the screen size.
+*/
 arm_2d_size_t tnsq_gfx_get_screen_size(arm_2d_scene_player_t *ptDispAdapter)
 {
     return arm_2d_helper_pfb_get_display_area(&ptDispAdapter->use_as__arm_2d_helper_pfb_t).tSize;

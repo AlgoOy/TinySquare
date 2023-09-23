@@ -44,31 +44,62 @@
     
 static tnsq_evt_ctrl_t s_tEvtController = {0};
 
+/**
+ * @brief The function will get the event controller.
+ * @param none
+ * @return Return the event controller.
+*/
 inline tnsq_evt_ctrl_t *tnsq_evt_get_ctrl(void)
 {
     return &s_tEvtController;
 }
 
+/**
+ * @brief The function will lock the get event.
+ * @param ptThis is a pointer to the event controller.
+ * @return none
+*/
 inline void tnsq_evt_get_lock(tnsq_evt_ctrl_t *ptThis)
 {
     this.tEvtLock.chGet = RT_FALSE;
 }
 
+/**
+ * @brief The function will unlock the get event.
+ * @param ptThis is a pointer to the event controller.
+ * @return none
+*/
 inline void tnsq_evt_get_unlock(tnsq_evt_ctrl_t *ptThis)
 {
     this.tEvtLock.chGet = RT_TRUE;
 }
 
+/**
+ * @brief The function will lock the put event.
+ * @param ptThis is a pointer to the event controller.
+ * @return none
+*/
 inline void tnsq_evt_put_lock(tnsq_evt_ctrl_t *ptThis)
 {
     this.tEvtLock.chPut = RT_FALSE;
 }
 
+/**
+ * @brief The function will unlock the put event.
+ * @param ptThis is a pointer to the event controller.
+ * @return none
+*/
 inline void tnsq_evt_put_unlock(tnsq_evt_ctrl_t *ptThis)
 {
     this.tEvtLock.chPut = RT_TRUE;
 }
 
+/**
+ * @brief The function will initialize the event controller.
+ * @param ptThis is a pointer to the event controller.
+ * @return Return the operation status. When the return value is RT_EOK, the initialization is successful.
+ *         If the return value is RT_ERROR, it represents the initialization failed.
+*/
 static rt_err_t _tnsq_evt_ctrl_itc_init(tnsq_evt_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);
@@ -90,7 +121,13 @@ static rt_err_t _tnsq_evt_ctrl_itc_init(tnsq_evt_ctrl_t *ptThis)
     
     return RT_EOK;
 }
-    
+
+/**
+ * @brief The function will initialize the event controller.
+ * @param ptThis is a pointer to the event controller.
+ * @return Return the operation status. When the return value is RT_EOK, the initialization is successful.
+ *         If the return value is RT_ERROR, it represents the initialization failed.
+*/
 rt_err_t tnsq_evt_ctrl_init(tnsq_evt_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);

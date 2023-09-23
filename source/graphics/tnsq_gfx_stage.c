@@ -53,6 +53,11 @@
 #undef this
 #define this (*ptThis)
 
+/**
+ * @brief The function will be called when the stage is disposed.
+ * @param ptScene is a pointer to the stage.
+ * @return none
+*/
 static void _tnsq_gfx_on_stage_depose(arm_2d_scene_t *ptScene)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
@@ -87,24 +92,44 @@ static void _tnsq_gfx_on_stage_depose(arm_2d_scene_t *ptScene)
     }
 }
 
+/**
+ * @brief The function will be called when the stage is draw background.
+ * @param ptScene is a pointer to the stage.
+ * @return none
+*/
 static void _tnsq_gfx_on_stage_background_start(arm_2d_scene_t *ptScene)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
+/**
+ * @brief The function will be called when the stage is draw background complete.
+ * @param ptScene is a pointer to the stage.
+ * @return none
+*/
 static void _tnsq_gfx_on_stage_background_complete(arm_2d_scene_t *ptScene)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
+/**
+ * @brief The function will be called when the stage is draw frame start.
+ * @param ptScene is a pointer to the stage.
+ * @return none
+*/
 static void _tnsq_gfx_on_stage_frame_start(arm_2d_scene_t *ptScene)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
+/**
+ * @brief The function will be called when the stage is draw frame complete.
+ * @param ptScene is a pointer to the stage.
+ * @return none
+*/
 static void _tnsq_gfx_on_stage_frame_complete(arm_2d_scene_t *ptScene)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
@@ -144,12 +169,24 @@ static void _tnsq_gfx_on_stage_frame_complete(arm_2d_scene_t *ptScene)
     }
 }
 
+/**
+ * @brief The function will be called when the stage is switching out.
+ * @param ptScene is a pointer to the stage.
+ * @return none
+*/
 static void _tnsq_gfx_before_stage_switching_out(arm_2d_scene_t *ptScene)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)ptScene;
     ARM_2D_UNUSED(ptThis);
 }
 
+/**
+ * @brief The function will be called when the stage is need to draw.
+ * @param ptScene is a pointer to the stage.
+ * @param ptTile is a pointer to the tile.
+ * @param bIsNewFrame is a bool value to indicate whether it is a new frame.
+ * @return Return the state of the draw function.
+*/
 static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
 {
     tnsq_gfx_stage_t *ptThis = (tnsq_gfx_stage_t *)pTarget;
@@ -206,6 +243,12 @@ static IMPL_PFB_ON_DRAW(_tnsq_gfx_pfb_draw_stage_handler)
     return arm_fsm_rt_cpl;
 }
 
+/**
+ * @brief The function will initialize the stage.
+ * @param ptCFG is a pointer to the stage configuration.
+ * @param ptThis is a pointer to the stage.
+ * @return Return a pointer to the stage.
+*/
 ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptCFG, tnsq_gfx_stage_t *ptThis)
 {
     assert(ptCFG != NULL);
@@ -261,6 +304,12 @@ ARM_NONNULL(1) tnsq_gfx_stage_t *__tnsq_gfx_stage_init(tnsq_gfx_stage_cfg_t *ptC
     return ptThis;
 }
 
+/**
+ * @brief The function will register the layer to the stage.
+ * @param ptThis is a pointer to the stage.
+ * @param ptLayer is a pointer to the layer.
+ * @return Return the layer ID.
+*/
 ARM_NONNULL(1, 2) rt_uint8_t tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *ptThis, void *ptLayer)
 {
     assert(ptThis != NULL);
@@ -307,6 +356,12 @@ ARM_NONNULL(1, 2) rt_uint8_t tnsq_gfx_register_layer_to_stage(tnsq_gfx_stage_t *
     return ptLayerBase->u7LayerID;
 }
 
+/**
+ * @brief The function will remove the layer from the stage.
+ * @param ptThis is a pointer to the stage.
+ * @param chLayerID is the layer ID.
+ * @return none
+*/
 ARM_NONNULL(1) void tnsq_gfx_remove_layer(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerID)
 {
     assert(ptThis != NULL);
@@ -340,6 +395,12 @@ ARM_NONNULL(1) void tnsq_gfx_remove_layer(tnsq_gfx_stage_t *ptThis, rt_uint8_t c
     }
 }
 
+/**
+ * @brief The function will make the layer visible.
+ * @param ptThis is a pointer to the stage.
+ * @param chLayerID is the layer ID.
+ * @return none
+*/
 void tnsq_gfx_make_layer_visible(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerID)
 {
     assert(ptThis != NULL);
@@ -358,6 +419,12 @@ void tnsq_gfx_make_layer_visible(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerID)
     }
 }
 
+/**
+ * @brief The function will make the layer invisible.
+ * @param ptThis is a pointer to the stage.
+ * @param chLayerID is the layer ID.
+ * @return none
+*/
 void tnsq_gfx_make_layer_invisible(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerID)
 {
     assert(ptThis != NULL);
@@ -376,6 +443,12 @@ void tnsq_gfx_make_layer_invisible(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerI
     }
 }
 
+/**
+ * @brief The function will get the layer pointer.
+ * @param ptThis is a pointer to the stage.
+ * @param chLayerID is the layer ID.
+ * @return Return a pointer to the layer.
+*/
 void *tnsq_gfx_get_layer_ptr(tnsq_gfx_stage_t *ptThis, rt_uint8_t chLayerID)
 {
     assert(ptThis != NULL);

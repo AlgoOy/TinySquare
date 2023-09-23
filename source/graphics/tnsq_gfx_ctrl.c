@@ -44,12 +44,23 @@
     
 static tnsq_gfx_ctrl_t s_tGfxController = {0};
 
+/**
+ * @brief The function will get the graphics controller.
+ * @param none
+ * @return Return the graphics controller.
+*/
 tnsq_gfx_ctrl_t *tnsq_gfx_get_ctrl(void)
 {
     return &s_tGfxController;
 }
 
-/* Search for the specified display adapter in the display adapters list, if found, return RT_EOK, if not found, return RT_ERROR */
+/**
+ * @brief The function will query the display adapter.
+ * @param ptThis is a pointer to the graphics controller.
+ * @param ptDispAdapter is a pointer to the display adapter.
+ * @return Return the operation status. When the return value is RT_EOK, the display adapter is found.
+ *         If the return value is RT_ERROR, it represents the display adapter is not found.
+*/
 static rt_err_t _tnsq_gfx_query_disp_adapter(tnsq_gfx_ctrl_t const *ptThis, tnsq_gfx_disp_adapter_t const *ptDispAdapter)
 {
     assert(ptThis != NULL);
@@ -67,7 +78,13 @@ static rt_err_t _tnsq_gfx_query_disp_adapter(tnsq_gfx_ctrl_t const *ptThis, tnsq
     return RT_ERROR;
 }
 
-/* Add the specified display adapter to the end of the display adapters list */
+/**
+ * @brief The function will add the specified display adapter to the end of the display adapters list.
+ * @param ptThis is a pointer to the graphics controller.
+ * @param ptDispAdapter is a pointer to the display adapter.
+ * @return Return the operation status. When the return value is RT_EOK, the display adapter is added.
+ *         If the return value is RT_ENOMEM, it represents the display adapter is not added.
+*/
 static rt_err_t _tnsq_gfx_set_disp_adapter(tnsq_gfx_ctrl_t *ptThis, tnsq_gfx_disp_adapter_t const *ptDispAdapter)
 {
     assert(ptThis != NULL);
@@ -100,12 +117,24 @@ static rt_err_t _tnsq_gfx_set_disp_adapter(tnsq_gfx_ctrl_t *ptThis, tnsq_gfx_dis
     return RT_EOK;
 }
     
+/**
+ * @brief The function will get the display adapters list.
+ * @param ptThis is a pointer to the graphics controller.
+ * @return Return the display adapters list.
+*/
 tnsq_gfx_disp_adapters_node_t const *tnsq_gfx_get_disp_adapters_list(tnsq_gfx_ctrl_t const *ptThis)
 {
     assert(ptThis != NULL);
     return this.ptDispAdapterList;
 }
 
+/**
+ * @brief The function will register the display adapter to the graphics controller.
+ * @param ptThis is a pointer to the graphics controller.
+ * @param ptDispAdapter is a pointer to the display adapter.
+ * @return Return the operation status. When the return value is RT_EOK, the display adapter is registered.
+ *         If the return value is RT_ERROR, it represents the display adapter is not registered.
+*/
 rt_err_t tnsq_gfx_register_disp_adapter_to_crtl(tnsq_gfx_ctrl_t *ptThis, tnsq_gfx_disp_adapter_t const *ptDispAdapter)
 {
     assert(ptThis != NULL);
@@ -122,6 +151,11 @@ rt_err_t tnsq_gfx_register_disp_adapter_to_crtl(tnsq_gfx_ctrl_t *ptThis, tnsq_gf
     return RT_EOK;
 }
 
+/**
+ * @brief The function will destroy the display adapters list.
+ * @param ptThis is a pointer to the graphics controller.
+ * @return none
+*/
 void tnsq_gfx_destroy_disp_adapters_list(tnsq_gfx_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);
@@ -135,7 +169,12 @@ void tnsq_gfx_destroy_disp_adapters_list(tnsq_gfx_ctrl_t *ptThis)
     }
 }
 
-/* Initialize the semaphore in gfx_ctrl */
+/**
+ * @brief The function will initialize the semaphore for refresh.
+ * @param ptThis is a pointer to the graphics controller.
+ * @return Return the operation status. When the return value is RT_EOK, the semaphore is initialized.
+ *         If the return value is RT_ERROR, it represents the semaphore is not initialized.
+*/
 static rt_err_t _tnsq_gfx_ctrl_refresh_sem_init(tnsq_gfx_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);
@@ -155,6 +194,12 @@ static rt_err_t _tnsq_gfx_ctrl_refresh_sem_init(tnsq_gfx_ctrl_t *ptThis)
     return RT_EOK;
 }
     
+/**
+ * @brief The function will initialize the graphics controller.
+ * @param ptThis is a pointer to the graphics controller.
+ * @return Return the operation status. When the return value is RT_EOK, the initialization is successful.
+ *         If the return value is RT_ERROR, it represents the initialization failed.
+*/
 rt_err_t tnsq_gfx_ctrl_init(tnsq_gfx_ctrl_t *ptThis)
 {
     assert(ptThis != NULL);

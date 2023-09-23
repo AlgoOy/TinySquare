@@ -45,6 +45,11 @@
 #undef this
 #define this (*ptThis)
     
+/**
+ * @brief The function will apply to refresh the display.
+ * @param none
+ * @return none
+*/
 void tnsq_gfx_apply_for_refresh(void)
 {
     tnsq_gfx_ctrl_t *ptThis = tnsq_gfx_get_ctrl();
@@ -59,6 +64,11 @@ void tnsq_gfx_apply_for_refresh(void)
     }
 }
     
+/**
+ * @brief The function is the entry of the gfx task.
+ * @param ptParam is a pointer to the parameter.
+ * @return none
+*/
 void tnsq_gfx_task_entry(void *ptParam)
 {
     (void)ptParam;

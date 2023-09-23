@@ -44,6 +44,13 @@
 #undef this
 #define this (*ptThis)
     
+/**
+ * @brief The function will refresh the background color layer.
+ * @param ptThis is a pointer to the background color layer.
+ * @param ptTile is a pointer to the tile.
+ * @param bIsNewFrame is a flag to indicate whether it is a new frame.
+ * @return none
+*/
 void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_tile_t *ptTile, rt_bool_t bIsNewFrame)
 {
     arm_2d_container(ptTile, __bg_cl_tile, &this.tCFG.tRegion)
@@ -97,6 +104,12 @@ void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_t
     arm_2d_op_wait_async(NULL);
 }
     
+/**
+ * @brief The function will initialize the background color layer.
+ * @param ptCFG is a pointer to the background color layer configuration.
+ * @param ptThis is a pointer to the background color layer.
+ * @return Return the pointer to the background color layer.
+*/
 ARM_NONNULL(1) tnsq_gfx_layer_bg_cl_t *__tnsq_gfx_layer_bg_cl_init(tnsq_gfx_layer_bg_cl_cfg_t *ptCFG, tnsq_gfx_layer_bg_cl_t *ptThis)
 {
     assert(ptCFG != NULL);

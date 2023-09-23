@@ -45,6 +45,12 @@
 #undef this
 #define this (*ptThis)
     
+/**
+ * @brief The function will initialize TinySquare engine and create tnsq_gfx task and tnsq_evt task.
+ * @param none
+ * @return Return the operation status. When the return value is RT_EOK, the initialization is successful.
+ *         If the return value is RT_ERROR, it represents the initialization failed.
+*/
 rt_err_t tnsq_init(void)
 {
     if (tnsq_gfx_ctrl_init(tnsq_gfx_get_ctrl()) == RT_ERROR)
