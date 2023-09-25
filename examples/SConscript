@@ -9,6 +9,10 @@ if GetDepend('TINYSQUARE_USING_EXAMPLES_SNAKE'):
     src += Glob('snake/*.c')
     path += [cwd + '/snake']
 
+if GetDepend('TINYSQUARE_USING_EXAMPLES_TETRIS'):
+    src += Glob('tetris/*.c')
+    path += [cwd + '/tetris']
+
 group = DefineGroup('TinySquare', src, depend = ['PKG_USING_TINYSQUARE'], CPPPATH = path)
 
 Return('group')

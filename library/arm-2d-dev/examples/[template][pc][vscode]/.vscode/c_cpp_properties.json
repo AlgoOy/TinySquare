@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/sdl2/32/include",
+                "${workspaceFolder}/platform",
+                "${workspaceFolder}/platform/math",
+                "${workspaceFolder}/platform/math/dsp",
+                "${workspaceFolder}/../../Helper/Include",
+                "${workspaceFolder}/../../Library/Include",
+                "${workspaceFolder}/../../examples/common/benchmark",
+                "${workspaceFolder}/../../examples/common/controls"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "ARM_SECTION(x)=  ",
+                "__va_list=va_list"
+            ],
+            "compilerPath": "gcc.exe",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++11",
+            "intelliSenseMode": "windows-gcc-x86",
+            "compilerArgs": [],
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}
