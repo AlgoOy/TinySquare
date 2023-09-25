@@ -31,17 +31,17 @@ TinySquare 遵循 Apache-2.0 许可，详见`LICENSE`文件。
 
 ## 2、如何打开TinySquare
 
-get start with C
-get start with pikapython
-    ·准备环境，库的移植
+- [Get start with C](./docs/guide_with_c.md)
+- [Get start with pikaPython](./docs/guide_with_pikaPython.md)
 
 ## 3、如何使用TinySquare
 
-get start with C
-get start with pikapython
-    .介绍example代码，编译运行
+- [Get start with C](./docs/example_tetris.md)
+- [Get start with pikaPython](./docs/example_snake.md)
 
 ## 4、注意事项
+
+- [相关配置](./docs/notice.md)
 
 ## 5、联系方式 & 感谢
 
