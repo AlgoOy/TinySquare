@@ -10,12 +10,12 @@
  
 #ifndef ____TNSQ_GFX_LAYER_TEXT_H__
 #define ____TNSQ_GFX_LAYER_TEXT_H__
+
+#include "tnsq_gfx_layer_text.h"
  
 #ifdef   __cplusplus
 extern "C" {
 #endif
-
-#include "tnsq_gfx_layer_text.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -34,8 +34,6 @@ extern "C" {
 void tnsq_gfx_refresh_layer_text(tnsq_gfx_layer_text_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion);
 
 void tnsq_gfx_clear_layer_text_dirty_region(tnsq_gfx_layer_text_t *ptThis);
-
-void tnsq_gfx_layer_text_depose(tnsq_gfx_layer_text_t *ptThis);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

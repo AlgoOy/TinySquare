@@ -11,11 +11,11 @@
 #ifndef __TNSQ_TETRIS_DRAW_H__
 #define __TNSQ_TETRIS_DRAW_H__
 
+#include "tiny_square.h"
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
-
-#include "tiny_square.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -31,15 +31,15 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#define TNSQ_TETRIS_X_COUNT 20
-#define TNSQ_TETRIS_Y_COUNT 20
-#define TNSQ_TETRIS_Y_GAME_COUNT (20 - 8)
+#define TETRIS_X_COUNT 20
+#define TETRIS_Y_COUNT 20
+#define TETRIS_Y_GAME_COUNT (20 - 8)
 
-#define TNSQ_TETRIS_NEXT_BLOCK_X (TNSQ_TETRIS_X_COUNT -12)
-#define TNSQ_TETRIS_NEXT_BLOCK_Y (TNSQ_TETRIS_Y_GAME_COUNT + 2)
+#define TETRIS_NEXT_BLOCK_X (TETRIS_X_COUNT -12)
+#define TETRIS_NEXT_BLOCK_Y (TETRIS_Y_GAME_COUNT + 2)
 
-#define TNSQ_TETRIS_SCORE_X (TNSQ_TETRIS_X_COUNT -17)
-#define TNSQ_TETRIS_SCORE_Y (TNSQ_TETRIS_Y_GAME_COUNT + 2)
+#define TETRIS_SCORE_X (TETRIS_X_COUNT -17)
+#define TETRIS_SCORE_Y (TETRIS_Y_GAME_COUNT + 2)
 
 #define BOARD_BLOCK_INFO (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 0}
 #define T_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 1}
@@ -51,14 +51,17 @@ extern "C" {
 #define I_BLOCK_INFO     (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 7}
 #define CLEAR_BLOCK_INFO (tnsq_gfx_user_map_t){.bIsDirty = RT_TRUE, .u7Idx = 8}
 
-tnsq_gfx_stage_t *tetris_stage_init(void);
+tnsq_gfx_stage_t *tetris_menu_stage_init(void);
+tnsq_gfx_stage_t *tetris_game_stage_init(void);
 
 void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage);
 rt_uint8_t tetris_init_bg_layer(tnsq_gfx_stage_t *ptStage);
 rt_uint8_t tetris_init_interface_layer(tnsq_gfx_stage_t *ptStage, tnsq_gfx_user_map_t *ptCells);
 rt_uint8_t tetris_init_text_layer(tnsq_gfx_stage_t *ptStage);
-rt_uint8_t tetris_memu_layer(tnsq_gfx_stage_t *ptStage);
-rt_uint8_t tetris_num_layer(tnsq_gfx_stage_t *ptStage);
+rt_uint8_t tetris_menu_layer_select(tnsq_gfx_stage_t *ptStage);
+rt_uint8_t tetris_memu_layer_diffculty(tnsq_gfx_stage_t *ptStage);
+rt_uint8_t tetris_num_layer_level(tnsq_gfx_stage_t *ptStage);
+
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

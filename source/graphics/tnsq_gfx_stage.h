@@ -11,15 +11,15 @@
 #ifndef __TNSQ_GFX_STAGE_H__
 #define __TNSQ_GFX_STAGE_H__
 
-#ifdef   __cplusplus
-extern "C" {
-#endif
-
 #include "rtdef.h"
 
 #include "arm_2d_helper_scene.h"
 
 #include "__tnsq_gfx_layer.h"
+
+#ifdef   __cplusplus
+extern "C" {
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

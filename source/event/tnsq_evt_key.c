@@ -46,16 +46,40 @@
 #undef this
 #define this (*ptThis)
     
+/**
+ * @brief The function will get the key event.
+ * @param ptThis is a pointer to the key struct.
+ * @param ptMq is a pointer to the message queue.
+ * @param timeout is the timeout value.
+ * @return Return the operation status. When the return value is RT_EOK, the operation is successful.
+ *         If the return value is -RT_ERROR, it represents the operation failed.
+ *         If the return value is -RT_ETIMEOUT, it represents the operation timeout.
+*/
 static rt_err_t _tnsq_evt_key_get(tnsq_evt_key_t *ptThis, rt_mq_t ptMq, rt_int32_t timeout)
 {
     return rt_mq_recv(ptMq, ptThis, sizeof(tnsq_evt_key_t), timeout);
 }
 
+/**
+ * @brief The function will put the key event.
+ * @param ptThis is a pointer to the key struct.
+ * @param ptMq is a pointer to the message queue.
+ * @return Return the operation status. When the return value is RT_EOK, the operation is successful.
+ *         If the return value is -RT_ERROR, it represents the operation failed.
+ *         If the return value is -RT_EFULL, it represents the message queue is full.
+*/
 static rt_err_t _tnsq_evt_key_put(tnsq_evt_key_t *ptThis, rt_mq_t ptMq)
 {
     return rt_mq_send(ptMq, ptThis, sizeof(tnsq_evt_key_t));
 }
 
+/**
+ * @brief The function will put the event to the message queue.
+ * @param ptThis is a pointer to the key struct.
+ * @return Return the operation status. When the return value is RT_EOK, the operation is successful.
+ *         If the return value is -RT_ERROR, it represents the operation failed.
+ *         If the return value is -RT_EFULL, it represents the message queue is full.
+*/
 rt_err_t tnsq_evt_itc_put(tnsq_evt_key_t *ptThis)
 {
     tnsq_evt_ctrl_t *ptEvtCtrl = tnsq_evt_get_ctrl();
@@ -70,6 +94,14 @@ rt_err_t tnsq_evt_itc_put(tnsq_evt_key_t *ptThis)
     }
 }
 
+/**
+ * @brief The function will get the event from the message queue.
+ * @param ptThis is a pointer to the key struct.
+ * @param timeout is the timeout value.
+ * @return Return the operation status. When the return value is RT_EOK, the operation is successful.
+ *         If the return value is -RT_ERROR, it represents the operation failed.
+ *         If the return value is -RT_ETIMEOUT, it represents the operation timeout.
+*/
 rt_err_t tnsq_evt_itc_get(tnsq_evt_key_t *ptThis, rt_int32_t timeout)
 {
     tnsq_evt_ctrl_t *ptEvtCtrl = tnsq_evt_get_ctrl();
@@ -84,6 +116,12 @@ rt_err_t tnsq_evt_itc_get(tnsq_evt_key_t *ptThis, rt_int32_t timeout)
     }
 }
     
+/**
+ * @brief The function will handle the key event.
+ * @param none
+ * @return Return the operation status. When the return value is RT_EOK, the operation is successful.
+ *         If the return value is RT_ERROR, it represents the operation failed.
+*/
 rt_err_t tnsq_evt_itc_key_handler(void)
 {
     static rt_bool_t s_blsfinsh = RT_TRUE, s_blsLongPressed = RT_FALSE;

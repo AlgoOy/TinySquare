@@ -11,14 +11,14 @@
 #ifndef __TINY_SQUARE_H__
 #define __TINY_SQUARE_H__
 
-#ifdef   __cplusplus
-extern "C" {
-#endif
-
 #include "rtdef.h"
 #include "tiny_square_cfg.h"
 #include "tnsq_gfx.h"
 #include "tnsq_evt.h"
+
+#ifdef   __cplusplus
+extern "C" {
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

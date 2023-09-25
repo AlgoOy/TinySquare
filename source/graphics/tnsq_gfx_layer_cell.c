@@ -51,6 +51,13 @@
     
 static int __idx = -1;
 
+/**
+ * @brief The function will refresh the cell layer.
+ * @param ptThis is a pointer to the cell layer.
+ * @param ptTile is a pointer to the tile.
+ * @param ptDirtyRegion is a pointer to the dirty region.
+ * @return none
+*/
 void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion)
 {
     for (int curIdx = 0; curIdx < this.tCount.totalCount; curIdx ++)
@@ -106,6 +113,11 @@ void tnsq_gfx_refresh_layer_cell(tnsq_gfx_layer_cell_t *ptThis, const arm_2d_til
     }
 }
 
+/**
+ * @brief The function will clear the dirty cell.
+ * @param ptThis is a pointer to the cell layer.
+ * @return none
+*/
 void tnsq_gfx_clear_layer_cell_dirty_cell(tnsq_gfx_layer_cell_t *ptThis)
 {
     for (int i = 0; i < this.tCount.totalCount; i ++)
@@ -118,6 +130,15 @@ void tnsq_gfx_clear_layer_cell_dirty_cell(tnsq_gfx_layer_cell_t *ptThis)
     __idx = -1;
 }
 
+/**
+ * @brief The function will draw the cell.
+ * @param ptThis is a pointer to the cell layer.
+ * @param iX is the x coordinate of the cell.
+ * @param iY is the y coordinate of the cell.
+ * @param chOpacity is the opacity of the cell.
+ * @param tColor is the color of the cell.
+ * @return none
+*/
 void tnsq_gfx_layer_cell_draw(tnsq_gfx_layer_cell_t *ptThis, rt_uint16_t iX, rt_uint16_t iY, rt_uint8_t chOpacity, COLOUR_INT tColor)
 {
     rt_uint16_t pos = this.tCount.hwXCount * iY + iX;
@@ -126,6 +147,12 @@ void tnsq_gfx_layer_cell_draw(tnsq_gfx_layer_cell_t *ptThis, rt_uint16_t iX, rt_
     this.ptCells[pos].tColor = tColor;
 }
 
+/**
+ * @brief The function will calculate the pixel of the cell.
+ * @param ptThis is a pointer to the cell layer.
+ * @param ptDispAdapter is a pointer to the display adapter.
+ * @return none
+*/
 void tnsq_gfx_layer_cell_cal_pixel(tnsq_gfx_layer_cell_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {
     arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
@@ -135,6 +162,12 @@ void tnsq_gfx_layer_cell_cal_pixel(tnsq_gfx_layer_cell_t *ptThis, arm_2d_scene_p
     this.tPixel.hwYPixel = tScreen.tSize.iHeight / this.tCount.hwYCount;
 }
 
+/**
+ * @brief The function will initialize the cell layer.
+ * @param ptCFG is a pointer to the cell layer configuration.
+ * @param ptThis is a pointer to the cell layer.
+ * @return Return the pointer to the cell layer.
+*/
 ARM_NONNULL(1) tnsq_gfx_layer_cell_t *__tnsq_gfx_layer_cell_init(tnsq_gfx_layer_cell_cfg_t *ptCFG, tnsq_gfx_layer_cell_t *ptThis)
 {
     assert(ptCFG != NULL);

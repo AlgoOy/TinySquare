@@ -46,6 +46,12 @@
 #undef this
 #define this (*ptThis)
     
+/**
+ * @brief The function will refresh the background layer.
+ * @param ptThis is a pointer to the background layer.
+ * @param ptTile is a pointer to the tile.
+ * @return none
+*/
 void tnsq_gfx_refresh_layer_bg(tnsq_gfx_layer_bg_t *ptThis, const arm_2d_tile_t *ptTile)
 {
     arm_2d_canvas(ptTile, __layer_bg_canvas) {
@@ -70,6 +76,12 @@ void tnsq_gfx_refresh_layer_bg(tnsq_gfx_layer_bg_t *ptThis, const arm_2d_tile_t 
     arm_2d_op_wait_async(NULL);
 }
     
+/**
+ * @brief The function will initialize the background layer.
+ * @param ptCFG is a pointer to the background layer configuration.
+ * @param ptThis is a pointer to the background layer.
+ * @return the pointer to the background layer.
+*/
 ARM_NONNULL(1) tnsq_gfx_layer_bg_t *__tnsq_gfx_layer_bg_init(tnsq_gfx_layer_bg_cfg_t *ptCFG, tnsq_gfx_layer_bg_t *ptThis)
 {
     assert(ptCFG != NULL);

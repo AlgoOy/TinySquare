@@ -11,11 +11,11 @@
 #ifndef ____TNSQ_GFX_LAYER_USER_H__
 #define ____TNSQ_GFX_LAYER_USER_H__
  
+#include "tnsq_gfx_layer_user.h"
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
-
-#include "tnsq_gfx_layer_user.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

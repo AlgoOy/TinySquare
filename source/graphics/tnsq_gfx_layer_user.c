@@ -49,6 +49,14 @@
     
 static int __idx = -1;
     
+/**
+ * @brief The function will refresh the user layer.
+ * @param ptThis is a pointer to the user layer.
+ * @param ptTile is a pointer to the tile.
+ * @param ptDirtyRegion is a pointer to the dirty region.
+ * @param bIsNewFrame is a flag to indicate whether it is a new frame.
+ * @return none
+*/
 void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame)
 {
     for (int curIdx = 0; curIdx < this.tCount.totalCount; curIdx ++)
@@ -98,6 +106,11 @@ void tnsq_gfx_refresh_layer_user(tnsq_gfx_layer_user_t *ptThis, const arm_2d_til
     }
 }
 
+/**
+ * @brief The function will clear the dirty cell of user layer.
+ * @param ptThis is a pointer to the user layer.
+ * @return none
+*/
 void tnsq_gfx_clear_layer_user_dirty_cell(tnsq_gfx_layer_user_t *ptThis)
 {
     for (int i = 0; i < this.tCount.totalCount; i ++)
@@ -110,6 +123,14 @@ void tnsq_gfx_clear_layer_user_dirty_cell(tnsq_gfx_layer_user_t *ptThis)
     __idx = -1;
 }
 
+/**
+ * @brief The function will draw the cell of user layer.
+ * @param ptThis is a pointer to the user layer.
+ * @param iX is the x coordinate of the cell.
+ * @param iY is the y coordinate of the cell.
+ * @param u7Idx is the index for draw function.
+ * @return none
+*/
 void tnsq_gfx_layer_user_draw(tnsq_gfx_layer_user_t *ptThis, rt_uint16_t iX, rt_uint16_t iY, rt_uint8_t u7Idx)
 {
     rt_uint16_t pos = this.tCount.hwXCount * iY + iX;
@@ -117,6 +138,12 @@ void tnsq_gfx_layer_user_draw(tnsq_gfx_layer_user_t *ptThis, rt_uint16_t iX, rt_
     this.pchUserMap[pos].u7Idx = u7Idx;
 }
 
+/**
+ * @brief The function will get the pixel of the user layer.
+ * @param ptThis is a pointer to the user layer.
+ * @param ptDispAdapter is a pointer to the display adapter.
+ * @return none
+*/
 void tnsq_gfx_layer_user_cal_pixel(tnsq_gfx_layer_user_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {
     arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
@@ -126,6 +153,12 @@ void tnsq_gfx_layer_user_cal_pixel(tnsq_gfx_layer_user_t *ptThis, arm_2d_scene_p
     this.tPixel.hwYPixel = tScreen.tSize.iHeight / this.tCount.hwYCount;
 }
     
+/**
+ * @brief The function will init the user layer.
+ * @param ptCFG is a pointer to the user layer config.
+ * @param ptThis is a pointer to the user layer.
+ * @return Return a pointer to the user layer.
+*/
 ARM_NONNULL(1) tnsq_gfx_layer_user_t *__tnsq_gfx_layer_user_init(tnsq_gfx_layer_user_cfg_t *ptCFG, tnsq_gfx_layer_user_t *ptThis)
 {
     assert(ptCFG != NULL);

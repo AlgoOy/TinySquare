@@ -11,13 +11,13 @@
 #ifndef __TNSQ_GFX_UTILS_H__
 #define __TNSQ_GFX_UTILS_H__
 
-#ifdef   __cplusplus
-extern "C" {
-#endif
-
 #include "arm_2d.h"
 
 #include "arm_2d_helper.h"
+
+#ifdef   __cplusplus
+extern "C" {
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

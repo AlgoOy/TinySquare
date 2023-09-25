@@ -45,6 +45,12 @@
 #undef this
 #define this (*ptThis)
     
+/**
+ * @brief The function will initialize TinySquare engine and create tnsq_gfx task and tnsq_evt task.
+ * @param none
+ * @return Return the operation status. When the return value is RT_EOK, the initialization is successful.
+ *         If the return value is RT_ERROR, it represents the initialization failed.
+*/
 rt_err_t tnsq_init(void)
 {
     if (tnsq_gfx_ctrl_init(tnsq_gfx_get_ctrl()) == RT_ERROR)
@@ -53,6 +59,31 @@ rt_err_t tnsq_init(void)
     }
     
     if (tnsq_evt_ctrl_init(tnsq_evt_get_ctrl()) == RT_ERROR)
+    {
+        return RT_ERROR;
+    }
+	
+	
+	rt_thread_t engineTid = RT_NULL, eventTid = RT_NULL;
+	
+    /* todo: put task create into tnsq init */
+	engineTid = rt_thread_create("tnsq_gfx", tnsq_gfx_task_entry, RT_NULL, TNSQ_GFX_THREAD_STACK_SIZE, TNSQ_GFX_THREAD_PRIORITY, TNSQ_GFX_THREAD_TIMESLICE);
+	if (engineTid != RT_NULL)
+    {
+		rt_thread_startup(engineTid);
+	}
+    else
+    {
+        return RT_ERROR;
+    }    
+
+	
+	eventTid = rt_thread_create("tnsq_evt", tnsq_evt_task_entry, RT_NULL, TNSQ_EVT_THREAD_STACK_SIZE, TNSQ_EVT_THREAD_PRIORITY, TNSQ_EVT_THREAD_TIMESLICE);
+	if (eventTid != RT_NULL)
+    {
+		rt_thread_startup(eventTid);
+	}
+    else
     {
         return RT_ERROR;
     }

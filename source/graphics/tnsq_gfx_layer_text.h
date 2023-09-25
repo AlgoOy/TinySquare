@@ -10,16 +10,16 @@
  
 #ifndef __TNSQ_GFX_LAYER_TEXT_H__
 #define __TNSQ_GFX_LAYER_TEXT_H__
- 
-#ifdef   __cplusplus
-extern "C" {
-#endif
 
 #include "rtdef.h"
 
 #include "arm_extra_lcd_printf.h"
 
 #include "__tnsq_gfx_layer.h"
+ 
+#ifdef   __cplusplus
+extern "C" {
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -61,7 +61,7 @@ struct tnsq_gfx_layer_text_t
         implement (tnsq_gfx_layer_base_t);
         rt_uint8_t bIsDirty;
         tnsq_gfx_layer_text_cfg_t tCFG;
-        char *pchStr;
+        char pchStr[__LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__ + 1];
     )
 };
 
@@ -70,7 +70,7 @@ struct tnsq_gfx_layer_text_t
 
 ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_text_cfg_t *ptLayerCFG, tnsq_gfx_layer_text_t *ptLayer);
 
-int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptLayer, const char *format, ...);
+rt_int32_t tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptLayer, const char *format, ...);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

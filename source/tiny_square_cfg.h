@@ -11,6 +11,8 @@
 #ifndef __TINY_SQUARE_CFG_H__
 #define __TINY_SQUARE_CFG_H__
 
+#include "../port/tiny_square_user_cfg.h"
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
@@ -29,7 +31,33 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-#define TNSQ_EVT_ITC_NUM            64
+#ifndef TNSQ_EVT_ITC_NUM
+    #define TNSQ_EVT_ITC_NUM            64
+#endif
+
+#ifndef TNSQ_GFX_THREAD_STACK_SIZE
+    #define TNSQ_GFX_THREAD_STACK_SIZE  4096
+#endif
+
+#ifndef TNSQ_GFX_THREAD_PRIORITY
+    #define TNSQ_GFX_THREAD_PRIORITY    25
+#endif
+
+#ifndef TNSQ_GFX_THREAD_TIMESLICE
+    #define TNSQ_GFX_THREAD_TIMESLICE   10
+#endif
+
+#ifndef TNSQ_EVT_THREAD_STACK_SIZE
+    #define TNSQ_EVT_THREAD_STACK_SIZE  1024
+#endif
+
+#ifndef TNSQ_EVT_THREAD_PRIORITY
+    #define TNSQ_EVT_THREAD_PRIORITY    24
+#endif
+
+#ifndef TNSQ_EVT_THREAD_TIMESLICE
+    #define TNSQ_EVT_THREAD_TIMESLICE   10
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

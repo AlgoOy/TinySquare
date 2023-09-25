@@ -11,10 +11,6 @@
 #ifndef __TNSQ_GFX_H__
 #define __TNSQ_GFX_H__
 
-#ifdef   __cplusplus
-extern "C" {
-#endif
-
 #include "tnsq_gfx_stage.h"
 #include "tnsq_gfx_utils.h"
 #include "tnsq_gfx_layer_cell.h"
@@ -24,6 +20,10 @@ extern "C" {
 #include "tnsq_gfx_layer_text.h"
 #include "tnsq_gfx_layer_menu.h"
 #include "tnsq_gfx_layer_num.h"
+
+#ifdef   __cplusplus
+extern "C" {
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -39,7 +39,6 @@ extern "C" {
 #   pragma GCC diagnostic ignored "-Wpadded"
 #endif
 
-void tnsq_gfx_task_entry(void *ptParam);
 void tnsq_gfx_apply_for_refresh(void);
 
 #if defined(__clang__)
