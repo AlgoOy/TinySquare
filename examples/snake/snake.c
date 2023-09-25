@@ -300,7 +300,7 @@ static void _snake_game_evt_handler(void)
     rt_err_t tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
     while(tErr != -RT_ETIMEOUT && tErr != -RT_ERROR)
     {
-        printf("%s %d\n", __FILE_NAME__, __LINE__);
+        printf("%s %d\n", __FILE__, __LINE__);
         if(tKey.tEvent != TNSQ_EVT_KEY_EVENT_PRESSED && tKey.tEvent != TNSQ_EVT_KEY_EVENT_LONG_PRESSED)
         {
             tErr = tnsq_evt_itc_get(&tKey, RT_WAITING_NO);
@@ -447,103 +447,6 @@ void snake_task_entry(void *ptParam)
         _snake_game_logic();
     }
 }
-    
-#if 0
-void tnsq_snake_task_entry(void *ptParam)
-{
-    tnsq_evt_key_t tEvtKey = {0};
-    while (1)
-    {
-        tnsq_evt_itc_get(&tEvtKey, RT_WAITING_FOREVER);
-        switch (tEvtKey.tEvent) 
-        {
-        case TNSQ_EVT_KEY_EVENT_DOWN:
-            UART_Print("key down\n");
-            switch (tEvtKey.tDirection)
-            {
-            case TNSQ_EVT_KEY_DERECTION_UP:
-                UART_Print("DERECTION_UP\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_DOWN:
-                UART_Print("DERECTION_DOWN\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_LEFT:
-                UART_Print("DERECTION_LEFT\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_RIGHT:
-                UART_Print("DERECTION_RIGHT\n");
-                break;
-            default:
-                break;
-            }
-            break;
-        case TNSQ_EVT_KEY_EVENT_UP:
-            UART_Print("key up\n");
-            switch (tEvtKey.tDirection)
-            {
-            case TNSQ_EVT_KEY_DERECTION_UP:
-                UART_Print("DERECTION_UP\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_DOWN:
-                UART_Print("DERECTION_DOWN\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_LEFT:
-                UART_Print("DERECTION_LEFT\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_RIGHT:
-                UART_Print("DERECTION_RIGHT\n");
-                break;
-            default:
-                break;
-            }
-            break;
-        case TNSQ_EVT_KEY_EVENT_PRESSED:
-            UART_Print("key pressed\n");
-            switch (tEvtKey.tDirection)
-            {
-            case TNSQ_EVT_KEY_DERECTION_UP:
-                UART_Print("DERECTION_UP\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_DOWN:
-                UART_Print("DERECTION_DOWN\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_LEFT:
-                UART_Print("DERECTION_LEFT\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_RIGHT:
-                UART_Print("DERECTION_RIGHT\n");
-                break;
-            default:
-                break;
-            }
-            break;
-        case TNSQ_EVT_KEY_EVENT_LONG_PRESSED:
-            UART_Print("key long pressed\n");
-            switch (tEvtKey.tDirection)
-            {
-            case TNSQ_EVT_KEY_DERECTION_UP:
-                UART_Print("DERECTION_UP\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_DOWN:
-                UART_Print("DERECTION_DOWN\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_LEFT:
-                UART_Print("DERECTION_LEFT\n");
-                break;
-            case TNSQ_EVT_KEY_DERECTION_RIGHT:
-                UART_Print("DERECTION_RIGHT\n");
-                break;
-            default:
-                break;
-            }
-            break;
-        default:
-            break;
-        }
-    }
-    
-}
-#endif
     
 #if defined(__clang__)
 #   pragma clang diagnostic pop
