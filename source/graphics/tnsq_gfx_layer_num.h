@@ -10,14 +10,14 @@
  
 #ifndef __TNSQ_GFX_LAYER_NUM_H__
 #define __TNSQ_GFX_LAYER_NUM_H__
- 
-#ifdef   __cplusplus
-extern "C" {
-#endif
 
 #include "__tnsq_gfx_layer.h"
 
 #include "number_list.h"
+ 
+#ifdef   __cplusplus
+extern "C" {
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -46,6 +46,7 @@ struct tnsq_gfx_layer_num_cfg_t
 {
     rt_uint8_t chNum;
     rt_int32_t nFinishInMs;
+    rt_uint8_t chShowItemNum;
     struct
     {
         COLOUR_INT font;
@@ -56,6 +57,7 @@ struct tnsq_gfx_layer_num_cfg_t
         uint8_t pre;
         uint8_t next;
     } tPadding;
+    arm_2d_font_t *ptFont;
 };
 
 struct tnsq_gfx_layer_num_t
@@ -74,6 +76,8 @@ struct tnsq_gfx_layer_num_t
             __tnsq_gfx_layer_num_init((__TNSQ_GFX_LAYER_NUM_CFG_PTR), (NULL, ##__VA_ARGS__))
 
 ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_num_cfg_t *ptLayerCFG, tnsq_gfx_layer_num_t *ptLayer);
+
+rt_int8_t tnsq_gfx_layer_num_get_item_idx(tnsq_gfx_layer_num_t *ptLayer);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

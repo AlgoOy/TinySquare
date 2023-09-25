@@ -51,6 +51,13 @@
 
 static rt_bool_t __idx = RT_TRUE;
 
+/**
+ * @brief The function will refresh the text layer.
+ * @param ptThis is a pointer to the text layer.
+ * @param ptTile is a pointer to the tile.
+ * @param ptDirtyRegion is a pointer to the dirty region.
+ * @return none
+*/
 void tnsq_gfx_refresh_layer_text(tnsq_gfx_layer_text_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion)
 {
     if (this.bIsDirty == RT_TRUE)
@@ -81,13 +88,24 @@ void tnsq_gfx_refresh_layer_text(tnsq_gfx_layer_text_t *ptThis, const arm_2d_til
     }
 }
 
+/**
+ * @brief The function will clear the dirty region of the text layer.
+ * @param ptThis is a pointer to the text layer.
+ * @return none
+*/
 void tnsq_gfx_clear_layer_text_dirty_region(tnsq_gfx_layer_text_t *ptThis)
 {
     this.bIsDirty = RT_FALSE;
     __idx = RT_TRUE;
 }
     
-int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format, ...)
+/**
+ * @brief The function will print the text to the text layer.
+ * @param ptThis is a pointer to the text layer.
+ * @param format is a pointer to the format string.
+ * @return size of the string
+*/
+rt_int32_t tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format, ...)
 {
     if (ptThis == NULL)
     {
@@ -104,14 +122,12 @@ int tnsq_gfx_layer_text_printf(tnsq_gfx_layer_text_t *ptThis, const char *format
     return real_size;
 }
 
-void tnsq_gfx_layer_text_depose(tnsq_gfx_layer_text_t *ptThis)
-{
-    if (this.pchStr != NULL)
-    {
-        free(this.pchStr);
-    }
-}
-
+/**
+ * @brief The function will initialize the text layer.
+ * @param ptCFG is a pointer to the text layer configuration.
+ * @param ptThis is a pointer to the text layer.
+ * @return Return a pointer to the text layer.
+*/
 ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_text_cfg_t *ptCFG, tnsq_gfx_layer_text_t *ptThis)
 {
     assert(ptCFG != NULL);
@@ -131,16 +147,6 @@ ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_
         blsUserAllocated = RT_TRUE;
     }
     
-    char *pchStr = (char *)malloc(sizeof(__LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__ + 1));
-    if (pchStr == NULL)
-    {
-        return NULL;
-    }
-    else
-    {
-        pchStr[0] = '\0';
-    }
-    
     memset(ptThis, 0, sizeof(tnsq_gfx_layer_text_t));
     
     *ptThis = (tnsq_gfx_layer_text_t) {
@@ -154,7 +160,7 @@ ARM_NONNULL(1) tnsq_gfx_layer_text_t *__tnsq_gfx_layer_text_init(tnsq_gfx_layer_
         },
         .bIsDirty = RT_FALSE,
         .tCFG = *ptCFG,
-        .pchStr = pchStr,
+        .pchStr[0] = '\0',
     };
     
     return ptThis;

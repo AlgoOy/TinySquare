@@ -53,6 +53,14 @@
 
 static rt_bool_t __idx = RT_TRUE;
 
+/**
+ * @brief The function will refresh the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @param ptTile is a pointer to the tile.
+ * @param ptDirtyRegion is a pointer to the dirty region.
+ * @param bIsNewFrame is a bool value to indicate whether it is a new frame.
+ * @return none
+*/
 void tnsq_gfx_refresh_layer_num(tnsq_gfx_layer_num_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame)
 {
     arm_2d_canvas(ptTile, __layer_num_canvas)
@@ -70,11 +78,22 @@ void tnsq_gfx_refresh_layer_num(tnsq_gfx_layer_num_t *ptThis, const arm_2d_tile_
     }
 }
 
+/**
+ * @brief The function will clear the dirty region of the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @return none
+*/
 void tnsq_gfx_clear_layer_num_dirty_region(tnsq_gfx_layer_num_t *ptThis)
 {
     __idx = RT_TRUE;
 }
 
+/**
+ * @brief The function will get the dirty region of the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @param ptDispAdapter is a pointer to the display adapter.
+ * @return none
+*/
 void tnsq_gfx_layer_num_get_dirty_region(tnsq_gfx_layer_num_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {
     arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
@@ -89,6 +108,11 @@ void tnsq_gfx_layer_num_get_dirty_region(tnsq_gfx_layer_num_t *ptThis, arm_2d_sc
     };
 }
 
+/**
+ * @brief The function will handle the event of the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @return none
+*/
 void tnsq_gfx_layer_num_evt_handle(tnsq_gfx_layer_num_t *ptThis)
 {
     tnsq_evt_key_t tKey = {0};
@@ -104,13 +128,13 @@ void tnsq_gfx_layer_num_evt_handle(tnsq_gfx_layer_num_t *ptThis)
         {
             switch (tKey.tDirection) 
             {
-            case TNSQ_EVT_KEY_DERECTION_UP:
+            case TNSQ_EVT_KEY_DIRECTION_UP:
                 numer_list_move_selection(&this.tNumber, -1, this.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DERECTION_DOWN:
+            case TNSQ_EVT_KEY_DIRECTION_DOWN:
                 numer_list_move_selection(&this.tNumber, 1, this.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DERECTION_RIGHT:
+            case TNSQ_EVT_KEY_DIRECTION_RIGHT:
                 this.chSelectedNum = this.tNumber.use_as____arm_2d_list_core_t.Runtime.hwSelection;
                 return;
             default:
@@ -120,6 +144,11 @@ void tnsq_gfx_layer_num_evt_handle(tnsq_gfx_layer_num_t *ptThis)
     }
 }
 
+/**
+ * @brief The function will get the selected item index of the number list layer.
+ * @param ptThis is a pointer to the number list layer.
+ * @return Return the selected item index.
+*/
 rt_int8_t tnsq_gfx_layer_num_get_item_idx(tnsq_gfx_layer_num_t *ptThis)
 {
     rt_int8_t chSelectedNum = this.chSelectedNum;
@@ -130,6 +159,13 @@ rt_int8_t tnsq_gfx_layer_num_get_item_idx(tnsq_gfx_layer_num_t *ptThis)
 extern 
 const arm_2d_tile_t c_tileListCoverMask;
 
+/**
+ * @brief The function will draw the cover of the number list.
+ * @param pTarget is a pointer to the number list.
+ * @param ptTile is a pointer to the tile.
+ * @param bIsNewFrame is a bool value to indicate whether it is a new frame.
+ * @return Return the state of the draw function.
+*/
 static 
 IMPL_PFB_ON_DRAW(__arm_2d_number_list_draw_cover)
 {
@@ -143,7 +179,8 @@ IMPL_PFB_ON_DRAW(__arm_2d_number_list_draw_cover)
             arm_2d_fill_colour_with_mask(   ptTile, 
                                             &__centre_region, 
                                             &c_tileListCoverMask, 
-                                            (__arm_2d_color_t){GLCD_COLOR_BLACK});
+                                            (arm_2d_color_rgb565_t)this.tNumListCFG.tBackgroundColour
+            );
         }
     }
 
@@ -152,6 +189,12 @@ IMPL_PFB_ON_DRAW(__arm_2d_number_list_draw_cover)
     return arm_fsm_rt_cpl;
 }
 
+/**
+ * @brief The function will initialize the number list.
+ * @param ptCFG is a pointer to the number list configuration.
+ * @param ptThis is a pointer to the number list.
+ * @return Return a pointer to the number list.
+*/
 ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_num_cfg_t *ptCFG, tnsq_gfx_layer_num_t *ptThis)
 {
     assert(ptCFG != NULL);
@@ -171,7 +214,7 @@ ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_nu
         blsUserAllocated = RT_TRUE;
     }
         
-    memset(ptThis, 0, sizeof(tnsq_gfx_layer_menu_t));
+    memset(ptThis, 0, sizeof(tnsq_gfx_layer_num_t));
     
     *ptThis = (tnsq_gfx_layer_num_t) {
         .use_as__tnsq_gfx_layer_base_t = {
@@ -195,13 +238,21 @@ ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_nu
             .tBackgroundColour = ptCFG->tColor.background,
             .chNextPadding = ptCFG->tPadding.next,
             .chPrviousePadding = ptCFG->tPadding.pre,
-            .tListSize = {
-                .iWidth = ARM_2D_FONT_A4_DIGITS_ONLY.use_as__arm_2d_user_font_t.use_as__arm_2d_font_t.tCharSize.iWidth * 2,
-                .iHeight = (ARM_2D_FONT_A4_DIGITS_ONLY.use_as__arm_2d_user_font_t.use_as__arm_2d_font_t.tCharSize.iHeight + ptCFG->tPadding.pre + ptCFG->tPadding.next) * 3,
-            },
-            .ptFont = (arm_2d_font_t *)&ARM_2D_FONT_A4_DIGITS_ONLY,
             .fnOnDrawListCover = &__arm_2d_number_list_draw_cover,
         };
+        
+        if (ptCFG->ptFont == NULL)
+        {
+            tNumCFG.ptFont = (arm_2d_font_t *)&ARM_2D_FONT_A4_DIGITS_ONLY;
+        }
+        else
+        {
+            tNumCFG.ptFont = ptCFG->ptFont;
+        }
+        
+        tNumCFG.tListSize.iWidth = tNumCFG.ptFont->tCharSize.iWidth * 2;
+        tNumCFG.tListSize.iHeight = (tNumCFG.ptFont->tCharSize.iHeight + ptCFG->tPadding.pre + ptCFG->tPadding.next) * ptCFG->chShowItemNum;
+        
         number_list_init(&this.tNumber, &tNumCFG);
     } while (0);
     

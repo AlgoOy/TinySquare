@@ -10,6 +10,9 @@
 
 #define ____TNSQ_GFX_CTRL_IMPLEMENT__
 #include "__tnsq_gfx_common.h"
+
+// todo: just for test
+#include <stdio.h>
  
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -42,6 +45,11 @@
 #undef this
 #define this (*ptThis)
     
+/**
+ * @brief The function will apply to refresh the display.
+ * @param none
+ * @return none
+*/
 void tnsq_gfx_apply_for_refresh(void)
 {
     tnsq_gfx_ctrl_t *ptThis = tnsq_gfx_get_ctrl();
@@ -50,13 +58,17 @@ void tnsq_gfx_apply_for_refresh(void)
     {
         /* error handle */
     }
-    
     while (rt_sem_take(this.tRefresh.ptSemGiveRsp, RT_WAITING_FOREVER) != RT_EOK)
     {
         /* error handle */
     }
 }
     
+/**
+ * @brief The function is the entry of the gfx task.
+ * @param ptParam is a pointer to the parameter.
+ * @return none
+*/
 void tnsq_gfx_task_entry(void *ptParam)
 {
     (void)ptParam;
@@ -69,7 +81,6 @@ void tnsq_gfx_task_entry(void *ptParam)
         {
             /* error handle */
         }
-        
         /* todo: if there many disp adapters waiting for run
          * arm_2d_op_wait_async(disp_adapters_task());  ???
          */

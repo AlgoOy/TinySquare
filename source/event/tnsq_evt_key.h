@@ -39,11 +39,11 @@ struct tnsq_evt_key_t
 {
     enum 
     {
-        TNSQ_EVT_KEY_DERECTION_INVALID  = 0x00,
-        TNSQ_EVT_KEY_DERECTION_UP       = 0x01,
-        TNSQ_EVT_KEY_DERECTION_DOWN     = 0x02,
-        TNSQ_EVT_KEY_DERECTION_LEFT     = 0x03,
-        TNSQ_EVT_KEY_DERECTION_RIGHT    = 0x04,
+        TNSQ_EVT_KEY_DIRECTION_INVALID  = 0x00,
+        TNSQ_EVT_KEY_DIRECTION_UP       = 0x01,
+        TNSQ_EVT_KEY_DIRECTION_DOWN     = 0x02,
+        TNSQ_EVT_KEY_DIRECTION_LEFT     = 0x03,
+        TNSQ_EVT_KEY_DIRECTION_RIGHT    = 0x04,
     } tDirection;
     enum 
     {
@@ -55,8 +55,8 @@ struct tnsq_evt_key_t
     } tEvent;
 };
 
-rt_err_t tnsq_evt_itc_get(tnsq_evt_key_t *ptThis, rt_int32_t timeout);
-rt_err_t tnsq_evt_itc_put(tnsq_evt_key_t *ptThis);
+rt_err_t tnsq_evt_itc_get(tnsq_evt_key_t *ptKey, rt_int32_t timeout);
+rt_err_t tnsq_evt_itc_put(tnsq_evt_key_t *ptKey);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

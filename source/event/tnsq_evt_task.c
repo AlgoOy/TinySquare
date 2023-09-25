@@ -9,6 +9,9 @@
  */
 
 #include "__tnsq_evt_common.h"
+
+// todo: just for debug
+#include <stdio.h>
  
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -41,6 +44,11 @@
 #undef this
 #define this (*ptThis)
     
+/**
+ * @brief The function is event task entry.
+ * @param ptParam is a pointer to the parameter.
+ * @return none
+*/
 void tnsq_evt_task_entry(void *ptParam)
 {
     (void)ptParam;

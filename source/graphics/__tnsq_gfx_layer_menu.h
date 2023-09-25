@@ -10,12 +10,12 @@
  
 #ifndef ____TNSQ_GFX_LAYER_MENU_H__
 #define ____TNSQ_GFX_LAYER_MENU_H__
+
+#include "tnsq_gfx_layer_menu.h"
  
 #ifdef   __cplusplus
 extern "C" {
 #endif
-
-#include "tnsq_gfx_layer_menu.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -38,8 +38,6 @@ void tnsq_gfx_clear_layer_menu_dirty_region(tnsq_gfx_layer_menu_t *ptThis);
 void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis);
 
 void tnsq_gfx_layer_menu_get_dirty_region(tnsq_gfx_layer_menu_t *ptThis, arm_2d_scene_player_t *ptDispAdapter);
-
-void tnsq_gfx_layer_menu_depose(tnsq_gfx_layer_menu_t *ptThis);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

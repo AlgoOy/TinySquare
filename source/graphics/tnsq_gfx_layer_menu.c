@@ -50,20 +50,24 @@
 
 #undef this
 #define this (*ptThis)
-    
-typedef struct tnsq_gfx_list_item_t tnsq_gfx_list_item_t;
-
-#define __REF_ITEM_ARRAY(__PTR, __INDEX) (arm_2d_list_item_t *)                 \
-                                    (   ((uintptr_t)(__PTR))                    \
-                                    +   this.tListView.tListViewCFG.hwItemSizeInByte * (__INDEX))
+                                   
+#define STRUCT_ENTRY(STRUCT_ELEM, STRUCT, MEMBER) \
+    ((STRUCT *)((uint8_t *)(STRUCT_ELEM) - (size_t)(&((STRUCT *)0)->MEMBER)))
 
 static rt_bool_t __idx = RT_TRUE;
 
+/**
+ * @brief The function will refresh the menu layer.
+ * @param ptThis is a pointer to the menu layer.
+ * @param ptTile is a pointer to the tile.
+ * @param ptDirtyRegion is a pointer to the dirty region.
+ * @param bIsNewFrame is a flag to indicate whether it is a new frame.
+ * @return none
+*/
 void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_tile_t *ptTile, arm_2d_region_list_item_t *ptDirtyRegion, rt_bool_t bIsNewFrame)
 {
     while (arm_fsm_rt_cpl != list_view_show(&this.tListView, ptTile, NULL, bIsNewFrame));
     arm_2d_op_wait_async(NULL);
-    
     if (!ptDirtyRegion[0].bUpdated && __idx)
     {
         __idx = RT_FALSE;
@@ -73,11 +77,21 @@ void tnsq_gfx_refresh_layer_menu(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_til
     }
 }
 
+/**
+ * @brief The function will clear the dirty region of the menu layer.
+ * @param ptThis is a pointer to the menu layer.
+ * @return none
+*/
 void tnsq_gfx_clear_layer_menu_dirty_region(tnsq_gfx_layer_menu_t *ptThis)
 {
     __idx = RT_TRUE;
 }
 
+/**
+ * @brief The function will handle the event of the menu layer.
+ * @param ptThis is a pointer to the menu layer.
+ * @return none
+*/
 void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
 {
     tnsq_evt_key_t tKey = {0};
@@ -91,15 +105,15 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
         }
         else
         {
-            switch (tKey.tDirection) 
+            switch (tKey.tDirection)
             {
-            case TNSQ_EVT_KEY_DERECTION_UP:
+            case TNSQ_EVT_KEY_DIRECTION_UP:
                 list_view_move_selection(&this.tListView, -1, this.tCFG.tItemGeneral.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DERECTION_DOWN:
+            case TNSQ_EVT_KEY_DIRECTION_DOWN:
                 list_view_move_selection(&this.tListView, 1, this.tCFG.tItemGeneral.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DERECTION_RIGHT:
+            case TNSQ_EVT_KEY_DIRECTION_RIGHT:
                 this.chSelectedIdx = this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection;
                 this.pchSelectedStr = this.tCFG.tItemGeneral.pchStringTable[this.chSelectedIdx];
                 return;
@@ -110,6 +124,11 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
     }
 }
 
+/**
+ * @brief The function will get the selected item name.
+ * @param ptThis is a pointer to the menu layer.
+ * @return Return the selected item name.
+*/
 const char *tnsq_gfx_layer_menu_get_item_name(tnsq_gfx_layer_menu_t *ptThis)
 {
     const char *pchSelectedStr = this.pchSelectedStr;
@@ -117,6 +136,11 @@ const char *tnsq_gfx_layer_menu_get_item_name(tnsq_gfx_layer_menu_t *ptThis)
     return pchSelectedStr;
 }
 
+/**
+ * @brief The function will get the selected item index.
+ * @param ptThis is a pointer to the menu layer.
+ * @return Return the selected item index.
+*/
 rt_int8_t tnsq_gfx_layer_menu_get_item_idx(tnsq_gfx_layer_menu_t *ptThis)
 {
     rt_int8_t chSelectedIdx = this.chSelectedIdx;
@@ -124,6 +148,12 @@ rt_int8_t tnsq_gfx_layer_menu_get_item_idx(tnsq_gfx_layer_menu_t *ptThis)
     return chSelectedIdx;
 }
 
+/**
+ * @brief The function will get the dirty region of the menu layer.
+ * @param ptThis is a pointer to the menu layer.
+ * @param ptDispAdapter is a pointer to the display adapter.
+ * @return none
+*/
 void tnsq_gfx_layer_menu_get_dirty_region(tnsq_gfx_layer_menu_t *ptThis, arm_2d_scene_player_t *ptDispAdapter)
 {
     arm_2d_region_t tScreen = arm_2d_helper_pfb_get_display_area(
@@ -138,18 +168,17 @@ void tnsq_gfx_layer_menu_get_dirty_region(tnsq_gfx_layer_menu_t *ptThis, arm_2d_
     };
 }
 
-void tnsq_gfx_layer_menu_depose(tnsq_gfx_layer_menu_t *ptThis)
-{
-    if (this.tListView.tListViewCFG.ptItems != NULL)
-    {
-        free(this.tListView.tListViewCFG.ptItems);
-    }
-}
-
 #if defined(__IS_COMPILER_IAR__) && __IS_COMPILER_IAR__
 #define __va_list    va_list
 #endif
 
+/**
+ * @brief The function will print the string to the memu layer.
+ * @param ptThis is a pointer to the menu layer.
+ * @param ptRegion is a pointer to the region.
+ * @param format is a pointer to the string.
+ * @return Return the size of the string.
+*/
 static int __printf(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_region_t *ptRegion, const char *format, ...)
 {
     int real_size;
@@ -172,6 +201,14 @@ static int __printf(tnsq_gfx_layer_menu_t *ptThis, const arm_2d_region_t *ptRegi
     return real_size;
 }
 
+/**
+ * @brief The function will draw the menu item.
+ * @param ptItem is a pointer to the menu item.
+ * @param ptTile is a pointer to the tile.
+ * @param bIsNewFrame is a flag to indicate whether it is a new frame.
+ * @param ptParam is a pointer to the menu item parameter.
+ * @return Return the state of draw function.
+*/
 static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const arm_2d_tile_t *ptTile, bool bIsNewFrame, arm_2d_list_item_param_t *ptParam)
 {    
     tnsq_gfx_layer_menu_t *ptThis = (tnsq_gfx_layer_menu_t *)ptItem->pTarget;
@@ -206,14 +243,16 @@ static arm_fsm_rt_t _list_view_item_draw_func(arm_2d_list_item_t *ptItem, const 
     return arm_fsm_rt_cpl;
 }
 
-#define STRUCT_ENTRY(STRUCT_ELEM, STRUCT, MEMBER) \
-    ((STRUCT *)((uint8_t *)(STRUCT_ELEM) - (size_t)(&((STRUCT *)0)->MEMBER)))
-
-static arm_2d_list_item_t *_tnsq_gfx_menu_list_iterator(
-                                        __arm_2d_list_core_t *ptListView,
-                                        arm_2d_list_iterator_dir_t tDirection,
-                                        uint_fast16_t hwID
-                                    )
+/**
+ * @brief The function will iterate the menu list.
+ * @param ptListView is a pointer to the menu list.
+ * @param tDirection is a flag to indicate the direction of iteration.
+ * @param hwID is the id of the menu item.
+ * @return Return the pointer to the menu item.
+*/
+static arm_2d_list_item_t *_tnsq_gfx_menu_list_iterator(__arm_2d_list_core_t *ptListView,
+														arm_2d_list_iterator_dir_t tDirection,
+														uint_fast16_t hwID)
 {
     tnsq_gfx_layer_menu_t *ptThis = STRUCT_ENTRY(ptListView, tnsq_gfx_layer_menu_t, tListView);
     int32_t nIterationIndex;
@@ -287,6 +326,12 @@ static arm_2d_list_item_t *_tnsq_gfx_menu_list_iterator(
     return &this.tTempItem;
 }
 
+/**
+ * @brief The function will initialize the menu layer.
+ * @param ptCFG is a pointer to the menu layer configuration.
+ * @param ptThis is a pointer to the menu layer.
+ * @return Return the pointer to the menu layer.
+*/
 ARM_NONNULL(1) tnsq_gfx_layer_menu_t *__tnsq_gfx_layer_menu_init(tnsq_gfx_layer_menu_cfg_t *ptCFG, tnsq_gfx_layer_menu_t *ptThis)
 {
     assert(ptCFG != NULL);
