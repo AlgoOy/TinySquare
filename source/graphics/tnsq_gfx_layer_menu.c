@@ -105,15 +105,15 @@ void tnsq_gfx_layer_menu_evt_handle(tnsq_gfx_layer_menu_t *ptThis)
         }
         else
         {
-            switch (tKey.tDirection)
+            switch (tKey.tKeyValue)
             {
-            case TNSQ_EVT_KEY_DIRECTION_UP:
+            case TNSQ_EVT_KEY_UP:
                 list_view_move_selection(&this.tListView, -1, this.tCFG.tItemGeneral.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DIRECTION_DOWN:
+            case TNSQ_EVT_KEY_DOWN:
                 list_view_move_selection(&this.tListView, 1, this.tCFG.tItemGeneral.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DIRECTION_RIGHT:
+            case TNSQ_EVT_KEY_RIGHT:
                 this.chSelectedIdx = this.tListView.use_as____arm_2d_list_core_t.Runtime.hwSelection;
                 this.pchSelectedStr = this.tCFG.tItemGeneral.pchStringTable[this.chSelectedIdx];
                 return;

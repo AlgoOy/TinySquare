@@ -487,10 +487,14 @@
 |:-----|:-----|
 | `self` | 对象自身的引用 |
 | **返回** | **描述** |
-| `KEY_DIRECTION_UP` | 向上 |
-| `KEY_DIRECTION_DOWN` | 向下 |
-| `KEY_DIRECTION_LEFT` | 向左 |
-| `KEY_DIRECTION_RIGHT` | 向右 |
+| `KEY_UP` | 向上 |
+| `KEY_DOWN` | 向下 |
+| `KEY_LEFT` | 向左 |
+| `KEY_RIGHT` | 向右 |
+| `KEY_X` | X |
+| `KEY_Y` | Y |
+| `KEY_A` | A |
+| `KEY_B` | B |
 
 #### 获取按键事件
 

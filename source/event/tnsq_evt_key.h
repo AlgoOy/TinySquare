@@ -34,17 +34,24 @@ extern "C" {
 #endif
 
 typedef struct tnsq_evt_key_t tnsq_evt_key_t;
+typedef enum tnsq_evt_key_value_t tnsq_evt_key_value_t;
+
+enum tnsq_evt_key_value_t
+{
+	TNSQ_EVT_KEY_INVALID  = 0x00,
+	TNSQ_EVT_KEY_UP       = 0x01,
+	TNSQ_EVT_KEY_DOWN     = 0x02,
+	TNSQ_EVT_KEY_LEFT     = 0x03,
+	TNSQ_EVT_KEY_RIGHT    = 0x04,
+	TNSQ_EVT_KEY_X		  = 0x05,
+	TNSQ_EVT_KEY_Y		  = 0x06,
+	TNSQ_EVT_KEY_A		  = 0x07,
+	TNSQ_EVT_KEY_B		  = 0x08,
+};
 
 struct tnsq_evt_key_t
 {
-    enum 
-    {
-        TNSQ_EVT_KEY_DIRECTION_INVALID  = 0x00,
-        TNSQ_EVT_KEY_DIRECTION_UP       = 0x01,
-        TNSQ_EVT_KEY_DIRECTION_DOWN     = 0x02,
-        TNSQ_EVT_KEY_DIRECTION_LEFT     = 0x03,
-        TNSQ_EVT_KEY_DIRECTION_RIGHT    = 0x04,
-    } tDirection;
+    tnsq_evt_key_value_t tKeyValue;
     enum 
     {
         TNSQ_EVT_KEY_EVENT_INVALID        = 0x00,
