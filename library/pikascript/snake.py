@@ -15,7 +15,7 @@ class Game:
         self.txt_color = TinySquare.RGB(0x00, 0x00, 0x00)
         self.game_score = 0
         self.snake_speed = 400
-        self.snake_direction = TinySquare.KEY_DIRECTION_RIGHT
+        self.snake_direction = TinySquare.KEY_RIGHT
         self.snake = [(2 , 2)]
         self.food = self.create_food()
 
@@ -49,18 +49,18 @@ class Game:
                 err = self.evt.update_key(0)
                 continue
             else:
-                if self.evt.get_direction() == TinySquare.KEY_DIRECTION_UP:
-                    if self.snake_direction != TinySquare.KEY_DIRECTION_DOWN:
-                        self.snake_direction = TinySquare.KEY_DIRECTION_UP
-                elif self.evt.get_direction() == TinySquare.KEY_DIRECTION_DOWN:
-                    if self.snake_direction != TinySquare.KEY_DIRECTION_UP:
-                        self.snake_direction = TinySquare.KEY_DIRECTION_DOWN
-                elif self.evt.get_direction() == TinySquare.KEY_DIRECTION_LEFT:
-                    if self.snake_direction != TinySquare.KEY_DIRECTION_RIGHT:
-                        self.snake_direction = TinySquare.KEY_DIRECTION_LEFT
-                elif self.evt.get_direction() == TinySquare.KEY_DIRECTION_RIGHT:
-                    if self.snake_direction != TinySquare.KEY_DIRECTION_LEFT:
-                        self.snake_direction = TinySquare.KEY_DIRECTION_RIGHT
+                if self.evt.get_direction() == TinySquare.KEY_UP:
+                    if self.snake_direction != TinySquare.KEY_DOWN:
+                        self.snake_direction = TinySquare.KEY_UP
+                elif self.evt.get_direction() == TinySquare.KEY_DOWN:
+                    if self.snake_direction != TinySquare.KEY_UP:
+                        self.snake_direction = TinySquare.KEY_DOWN
+                elif self.evt.get_direction() == TinySquare.KEY_LEFT:
+                    if self.snake_direction != TinySquare.KEY_RIGHT:
+                        self.snake_direction = TinySquare.KEY_LEFT
+                elif self.evt.get_direction() == TinySquare.KEY_RIGHT:
+                    if self.snake_direction != TinySquare.KEY_LEFT:
+                        self.snake_direction = TinySquare.KEY_RIGHT
             return
         
 
@@ -73,13 +73,13 @@ class Game:
             self.update_direction()
 
             head_x, head_y = self.snake[0]
-            if self.snake_direction == TinySquare.KEY_DIRECTION_UP:
+            if self.snake_direction == TinySquare.KEY_UP:
                 head_y -= 1
-            elif self.snake_direction == TinySquare.KEY_DIRECTION_DOWN:
+            elif self.snake_direction == TinySquare.KEY_DOWN:
                 head_y += 1
-            elif self.snake_direction == TinySquare.KEY_DIRECTION_LEFT:
+            elif self.snake_direction == TinySquare.KEY_LEFT:
                 head_x -= 1
-            elif self.snake_direction == TinySquare.KEY_DIRECTION_RIGHT:
+            elif self.snake_direction == TinySquare.KEY_RIGHT:
                 head_x += 1
 
             if head_x == self.food[0] and head_y == self.food[1]:

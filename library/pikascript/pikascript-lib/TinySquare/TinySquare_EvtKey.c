@@ -11,7 +11,7 @@ void TinySquare_EvtKey___init__(PikaObj *self)
 int TinySquare_EvtKey_update_key(PikaObj *self, int timeout)
 {
     tnsq_evt_key_t *_self = obj_getStruct(self, "_self");
-    _self->tDirection = 0;
+    _self->tKeyValue = 0;
     _self->tEvent = 0;
     return tnsq_evt_itc_get(_self, timeout);
 }
@@ -19,7 +19,7 @@ int TinySquare_EvtKey_update_key(PikaObj *self, int timeout)
 int TinySquare_EvtKey_get_direction(PikaObj *self)
 {
     tnsq_evt_key_t *_self = obj_getStruct(self, "_self");
-    return _self->tDirection;
+    return _self->tKeyValue;
 }
 
 int TinySquare_EvtKey_get_event(PikaObj *self)

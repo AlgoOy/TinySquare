@@ -309,27 +309,27 @@ static void _snake_game_evt_handler(void)
         }
         else
         {
-            switch (tKey.tDirection) 
+            switch (tKey.tKeyValue) 
             {
-            case TNSQ_EVT_KEY_DIRECTION_UP:
+            case TNSQ_EVT_KEY_UP:
                 if (snake.direction != Down) 
                 {
                     snake.direction = Up;
                 }
                 break;
-            case TNSQ_EVT_KEY_DIRECTION_DOWN:
+            case TNSQ_EVT_KEY_DOWN:
                 if (snake.direction != Up) 
                 {
                     snake.direction = Down;
                 }
                 break;
-            case TNSQ_EVT_KEY_DIRECTION_LEFT:
+            case TNSQ_EVT_KEY_LEFT:
                 if (snake.direction != Right) 
                 {
                     snake.direction = Left;
                 }
                 break;
-            case TNSQ_EVT_KEY_DIRECTION_RIGHT:
+            case TNSQ_EVT_KEY_RIGHT:
                 if (snake.direction != Left) 
                 {
                     snake.direction = Right;

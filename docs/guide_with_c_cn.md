@@ -1,5 +1,9 @@
 # C 库移植
 
+- [C 库移植](#c-库移植)
+  - [准备环境](#准备环境)
+  - [库的移植](#库的移植)
+
 ## 准备环境
 
 - 新建一个 RT-thread 工程
@@ -39,21 +43,26 @@
 
 - 为了接受游戏事件的输入，还需配置按键驱动，需要编写一个函数，将按键事件的按下与抬起，捕获到引擎的事件处理机制中，仅需要参考 `tnsq_evt_itc_put` 函数的 API，实现相关功能即可
     ```c
-    if (state == GPIO_PIN_RESET)
+    static void _pressed_high_level_key_handler(GPIO_TypeDef *GPIO_PORT, uint16_t GPIO_PIN, tnsq_evt_key_value_t tValue)
     {
-        tEvtKey = (tnsq_evt_key_t) {
-            .tDirection = chValue,
-            .tEvent = TNSQ_EVT_KEY_EVENT_DOWN,
-        };
-        tnsq_evt_itc_put(&tEvtKey);
-    }
-    else
-    {
-        tEvtKey = (tnsq_evt_key_t) {
-            .tDirection = chValue,
-            .tEvent = TNSQ_EVT_KEY_EVENT_UP,
-        };
-        tnsq_evt_itc_put(&tEvtKey);
+        tnsq_evt_key_t tEvtKey = {0};
+        GPIO_PinState state = HAL_GPIO_ReadPin(GPIO_PORT, GPIO_PIN);
+        if (state != GPIO_PIN_RESET)
+        {
+            tEvtKey = (tnsq_evt_key_t) {
+                .tKeyValue = tValue,
+                .tEvent = TNSQ_EVT_KEY_EVENT_DOWN,
+            };
+            tnsq_evt_itc_put(&tEvtKey);
+        }
+        else
+        {
+            tEvtKey = (tnsq_evt_key_t) {
+                .tKeyValue = tValue,
+                .tEvent = TNSQ_EVT_KEY_EVENT_UP,
+            };
+            tnsq_evt_itc_put(&tEvtKey);
+        }
     }
     ```
 
