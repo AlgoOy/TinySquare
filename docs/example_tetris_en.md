@@ -1,103 +1,103 @@
-# C 库使用 - 俄罗斯方块
+# C library usage - Tetris
 
-- [C 库使用 - 俄罗斯方块](#c-库使用---俄罗斯方块)
-  - [俄罗斯方块](#俄罗斯方块)
-    - [效果图](#效果图)
-    - [参考数据](#参考数据)
+- [C library usage - Tetris](#c-library-usage---tetris)
+  - [Tetris](#tetris)
+    - [Renderings](#renderings)
+    - [Reference data](#reference-data)
       - [1/100 PFB](#1100-pfb)
       - [100/100 PFB](#100100-pfb)
-    - [代码分析](#代码分析)
+    - [Code analysis](#code-analysis)
 
-## 俄罗斯方块
+## Tetris
 
-以 tetris 游戏为例，介绍一下在 C 语言运行环境下，如何实现一个多 stage 的 tetris 游戏
+Taking the tetris game as an example, we will introduce how to implement a multi-stage tetris game in the C language running environment.
 
-### 效果图
+### Renderings
 
-- 启动界面
-  - ![tetris_start](./image/tetris_start.jpg)
+- Start interface
+   - ![tetris_start](./image/tetris_start.jpg)
 
-- 难度选择
-  - ![tetris_difficulty](./image/tetris_difficulty.jpg)
+- Difficulty selection
+   - ![tetris_difficulty](./image/tetris_difficulty.jpg)
 
-- 挑战级别
-  - ![tetris_challenge](./image/tetris_challenge.jpg)
+- Challenging levels
+   - ![tetris_challenge](./image/tetris_challenge.jpg)
 
-- 游戏界面
-  - ![tetris_game](./image/tetris_game.jpg)
+- game interface
+   - ![tetris_game](./image/tetris_game.jpg)
 
-### 参考数据
+### Reference data
 
 #### 1/100 PFB
 
-- 配置
-  - 主频：80MHz
-  - 优化等级：-Os -lto
-  - 屏幕：240 * 240
-  - PFB：24 * 24
-  - 堆：0x2800
-  - 栈：0x200
+- Configuration
+   - Main frequency: 80MHz
+   - Optimization level: -Os -lto
+   - Screen: 240*240
+   -PFB: 24*24
+   - Heap: 0x2800
+   - Stack: 0x200
 
-- 性能
-  - 启动界面：
-    - 固定刷新区域：160 * 90
-    - FPS： 13：74ms
-  - 难度选择：
-    - 固定刷新区域：160 * 90
-    - FPS： 15：65ms
-  - 挑战级别：
-    - 固定刷新区域：30 * 66
-    - FPS： 54：18ms
-  - 游戏界面：
-    - FPS： 16：61ms
+- Performance
+   - Start interface:
+     - Fixed refresh area: 160*90
+     - FPS: 13:74ms
+   - Difficulty selection:
+     - Fixed refresh area: 160*90
+     - FPS: 15:65ms
+   - Challenge level:
+     - Fixed refresh area: 30*66
+     - FPS: 54:18ms
+   - game interface:
+     - FPS: 16:61ms
 
-- 程序大小
-  - Code=44484
-  - RO-data=138220 
-  - RW-data=308
-  - ZI-data=27868
+- Program size
+   - Code=44484
+   - RO-data=138220
+   - RW-data=308
+   -ZI-data=27868
 
 #### 100/100 PFB
 
-- 配置
-  - 主频：80MHz
-  - 优化等级：-Os -lto
-  - 屏幕：240 * 240
-  - PFB：240 * 240
-  - 堆：0x2800
-  - 栈：0x200
+- Configuration
+   - Main frequency: 80MHz
+   - Optimization level: -Os -lto
+   - Screen: 240*240
+   -PFB: 240*240
+   - Heap: 0x2800
+   - Stack: 0x200
 
-- 性能
-  - 启动界面：
-    - 固定刷新区域：160 * 90
-    - FPS： 48：20ms
-  - 难度选择：
-    - 固定刷新区域：160 * 90
-    - FPS： 52：18ms
-  - 挑战级别：
-    - 固定刷新区域：30 * 66
-    - FPS： 113：8ms
-  - 游戏界面：
-    - FPS： 55：17ms
+- Performance
+   - Start interface:
+     - Fixed refresh area: 160*90
+     - FPS: 48:20ms
+   - Difficulty selection:
+     - Fixed refresh area: 160*90
+     - FPS: 52:18ms
+   - Challenge level:
+     - Fixed refresh area: 30*66
+     - FPS: 113: 8ms
+   - game interface:
+     - FPS: 55:17ms
 
-- 程序大小
-  - Code=44484
-  - RO-data=138220
-  - RW-data=308
-  - ZI-data=141916
+- Program size
+   - Code=44484
+   - RO-data=138220
+   - RW-data=308
+   - ZI-data=141916
 
-### 代码分析
+### Code analysis
 
-tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘制游戏图层，`tnsq_tetris_logic.c` 处理游戏逻辑，以下讨论仅限于绘制游戏图层，不涉及游戏机制
+The tetris case is divided into two C files, namely: `tnsq_tetris_draw.c` is used to draw game layers, `tnsq_tetris_logic.c` handles game logic. The following discussion is limited to drawing game layers and does not involve game mechanics.
 
-- TinySquare 提供了七个基础图层，分别是：背景颜色图层、背景图层、基本单元图层、用户单元图层、文本图层、菜单图层、数字列表图层
+- TinySquare provides seven basic layers, namely: background color layer, background layer, basic unit layer, user unit layer, text layer, menu layer, and number list layer
 
-- 在进行图层绘制前，需要先进行显示适配器的初始化
+- Before drawing a layer, the display adapter needs to be initialized.
     ```c
     disp_adapter0_init();
     ```
 
-- 同时，为界面申请一个 stage
+- At the same time, apply for a stage for the interface
     ```c
     tnsq_gfx_stage_cfg_t tGameStageCFG = {
         .ptDispAdapter = {
@@ -105,7 +105,7 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
             .ptPlayerTask = disp_adapter0_task,
         },
     };
-    
+
     tnsq_gfx_stage_t *ptGameStage = tnsq_gfx_stage_init(&tGameStageCFG);
     if (ptGameStage == NULL)
     {
@@ -119,10 +119,10 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
     }
     ```
 
-- 接下来绘制开始界面，这里需要用到两个图层，一个是背景颜色图层、一个是菜单图层
+- Next draw the start interface. Two layers are needed here, one is the background color layer and the other is the menu layer.
     ```c
     arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
-        
+    
     arm_2d_size_t tItemSize = {
         .iWidth = 160,
         .iHeight = 30,
@@ -144,12 +144,12 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
         {
             printf("menu layer init failed\n");
         }
-        
+    
         tnsq_gfx_register_layer_to_stage(ptStage, ptGameBGCL);
     } while (0);
 
     do {
-         static const char *pchStringTable[] = {
+        static const char *pchStringTable[] = {
             "start",
             "difficulty",
             "challenge"
@@ -178,24 +178,23 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
                 .chOpacity = 255,
             },
         };
-        
+    
         tnsq_gfx_layer_menu_t *ptMenuLayer = tnsq_gfx_layer_menu_init(&tMenuCFG);
         if (ptMenuLayer == NULL)
         {
             printf("menu layer init failed\n");
         }
-        
+    
         tnsq_gfx_register_layer_to_stage(ptStage, ptMenuLayer);
     } while (0);
     ```
-  - 对于背景颜色图层，通过 `tGameBGCLCFG` 指定了它的区域、颜色、不透明度。在初始化图层之后，将其注册到指定的 stage 中去
-  - 对于菜单图层，通过 `tMenuCFG` 指定菜单项的内容（这是通过一个 `const char **`）来实现的。其次，需要指定每一个 item 的大小，上下的 padding，切换间隔、字体等，被选中与不被选中时，也可以自定义其表现形式
-  - 当用户事件触发之后，调用相关的函数就能获取对应被选中的 item 了
-    ```c
-    chItemIdx = tnsq_gfx_layer_menu_get_item_idx(menuLayerSelectPtr);
-    ```
-
-- 对于数字列表图层，则如下进行初始化
+   - For the background color layer, its area, color, and opacity are specified via `tGameBGCLCFG`. After initializing the layer, register it to the specified stage.
+   - For menu layers, specify the content of the menu item through `tMenuCFG` (this is achieved through a `const char **`). Secondly, you need to specify the size of each item, upper and lower padding, switching intervals, fonts, etc. You can also customize its expression when it is selected or not.
+   - When the user event is triggered, the corresponding selected item can be obtained by calling the relevant function.
+     ```c
+     chItemIdx = tnsq_gfx_layer_menu_get_item_idx(menuLayerSelectPtr);
+     ```
+- For the number list layer, initialize it as follows
     ```c
     do {
         tnsq_gfx_layer_num_cfg_t tNumCFG = {
@@ -212,30 +211,30 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
             },
             .ptFont = (arm_2d_font_t *)&ARM_2D_FONT_A4_DIGITS_ONLY,
         };
-        
+    
         tnsq_gfx_layer_num_t *ptNumLayer = tnsq_gfx_layer_num_init(&tNumCFG);
         if (ptNumLayer == NULL)
         {
             printf("num layer init failed\n");
         }
-        
+    
         tnsq_gfx_register_layer_to_stage(ptStage, ptNumLayer);
     } while (0);
     ```
-  - 相对于菜单图层来说，数字图层仅需要指定数字的个数即可，使用非常方便。当然，起始数字和数字之间的间隔也是可以通过 `tnsq_gfx_layer_num_cfg_t ` 配置项指定的，这些就留给用户自己尝试了
+   - Compared with the menu layer, the number layer only needs to specify the number of numbers, which is very convenient to use. Of course, the starting number and the interval between the numbers can also be specified through the `tnsq_gfx_layer_num_cfg_t` configuration item. These are left to the user to try.
 
-- 当需要进行 stage 切换时，需要先初始化一个stage，在进行切换，切换完成后，可以申请刷新查看效果
+- When you need to switch stages, you need to initialize a stage first. After the switch is completed, you can apply for refresh to view the effect.
     ```c
     ptStage = tetris_game_stage_init();
-        
+    
     arm_2d_scene_player_switch_to_next_scene(&DISP0_ADAPTER);
 
     tnsq_gfx_apply_for_refresh();
     ```
 
-- 对于背景图层的初始化，仅需要指定对应的资源和对应的 Region 即可。关于如何将图片转化为引擎可用的资源，可以参考 [Arm-2D 的相关介绍文档](https://github.com/ARM-software/Arm-2D/blob/main/tools/README.md)
+- For the initialization of the background layer, you only need to specify the corresponding resource and the corresponding Region. For information on how to convert images into resources available to the engine, please refer to [Arm-2D related introduction documents](https://github.com/ARM-software/Arm-2D/blob/main/tools/README.md)
     ```c
-    tnsq_gfx_layer_bg_cfg_t tGameBGCFG = {
+    tnsq_gfx_layer_bg_cfg_t tGameBCGFG = {
         .ptBackGround = &c_tilebg_tetrisRGB565,
         .ptBackGroundMask = NULL,
         .tRegion = {
@@ -243,7 +242,7 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
         },
     };
 
-    tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
+    tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBCGFG);
     if (ptGameBG == NULL)
     {
         printf("bg layer init failed\n");
@@ -252,10 +251,10 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
     tnsq_gfx_register_layer_to_stage(ptStage, ptGameBG);
     ```
 
-- 当需要显示游戏分数时，就需要引入文本图层。文本图层需要指定字体、颜色、不透明度，以及对应的 Region
+- When you need to display game scores, you need to introduce a text layer. The text layer needs to specify the font, color, opacity, and corresponding Region
     ```c
     arm_2d_size_t tScreenSize = tnsq_gfx_get_screen_size(&DISP0_ADAPTER);
-        
+    
     tnsq_gfx_layer_text_cfg_t tTextCFG = {
         .chOpacity = 255,
         .ptFont = &ARM_2D_FONT_6x8.use_as__arm_2d_font_t,
@@ -283,12 +282,12 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
     tnsq_gfx_register_layer_to_stage(ptStage, ptGameTextLayer);
     ```
 
-- 文本图层的使用也非常简单，只需要使用类似 `printf` 的格式化输出即可
+- The use of text layers is also very simple, just use formatted output similar to `printf`
     ```c
     tnsq_gfx_layer_text_printf(textLayerPtr, "%d", score);
     ```
 
-- 最后看一下用户单元图层。用户单元图层与基本单元图层类似，只不过用户单元图层有非常灵活的自定义空间，因为用户单元图层需要自己指定绘制函数，如下所示，只需要根据不同的 `idx`，即可绘制对应的内容
+- Finally take a look at the custom component layer. The user unit layer is similar to the basic unit layer, except that the user unit layer has a very flexible customization space, because the user unit layer needs to specify its own drawing function, as shown below, it only needs to be based on different `idx`, that is The corresponding content can be drawn
     ```c
     static void _tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bIsNewFrame)
     {
@@ -350,9 +349,9 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
     return tnsq_gfx_register_layer_to_stage(ptStage, ptGameInterfaceLayer);
     ```
 
-- 在实际的使用过程中，只需要调用对应 API，操作相应的 cell，引擎就会主动去刷新该区域啦
+- In actual use, you only need to call the corresponding API and operate the corresponding cell, and the engine will actively refresh the area.
     ```c
     tnsq_gfx_layer_user_draw(ptUserLayer, hwX, hwY, idx);
     ```
 
-- 以上就是各个图层最基本的使用方法啦，更多的配置项的功能，可以结合头文件和相关注释进行进一步探索
+- The above is the most basic method of using each layer. The functions of more configuration items can be further explored by combining header files and related comments.

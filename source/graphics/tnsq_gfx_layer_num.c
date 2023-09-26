@@ -126,15 +126,15 @@ void tnsq_gfx_layer_num_evt_handle(tnsq_gfx_layer_num_t *ptThis)
         }
         else
         {
-            switch (tKey.tDirection) 
+            switch (tKey.tKeyValue) 
             {
-            case TNSQ_EVT_KEY_DIRECTION_UP:
+            case TNSQ_EVT_KEY_UP:
                 numer_list_move_selection(&this.tNumber, -1, this.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DIRECTION_DOWN:
+            case TNSQ_EVT_KEY_DOWN:
                 numer_list_move_selection(&this.tNumber, 1, this.nFinishInMs);
                 return;
-            case TNSQ_EVT_KEY_DIRECTION_RIGHT:
+            case TNSQ_EVT_KEY_RIGHT:
                 this.chSelectedNum = this.tNumber.use_as____arm_2d_list_core_t.Runtime.hwSelection;
                 return;
             default:
@@ -249,6 +249,11 @@ ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_nu
         {
             tNumCFG.ptFont = ptCFG->ptFont;
         }
+		
+		if (ptCFG->iDelta == 0)
+		{
+			tNumCFG.iDelta = 1;
+		}
         
         tNumCFG.tListSize.iWidth = tNumCFG.ptFont->tCharSize.iWidth * 2;
         tNumCFG.tListSize.iHeight = (tNumCFG.ptFont->tCharSize.iHeight + ptCFG->tPadding.pre + ptCFG->tPadding.next) * ptCFG->chShowItemNum;
