@@ -66,14 +66,10 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
         tnsq_gfx_layer_bg_cl_cfg_t tGameBGCLCFG = {
             .tType = TNSQ_GFX_BG_CL_NORMAL,
             .chOpacity = 255,
-            .ptBackGroundColorMask = NULL,
             .tRegion = {
-                .tLocation = {0},
                 .tSize = tScreenSize,
             },
             .tColor = __RGB(0x6d, 0x54, 0x84),
-            .borderOpacity = NULL,
-            .cornerOpacity = NULL,
         };
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
         if (ptGameBGCL == NULL)
@@ -95,7 +91,6 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
                 .chStringCount = sizeof(pchStringTable) >> 2,
                 .pchStringTable = pchStringTable,
                 .tItemSize = tItemSize,
-                .tItemPadding = 0,
                 .chShowItemNum = chShowItemNum,
                 .nFinishInMs = 150,
                 .ptFont = (struct arm_2d_font_t *)&ARM_2D_FONT_16x24,
@@ -159,7 +154,7 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
         tnsq_gfx_register_layer_to_stage(ptStage, ptNumLayer);
     } while (0);
     ```
-  - 相对于菜单图层来说，数字图层仅需要指定数字的个数即可，使用非常方便
+  - 相对于菜单图层来说，数字图层仅需要指定数字的个数即可，使用非常方便。当然，起始数字和数字之间的间隔也是可以通过 `tnsq_gfx_layer_num_cfg_t ` 配置项指定的，这些就留给用户自己尝试了
 
 - 当需要进行 stage 切换时，需要先初始化一个stage，在进行切换，切换完成后，可以申请刷新查看效果
     ```c
@@ -176,10 +171,6 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
         .ptBackGround = &c_tilebg_tetrisRGB565,
         .ptBackGroundMask = NULL,
         .tRegion = {
-            .tLocation = {
-                .iX = 0,
-                .iY = 0,
-            },
             .tSize = c_tilebg_tetrisRGB565.tRegion.tSize,
         },
     };
@@ -235,8 +226,8 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
     {
         arm_2d_canvas(ptTile, __user_map_canvas)
         {
-            if (idx == 0)
-            {
+            switch (idx) {
+            case 0:
                 arm_2dp_fill_colour_with_opacity
                 (
                     NULL,
@@ -245,38 +236,31 @@ tetris 案例分为两个 C 文件，分别是：`tnsq_tetris_draw.c` 用于绘�
                     (__arm_2d_color_t){GLCD_COLOR_DARK_GREY},
                     128
                 );
-            }
-            else if (idx == 1)
-            {
+                break;
+            case 1:
                 draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_BLUE, 255, bIsNewFrame);
-            }
-            else if (idx == 2)
-            {
+                break;
+            case 2:
                 draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_GREEN, 255, bIsNewFrame);
-            }
-            else if (idx == 3)
-            {
+                break;
+            case 3:
                 draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_CYAN, 255, bIsNewFrame);
-            }
-            else if (idx == 4)
-            {
+                break;
+            case 4:
                 draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_RED, 255, bIsNewFrame);
-            }
-            else if (idx == 5)
-            {
+                break;
+            case 5:
                 draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_YELLOW, 255, bIsNewFrame);
-            }
-            else if (idx == 6)
-            {
+                break;
+            case 6:
                 draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_OLIVE, 255, bIsNewFrame);
-            }
-            else if (idx == 7)
-            {
+                break;
+            case 7:
                 draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_PURPLE, 255, bIsNewFrame);
-            }
-            else if (idx == 8)
-            {
+                break;
+            default:
                 draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_WHITE, 0, bIsNewFrame);
+                break;
             }
         }
     }
