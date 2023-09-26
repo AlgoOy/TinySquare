@@ -95,8 +95,8 @@ void tnsq_gfx_refresh_layer_bg_cl(tnsq_gfx_layer_bg_cl_t *ptThis, const arm_2d_t
                     &__bg_cl_tile,
                     &__layer_bg_cl_canvas,
                     ((__arm_2d_color_t)this.tCFG.tColor).tValue,
-                    this.tCFG.borderOpacity,
-                    this.tCFG.cornerOpacity
+                    this.tCFG.tborderOpacity,
+                    this.tCFG.tcornerOpacity
                 );
             }
         }        

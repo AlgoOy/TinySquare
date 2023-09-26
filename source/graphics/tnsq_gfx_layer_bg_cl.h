@@ -60,8 +60,8 @@ struct tnsq_gfx_layer_bg_cl_cfg_t
     rt_uint8_t chOpacity;
     arm_2d_tile_t *ptBackGroundColorMask;
     arm_2d_region_t tRegion;
-    arm_2d_border_opacity_t borderOpacity;
-    arm_2d_corner_opacity_t cornerOpacity;
+    arm_2d_border_opacity_t tborderOpacity;
+    arm_2d_corner_opacity_t tcornerOpacity;
 };
 
 struct tnsq_gfx_layer_bg_cl_t

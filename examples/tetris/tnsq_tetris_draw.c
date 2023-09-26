@@ -134,8 +134,6 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
                 },
             },
             .tColor = GLCD_COLOR_DARK_GREY,
-            .borderOpacity = NULL,
-            .cornerOpacity = NULL,
         };
         
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
@@ -163,8 +161,8 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
                 },
             },
             .tColor = GLCD_COLOR_BLACK,
-            .borderOpacity = {32, 32, 255-64, 255-64},
-            .cornerOpacity = {0, 128, 128, 128},
+            .tborderOpacity = {32, 32, 255-64, 255-64},
+            .tcornerOpacity = {0, 128, 128, 128},
         };
         
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
@@ -192,8 +190,8 @@ void tetris_init_bg_cl_layer(tnsq_gfx_stage_t *ptStage)
                 },
             },
             .tColor = GLCD_COLOR_BLACK,
-            .borderOpacity = {32, 32, 255-64, 255-64},
-            .cornerOpacity = {0, 128, 128, 128},
+            .tborderOpacity = {32, 32, 255-64, 255-64},
+            .tcornerOpacity = {0, 128, 128, 128},
         };
         
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
@@ -210,9 +208,9 @@ static void _tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTile, c
 {
     arm_2d_canvas(ptTile, __user_map_canvas)
     {
-        if (idx == 0)
-        {
-            arm_2dp_fill_colour_with_opacity
+		switch (idx) {
+		case 0:
+			arm_2dp_fill_colour_with_opacity
             (
                 NULL,
                 ptTile,
@@ -220,39 +218,32 @@ static void _tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTile, c
                 (__arm_2d_color_t){GLCD_COLOR_DARK_GREY},
                 128
             );
-        }
-        else if (idx == 1)
-        {
-            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_BLUE, 255, bIsNewFrame);
-        }
-        else if (idx == 2)
-        {
-            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_GREEN, 255, bIsNewFrame);
-        }
-        else if (idx == 3)
-        {
-            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_CYAN, 255, bIsNewFrame);
-        }
-        else if (idx == 4)
-        {
-            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_RED, 255, bIsNewFrame);
-        }
-        else if (idx == 5)
-        {
-            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_YELLOW, 255, bIsNewFrame);
-        }
-        else if (idx == 6)
-        {
-            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_OLIVE, 255, bIsNewFrame);
-        }
-        else if (idx == 7)
-        {
-            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_PURPLE, 255, bIsNewFrame);
-        }
-        else if (idx == 8)
-        {
-            draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_WHITE, 0, bIsNewFrame);
-        }
+			break;
+		case 1:
+			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_BLUE, 255, bIsNewFrame);
+			break;
+		case 2:
+			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_GREEN, 255, bIsNewFrame);
+			break;
+		case 3:
+			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_CYAN, 255, bIsNewFrame);
+			break;
+		case 4:
+			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_RED, 255, bIsNewFrame);
+			break;
+		case 5:
+			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_YELLOW, 255, bIsNewFrame);
+			break;
+		case 6:
+			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_OLIVE, 255, bIsNewFrame);
+			break;
+		case 7:
+			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_PURPLE, 255, bIsNewFrame);
+			break;
+		default:
+			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_WHITE, 0, bIsNewFrame);
+			break;
+		}
     }
 }
 
@@ -326,8 +317,6 @@ rt_uint8_t tetris_menu_layer_select(tnsq_gfx_stage_t *ptStage)
                 .tSize = tScreenSize,
             },
             .tColor = __RGB(0x6d, 0x54, 0x84),
-            .borderOpacity = NULL,
-            .cornerOpacity = NULL,
         };
         tnsq_gfx_layer_bg_cl_t *ptGameBGCL = tnsq_gfx_layer_bg_cl_init(&tGameBGCLCFG);
         if (ptGameBGCL == NULL)

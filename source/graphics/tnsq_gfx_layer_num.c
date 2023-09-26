@@ -232,8 +232,8 @@ ARM_NONNULL(1) tnsq_gfx_layer_num_t *__tnsq_gfx_layer_num_init(tnsq_gfx_layer_nu
     do {
         number_list_cfg_t tNumCFG = {
             .hwCount = ptCFG->chNum,
-            .nStart = 0,
-            .iDelta = 1,
+            .nStart = ptCFG->nStart,
+            .iDelta = ptCFG->iDelta,
             .tFontColour = ptCFG->tColor.font,
             .tBackgroundColour = ptCFG->tColor.background,
             .chNextPadding = ptCFG->tPadding.next,
