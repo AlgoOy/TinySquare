@@ -45,6 +45,8 @@ typedef struct tnsq_gfx_layer_num_cfg_t tnsq_gfx_layer_num_cfg_t;
 struct tnsq_gfx_layer_num_cfg_t
 {
     rt_uint8_t chNum;
+	rt_int32_t nStart;
+	rt_int16_t iDelta;
     rt_int32_t nFinishInMs;
     rt_uint8_t chShowItemNum;
     struct

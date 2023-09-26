@@ -31,13 +31,13 @@ TinySquare 遵循 Apache-2.0 许可，详见`LICENSE`文件。
 
 ## 2、如何打开TinySquare
 
-- [Get start with C](./docs/guide_with_c.md)
-- [Get start with pikaPython](./docs/guide_with_pikaPython.md)
+- [C 库移植](./docs/guide_with_c.md)
+- [pikaPython 库移植](./docs/guide_with_pikaPython.md)
 
 ## 3、如何使用TinySquare
 
-- [Get start with C](./docs/example_tetris.md)
-- [Get start with pikaPython](./docs/example_snake.md)
+- [C 库使用 - 俄罗斯方块](./docs/example_tetris.md)
+- [pikaPython 库使用 - 贪吃蛇](./docs/example_snake.md)
 
 ## 4、注意事项
 

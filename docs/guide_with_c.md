@@ -69,7 +69,7 @@
     ```c
     rt_thread_t gameTid = RT_NULL;
     gameTid = rt_thread_create("tnsq_snake", snake_task_entry, RT_NULL, THREAD_STACK_SIZE, THREAD_PRIORITY-2, THREAD_TIMESLICE);
-	if (gameTid != RT_NULL) {
-		rt_thread_startup(gameTid);
-	}
+    if (gameTid != RT_NULL) {
+        rt_thread_startup(gameTid);
+    }
     ```
