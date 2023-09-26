@@ -1,6 +1,6 @@
-# Get start with C
+# C 库使用 - 俄罗斯方块
 
-## Tetris example
+## 俄罗斯方块
 
 以 tetris 游戏为例，介绍一下在 C 语言运行环境下，如何实现一个多 stage 的 tetris 游戏
 

@@ -1,6 +1,6 @@
-# Get start with pikaPython
+# pikaPython 库使用 - 贪吃蛇
 
-## Snake example
+## 贪吃蛇
 
 以 snake 游戏为例，介绍一下在 Python 语言运行环境下，如何实现一个多 stage 的 snake 游戏
 

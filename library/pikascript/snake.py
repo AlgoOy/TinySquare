@@ -22,19 +22,16 @@ class Game:
     def game_over(self):
         while True:
             self.thd.mdelay(100)
-            self.evt.update_key(0)
-            if self.evt.get_event() == TinySquare.KEY_EVENT_PRESSED or self.evt.get_event() == TinySquare.KEY_EVENT_LONG_PRESSED:
-                break
 
-    def create_food(self) -> tuple:
+    def create_food(self) -> list:
         self.task.platformGetTick()
-        pos = ((self.task.tick % self.width_block), ((self.task.tick+2023) % (self.height_block-1))+1)
+        pos = [(self.task.tick % self.width_block), ((self.task.tick+2023) % (self.height_block-1))+1]
         if pos in self.snake:
             return self.create_food()
         return pos
     
-    def eat_food(self, food: tuple, user_layer: TinySquare.LayerUser):
-        self.snake.insert(0, food)
+    def eat_food(self, food: list, user_layer: TinySquare.LayerUser):
+        self.snake.insert(0, (food[0], food[1]))
         user_layer.draw_userMap(food[0], food[1], 1)
         self.food = self.create_food()
         user_layer.draw_userMap(self.food[0], self.food[1], 2)
@@ -90,7 +87,7 @@ class Game:
                 self.game_score += 100
                 text_layer.print_num("Score: %d", self.game_score)
             else:
-                if not (0 <= head_x < self.width_block and 0 <= head_y < self.height_block) or (head_x, head_y) in self.snake:
+                if not ((0 <= head_x and head_x < self.width_block) and (1 <= head_y and head_y < self.height_block)) or (head_x, head_y) in self.snake:
                     self.game_over()
                     return
                 else:

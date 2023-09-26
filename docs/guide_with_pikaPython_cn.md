@@ -1,15 +1,15 @@
-# Get start with pikaPython
+# pikaPython 库移植
 
 ## 准备环境
 
-- 参考 [Get start with C](./guide_with_c.md) 准备环境章节
+- 参考 [C 库移植](./guide_with_c_cn.md) 准备环境章节
 
 - 在配置 menuconfig 时，将 using pikaScript lib 选项打开
   - ![TinySquare](./image/TinySquare.png)
 
 ## 库的移植
 
-- 参考[Get start with C](./guide_with_c.md) 库的移植章节完成基础 C 运行环境的移植
+- 参考 [C 库移植](./guide_with_c_cn.md) 库的移植章节完成基础 C 运行环境的移植
 
 - 移植完成基础 C 运行环境后，导入 pikaPython 头文件 `#include "pikaScript.h"`，创建一个 pikaPython 任务
     ```c
