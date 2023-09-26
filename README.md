@@ -1,50 +1,53 @@
 # TinySquare
 
-## 1、介绍
+[中文页](./docs/README_cn.md)
 
-TinySquare 是一款嵌入式方块游戏引擎，该引擎旨在为面向 Cortex-M 处理器的设备提供一个轻量化的游戏开发解决方案。 TinySquare 的设计原则是代码尺寸小，轻量化运行成本，以确保引擎可以高效的运行在资源受限的嵌入式设备上。TinySquare有如下特点和优势：
-- 图层渲染方面采用 Arm-2d 库作为底层支持，专门针对 Cortex-M 处理器进行优化，通过充分利用 Cortex-M 处理器的特性，使得引擎能够提供高效的性能和优化的游戏体验。
-- 为满足嵌入式系统的资源限制，TinySquare 在开发过程中，注重引擎的代码尺寸小和运行环境轻量化，在运行过程中，使用了动态脏矩阵刷新技术，仅需一个 partial frame buffer 即可刷新所有图层，极大的节省了运行时对 RAM 的开销，以确保在有限的资源下，能够平衡引擎的性能和功能。
-- TinySquare 专注于方块游戏类型，无论是类似贪吃蛇、俄罗斯方块的经典游戏还是其他基于方块的创新玩法，引擎都提供了对图层的高度自定义配置项来支持游戏的开发和定制。
-- TinySquare 在设计上专注于轻量化设计，同时具备一定的灵活性和高可配性。引擎提供了一套简洁而强大的 API：仅 24 个 C API，仅 18 个 Python API。提供了丰富的可配置项允许开发人员根据自己的需求进行定制，以创建独特而令人满意的游戏体验。
-- TinySquare 代码撰写和 API 命名遵循 RT-Thread 编码规范。开发过程遵循最小信息公开原则。理论上，使用 TinySquare 的开发人员仅需要关注 API 文档即可快速上手 TinySquare 的开发。
+## 1. Introduction
 
-### 1.1 目录结构
+TinySquare is an embedded block game engine designed to provide a lightweight game development solution for devices targeting Cortex-M processors. TinySquare's design principles are small code size and lightweight running costs to ensure that the engine can run efficiently on resource-constrained embedded devices. TinySquare has the following features and advantages:
+- Layer rendering uses the Arm-2d library as the underlying support, which is specifically optimized for the Cortex-M processor. By fully utilizing the characteristics of the Cortex-M processor, the engine can provide efficient performance and optimized gaming experience.
+- In order to meet the resource constraints of embedded systems, TinySquare focused on the small code size of the engine and the lightweight running environment during the development process. During the running process, dynamic dirty matrix refresh technology was used, and only one partial frame buffer was needed to refresh. All layers greatly save RAM overhead during runtime to ensure that the performance and functionality of the engine can be balanced under limited resources.
+- TinySquare focuses on block game types. Whether it is classic games like Snake, Tetris, or other innovative block-based gameplay, the engine provides highly customized configuration items for layers to support game development and customization.
+- TinySquare focuses on lightweight design, while also having a certain degree of flexibility and high configurability. The engine provides a concise and powerful set of APIs: only 24 C APIs and only 18 Python APIs. A rich set of configurable options allows developers to customize according to their needs to create a unique and satisfying gaming experience.
+- TinySquare code writing and API naming follow RT-Thread coding standards. The development process follows the principle of minimum information disclosure. In theory, developers using TinySquare only need to pay attention to the API documentation to quickly get started with TinySquare development.
 
-| 名称 | 说明 |
+### 1.1 Contents
+
+| Name | Description |
 | ---- | ---- |
-| docs | 文档目录 |
-| examples | 例子目录 |
-| library | 依赖库目录 |
-| port | 移植代码目录 |
-| source | 源代码目录 |
+| docs | Document directory |
+| examples | examples directory |
+| library | dependent library directory |
+| port | ported code directory |
+| source | source code directory |
 
-### 1.2 许可证
+### 1.2 License
 
-TinySquare 遵循 Apache-2.0 许可，详见`LICENSE`文件。
+TinySquare is licensed under the Apache-2.0 license, see the `LICENSE` file for details.
 
-### 1.3 依赖
+### 1.3 Dependence
 
 - Arm-2D v1.1.5
 - RT-Thread
 - pikaPython
 
-## 2、如何打开TinySquare
+## 2. How to port TinySquare
 
-- [C 库移植](./docs/guide_with_c.md)
-- [pikaPython 库移植](./docs/guide_with_pikaPython.md)
+- [C library porting](./docs/guide_with_c_en.md)
+- [pikaPython library porting](./docs/guide_with_pikaPython_en.md)
 
-## 3、如何使用TinySquare
+## 3. How to use TinySquare
 
-- [C 库使用 - 俄罗斯方块](./docs/example_tetris.md)
-- [pikaPython 库使用 - 贪吃蛇](./docs/example_snake.md)
+- [C library usage - Tetris](./docs/example_tetris_en.md)
+- [pikaPython library usage - Snake](./docs/example_snake_en.md)
+- [API](./docs/api_en.md)
 
-## 4、注意事项
+## 4. Notice
 
-- [相关配置](./docs/notice.md)
+- [Notice](./docs/notice_en.md)
 
-## 5、联系方式 & 感谢
+## 5. Contact & Thanks
 
-* 维护：[AlgoOy](https://github.com/AlgoOy)
-* 主页：https://github.com/AlgoOy/TinySquare
-* 感谢：[GorgonMeducer](https://github.com/GorgonMeducer)
+* Maintainer: [AlgoOy](https://github.com/AlgoOy)
+* Home page: https://github.com/AlgoOy/TinySquare
+* Thanks: [GorgonMeducer](https://github.com/GorgonMeducer)
