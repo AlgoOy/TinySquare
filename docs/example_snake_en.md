@@ -4,8 +4,8 @@
   - [Greedy Snake](#greedy-snake)
     - [Renderings](#renderings)
     - [Reference data](#reference-data)
-      - [1/100 PFB](#1100-pfb)
-      - [100/100 PFB](#100100-pfb)
+      - [-Os optimization](#-os-optimization)
+      - [-Oz Optimization](#-oz-optimization)
     - [Code analysis](#code-analysis)
 
 ## Greedy Snake
@@ -25,53 +25,61 @@ Taking the snake game as an example, we will introduce how to implement a multi-
 
 ### Reference data
 
-#### 1/100 PFB
+#### -Os optimization
 
 - Configuration
    - Main frequency: 80MHz
    - Optimization level: -Os -lto
-   - Screen: 240*240
-   -PFB: 24*24
-   - Heap: 0x6800
+   - Screen: 240 * 240
+   - PFB: 240 * 4
+   - Heap: 0x400
    - Stack: 0x200
+   - rt heap: 0x6800
 
 - Performance
    - Startup interface: no refresh operation
    - Difficulty selection:
-     - Fixed refresh area: 160*90
-     - FPS: 15:65ms
+     - Fixed refresh area: 160 * 90
+     - FPS: 23:41ms
    - game interface:
-     - FPS: 69:14ms
+     - FPS: 87:11ms
 
 - Program size
-   - Code=150648
-   -RO-data=49400
-   - RW-data=732
-   -ZI-data=58500
+   - Code = 150648
+     - Python virtual machine support
+   - RO-data = 49400
+     - 16x24 font file, 6x8 font file, Python virtual machine support
+   - RW-data = 732
+   - ZI-data = 33668
+     - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, snake resource, etc.
 
-#### 100/100 PFB
+#### -Oz Optimization
 
 - Configuration
    - Main frequency: 80MHz
-   - Optimization level: -Os -lto
+   - Optimization level: -Oz -lto
    - Screen: 240*240
-   -PFB: 240*240
-   - Heap: 0x6800
+   - PFB: 240*4
+   - Heap: 0x400
    - Stack: 0x200
+   - rt heap: 0x6800
 
 - Performance
    - Startup interface: no refresh operation
    - Difficulty selection:
-     - Fixed refresh area: 160*90
-     - FPS: 52:18ms
+     - Fixed refresh area: 160 * 90
+     - FPS: 20:48ms
    - game interface:
-     - FPS: 131:7ms
+     - FPS: 77:12ms
 
 - Program size
-   - Code=150648
-   -RO-data=49400
-   - RW-data=732
-   - ZI-data=172548
+   - Code = 118912
+     - Python virtual machine support
+   - RO-data = 49328
+     - 16x24 font file, 6x8 font file, Python virtual machine support
+   - RW-data = 728
+   - ZI-data = 33656
+     - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, snake resource, etc.
 
 ### Code analysis
 
