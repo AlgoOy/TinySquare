@@ -4,8 +4,8 @@
   - [Tetris](#tetris)
     - [Renderings](#renderings)
     - [Reference data](#reference-data)
-      - [1/100 PFB](#1100-pfb)
-      - [100/100 PFB](#100100-pfb)
+      - [-Os optimization](#-os-optimization)
+      - [-Oz Optimization](#-oz-optimization)
     - [Code analysis](#code-analysis)
 
 ## Tetris
@@ -28,63 +28,69 @@ Taking the tetris game as an example, we will introduce how to implement a multi
 
 ### Reference data
 
-#### 1/100 PFB
+#### -Os optimization
 
 - Configuration
    - Main frequency: 80MHz
    - Optimization level: -Os -lto
-   - Screen: 240*240
-   -PFB: 24*24
-   - Heap: 0x2800
+   - Screen: 240 * 240
+   - PFB: 240 * 4
+   - Heap: 0x600
    - Stack: 0x200
+   - rt heap: 0x2400
 
 - Performance
    - Start interface:
-     - Fixed refresh area: 160*90
-     - FPS: 13:74ms
+     - Fixed refresh area: 160 * 90
+     - FPS: 21:46ms
    - Difficulty selection:
-     - Fixed refresh area: 160*90
-     - FPS: 15:65ms
+     - Fixed refresh area: 160 * 90
+     - FPS: 24:41ms
    - Challenge level:
-     - Fixed refresh area: 30*66
-     - FPS: 54:18ms
+     - Fixed refresh area: 30 * 66
+     - FPS: 71:14ms
    - game interface:
-     - FPS: 16:61ms
+     - FPS: 49:20ms
 
 - Program size
-   - Code=44484
-   - RO-data=138220
-   - RW-data=308
-   -ZI-data=27868
+   - Code = 44484
+   - RO-data = 138220
+     - 240x240 background image (115200), 16x24 font file, 6x8 font file, A4_DIGITS_ONLY font file
+   - RW-data = 308
+   - ZI-data = 18908
+     - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, tetris resource, etc.
 
-#### 100/100 PFB
+#### -Oz Optimization
 
 - Configuration
    - Main frequency: 80MHz
-   - Optimization level: -Os -lto
-   - Screen: 240*240
-   -PFB: 240*240
-   - Heap: 0x2800
+   - Optimization level: -Oz -lto
+   - Screen: 240 * 240
+   - PFB: 240 * 4
+   - Heap: 0x600
    - Stack: 0x200
+   - rt heap: 0x2400
 
 - Performance
    - Start interface:
-     - Fixed refresh area: 160*90
-     - FPS: 48:20ms
+     - Fixed refresh area: 160 * 90
+     - FPS: 19:51ms
    - Difficulty selection:
-     - Fixed refresh area: 160*90
-     - FPS: 52:18ms
+     - Fixed refresh area: 160 * 90
+     - FPS: 21:46ms
    - Challenge level:
-     - Fixed refresh area: 30*66
-     - FPS: 113: 8ms
+     - Fixed refresh area: 30 * 66
+     - FPS: 62:16ms
    - game interface:
-     - FPS: 55:17ms
+     - FPS: 41:24ms
 
 - Program size
-   - Code=44484
-   - RO-data=138220
-   - RW-data=308
-   - ZI-data=141916
+   - Code = 39248
+   - RO-data = 138224
+     - 240x240 background image (115200), 16x24 font file, 6x8 font file, A4_DIGITS_ONLY font file
+   - RW-data = 312
+   - ZI-data = 18896
+     - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, tetris resource, etc.
 
 ### Code analysis
 
