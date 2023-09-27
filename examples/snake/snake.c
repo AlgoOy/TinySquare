@@ -48,8 +48,6 @@
 #define FGCellsXCount   10
 #define FGCellsYCount   10
 
-#define OBSTACLE_NUM    2
-
 typedef enum {
     GAME_LOW_SPEED  = 400,
     GAME_HIGH_SPPED = 200,
@@ -80,9 +78,12 @@ struct {
 	} state;
 } fruit = {0};
 
+#ifdef ADD_OBSTACLE
+#define OBSTACLE_NUM    2
 struct {
     snake_point_t loc[OBSTACLE_NUM];
 } obstacle = {0};
+#endif
 
 static tnsq_gfx_cell_t s_tFGCells[FGCellsXCount * FGCellsXCount] = {0};
 static tnsq_gfx_user_map_t s_UserMap[FGCellsXCount * FGCellsXCount] = {0};
@@ -114,6 +115,7 @@ static tnsq_gfx_stage_t *_snake_stage_init(void)
     }
 }
 
+#ifdef ADD_OBSTACLE
 extern const arm_2d_tile_t c_tileobstacle1RGB565;
 extern const arm_2d_tile_t c_tileobstacle1Mask;
 extern const arm_2d_tile_t c_tileobstacle2RGB565;
@@ -144,9 +146,8 @@ void UserMapFunc(rt_uint8_t idx, arm_2d_tile_t const *ptTile, const rt_bool_t bI
         }
     }
 }
+#endif
 
-extern const arm_2d_tile_t c_tilebg_mapRGB565;
-extern const arm_2d_tile_t c_tilebg_mapMask;
 static void _snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
 {
     do {
@@ -167,22 +168,7 @@ static void _snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
         tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBGCL);
     } while (0);
 
-//    do {
-//        tnsq_gfx_layer_bg_cfg_t tGameBGCFG = {
-//            .ptBackGround = &c_tilebg_mapRGB565,
-//            .ptBackGroundMask = &c_tilebg_mapMask,
-//            .tRegion = {
-//                .tLocation = {
-//                    .iX = 0,
-//                    .iY = 0,
-//                },
-//                .tSize = c_tilebg_mapRGB565.tRegion.tSize,
-//            },
-//        };
-//        tnsq_gfx_layer_bg_t *ptGameBG = tnsq_gfx_layer_bg_init(&tGameBGCFG);
-//        bg_id = tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameBG);
-//    } while (0);
-
+#ifdef ADD_OBSTACLE
     do {
         tnsq_gfx_layer_user_cfg_t tGameUserCFG = {
             .hwXCount = FGCellsXCount,
@@ -193,7 +179,8 @@ static void _snake_layer_init(tnsq_gfx_stage_t *ptGameStage)
         tnsq_gfx_layer_user_t *ptGameUser = tnsq_gfx_layer_user_init(&tGameUserCFG);
         tnsq_gfx_register_layer_to_stage(ptGameStage, ptGameUser);
     } while (0);
-    
+#endif
+	
     do {
         tnsq_gfx_layer_cell_cfg_t tGameFGLayerCFG = {
             .hwXCount = FGCellsXCount,
@@ -222,6 +209,7 @@ static void _draw_fg(rt_uint16_t pos, rt_uint8_t chOpacity, COLOUR_INT tColor)
     _draw_cell(s_tFGCells, pos, chOpacity, tColor);
 }
 
+#ifdef ADD_OBSTACLE
 static void _snake_obstacle_init(void)
 {
     for (int i = 0; i < OBSTACLE_NUM; i ++)
@@ -239,6 +227,7 @@ static void _snake_obstacle_init(void)
         s_UserMap[_pos_cal(obstacle.loc[i], FGCellsYCount)].bIsDirty = RT_TRUE;
     }
 }
+#endif
 
 static void _snake_create_fruit(void)
 {
@@ -291,7 +280,10 @@ static void _snake_game_init(void)
     }
     
     _snake_fg_init();
+	
+#ifdef ADD_OBSTACLE
     _snake_obstacle_init();
+#endif
 }
 
 static void _snake_game_evt_handler(void)
@@ -351,6 +343,7 @@ static void _snake_game_evt_handler(void)
     }
 }
 
+#ifdef ADD_OBSTACLE
 static rt_bool_t _snake_not_hit_obstacle(snake_point_t newHead)
 {
     for (int i = 0; i < OBSTACLE_NUM; i ++)
@@ -362,6 +355,7 @@ static rt_bool_t _snake_not_hit_obstacle(snake_point_t newHead)
     }
     return RT_TRUE;
 }
+#endif
 
 static void _snake_game_logic(void)
 {  
@@ -406,11 +400,13 @@ static void _snake_game_logic(void)
         printf("hit the wall\n");
         while (1);
     }
+#ifdef ADD_OBSTACLE
     else if (_snake_not_hit_obstacle(newHead) == RT_FALSE)
     {
         printf("hit the obstacle\n");
         while (1);
     }
+#endif
     else
     {
         bls_map[_pos_cal(snake.bodyloc[0], FGCellsYCount)] = RT_FALSE;

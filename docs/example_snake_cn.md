@@ -4,8 +4,8 @@
   - [贪吃蛇](#贪吃蛇)
     - [效果图](#效果图)
     - [参考数据](#参考数据)
-      - [1/100 PFB](#1100-pfb)
-      - [100/100 PFB](#100100-pfb)
+      - [-Os 优化](#-os-优化)
+      - [-Oz 优化](#-oz-优化)
     - [代码分析](#代码分析)
 
 ## 贪吃蛇
@@ -25,53 +25,61 @@
 
 ### 参考数据
 
-#### 1/100 PFB
+#### -Os 优化
 
 - 配置
   - 主频：80MHz
   - 优化等级：-Os -lto
   - 屏幕：240 * 240
-  - PFB：24 * 24
-  - 堆：0x6800
+  - PFB：240 * 4
+  - 堆：0x400
   - 栈：0x200
+  - rt heap：0x6800
 
 - 性能
   - 启动界面：无刷新操作
   - 难度选择：
     - 固定刷新区域：160 * 90
-    - FPS： 15：65ms
+    - FPS： 23：41ms
   - 游戏界面：
-    - FPS： 69：14ms
+    - FPS： 87：11ms
 
 - 程序大小
-  - Code=150648
-  - RO-data=49400
-  - RW-data=732
-  - ZI-data=58500
+  - Code = 150648
+    - Python 虚拟机支持
+  - RO-data = 49400
+    - 16x24 字库文件、6x8 字库文件、Python 虚拟机支持
+  - RW-data = 732
+  - ZI-data = 33668
+    - 包括 LCD buffer、PFB pool、rt heap、rt stack、stack、heap、snake resource 等
 
-#### 100/100 PFB
+#### -Oz 优化
 
 - 配置
   - 主频：80MHz
-  - 优化等级：-Os -lto
+  - 优化等级：-Oz -lto
   - 屏幕：240 * 240
-  - PFB：240 * 240
-  - 堆：0x6800
+  - PFB：240 * 4
+  - 堆：0x400
   - 栈：0x200
+  - rt heap：0x6800
 
 - 性能
   - 启动界面：无刷新操作
   - 难度选择：
     - 固定刷新区域：160 * 90
-    - FPS： 52：18ms
+    - FPS： 20：48ms
   - 游戏界面：
-    - FPS： 131：7ms
+    - FPS： 77：12ms
 
 - 程序大小
-  - Code=150648
-  - RO-data=49400
-  - RW-data=732
-  - ZI-data=172548
+  - Code = 118912
+    - Python 虚拟机支持
+  - RO-data = 49328
+    - 16x24 字库文件、6x8 字库文件、Python 虚拟机支持
+  - RW-data = 728
+  - ZI-data = 33656
+    - 包括 LCD buffer、PFB pool、rt heap、rt stack、stack、heap、snake resource 等
 
 ### 代码分析
 
