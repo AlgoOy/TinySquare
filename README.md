@@ -13,43 +13,95 @@ TinySquare is an embedded block game engine designed to provide a lightweight ga
 - TinySquare code writing and API naming follow RT-Thread coding standards. The development process follows the principle of minimum information disclosure. In theory, developers using TinySquare only need to pay attention to the API documentation to quickly get started with TinySquare development.
 
 Using a minimally functional Snake as a reference, the space overhead and performance of TinySquare are given. Note that this use case does not use the Python virtual machine:
-![simple_snake](./docs/image/simple_snake.jpg)
 
-- -Os optimization
-   - Configuration
-     - Main frequency: 80MHz
-     - Optimization level: -Os -lto
-     - Screen: 240 * 240
-     - PFB: 240 * 4
-     - Heap: 0x100
-     - Stack: 0x100
-     - rt heap: 0x2400
-   - Performance
-     - FPS: 140: 7ms
-   - Program size
-     - Code = 34156
-     - RO-data = 2520
-     - RW-data = 180
-     - ZI-data = 16052
-       - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, snake resource, etc.
+<div align="center"> <img src="./docs/image/simple_snake.jpg" width = 300 /> </div>
 
-- -Oz optimization
-   - Configuration
-     - Main frequency: 80MHz
-     - Optimization level: -Oz -lto
-     - Screen: 240 * 240
-     - PFB: 240 * 4
-     - Heap: 0x100
-     - Stack: 0x100
-     - rt heap: 0x2400
-   - Performance
-     - FPS: 128: 7ms
-   - Program size
-     - Code = 29688
-     - RO-data = 2512
-     - RW-data = 180
-     - ZI-data = 16052
-       - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, snake resource, etc.
+<table>
+  <tr>
+    <th colspan="5"> Reference data </th>
+  </tr>
+  <tr>
+    <th colspan="2"></th>
+    <th> -Os optimization </th>
+    <th> -Oz optimization </th>
+    <th> Remark </th>
+  </tr>
+  <tr>
+    <th rowspan="7"> Configuration </th>
+    <th> Main frequency </th>
+    <td style="text-align:center"> 80MHz </td>
+    <td style="text-align:center"> 80MHz </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Optimization level </th>
+    <td style="text-align:center"> -Os -lto </td>
+    <td style="text-align:center"> -Oz -lto </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Screen </th>
+    <td style="text-align:center"> 240 * 240 </td>
+    <td style="text-align:center"> 240 * 240 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> PFB </th>
+    <td style="text-align:center"> 240 * 4 </td>
+    <td style="text-align:center"> 240 * 4 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Heap </th>
+    <td style="text-align:center"> 0x100 </td>
+    <td style="text-align:center"> 0x100 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Stack </th>
+    <td style="text-align:center"> 0x100 </td>
+    <td style="text-align:center"> 0x100 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> rt heap </th>
+    <td style="text-align:center"> 0x2400 </td>
+    <td style="text-align:center"> 0x2400 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Performance </th>
+    <th> FPS </th>
+    <td style="text-align:center"> 140:7ms </td>
+    <td style="text-align:center"> 128:7ms </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th rowspan="4"> Program size </th>
+    <th> Code </th>
+    <td style="text-align:center"> 34156 </td>
+    <td style="text-align:center"> 29688 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> RO-data </th>
+    <td style="text-align:center"> 2520 </td>
+    <td style="text-align:center"> 2512 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> RW-data </th>
+    <td style="text-align:center"> 180 </td>
+    <td style="text-align:center"> 180 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> ZI-data </th>
+    <td style="text-align:center"> 16052 </td>
+    <td style="text-align:center"> 16052 </td>
+    <td style="text-align:center"> Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, snake resource, etc. </td>
+  </tr>
+</table>
 
 Combining the above data, it is not difficult to conclude that the engine itself takes up very little resources, and the corresponding performance is also very powerful! The embedded world simply doesn't need 128 or even 140 FPS. Therefore, the above data can be further optimized, the size of the PFB can be further reduced, and the task stacks of engine tasks and game tasks are also very rich in the current test environment, and can be further compressed to reduce the rt heap size.
 To sum up, TinySquare meets the design principle of "small code size and lightweight running cost", while also showing excellent performance.
