@@ -220,28 +220,92 @@ static void _tetris_user_map_func(rt_uint8_t idx, arm_2d_tile_t const *ptTile, c
             );
 			break;
 		case 1:
-			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_BLUE, 255, bIsNewFrame);
+			//draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_BLUE, 255, bIsNewFrame);
+			arm_2dp_fill_colour_with_opacity
+			(
+				NULL,
+				ptTile,
+				&__user_map_canvas,
+				(__arm_2d_color_t){GLCD_COLOR_BLUE},
+				255
+			);
 			break;
 		case 2:
-			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_GREEN, 255, bIsNewFrame);
+			//draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_GREEN, 255, bIsNewFrame);
+			arm_2dp_fill_colour_with_opacity
+			(
+				NULL,
+				ptTile,
+				&__user_map_canvas,
+				(__arm_2d_color_t){GLCD_COLOR_GREEN},
+				255
+			);
 			break;
 		case 3:
-			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_CYAN, 255, bIsNewFrame);
+			//draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_CYAN, 255, bIsNewFrame);
+			arm_2dp_fill_colour_with_opacity
+			(
+				NULL,
+				ptTile,
+				&__user_map_canvas,
+				(__arm_2d_color_t){GLCD_COLOR_CYAN},
+				255
+			);
 			break;
 		case 4:
-			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_RED, 255, bIsNewFrame);
+			//draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_RED, 255, bIsNewFrame);
+			arm_2dp_fill_colour_with_opacity
+			(
+				NULL,
+				ptTile,
+				&__user_map_canvas,
+				(__arm_2d_color_t){GLCD_COLOR_RED},
+				255
+			);
 			break;
 		case 5:
-			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_YELLOW, 255, bIsNewFrame);
+			//draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_YELLOW, 255, bIsNewFrame);
+			arm_2dp_fill_colour_with_opacity
+			(
+				NULL,
+				ptTile,
+				&__user_map_canvas,
+				(__arm_2d_color_t){GLCD_COLOR_YELLOW},
+				255
+			);
 			break;
 		case 6:
-			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_OLIVE, 255, bIsNewFrame);
+			//draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_OLIVE, 255, bIsNewFrame);
+			arm_2dp_fill_colour_with_opacity
+			(
+				NULL,
+				ptTile,
+				&__user_map_canvas,
+				(__arm_2d_color_t){GLCD_COLOR_OLIVE},
+				255
+			);
 			break;
 		case 7:
-			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_PURPLE, 255, bIsNewFrame);
+			//draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_PURPLE, 255, bIsNewFrame);
+			arm_2dp_fill_colour_with_opacity
+			(
+				NULL,
+				ptTile,
+				&__user_map_canvas,
+				(__arm_2d_color_t){GLCD_COLOR_PURPLE},
+				255
+			);
 			break;
 		default:
-			draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_WHITE, 0, bIsNewFrame);
+			//draw_round_corner_box(ptTile, &__user_map_canvas, GLCD_COLOR_WHITE, 0, bIsNewFrame);
+			arm_2dp_fill_colour_with_opacity
+			(
+				NULL,
+				ptTile,
+				&__user_map_canvas,
+				(__arm_2d_color_t){GLCD_COLOR_WHITE},
+				0
+			);
 			break;
 		}
     }

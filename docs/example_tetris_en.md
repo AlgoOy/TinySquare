@@ -100,8 +100,8 @@ Taking the tetris game as an example, we will introduce how to implement a multi
   </tr>
   <tr>
     <th> Game interface FPS </th>
-    <td style="text-align:center"> 49:20ms </td>
-    <td style="text-align:center"> 41:24ms </td>
+    <td style="text-align:center"> 62:15ms </td>
+    <td style="text-align:center"> 59:16ms </td>
     <td style="text-align:center"> —— </td>
   </tr>
   <tr>
