@@ -4,8 +4,6 @@
   - [Tetris](#tetris)
     - [Renderings](#renderings)
     - [Reference data](#reference-data)
-      - [-Os optimization](#-os-optimization)
-      - [-Oz Optimization](#-oz-optimization)
     - [Code analysis](#code-analysis)
 
 ## Tetris
@@ -15,82 +13,123 @@ Taking the tetris game as an example, we will introduce how to implement a multi
 ### Renderings
 
 - Start interface
-   - ![tetris_start](./image/tetris_start.jpg)
+   - <div align="center"> <img src="./image/tetris_start.jpg" width = 300 /> </div>
 
 - Difficulty selection
-   - ![tetris_difficulty](./image/tetris_difficulty.jpg)
+   - <div align="center"> <img src="./image/tetris_difficulty.jpg" width = 300 /> </div>
 
-- Challenging levels
-   - ![tetris_challenge](./image/tetris_challenge.jpg)
+- Challenging level
+   - <div align="center"> <img src="./image/tetris_challenge.jpg" width = 300 /> </div>
 
-- game interface
-   - ![tetris_game](./image/tetris_game.jpg)
+- Game interface
+   - <div align="center"> <img src="./image/tetris_game.jpg" width = 300 /> </div>
 
 ### Reference data
 
-#### -Os optimization
-
-- Configuration
-   - Main frequency: 80MHz
-   - Optimization level: -Os -lto
-   - Screen: 240 * 240
-   - PFB: 240 * 4
-   - Heap: 0x600
-   - Stack: 0x200
-   - rt heap: 0x2400
-
-- Performance
-   - Start interface:
-     - Fixed refresh area: 160 * 90
-     - FPS: 21:46ms
-   - Difficulty selection:
-     - Fixed refresh area: 160 * 90
-     - FPS: 24:41ms
-   - Challenge level:
-     - Fixed refresh area: 30 * 66
-     - FPS: 71:14ms
-   - game interface:
-     - FPS: 49:20ms
-
-- Program size
-   - Code = 44484
-   - RO-data = 138220
-     - 240x240 background image (115200), 16x24 font file, 6x8 font file, A4_DIGITS_ONLY font file
-   - RW-data = 308
-   - ZI-data = 18908
-     - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, tetris resource, etc.
-
-#### -Oz Optimization
-
-- Configuration
-   - Main frequency: 80MHz
-   - Optimization level: -Oz -lto
-   - Screen: 240 * 240
-   - PFB: 240 * 4
-   - Heap: 0x600
-   - Stack: 0x200
-   - rt heap: 0x2400
-
-- Performance
-   - Start interface:
-     - Fixed refresh area: 160 * 90
-     - FPS: 19:51ms
-   - Difficulty selection:
-     - Fixed refresh area: 160 * 90
-     - FPS: 21:46ms
-   - Challenge level:
-     - Fixed refresh area: 30 * 66
-     - FPS: 62:16ms
-   - game interface:
-     - FPS: 41:24ms
-
-- Program size
-   - Code = 39248
-   - RO-data = 138224
-     - 240x240 background image (115200), 16x24 font file, 6x8 font file, A4_DIGITS_ONLY font file
-   - RW-data = 312
-   - ZI-data = 18896
-     - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, tetris resource, etc.
+<table>
+  <tr>
+    <th colspan="5"> Reference data </th>
+  </tr>
+  <tr>
+    <th colspan="2"></th>
+    <th> -Os optimization </th>
+    <th> -Oz optimization </th>
+    <th> Remark </th>
+  </tr>
+  <tr>
+    <th rowspan="7"> Configuration </th>
+    <th> Main frequency </th>
+    <td style="text-align:center"> 80MHz </td>
+    <td style="text-align:center"> 80MHz </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Optimization level </th>
+    <td style="text-align:center"> -Os -lto </td>
+    <td style="text-align:center"> -Oz -lto </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Screen </th>
+    <td style="text-align:center"> 240 * 240 </td>
+    <td style="text-align:center"> 240 * 240 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> PFB </th>
+    <td style="text-align:center"> 240 * 4 </td>
+    <td style="text-align:center"> 240 * 4 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Heap </th>
+    <td style="text-align:center"> 0x600 </td>
+    <td style="text-align:center"> 0x600 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Stack </th>
+    <td style="text-align:center"> 0x200 </td>
+    <td style="text-align:center"> 0x200 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> rt heap </th>
+    <td style="text-align:center"> 0x2400 </td>
+    <td style="text-align:center"> 0x2400 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th rowspan="4"> Performance </th>
+    <th> Startup interface FPS </th>
+    <td style="text-align:center"> 21:46ms </td>
+    <td style="text-align:center"> 19:51ms </td>
+    <td style="text-align:center"> Fixed refresh area: 160 * 90 </td>
+  </tr>
+  <tr>
+    <th> Difficulty selection FPS </th>
+    <td style="text-align:center"> 24:41ms </td>
+    <td style="text-align:center"> 21:46ms </td>
+    <td style="text-align:center"> Fixed refresh area: 160 * 90 </td>
+  </tr>
+  <tr>
+    <th> Challenge level FPS </th>
+    <td style="text-align:center"> 71:14ms </td>
+    <td style="text-align:center"> 62:16ms </td>
+    <td style="text-align:center"> Fixed refresh area: 30 * 66 </td>
+  </tr>
+  <tr>
+    <th> Game interface FPS </th>
+    <td style="text-align:center"> 49:20ms </td>
+    <td style="text-align:center"> 41:24ms </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th rowspan="4"> Program size </th>
+    <th> Code </th>
+    <td style="text-align:center"> 44484 </td>
+    <td style="text-align:center"> 39248 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> RO-data </th>
+    <td style="text-align:center"> 138220 </td>
+    <td style="text-align:center"> 138224 </td>
+    <td style="text-align:center"> 240x240 background image (115200), 16x24 font file, 6x8 font file, A4_DIGITS_ONLY font file </td>
+  </tr>
+  <tr>
+    <th> RW-data </th>
+    <td style="text-align:center"> 308 </td>
+    <td style="text-align:center"> 312 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> ZI-data </th>
+    <td style="text-align:center"> 18908 </td>
+    <td style="text-align:center"> 18896 </td>
+    <td style="text-align:center"> Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, tetris resource, etc. </td>
+  </tr>
+</table>
 
 ### Code analysis
 

@@ -4,8 +4,6 @@
   - [Greedy Snake](#greedy-snake)
     - [Renderings](#renderings)
     - [Reference data](#reference-data)
-      - [-Os optimization](#-os-optimization)
-      - [-Oz Optimization](#-oz-optimization)
     - [Code analysis](#code-analysis)
 
 ## Greedy Snake
@@ -15,71 +13,114 @@ Taking the snake game as an example, we will introduce how to implement a multi-
 ### Renderings
 
 - Start interface
-   - ![snake_start](./image/snake_start.jpg)
+   - <div align="center"> <img src="./image/snake_start.jpg" width = 300 /> </div>
 
 - Difficulty selection
-   - ![snake_difficulty](./image/snake_difficulty.jpg)
+   - <div align="center"> <img src="./image/snake_difficulty.jpg" width = 300 /> </div>
 
-- game interface
-   - ![snake_game](./image/snake_game.jpg)
+- Game interface
+   - <div align="center"> <img src="./image/snake_game.jpg" width = 300 /> </div>
 
 ### Reference data
 
-#### -Os optimization
-
-- Configuration
-   - Main frequency: 80MHz
-   - Optimization level: -Os -lto
-   - Screen: 240 * 240
-   - PFB: 240 * 4
-   - Heap: 0x400
-   - Stack: 0x200
-   - rt heap: 0x6800
-
-- Performance
-   - Startup interface: no refresh operation
-   - Difficulty selection:
-     - Fixed refresh area: 160 * 90
-     - FPS: 23:41ms
-   - game interface:
-     - FPS: 87:11ms
-
-- Program size
-   - Code = 150648
-     - Python virtual machine support
-   - RO-data = 49400
-     - 16x24 font file, 6x8 font file, Python virtual machine support
-   - RW-data = 732
-   - ZI-data = 33668
-     - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, snake resource, etc.
-
-#### -Oz Optimization
-
-- Configuration
-   - Main frequency: 80MHz
-   - Optimization level: -Oz -lto
-   - Screen: 240*240
-   - PFB: 240*4
-   - Heap: 0x400
-   - Stack: 0x200
-   - rt heap: 0x6800
-
-- Performance
-   - Startup interface: no refresh operation
-   - Difficulty selection:
-     - Fixed refresh area: 160 * 90
-     - FPS: 20:48ms
-   - game interface:
-     - FPS: 77:12ms
-
-- Program size
-   - Code = 118912
-     - Python virtual machine support
-   - RO-data = 49328
-     - 16x24 font file, 6x8 font file, Python virtual machine support
-   - RW-data = 728
-   - ZI-data = 33656
-     - Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, snake resource, etc.
+<table>
+  <tr>
+    <th colspan="5"> Reference data </th>
+  </tr>
+  <tr>
+    <th colspan="2"></th>
+    <th> -Os optimization </th>
+    <th> -Oz optimization </th>
+    <th> Remark </th>
+  </tr>
+  <tr>
+    <th rowspan="7"> Configuration </th>
+    <th> Main frequency </th>
+    <td style="text-align:center"> 80MHz </td>
+    <td style="text-align:center"> 80MHz </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Optimization level </th>
+    <td style="text-align:center"> -Os -lto </td>
+    <td style="text-align:center"> -Oz -lto </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Screen </th>
+    <td style="text-align:center"> 240 * 240 </td>
+    <td style="text-align:center"> 240 * 240 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> PFB </th>
+    <td style="text-align:center"> 240 * 4 </td>
+    <td style="text-align:center"> 240 * 4 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Heap </th>
+    <td style="text-align:center"> 0x400 </td>
+    <td style="text-align:center"> 0x400 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> Stack </th>
+    <td style="text-align:center"> 0x200 </td>
+    <td style="text-align:center"> 0x200 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> rt heap </th>
+    <td style="text-align:center"> 0x6800 </td>
+    <td style="text-align:center"> 0x6800 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th rowspan="3"> Performance </th>
+    <th> Startup interface FPS </th>
+    <td style="text-align:center"> —— </td>
+    <td style="text-align:center"> —— </td>
+    <td style="text-align:center"> No refresh operation </td>
+  </tr>
+  <tr>
+    <th> Difficulty selection FPS </th>
+    <td style="text-align:center"> 23:41ms </td>
+    <td style="text-align:center"> 20:48ms </td>
+    <td style="text-align:center"> Fixed refresh area: 160 * 90 </td>
+  </tr>
+  <tr>
+    <th> Game interface FPS </th>
+    <td style="text-align:center"> 87:11ms </td>
+    <td style="text-align:center"> 77:12ms </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th rowspan="4"> Program size </th>
+    <th> Code </th>
+    <td style="text-align:center"> 150648 </td>
+    <td style="text-align:center"> 118912 </td>
+    <td style="text-align:center"> Python virtual machine support </td>
+  </tr>
+  <tr>
+    <th> RO-data </th>
+    <td style="text-align:center"> 49400 </td>
+    <td style="text-align:center"> 49328 </td>
+    <td style="text-align:center"> 16x24 font file, 6x8 font file, Python virtual machine support </td>
+  </tr>
+  <tr>
+    <th> RW-data </th>
+    <td style="text-align:center"> 732 </td>
+    <td style="text-align:center"> 728 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> ZI-data </th>
+    <td style="text-align:center"> 33668 </td>
+    <td style="text-align:center"> 33656 </td>
+    <td style="text-align:center"> Including LCD buffer, PFB pool, rt heap, rt stack, stack, heap, snake resource, etc. </td>
+  </tr>
+</table>
 
 ### Code analysis
 

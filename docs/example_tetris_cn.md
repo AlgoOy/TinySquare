@@ -4,8 +4,6 @@
   - [俄罗斯方块](#俄罗斯方块)
     - [效果图](#效果图)
     - [参考数据](#参考数据)
-      - [-Os 优化](#-os-优化)
-      - [-Oz 优化](#-oz-优化)
     - [代码分析](#代码分析)
 
 ## 俄罗斯方块
@@ -15,82 +13,123 @@
 ### 效果图
 
 - 启动界面
-  - ![tetris_start](./image/tetris_start.jpg)
+  - <div align="center"> <img src="./image/tetris_start.jpg" width = 300 /> </div>
 
 - 难度选择
-  - ![tetris_difficulty](./image/tetris_difficulty.jpg)
+  - <div align="center"> <img src="./image/tetris_difficulty.jpg" width = 300 /> </div>
 
 - 挑战级别
-  - ![tetris_challenge](./image/tetris_challenge.jpg)
+  - <div align="center"> <img src="./image/tetris_challenge.jpg" width = 300 /> </div>
 
 - 游戏界面
-  - ![tetris_game](./image/tetris_game.jpg)
+  - <div align="center"> <img src="./image/tetris_game.jpg" width = 300 /> </div>
 
 ### 参考数据
 
-#### -Os 优化
-
-- 配置
-  - 主频：80MHz
-  - 优化等级：-Os -lto
-  - 屏幕：240 * 240
-  - PFB：240 * 4
-  - 堆：0x600
-  - 栈：0x200
-  - rt heap：0x2400
-
-- 性能
-  - 启动界面：
-    - 固定刷新区域：160 * 90
-    - FPS： 21：46ms
-  - 难度选择：
-    - 固定刷新区域：160 * 90
-    - FPS： 24：41ms
-  - 挑战级别：
-    - 固定刷新区域：30 * 66
-    - FPS： 71：14ms
-  - 游戏界面：
-    - FPS： 49：20ms
-
-- 程序大小
-  - Code = 44484
-  - RO-data = 138220
-    - 240x240 的背景图片(115200)、16x24 字库文件、6x8 字库文件、A4_DIGITS_ONLY 字库文件
-  - RW-data = 308
-  - ZI-data = 18908
-    - 包括 LCD buffer、PFB pool、rt heap、rt stack、stack、heap、tetris resource 等
-
-#### -Oz 优化
-
-- 配置
-  - 主频：80MHz
-  - 优化等级：-Oz -lto
-  - 屏幕：240 * 240
-  - PFB：240 * 4
-  - 堆：0x600
-  - 栈：0x200
-  - rt heap：0x2400
-
-- 性能
-  - 启动界面：
-    - 固定刷新区域：160 * 90
-    - FPS： 19：51ms
-  - 难度选择：
-    - 固定刷新区域：160 * 90
-    - FPS： 21：46ms
-  - 挑战级别：
-    - 固定刷新区域：30 * 66
-    - FPS： 62：16ms
-  - 游戏界面：
-    - FPS： 41：24ms
-
-- 程序大小
-  - Code = 39248
-  - RO-data = 138224
-    - 240x240 的背景图片(115200)、16x24 字库文件、6x8 字库文件、A4_DIGITS_ONLY 字库文件
-  - RW-data = 312
-  - ZI-data = 18896
-    - 包括 LCD buffer、PFB pool、rt heap、rt stack、stack、heap、tetris resource 等
+<table>
+  <tr>
+    <th colspan="5"> 参考数据 </th>
+  </tr>
+  <tr>
+    <th colspan="2"></th>
+    <th> -Os 优化 </th>
+    <th> -Oz 优化 </th>
+    <th> 备注 </th>
+  </tr>
+  <tr>
+    <th rowspan="7"> 配置 </th>
+    <th> 主频 </th>
+    <td style="text-align:center"> 80MHz </td>
+    <td style="text-align:center"> 80MHz </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> 优化等级 </th>
+    <td style="text-align:center"> -Os -lto </td>
+    <td style="text-align:center"> -Oz -lto </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> 屏幕尺寸 </th>
+    <td style="text-align:center"> 240 * 240 </td>
+    <td style="text-align:center"> 240 * 240 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> PFB 尺寸 </th>
+    <td style="text-align:center"> 240 * 4 </td>
+    <td style="text-align:center"> 240 * 4 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> 堆 </th>
+    <td style="text-align:center"> 0x600 </td>
+    <td style="text-align:center"> 0x600 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> 栈 </th>
+    <td style="text-align:center"> 0x200 </td>
+    <td style="text-align:center"> 0x200 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> rt heap </th>
+    <td style="text-align:center"> 0x2400 </td>
+    <td style="text-align:center"> 0x2400 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th rowspan="4"> 性能 </th>
+    <th> 启动界面 FPS </th>
+    <td style="text-align:center"> 21：46ms </td>
+    <td style="text-align:center"> 19：51ms </td>
+    <td style="text-align:center"> 固定刷新区域：160 * 90 </td>
+  </tr>
+  <tr>
+    <th> 难度选择 FPS </th>
+    <td style="text-align:center"> 24：41ms </td>
+    <td style="text-align:center"> 21：46ms </td>
+    <td style="text-align:center"> 固定刷新区域：160 * 90 </td>
+  </tr>
+  <tr>
+    <th> 挑战级别 FPS </th>
+    <td style="text-align:center"> 71：14ms </td>
+    <td style="text-align:center"> 62：16ms </td>
+    <td style="text-align:center"> 固定刷新区域：30 * 66 </td>
+  </tr>
+  <tr>
+    <th> 游戏界面 FPS </th>
+    <td style="text-align:center"> 49：20ms </td>
+    <td style="text-align:center"> 41：24ms </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th rowspan="4"> 程序大小 </th>
+    <th> Code </th>
+    <td style="text-align:center"> 44484 </td>
+    <td style="text-align:center"> 39248 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> RO-data </th>
+    <td style="text-align:center"> 138220 </td>
+    <td style="text-align:center"> 138224 </td>
+    <td style="text-align:center"> 240x240 的背景图片(115200)、16x24 字库文件、6x8 字库文件、A4_DIGITS_ONLY 字库文件 </td>
+  </tr>
+  <tr>
+    <th> RW-data </th>
+    <td style="text-align:center"> 308 </td>
+    <td style="text-align:center"> 312 </td>
+    <td style="text-align:center"> —— </td>
+  </tr>
+  <tr>
+    <th> ZI-data </th>
+    <td style="text-align:center"> 18908 </td>
+    <td style="text-align:center"> 18896 </td>
+    <td style="text-align:center"> 包括 LCD buffer、PFB pool、rt heap、rt stack、stack、heap、tetris resource 等 </td>
+  </tr>
+</table>
 
 ### 代码分析
 
